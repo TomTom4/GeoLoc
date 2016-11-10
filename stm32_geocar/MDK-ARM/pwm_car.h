@@ -8,11 +8,17 @@
 #include "stm32f1xx_hal.h"
 
 
+#Define PRESCALER 
+	 
+	 
+	 
+	 
+	 
 	 
 #ifdef __cplusplus
 }
 #endif
-#endif /*__ tim_H */
+#endif /*__pwm_car_H */
 
 /**
   * @}
