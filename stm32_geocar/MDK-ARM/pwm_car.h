@@ -8,10 +8,13 @@
 #include "stm32f1xx_hal.h"
 
 
-#Define PRESCALER 
+#define PRESCALER 0
+#define PWM_RESOLUTION 65535
+#define PRESCALER 0
+	
 	 
 	 
-	 
+void MX_PWM_Init(void); 
 	 
 	 
 	 
