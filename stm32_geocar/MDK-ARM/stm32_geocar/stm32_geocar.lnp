@@ -1,0 +1,25 @@
+--cpu Cortex-M3
+"stm32_geocar\stm32f1xx_hal_gpio_ex.o"
+"stm32_geocar\stm32f1xx_hal_tim.o"
+"stm32_geocar\stm32f1xx_hal.o"
+"stm32_geocar\stm32f1xx_hal_pwr.o"
+"stm32_geocar\stm32f1xx_hal_cortex.o"
+"stm32_geocar\stm32f1xx_hal_dma.o"
+"stm32_geocar\stm32f1xx_hal_gpio.o"
+"stm32_geocar\stm32f1xx_hal_tim_ex.o"
+"stm32_geocar\stm32f1xx_hal_flash.o"
+"stm32_geocar\stm32f1xx_hal_rcc.o"
+"stm32_geocar\stm32f1xx_hal_flash_ex.o"
+"stm32_geocar\stm32f1xx_hal_rcc_ex.o"
+"stm32_geocar\pwm_car.o"
+"stm32_geocar\tim.o"
+"stm32_geocar\main.o"
+"stm32_geocar\stm32f1xx_hal_msp.o"
+"stm32_geocar\stm32f1xx_it.o"
+"stm32_geocar\gpio.o"
+"stm32_geocar\startup_stm32f103xb.o"
+"stm32_geocar\system_stm32f1xx.o"
+--library_type=microlib --strict --scatter "stm32_geocar\stm32_geocar.sct"
+--diag_suppress=L6329 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "stm32_geocar.map" -o stm32_geocar\stm32_geocar.axf
