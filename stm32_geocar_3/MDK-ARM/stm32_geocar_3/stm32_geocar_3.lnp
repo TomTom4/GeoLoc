@@ -1,0 +1,27 @@
+--cpu Cortex-M3
+"stm32_geocar_3\stm32f1xx_hal_pwr.o"
+"stm32_geocar_3\stm32f1xx_hal_dma.o"
+"stm32_geocar_3\stm32f1xx_hal_flash_ex.o"
+"stm32_geocar_3\stm32f1xx_hal_rcc_ex.o"
+"stm32_geocar_3\stm32f1xx_hal_tim_ex.o"
+"stm32_geocar_3\stm32f1xx_hal_gpio.o"
+"stm32_geocar_3\stm32f1xx_hal_gpio_ex.o"
+"stm32_geocar_3\stm32f1xx_hal_rcc.o"
+"stm32_geocar_3\stm32f1xx_hal_flash.o"
+"stm32_geocar_3\stm32f1xx_hal_cortex.o"
+"stm32_geocar_3\stm32f1xx_hal.o"
+"stm32_geocar_3\stm32f1xx_hal_tim.o"
+"stm32_geocar_3\tim.o"
+"stm32_geocar_3\stm32f1xx_hal_msp.o"
+"stm32_geocar_3\main.o"
+"stm32_geocar_3\stm32f1xx_it.o"
+"stm32_geocar_3\gpio.o"
+"stm32_geocar_3\pwm.o"
+"stm32_geocar_3\move.o"
+"stm32_geocar_3\turn.o"
+"stm32_geocar_3\system_stm32f1xx.o"
+"stm32_geocar_3\startup_stm32f103xb.o"
+--library_type=microlib --strict --scatter "stm32_geocar_3\stm32_geocar_3.sct"
+--diag_suppress=L6329 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "stm32_geocar_3.map" -o stm32_geocar_3\stm32_geocar_3.axf
