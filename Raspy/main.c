@@ -2,6 +2,7 @@
 #include <stdio.h> // getchar - printf
 
 //INCLUSION DES BIB WIRINGPI
+// Test com
 #include <wiringPi.h>
 #include <wiringPiSPI.h>
 #include <wiringPiI2C.h>
