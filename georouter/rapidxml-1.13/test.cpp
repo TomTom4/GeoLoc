@@ -33,33 +33,40 @@ int main(){
 	doc.parse<0>(xmlFile.data());
 	std::cout << "First node : " << doc.first_node()->name() << "\n";
 	xml_node<> * root = doc.first_node();
-	//xml_node<> * node = root;
 	
-	std::cout << root->first_node()->name() << "\n"; 
-		int id = 0;
-		double lon = 0;
-		double lat = 0;
-		xml_attribute<> * attr = root->first_node()->first_attribute();
-		while(attr)
-		{
-			if (strcmp(attr->name(), "id") == 0){
-				id = atoi(attr->value());
-				std::cout << attr->value() << "\n";
-			} else if (strcmp(attr->name(),  "lat") ==0){
-				lat = atof(attr->value());
-				std::cout.precision(8);
-				std::cout << std::fixed << attr->value()<< "\n";
-			} else if (strcmp(attr->name(), "lon") ==0){
-				lon = atof(attr->value());
-				std::cout << attr->value() << "\n";
+	vector<Node> Node_Vec;
+	
+	//std::cout << root->first_node()->name() << "\n"; 
+	
+	xml_node<> * curr_node = root;
+	while(curr_node){
+		//Node
+		if(strcmp(curr_node->name(), "node")==0){
+			int id = 0;
+			double lon = 0;
+			double lat = 0;
+			xml_attribute<> * attr = curr_node->first_attribute();
+			while(attr)
+				{
+				if (strcmp(attr->name(), "id") == 0){
+					id = atoi(attr->value());
+					std::cout << attr->value() << "\n";
+				} else if (strcmp(attr->name(),  "lat") ==0){
+					lat = atof(attr->value());
+					std::cout.precision(8);
+					std::cout << std::fixed << attr->value()<< "\n";
+				} else if (strcmp(attr->name(), "lon") ==0){
+					lon = atof(attr->value());
+					std::cout << attr->value() << "\n";
+				}
+				if (id != 0 && lon != 0 && lat != 0){
+					Node node(id, lon, lat);
+					node.ToString();
+					Node_Vec.push_back(node);
+				}
+				std::cout << attr->name() << "\n";
+				attr = attr->next_attribute();
 			}
-			if (id != 0 && lon != 0 && lat != 0){
-				Node node(id, lon, lat);
-				node.ToString();
-			}
-			std::cout << attr->name() << "\n";
-			attr = attr->next_attribute();
-		}
 		//Node node(root.first_node()
 	
 }
