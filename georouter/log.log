@@ -1,0 +1,729 @@
+Hello, World!
+routing DB created
+<open file '../../data/INSA Map__justRoute.osm', mode 'r' at 0x7f1b51e528a0>
+DB given to parser
+new node with id: -1627 created
+lat: 43.57000220025 lon: 1.46789920138
+storred Node: -1627 in list
+new node with id: -1628 created
+lat: 43.57030290025 lon: 1.46848180138
+storred Node: -1628 in list
+new node with id: -1629 created
+lat: 43.57041050025 lon: 1.46870630138
+storred Node: -1629 in list
+new node with id: -1630 created
+lat: 43.56990220025 lon: 1.46771400138
+storred Node: -1630 in list
+new node with id: -1631 created
+lat: 43.57010060025 lon: 1.46779330138
+storred Node: -1631 in list
+new node with id: -1632 created
+lat: 43.57021080025 lon: 1.46768510138
+storred Node: -1632 in list
+new node with id: -1633 created
+lat: 43.57076060025 lon: 1.46714570138
+storred Node: -1633 in list
+new node with id: -1634 created
+lat: 43.57086180025 lon: 1.46704630138
+storred Node: -1634 in list
+new node with id: -1635 created
+lat: 43.57096220025 lon: 1.46694780138
+storred Node: -1635 in list
+new node with id: -1636 created
+lat: 43.57098130025 lon: 1.46692900138
+storred Node: -1636 in list
+new node with id: -1637 created
+lat: 43.57145620025 lon: 1.46646310138
+storred Node: -1637 in list
+new node with id: -1638 created
+lat: 43.57192880025 lon: 1.46599920138
+storred Node: -1638 in list
+new node with id: -1639 created
+lat: 43.57195240025 lon: 1.46597610138
+storred Node: -1639 in list
+new node with id: -1640 created
+lat: 43.57223060025 lon: 1.46570310138
+storred Node: -1640 in list
+new node with id: -1641 created
+lat: 43.56960040025 lon: 1.46828940138
+storred Node: -1641 in list
+new node with id: -1642 created
+lat: 43.56933430025 lon: 1.46854630138
+storred Node: -1642 in list
+new node with id: -1643 created
+lat: 43.56919650025 lon: 1.46868030138
+storred Node: -1643 in list
+<----------------- A new Way Starts here ---------------------------------->
+something is strange in here
+no old node saved inna here
+ Connection between: -1627 and -1628 created
+ Connection between: -1628 and -1629 created
+Connections should be saved! 
+saving connection
+saving connection
+saving connection
+Nodes:
+[<__main__.node instance at 0x7f1b502e2fc8>, <__main__.node instance at 0x7f1b4fa2d050>, <__main__.node instance at 0x7f1b4fa2d098>]
+<----------------- A new Way Starts here ---------------------------------->
+no old node saved inna here
+ Connection between: -1630 and -1627 created
+Connections should be saved! 
+saving connection
+saving connection
+Nodes:
+[<__main__.node instance at 0x7f1b4fa2d0e0>, <__main__.node instance at 0x7f1b502e2fc8>]
+<----------------- A new Way Starts here ---------------------------------->
+no old node saved inna here
+ Connection between: -1627 and -1631 created
+ Connection between: -1631 and -1632 created
+ Connection between: -1632 and -1633 created
+ Connection between: -1633 and -1634 created
+ Connection between: -1634 and -1635 created
+ Connection between: -1635 and -1636 created
+ Connection between: -1636 and -1637 created
+ Connection between: -1637 and -1638 created
+ Connection between: -1638 and -1639 created
+ Connection between: -1639 and -1640 created
+Connections should be saved! 
+saving connection
+saving connection
+saving connection
+saving connection
+saving connection
+saving connection
+saving connection
+saving connection
+saving connection
+saving connection
+saving connection
+Nodes:
+[<__main__.node instance at 0x7f1b502e2fc8>, <__main__.node instance at 0x7f1b4fa2d1b8>, <__main__.node instance at 0x7f1b4fa2d290>, <__main__.node instance at 0x7f1b4fa2d368>, <__main__.node instance at 0x7f1b4fa2d440>, <__main__.node instance at 0x7f1b4fa2d518>, <__main__.node instance at 0x7f1b4fa2d5f0>, <__main__.node instance at 0x7f1b4fa2d6c8>, <__main__.node instance at 0x7f1b4fa2d7a0>, <__main__.node instance at 0x7f1b4fa2d878>, <__main__.node instance at 0x7f1b4fa2d950>]
+<----------------- A new Way Starts here ---------------------------------->
+no old node saved inna here
+ Connection between: -1627 and -1641 created
+ Connection between: -1641 and -1642 created
+ Connection between: -1642 and -1643 created
+Connections should be saved! 
+saving connection
+saving connection
+saving connection
+saving connection
+Nodes:
+[<__main__.node instance at 0x7f1b502e2fc8>, <__main__.node instance at 0x7f1b4fa2da28>, <__main__.node instance at 0x7f1b4fa2db00>, <__main__.node instance at 0x7f1b4fa2dbd8>]
+4
+{}
+<----------- Cleaning DB ----------------->
+keeping node: -1639
+keeping node: -1641
+keeping node: -1640
+keeping node: -1643
+keeping node: -1642
+keeping node: -1638
+keeping node: -1630
+keeping node: -1629
+keeping node: -1628
+keeping node: -1627
+keeping node: -1631
+keeping node: -1632
+keeping node: -1633
+keeping node: -1634
+keeping node: -1635
+keeping node: -1636
+keeping node: -1637
+<----------- Cleanup Done ---------------->
+<------------ Printing Status --------------->
+We have: 17 Nodes
+Node -1627 is in da DB it has: 4 Connection(s)
+-1627 has 4 connecitons they are:
+<__main__.connection instance at 0x7f1b4fa2dd40>
+Saved Connection between: -1627 and -1628! 
+None
+<__main__.connection instance at 0x7f1b4fa2de18>
+Saved Connection between: -1630 and -1627! 
+None
+<__main__.connection instance at 0x7f1b4fa2de60>
+Saved Connection between: -1627 and -1631! 
+None
+<__main__.connection instance at 0x7f1b4fa30170>
+Saved Connection between: -1627 and -1641! 
+None
+Node -1641 is in da DB it has: 2 Connection(s)
+-1641 has 2 connecitons they are:
+<__main__.connection instance at 0x7f1b4fa30170>
+Saved Connection between: -1627 and -1641! 
+None
+<__main__.connection instance at 0x7f1b4fa301b8>
+Saved Connection between: -1641 and -1642! 
+None
+Node -1640 is in da DB it has: 1 Connection(s)
+-1640 has 1 connecitons they are:
+<__main__.connection instance at 0x7f1b4fa30128>
+Saved Connection between: -1639 and -1640! 
+None
+Node -1643 is in da DB it has: 1 Connection(s)
+-1643 has 1 connecitons they are:
+<__main__.connection instance at 0x7f1b4fa30200>
+Saved Connection between: -1642 and -1643! 
+None
+Node -1642 is in da DB it has: 2 Connection(s)
+-1642 has 2 connecitons they are:
+<__main__.connection instance at 0x7f1b4fa301b8>
+Saved Connection between: -1641 and -1642! 
+None
+<__main__.connection instance at 0x7f1b4fa30200>
+Saved Connection between: -1642 and -1643! 
+None
+Node -1638 is in da DB it has: 2 Connection(s)
+-1638 has 2 connecitons they are:
+<__main__.connection instance at 0x7f1b4fa30098>
+Saved Connection between: -1637 and -1638! 
+None
+<__main__.connection instance at 0x7f1b4fa300e0>
+Saved Connection between: -1638 and -1639! 
+None
+Node -1639 is in da DB it has: 2 Connection(s)
+-1639 has 2 connecitons they are:
+<__main__.connection instance at 0x7f1b4fa300e0>
+Saved Connection between: -1638 and -1639! 
+None
+<__main__.connection instance at 0x7f1b4fa30128>
+Saved Connection between: -1639 and -1640! 
+None
+Node -1629 is in da DB it has: 1 Connection(s)
+-1629 has 1 connecitons they are:
+<__main__.connection instance at 0x7f1b4fa2dd88>
+Saved Connection between: -1628 and -1629! 
+None
+Node -1628 is in da DB it has: 2 Connection(s)
+-1628 has 2 connecitons they are:
+<__main__.connection instance at 0x7f1b4fa2dd40>
+Saved Connection between: -1627 and -1628! 
+None
+<__main__.connection instance at 0x7f1b4fa2dd88>
+Saved Connection between: -1628 and -1629! 
+None
+Node -1630 is in da DB it has: 1 Connection(s)
+-1630 has 1 connecitons they are:
+<__main__.connection instance at 0x7f1b4fa2de18>
+Saved Connection between: -1630 and -1627! 
+None
+Node -1631 is in da DB it has: 2 Connection(s)
+-1631 has 2 connecitons they are:
+<__main__.connection instance at 0x7f1b4fa2de60>
+Saved Connection between: -1627 and -1631! 
+None
+<__main__.connection instance at 0x7f1b4fa2dea8>
+Saved Connection between: -1631 and -1632! 
+None
+Node -1632 is in da DB it has: 2 Connection(s)
+-1632 has 2 connecitons they are:
+<__main__.connection instance at 0x7f1b4fa2dea8>
+Saved Connection between: -1631 and -1632! 
+None
+<__main__.connection instance at 0x7f1b4fa2def0>
+Saved Connection between: -1632 and -1633! 
+None
+Node -1633 is in da DB it has: 2 Connection(s)
+-1633 has 2 connecitons they are:
+<__main__.connection instance at 0x7f1b4fa2def0>
+Saved Connection between: -1632 and -1633! 
+None
+<__main__.connection instance at 0x7f1b4fa2df38>
+Saved Connection between: -1633 and -1634! 
+None
+Node -1634 is in da DB it has: 2 Connection(s)
+-1634 has 2 connecitons they are:
+<__main__.connection instance at 0x7f1b4fa2df38>
+Saved Connection between: -1633 and -1634! 
+None
+<__main__.connection instance at 0x7f1b4fa2df80>
+Saved Connection between: -1634 and -1635! 
+None
+Node -1635 is in da DB it has: 2 Connection(s)
+-1635 has 2 connecitons they are:
+<__main__.connection instance at 0x7f1b4fa2df80>
+Saved Connection between: -1634 and -1635! 
+None
+<__main__.connection instance at 0x7f1b4fa2dfc8>
+Saved Connection between: -1635 and -1636! 
+None
+Node -1636 is in da DB it has: 2 Connection(s)
+-1636 has 2 connecitons they are:
+<__main__.connection instance at 0x7f1b4fa2dfc8>
+Saved Connection between: -1635 and -1636! 
+None
+<__main__.connection instance at 0x7f1b4fa30050>
+Saved Connection between: -1636 and -1637! 
+None
+Node -1637 is in da DB it has: 2 Connection(s)
+-1637 has 2 connecitons they are:
+<__main__.connection instance at 0x7f1b4fa30050>
+Saved Connection between: -1636 and -1637! 
+None
+<__main__.connection instance at 0x7f1b4fa30098>
+Saved Connection between: -1637 and -1638! 
+None
+<------------ Starting Routing --------------->
+start Ziehl distanz: 0.30522233189
+<< This is Step: 40 >>
+-1630 has 1 connecitons they are:
+<__main__.connection instance at 0x7f1b4fa2de18>
+Saved Connection between: -1630 and -1627! 
+None
+listing other nodes: 
+id: -1627 lat: 43.57000220025 lon: 1.46789920138 distance: 0.0185965265145
+Next Nodes: 
+[<__main__.node instance at 0x7f1b502e2fc8>]
+going to know more about: -1627 Score: 0.0 prfNode was: -1630
+	 distanceFromPrefNode: 	0.0185965265145
+	 distanceFromStart: 	 0.0185965265145
+	 distanceToDest: 	0.304276310842
+I know some Nodes: 
+-1627
+I explored some Nodes: 
+-1630
+-1627 has the best Score!
+<< This is Step: 40 >>
+-1627 has 4 connecitons they are:
+<__main__.connection instance at 0x7f1b4fa2dd40>
+Saved Connection between: -1627 and -1628! 
+None
+<__main__.connection instance at 0x7f1b4fa2de18>
+Saved Connection between: -1630 and -1627! 
+None
+<__main__.connection instance at 0x7f1b4fa2de60>
+Saved Connection between: -1627 and -1631! 
+None
+<__main__.connection instance at 0x7f1b4fa30170>
+Saved Connection between: -1627 and -1641! 
+None
+listing other nodes: 
+id: -1628 lat: 43.57030290025 lon: 1.46848180138 distance: 0.0575922809086
+id: -1630 lat: 43.56990220025 lon: 1.46771400138 distance: 0.0185965265145
+id: -1631 lat: 43.57010060025 lon: 1.46779330138 distance: 0.0138660544638
+id: -1641 lat: 43.56960040025 lon: 1.46828940138 distance: 0.0545951527333
+Next Nodes: 
+[<__main__.node instance at 0x7f1b4fa2d050>, <__main__.node instance at 0x7f1b4fa2d0e0>, <__main__.node instance at 0x7f1b4fa2d1b8>, <__main__.node instance at 0x7f1b4fa2da28>]
+going to know more about: -1628 Score: 0.0 prfNode was: -1627
+	 distanceFromPrefNode: 	0.0575922809086
+	 distanceFromStart: 	 0.0761888074231
+	 distanceToDest: 	0.30973960675
+going to know more about: -1631 Score: 0.0 prfNode was: -1627
+	 distanceFromPrefNode: 	0.0138660544638
+	 distanceFromStart: 	 0.0324625809783
+	 distanceToDest: 	0.290423199461
+going to know more about: -1641 Score: 0.0 prfNode was: -1627
+	 distanceFromPrefNode: 	0.0545951527333
+	 distanceFromStart: 	 0.0731916792478
+	 distanceToDest: 	0.358870359567
+I know some Nodes: 
+-1628
+-1631
+-1641
+I explored some Nodes: 
+-1630
+-1627
+comparing: 
+	-1628 Score: 0.385928414173 and: 
+	-1631 Score: 0.322885780439
+-1631 has the best Score!
+<< This is Step: 40 >>
+-1631 has 2 connecitons they are:
+<__main__.connection instance at 0x7f1b4fa2de60>
+Saved Connection between: -1627 and -1631! 
+None
+<__main__.connection instance at 0x7f1b4fa2dea8>
+Saved Connection between: -1631 and -1632! 
+None
+listing other nodes: 
+id: -1627 lat: 43.57000220025 lon: 1.46789920138 distance: 0.0138660544638
+id: -1632 lat: 43.57021080025 lon: 1.46768510138 distance: 0.0150284950368
+Next Nodes: 
+[<__main__.node instance at 0x7f1b502e2fc8>, <__main__.node instance at 0x7f1b4fa2d290>]
+going to know more about: -1628 Score: 0.385928414173 prfNode was: -1631
+	 distanceFromPrefNode: 	0.0598185392798
+	 distanceFromStart: 	 0.0922811202581
+	 distanceToDest: 	0.30973960675
+-1628 is allread known
+going to know more about: -1641 Score: 0.432062038815 prfNode was: -1631
+	 distanceFromPrefNode: 	0.0684478679741
+	 distanceFromStart: 	 0.100910448952
+	 distanceToDest: 	0.358870359567
+-1641 is allread known
+going to know more about: -1632 Score: 0.0 prfNode was: -1631
+	 distanceFromPrefNode: 	0.0150284950368
+	 distanceFromStart: 	 0.0474910760151
+	 distanceToDest: 	0.275394705037
+I know some Nodes: 
+-1628
+-1641
+-1632
+I explored some Nodes: 
+-1630
+-1627
+-1631
+comparing: 
+	-1628 Score: 0.402020727008 and: 
+	-1632 Score: 0.322885781052
+-1632 has the best Score!
+<< This is Step: 40 >>
+-1632 has 2 connecitons they are:
+<__main__.connection instance at 0x7f1b4fa2dea8>
+Saved Connection between: -1631 and -1632! 
+None
+<__main__.connection instance at 0x7f1b4fa2def0>
+Saved Connection between: -1632 and -1633! 
+None
+listing other nodes: 
+id: -1631 lat: 43.57010060025 lon: 1.46779330138 distance: 0.0150284950368
+id: -1633 lat: 43.57076060025 lon: 1.46714570138 distance: 0.0749590077892
+Next Nodes: 
+[<__main__.node instance at 0x7f1b4fa2d1b8>, <__main__.node instance at 0x7f1b4fa2d368>]
+going to know more about: -1628 Score: 0.402020727008 prfNode was: -1632
+	 distanceFromPrefNode: 	0.0649564245575
+	 distanceFromStart: 	 0.112447500573
+	 distanceToDest: 	0.30973960675
+-1628 is allread known
+going to know more about: -1641 Score: 0.45978080852 prfNode was: -1632
+	 distanceFromPrefNode: 	0.0834762223814
+	 distanceFromStart: 	 0.130967298397
+	 distanceToDest: 	0.358870359567
+-1641 is allread known
+going to know more about: -1633 Score: 0.0 prfNode was: -1632
+	 distanceFromPrefNode: 	0.0749590077892
+	 distanceFromStart: 	 0.122450083804
+	 distanceToDest: 	0.200435697597
+I know some Nodes: 
+-1628
+-1641
+-1633
+I explored some Nodes: 
+-1630
+-1627
+-1631
+-1632
+comparing: 
+	-1628 Score: 0.422187107323 and: 
+	-1633 Score: 0.322885781402
+-1633 has the best Score!
+<< This is Step: 40 >>
+-1633 has 2 connecitons they are:
+<__main__.connection instance at 0x7f1b4fa2def0>
+Saved Connection between: -1632 and -1633! 
+None
+<__main__.connection instance at 0x7f1b4fa2df38>
+Saved Connection between: -1633 and -1634! 
+None
+listing other nodes: 
+id: -1632 lat: 43.57021080025 lon: 1.46768510138 distance: 0.0749590077892
+id: -1634 lat: 43.57086180025 lon: 1.46704630138 distance: 0.0138027831906
+Next Nodes: 
+[<__main__.node instance at 0x7f1b4fa2d290>, <__main__.node instance at 0x7f1b4fa2d440>]
+going to know more about: -1628 Score: 0.422187107323 prfNode was: -1633
+	 distanceFromPrefNode: 	0.118991613503
+	 distanceFromStart: 	 0.241441697308
+	 distanceToDest: 	0.30973960675
+-1628 is allread known
+going to know more about: -1641 Score: 0.489837657964 prfNode was: -1633
+	 distanceFromPrefNode: 	0.158434866233
+	 distanceFromStart: 	 0.280884950038
+	 distanceToDest: 	0.358870359567
+-1641 is allread known
+going to know more about: -1634 Score: 0.0 prfNode was: -1633
+	 distanceFromPrefNode: 	0.0138027831906
+	 distanceFromStart: 	 0.136252866995
+	 distanceToDest: 	0.186632915738
+I know some Nodes: 
+-1628
+-1641
+-1634
+I explored some Nodes: 
+-1630
+-1627
+-1631
+-1632
+-1633
+comparing: 
+	-1628 Score: 0.551181304058 and: 
+	-1634 Score: 0.322885782733
+-1634 has the best Score!
+<< This is Step: 40 >>
+-1634 has 2 connecitons they are:
+<__main__.connection instance at 0x7f1b4fa2df38>
+Saved Connection between: -1633 and -1634! 
+None
+<__main__.connection instance at 0x7f1b4fa2df80>
+Saved Connection between: -1634 and -1635! 
+None
+listing other nodes: 
+id: -1633 lat: 43.57076060025 lon: 1.46714570138 distance: 0.0138027831906
+id: -1635 lat: 43.57096220025 lon: 1.46694780138 distance: 0.0136883322016
+Next Nodes: 
+[<__main__.node instance at 0x7f1b4fa2d368>, <__main__.node instance at 0x7f1b4fa2d518>]
+going to know more about: -1628 Score: 0.551181304058 prfNode was: -1634
+	 distanceFromPrefNode: 	0.131207066618
+	 distanceFromStart: 	 0.267459933613
+	 distanceToDest: 	0.30973960675
+-1628 is allread known
+going to know more about: -1641 Score: 0.639755309605 prfNode was: -1634
+	 distanceFromPrefNode: 	0.172237630536
+	 distanceFromStart: 	 0.308490497531
+	 distanceToDest: 	0.358870359567
+-1641 is allread known
+going to know more about: -1635 Score: 0.0 prfNode was: -1634
+	 distanceFromPrefNode: 	0.0136883322016
+	 distanceFromStart: 	 0.149941199197
+	 distanceToDest: 	0.172944583602
+I know some Nodes: 
+-1628
+-1641
+-1635
+I explored some Nodes: 
+-1630
+-1627
+-1631
+-1632
+-1633
+-1634
+comparing: 
+	-1628 Score: 0.577199540363 and: 
+	-1635 Score: 0.322885782798
+-1635 has the best Score!
+<< This is Step: 40 >>
+-1635 has 2 connecitons they are:
+<__main__.connection instance at 0x7f1b4fa2df80>
+Saved Connection between: -1634 and -1635! 
+None
+<__main__.connection instance at 0x7f1b4fa2dfc8>
+Saved Connection between: -1635 and -1636! 
+None
+listing other nodes: 
+id: -1634 lat: 43.57086180025 lon: 1.46704630138 distance: 0.0136883322016
+id: -1636 lat: 43.57098130025 lon: 1.46692900138 distance: 0.00260692406017
+Next Nodes: 
+[<__main__.node instance at 0x7f1b4fa2d440>, <__main__.node instance at 0x7f1b4fa2d5f0>]
+going to know more about: -1628 Score: 0.577199540363 prfNode was: -1635
+	 distanceFromPrefNode: 	0.143602487842
+	 distanceFromStart: 	 0.293543687038
+	 distanceToDest: 	0.30973960675
+-1628 is allread known
+going to know more about: -1641 Score: 0.667360857099 prfNode was: -1635
+	 distanceFromPrefNode: 	0.185925933809
+	 distanceFromStart: 	 0.335867133005
+	 distanceToDest: 	0.358870359567
+-1641 is allread known
+going to know more about: -1636 Score: 0.0 prfNode was: -1635
+	 distanceFromPrefNode: 	0.00260692406017
+	 distanceFromStart: 	 0.152548123257
+	 distanceToDest: 	0.170337662301
+I know some Nodes: 
+-1628
+-1641
+-1636
+I explored some Nodes: 
+-1630
+-1627
+-1631
+-1632
+-1633
+-1634
+-1635
+comparing: 
+	-1628 Score: 0.603283293788 and: 
+	-1636 Score: 0.322885785558
+-1636 has the best Score!
+<< This is Step: 40 >>
+-1636 has 2 connecitons they are:
+<__main__.connection instance at 0x7f1b4fa2dfc8>
+Saved Connection between: -1635 and -1636! 
+None
+<__main__.connection instance at 0x7f1b4fa30050>
+Saved Connection between: -1636 and -1637! 
+None
+listing other nodes: 
+id: -1635 lat: 43.57096220025 lon: 1.46694780138 distance: 0.00260692406017
+id: -1637 lat: 43.57145620025 lon: 1.46646310138 distance: 0.0647461920045
+Next Nodes: 
+[<__main__.node instance at 0x7f1b4fa2d518>, <__main__.node instance at 0x7f1b4fa2d6c8>]
+going to know more about: -1628 Score: 0.603283293788 prfNode was: -1636
+	 distanceFromPrefNode: 	0.145990971825
+	 distanceFromStart: 	 0.298539095082
+	 distanceToDest: 	0.30973960675
+-1628 is allread known
+going to know more about: -1641 Score: 0.694737492573 prfNode was: -1636
+	 distanceFromPrefNode: 	0.188532857628
+	 distanceFromStart: 	 0.341080980885
+	 distanceToDest: 	0.358870359567
+-1641 is allread known
+going to know more about: -1637 Score: 0.0 prfNode was: -1636
+	 distanceFromPrefNode: 	0.0647461920045
+	 distanceFromStart: 	 0.217294315261
+	 distanceToDest: 	0.105591470805
+I know some Nodes: 
+-1628
+-1641
+-1637
+I explored some Nodes: 
+-1630
+-1627
+-1631
+-1632
+-1633
+-1634
+-1635
+-1636
+comparing: 
+	-1628 Score: 0.608278701832 and: 
+	-1637 Score: 0.322885786067
+-1637 has the best Score!
+<< This is Step: 40 >>
+-1637 has 2 connecitons they are:
+<__main__.connection instance at 0x7f1b4fa30050>
+Saved Connection between: -1636 and -1637! 
+None
+<__main__.connection instance at 0x7f1b4fa30098>
+Saved Connection between: -1637 and -1638! 
+None
+listing other nodes: 
+id: -1636 lat: 43.57098130025 lon: 1.46692900138 distance: 0.0647461920045
+id: -1638 lat: 43.57192880025 lon: 1.46599920138 distance: 0.0644444102691
+Next Nodes: 
+[<__main__.node instance at 0x7f1b4fa2d5f0>, <__main__.node instance at 0x7f1b4fa2d7a0>]
+going to know more about: -1628 Score: 0.608278701832 prfNode was: -1637
+	 distanceFromPrefNode: 	0.206981657174
+	 distanceFromStart: 	 0.424275972435
+	 distanceToDest: 	0.30973960675
+-1628 is allread known
+going to know more about: -1641 Score: 0.699951340452 prfNode was: -1637
+	 distanceFromPrefNode: 	0.253278954027
+	 distanceFromStart: 	 0.470573269288
+	 distanceToDest: 	0.358870359567
+-1641 is allread known
+going to know more about: -1638 Score: 0.0 prfNode was: -1637
+	 distanceFromPrefNode: 	0.0644444102691
+	 distanceFromStart: 	 0.28173872553
+	 distanceToDest: 	0.0411470612451
+I know some Nodes: 
+-1628
+-1641
+-1638
+I explored some Nodes: 
+-1630
+-1627
+-1631
+-1632
+-1633
+-1634
+-1635
+-1636
+-1637
+comparing: 
+	-1628 Score: 0.734015579185 and: 
+	-1638 Score: 0.322885786775
+-1638 has the best Score!
+<< This is Step: 40 >>
+-1638 has 2 connecitons they are:
+<__main__.connection instance at 0x7f1b4fa30098>
+Saved Connection between: -1637 and -1638! 
+None
+<__main__.connection instance at 0x7f1b4fa300e0>
+Saved Connection between: -1638 and -1639! 
+None
+listing other nodes: 
+id: -1637 lat: 43.57145620025 lon: 1.46646310138 distance: 0.0644444102691
+id: -1639 lat: 43.57195240025 lon: 1.46597610138 distance: 0.00321506937207
+Next Nodes: 
+[<__main__.node instance at 0x7f1b4fa2d6c8>, <__main__.node instance at 0x7f1b4fa2d878>]
+going to know more about: -1628 Score: 0.734015579185 prfNode was: -1638
+	 distanceFromPrefNode: 	0.269437577023
+	 distanceFromStart: 	 0.551176302553
+	 distanceToDest: 	0.30973960675
+-1628 is allread known
+going to know more about: -1641 Score: 0.829443628855 prfNode was: -1638
+	 distanceFromPrefNode: 	0.317723325379
+	 distanceFromStart: 	 0.59946205091
+	 distanceToDest: 	0.358870359567
+-1641 is allread known
+going to know more about: -1639 Score: 0.0 prfNode was: -1638
+	 distanceFromPrefNode: 	0.00321506937207
+	 distanceFromStart: 	 0.284953794902
+	 distanceToDest: 	0.0379319940025
+I know some Nodes: 
+-1628
+-1641
+-1639
+I explored some Nodes: 
+-1630
+-1627
+-1631
+-1632
+-1633
+-1634
+-1635
+-1636
+-1637
+-1638
+comparing: 
+	-1628 Score: 0.860915909303 and: 
+	-1639 Score: 0.322885788905
+-1639 has the best Score!
+<< This is Step: 40 >>
+-1639 has 2 connecitons they are:
+<__main__.connection instance at 0x7f1b4fa300e0>
+Saved Connection between: -1638 and -1639! 
+None
+<__main__.connection instance at 0x7f1b4fa30128>
+Saved Connection between: -1639 and -1640! 
+None
+listing other nodes: 
+id: -1638 lat: 43.57192880025 lon: 1.46599920138 distance: 0.00321506937207
+id: -1640 lat: 43.57223060025 lon: 1.46570310138 distance: 0.0379319940025
+Next Nodes: 
+[<__main__.node instance at 0x7f1b4fa2d7a0>, <__main__.node instance at 0x7f1b4fa2d950>]
+going to know more about: -1628 Score: 0.860915909303 prfNode was: -1639
+	 distanceFromPrefNode: 	0.272576764054
+	 distanceFromStart: 	 0.557530558956
+	 distanceToDest: 	0.30973960675
+-1628 is allread known
+going to know more about: -1641 Score: 0.958332410477 prfNode was: -1639
+	 distanceFromPrefNode: 	0.320938386157
+	 distanceFromStart: 	 0.60589218106
+	 distanceToDest: 	0.358870359567
+-1641 is allread known
+going to know more about: -1640 Score: 0.0 prfNode was: -1639
+	 distanceFromPrefNode: 	0.0379319940025
+	 distanceFromStart: 	 0.322885788905
+	 distanceToDest: 	0.0
+I know some Nodes: 
+-1628
+-1641
+-1640
+I explored some Nodes: 
+-1630
+-1627
+-1631
+-1632
+-1633
+-1634
+-1635
+-1636
+-1637
+-1638
+-1639
+comparing: 
+	-1628 Score: 0.867270165706 and: 
+	-1640 Score: 0.322885788905
+-1640 has the best Score!
+DONE
+I came to -1640
+ via -1639	 Link: http://www.openstreetmap.org/node/-1639
+ via -1638	 Link: http://www.openstreetmap.org/node/-1638
+ via -1637	 Link: http://www.openstreetmap.org/node/-1637
+ via -1636	 Link: http://www.openstreetmap.org/node/-1636
+ via -1635	 Link: http://www.openstreetmap.org/node/-1635
+ via -1634	 Link: http://www.openstreetmap.org/node/-1634
+ via -1633	 Link: http://www.openstreetmap.org/node/-1633
+ via -1632	 Link: http://www.openstreetmap.org/node/-1632
+ via -1631	 Link: http://www.openstreetmap.org/node/-1631
+ via -1627	 Link: http://www.openstreetmap.org/node/-1627
+ via -1630	 Link: http://www.openstreetmap.org/node/-1630
