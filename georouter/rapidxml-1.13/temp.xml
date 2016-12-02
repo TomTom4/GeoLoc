@@ -9,20 +9,10 @@
     <nd ref='-14' />
     <nd ref='-8' />
     <nd ref='-12' />
-    <tag k='access' v='private' />
-    <tag k='bicycle' v='yes' />
-    <tag k='foot' v='yes' />
-    <tag k='highway' v='unclassified' />
-    <tag k='motor_vehicle' v='no' />
-    <tag k='source' v='cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010' />
   </way>
   <way id='-48' action='modify' visible='true'>
     <nd ref='-34' />
     <nd ref='-8' />
     <nd ref='-40' />
-    <tag k='access' v='private' />
-    <tag k='bicycle' v='yes' />
-    <tag k='foot' v='yes' />
-    <tag k='highway' v='unclassified' />
   </way>
 </osm>
