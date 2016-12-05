@@ -248,7 +248,7 @@ void WhichRoad(double lon, double lat, vector<Road> v){
 	double Distance_Min = 5000;
 	for(vector<Road>::iterator it = v.begin(); it != v.end(); ++it) {
 		double Temp_Distance = it->DistanceToCenter(lon, lat);
-		cout << "Distance to road " << it->id << " is " << Temp_Distance << '\n';
+		//cout << "Distance to road " << it->id << " is " << Temp_Distance << '\n';
 		if(Temp_Distance < Distance_Min){
 			Road_Nb = it->id;
 			Distance_Min = Temp_Distance;
@@ -430,9 +430,15 @@ int main(){
 		std::cout << "Current Road = " << CurrentRoad << '\n';
 		SetAlpha();
 
+
+
+
 		DisplayAllRoads(Road_Vec);
 		DisplayAllBuildings(Building_Vec);
 		DisplayAllUserNodes(User_Node);
+
+
+
 		// Position
 		circle(image, Point(GetDisplayX(1.467821), GetDisplayY(43.570077)),  5, Scalar(0, 0, 255, 255), -1, 8, 0);
 		imshow("Image",image);
