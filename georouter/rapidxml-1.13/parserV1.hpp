@@ -139,4 +139,8 @@ int DisplayCloseMyPosition();
 
 int DisplayCloseToLocation();
 
+float CapAlgorithm();
+
+void SetDestination(double lon, double lat);
+
 #endif
