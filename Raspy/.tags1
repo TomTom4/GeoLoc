@@ -4,4 +4,5 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-main	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/caller.cpp	/^int main(){$/;"	function	line:13	signature:()
+PARSERV1_H	/Users/guiwake/Documents/Programmation/GeoLoc/Raspy/carmodel.hpp	/^#define PARSERV1_H$/;"	macro	line:2
+ComputeCoefA	/Users/guiwake/Documents/Programmation/GeoLoc/Raspy/carmodel.hpp	/^float ComputeCoefA(Node begin, Node end){$/;"	function	line:9	signature:(Node begin, Node end)

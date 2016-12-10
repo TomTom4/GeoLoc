@@ -1,0 +1,19 @@
+LOCAL_PI	/Users/guiwake/Documents/Programmation/GeoLoc/Raspy/carmodel.cpp	/^#define LOCAL_PI /;"	macro	line:10	file:
+LARGEUR_FENETRE	/Users/guiwake/Documents/Programmation/GeoLoc/Raspy/carmodel.cpp	/^#define LARGEUR_FENETRE /;"	macro	line:11	file:
+HAUTEUR_FENETRE	/Users/guiwake/Documents/Programmation/GeoLoc/Raspy/carmodel.cpp	/^#define HAUTEUR_FENETRE /;"	macro	line:12	file:
+DISTANCE_BETWEEN_ACQUISITIONS	/Users/guiwake/Documents/Programmation/GeoLoc/Raspy/carmodel.cpp	/^#define DISTANCE_BETWEEN_ACQUISITIONS /;"	macro	line:13	file:
+GPS_UNCERTAINTY	/Users/guiwake/Documents/Programmation/GeoLoc/Raspy/carmodel.cpp	/^#define GPS_UNCERTAINTY /;"	macro	line:14	file:
+CurrentPosition_Lon	/Users/guiwake/Documents/Programmation/GeoLoc/Raspy/carmodel.cpp	/^double CurrentPosition_Lon = 0;$/;"	variable	line:16
+CurrentPosition_Lat	/Users/guiwake/Documents/Programmation/GeoLoc/Raspy/carmodel.cpp	/^double CurrentPosition_Lat = 0;$/;"	variable	line:17
+PreviousPosition_Lon	/Users/guiwake/Documents/Programmation/GeoLoc/Raspy/carmodel.cpp	/^double PreviousPosition_Lon = 0;$/;"	variable	line:18
+PreviousPosition_Lat	/Users/guiwake/Documents/Programmation/GeoLoc/Raspy/carmodel.cpp	/^double PreviousPosition_Lat = 0;$/;"	variable	line:19
+DestinationPosition_Lon	/Users/guiwake/Documents/Programmation/GeoLoc/Raspy/carmodel.cpp	/^double DestinationPosition_Lon = 0;$/;"	variable	line:20
+DestinationPosition_Lat	/Users/guiwake/Documents/Programmation/GeoLoc/Raspy/carmodel.cpp	/^double DestinationPosition_Lat = 0;$/;"	variable	line:21
+ComputeCoefA	/Users/guiwake/Documents/Programmation/GeoLoc/Raspy/carmodel.cpp	/^float ComputeCoefA(Node begin, Node end){$/;"	function	line:24	signature:(Node begin, Node end)
+CapAlgorithm	/Users/guiwake/Documents/Programmation/GeoLoc/Raspy/carmodel.cpp	/^float CapAlgorithm(){$/;"	function	line:29	signature:()
+DirectDistance	/Users/guiwake/Documents/Programmation/GeoLoc/Raspy/carmodel.cpp	/^double DirectDistance(double lat1, double lng1, double lat2, double lng2)$/;"	function	line:67	signature:(double lat1, double lng1, double lat2, double lng2)
+SetPosition	/Users/guiwake/Documents/Programmation/GeoLoc/Raspy/carmodel.cpp	/^int SetPosition(double lon, double lat){$/;"	function	line:81	signature:(double lon, double lat)
+SetDestination	/Users/guiwake/Documents/Programmation/GeoLoc/Raspy/carmodel.cpp	/^void SetDestination(double lon, double lat){$/;"	function	line:94	signature:(double lon, double lat)
+ToRadians	/Users/guiwake/Documents/Programmation/GeoLoc/Raspy/carmodel.cpp	/^double ToRadians(double degrees)$/;"	function	line:99	signature:(double degrees)
+PARSERV1_H	/Users/guiwake/Documents/Programmation/GeoLoc/Raspy/carmodel.hpp	/^#define PARSERV1_H$/;"	macro	line:2
+ComputeCoefA	/Users/guiwake/Documents/Programmation/GeoLoc/Raspy/carmodel.hpp	/^float ComputeCoefA(Node begin, Node end){$/;"	function	line:9	signature:(Node begin, Node end)
