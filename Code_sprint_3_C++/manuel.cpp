@@ -8,6 +8,7 @@
 #include "music.h"
 #include "minmea.h"
 #include "gps.h"
+#include "carmodel.hpp"
 #include "scenario.h"
 
 Manuel::Manuel()
@@ -35,7 +36,7 @@ void Manuel::lunchManuel(void)
 	MoveCar move_car_manuel(&spi_manuel);
 	Music music_manuel;
 	Gps gps_manuel;
-	Scenario scenario_manuel(&gps_manuel,&spi_manuel);
+	Scenario scenario_manuel(&gps_manuel,&spi_manuel, &move_car_manuel);
 
 	//BOUCLE PRINCIPALE
 	while(1)
@@ -103,6 +104,11 @@ void Manuel::lunchManuel(void)
 				case 't': // Scenario
 					printf("\n");
 					scenario_manuel.start();
+					break;
+				
+				case 'f': // rien
+					printf("\n");
+					move_car_manuel.rien();
 					break;
 
 				/*case 'x': // Cap et Position

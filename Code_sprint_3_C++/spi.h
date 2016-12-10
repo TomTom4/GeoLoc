@@ -1,7 +1,7 @@
 #ifndef _SPI_H
 #define _SPI_H
 
-#define SPI_DATA_SIZE 10+1
+#define SPI_DATA_SIZE 12+1
 #define SPI_CMD_SIZE 10
 
 class Spi
@@ -9,6 +9,7 @@ class Spi
 private:
   char table_spi[SPI_CMD_SIZE][SPI_DATA_SIZE];
   char data_spi_RW[SPI_DATA_SIZE];
+  float mesure;
 public:
   Spi();
   void spiCopyCmd(int cmd);

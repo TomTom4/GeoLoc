@@ -15,8 +15,10 @@ private:
   int MOVE_LEFT;
   int MOVE_RIGHT;
   int CAPTOR;
+  int RIEN;
 public:
   MoveCar(Spi* spi);
+  void rien(void);
   void stopAll(void);
   void stopFrontBack(void);
   void stopLeftRight(void);

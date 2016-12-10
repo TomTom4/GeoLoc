@@ -33,11 +33,17 @@ int Spi::spiDataRW(char* data, int lenght)
 int Spi::spiPrintRW(void)
 {
 	int ret;
-	printf("------------------------\n");
+	/*printf("------------------------\n");
 	printf("Chaine a envoyer : %s\n",data_spi_RW);
 	ret = spiDataRW(data_spi_RW,SPI_DATA_SIZE);
 	printf("Capteur n°: %d Validite: %d Distance: %dcm\n", data_spi_RW[0],data_spi_RW[1],data_spi_RW[2]);
 	printf("Capteur n°: %d Validite: %d Distance: %dcm\n", data_spi_RW[3],data_spi_RW[4],data_spi_RW[5]);
 	printf("Capteur n°: %d Validite: %d Distance: %dcm\n", data_spi_RW[6],data_spi_RW[7],data_spi_RW[8]);
+	*/
+	ret = spiDataRW(data_spi_RW,SPI_DATA_SIZE);
+	//mesure_droit = (data_spi_RW[0]-'0')+(data_spi_RW[1]-'0')(data_spi_RW[2]-'0');
+	//mesure_gauche = 
+	printf("mesure 1 : %c%c%c%c%c%c\n",data_spi_RW[0],data_spi_RW[1],data_spi_RW[2],data_spi_RW[3],data_spi_RW[4],data_spi_RW[5]);
+	printf("mesure 1 : %c%c%c%c%c%c\n",data_spi_RW[6],data_spi_RW[7],data_spi_RW[8],data_spi_RW[9],data_spi_RW[10],data_spi_RW[11]);
 	return ret;
 }
