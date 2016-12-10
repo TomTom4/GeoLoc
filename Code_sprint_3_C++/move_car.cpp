@@ -1,4 +1,6 @@
 #include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #include "spi.h"
 #include "move_car.h"
@@ -35,7 +37,11 @@ void MoveCar::stopLeftRight(void)
 
 void MoveCar::moveFront(void)
 {
+	//printf("Move front\n");
+	//printf("tamp\n");
 	spi_move_car->spiCopyCmd(MOVE_FRONT);
+	//printf("Move front cpy ok\n");
+	//printf("tamp\n");
 	while(!spi_move_car->spiPrintRW());
 }
 

@@ -11,18 +11,18 @@
 
 Music::Music()
 {
-	strcpy(table_music[0],"music/music1.mp3");
+	/*strcpy(table_music[0],"music/music1.mp3");
 	strcpy(table_music[0],"music/music2.mp3");
 	strcpy(table_music[0],"music/music3.mp3");
 	strcpy(table_music[0],"music/music4.mp3");
 	etat_music = MUSIC_OK;
-  cpt_music = 0;
+  	cpt_music = 0;*/
 }
 
 void Music::lunchMusic(void)
 {
 	/* initializations */
-	ao_initialize();
+	/*ao_initialize();
 	driver = ao_default_driver_id();
 	mpg123_init();
 	mh = mpg123_new(NULL, &err);
@@ -37,11 +37,8 @@ void Music::lunchMusic(void)
 			cpt_music=0;
 		//printf("cpt_music : %d",cpt_music);
 		etat_music = MUSIC_OK;
-		/* open the file and get the decoding format */
-    mpg123_open(mh, table_music[cpt_music]);
+    		mpg123_open(mh, table_music[cpt_music]);
 		mpg123_getformat(mh, &rate, &channels, &encoding);
-
-		/* set the output format and open the output device */
 		format.bits = mpg123_encsize(encoding) * BITS;
 		format.rate = rate;
 		format.channels = channels;
@@ -49,9 +46,8 @@ void Music::lunchMusic(void)
 		format.matrix = 0;
 		dev = ao_open_live(driver, &format, NULL);
 
-		/* decode and play */
 		while (mpg123_read(mh, buffer, buffer_size, &done) == MPG123_OK && etat_music == MUSIC_OK)
-    {
+    		{
 			ao_play(dev, (char*)buffer, done);
 			if(kbhit())
 			{
@@ -73,11 +69,10 @@ void Music::lunchMusic(void)
 			}// IF
     }//WHILE
 	}while(etat_music == MUSIC_NEXT);
-  /* clean up */
 	free(buffer);
 	ao_close(dev);
 	mpg123_close(mh);
 	mpg123_delete(mh);
 	mpg123_exit();
-	ao_shutdown();
+	ao_shutdown();*/
 }// MUSIC

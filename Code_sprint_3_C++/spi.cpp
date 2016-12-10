@@ -7,18 +7,21 @@
 
 Spi::Spi()
 {
+	int j, i;
 	char carac = '0';
-	for(int i = 0; i < SPI_CMD_SIZE; i++)
+	for(i = 0; i < SPI_CMD_SIZE; i++)
 	{
-		for(int j = 0; j < SPI_DATA_SIZE; j++)
+		for(j = 0; j < SPI_DATA_SIZE-1; j++)
 		{
 			table_spi[i][j] = carac+i;
 		}
+		table_spi[i][j] = '\0';
 	}
 }
 
 void Spi::spiCopyCmd(int cmd)
 {
+	//printf(" table cmd = %s", table_spi[cmd]);
 	strcpy(data_spi_RW,table_spi[cmd]);
 }
 

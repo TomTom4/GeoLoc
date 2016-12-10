@@ -46,7 +46,7 @@ printf("\t\t_/    _/  _/      _/  _/_/_/    _/_/_/  _/    _/      _/        \n\n
 
 	//PARAMETRAGE SPI
 	if(wiringPiSPISetup(0,1000000)<0)
-		fprintf("SPI Setup failed : %s\n",strerror(errno));
+		//fprintf("SPI Setup failed : %s\n",strerror(errno));
 
 	// CHOIX CLAVIER OU INTERFACE GRAPHIQUE
 	printf("\n");

@@ -4,7 +4,7 @@
 class Music
 {
 private:
-  mpg123_handle *mh;
+  /*mpg123_handle *mh;
   unsigned char *buffer;
   size_t buffer_size;
   size_t done;
@@ -17,7 +17,7 @@ private:
 
   ao_sample_format format;
   int channels, encoding;
-  long rate;
+  long rate;*/
 
 public:
   Music();

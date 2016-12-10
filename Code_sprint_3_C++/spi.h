@@ -1,7 +1,7 @@
 #ifndef _SPI_H
 #define _SPI_H
 
-#define SPI_DATA_SIZE 10
+#define SPI_DATA_SIZE 10+1
 #define SPI_CMD_SIZE 10
 
 class Spi

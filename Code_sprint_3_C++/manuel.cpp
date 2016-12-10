@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-//#include <wiringPi.h>
+#include <wiringPi.h>
 
 #include "manuel.h"
 #include "kbhit.h"
 #include "move_car.h"
-//#include "music.h"
+#include "music.h"
+#include "minmea.h"
+#include "gps.h"
+#include "scenario.h"
 
 Manuel::Manuel()
 {
@@ -24,23 +27,32 @@ void Manuel::lunchManuel(void)
 	printf("Stop Left & Right = i ou espace \n");
 	printf("Stop Front & back = p ou enter \n");
 	printf("Music Voiture= a \n");
+	printf("GPS = g \n");
+	printf("SCenario = t \n");
 	printf("End Prog = e \n\n");
 
 	Spi spi_manuel;
 	MoveCar move_car_manuel(&spi_manuel);
 	Music music_manuel;
+	Gps gps_manuel;
+	Scenario scenario_manuel(&gps_manuel,&spi_manuel);
 
 	//BOUCLE PRINCIPALE
 	while(1)
 	{
 		delay(250);
+		//printf("delay\n");
 		if(kbhit())
 		{
 			touche = getchar();
+			//printf("touche %c\n",touche);
+			//printf("tamp\n");
 			switch(touche)
 			{
 				case 'o': // Devant
 				case 65 :// key up
+					//printf("touche = %c\n",touche);
+					//printf("tamp\n");
 					move_car_manuel.moveFront();
 					break;
 
@@ -84,6 +96,13 @@ void Manuel::lunchManuel(void)
 					break;
 
 				case 'g': // GPS
+					printf("\n");
+					gps_manuel.updatePos();
+					break;
+				
+				case 't': // Scenario
+					printf("\n");
+					scenario_manuel.start();
 					break;
 
 				/*case 'x': // Cap et Position
