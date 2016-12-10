@@ -26,6 +26,12 @@ spi.o: spi.c spi.h
 music.o: music.c music.h kbhit.h
 	 $(CXX) -o music.o music.c $(CXXFLAGS) $(MUSFLAGS)
 
+minmea.o: minmea.c minmea.h
+	 $(CXX) -o minmea.o minmea.c $(CXXFLAGS)
+
+gps.o: gps.cpp gps.h minmea.h
+	 $(CXX) -o gps.o gps.cpp $(CXXFLAGS)
+
 clean:
 	rm -rf *.o ; rm -rf main
 

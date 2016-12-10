@@ -20,9 +20,9 @@ void manuel(void)
 	printf("Stop Left & Right = i ou espace \n");
 	printf("Stop Front & back = p ou enter \n");
 	printf("Music Voiture= a \n");
-	//printf("Music Arduino= n \n");
-	//printf("Stop Music Arduino= b \n");
+	printf("Gps = G \n");
 	printf("End Prog = e \n\n");
+	gps gps_main;
 	
 	//BOUCLE PRINCIPALE
 	while(1)
@@ -80,6 +80,10 @@ void manuel(void)
 					break;
 				case 'w': //Captor
 					captor();
+					break;
+
+				case 'G': //Captor
+					gps_main.getPos();
 					break;
 	
 				/*case 'x': // Cap et Position
