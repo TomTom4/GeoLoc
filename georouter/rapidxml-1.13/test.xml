@@ -1,70 +1,74 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <osm version='0.6' upload='true' generator='JOSM'>
-  <node id='-1627' action='modify' visible='true' lat='43.57000220025' lon='1.46789920138' />
-  <node id='-1628' action='modify' visible='true' lat='43.57030290025' lon='1.46848180138' />
-  <node id='-1629' action='modify' visible='true' lat='43.57041050025' lon='1.46870630138' />
-  <node id='-1630' action='modify' visible='true' lat='43.56990220025' lon='1.46771400138'>
+  <node id='-1783' action='modify' visible='true' lat='43.57000220025' lon='1.46789920138' />
+  <node id='-1785' action='modify' visible='true' lat='43.57030290025' lon='1.46848180138' />
+  <node id='-1787' action='modify' visible='true' lat='43.57041050025' lon='1.46870630138' />
+  <node id='-1789' action='modify' visible='true' lat='43.56990220025' lon='1.46771400138'>
     <tag k='barrier' v='lift_gate' />
     <tag k='bicycle' v='yes' />
     <tag k='foot' v='yes' />
     <tag k='source' v='cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010' />
   </node>
-  <node id='-1631' action='modify' visible='true' lat='43.57010060025' lon='1.46779330138' />
-  <node id='-1632' action='modify' visible='true' lat='43.57021080025' lon='1.46768510138' />
-  <node id='-1633' action='modify' visible='true' lat='43.57076060025' lon='1.46714570138' />
-  <node id='-1634' action='modify' visible='true' lat='43.57086180025' lon='1.46704630138' />
-  <node id='-1635' action='modify' visible='true' lat='43.57096220025' lon='1.46694780138' />
-  <node id='-1636' action='modify' visible='true' lat='43.57098130025' lon='1.46692900138' />
-  <node id='-1637' action='modify' visible='true' lat='43.57145620025' lon='1.46646310138' />
-  <node id='-1638' action='modify' visible='true' lat='43.57192880025' lon='1.46599920138' />
-  <node id='-1639' action='modify' visible='true' lat='43.57195240025' lon='1.46597610138' />
-  <node id='-1640' action='modify' visible='true' lat='43.57223060025' lon='1.46570310138' />
-  <node id='-1641' action='modify' visible='true' lat='43.56960040025' lon='1.46828940138' />
-  <node id='-1642' action='modify' visible='true' lat='43.56933430025' lon='1.46854630138'>
+  <node id='-1791' action='modify' visible='true' lat='43.57010060025' lon='1.46779330138' />
+  <node id='-1793' action='modify' visible='true' lat='43.57021080025' lon='1.46768510138' />
+  <node id='-1795' action='modify' visible='true' lat='43.57076060025' lon='1.46714570138' />
+  <node id='-1797' action='modify' visible='true' lat='43.57086180025' lon='1.46704630138' />
+  <node id='-1799' action='modify' visible='true' lat='43.57096220025' lon='1.46694780138' />
+  <node id='-1801' action='modify' visible='true' lat='43.57098130025' lon='1.46692900138' />
+  <node id='-1803' action='modify' visible='true' lat='43.57145620025' lon='1.46646310138' />
+  <node id='-1805' action='modify' visible='true' lat='43.57192880025' lon='1.46599920138' />
+  <node id='-1807' action='modify' visible='true' lat='43.57195240025' lon='1.46597610138' />
+  <node id='-1809' action='modify' visible='true' lat='43.57223060025' lon='1.46570310138' />
+  <node id='-1811' action='modify' visible='true' lat='43.56960040025' lon='1.46828940138' />
+  <node id='-1813' action='modify' visible='true' lat='43.56933430025' lon='1.46854630138'>
     <tag k='source' v='cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre ; mise à jour : 2008' />
   </node>
-  <node id='-1643' action='modify' visible='true' lat='43.56919650025' lon='1.46868030138' />
-  <way id='-1623' action='modify' visible='true'>
-    <nd ref='-1627' />
-    <nd ref='-1628' />
-    <nd ref='-1629' />
+  <node id='-1815' action='modify' visible='true' lat='43.56919650025' lon='1.46868030138' />
+  <node id='-1863' action='modify' visible='true' lat='43.57042911713' lon='1.46747091476'>
+    <tag k='user' v='Génie Mécanique' />
+  </node>
+  <way id='-1817' action='modify' visible='true'>
+    <nd ref='-1783' />
+    <nd ref='-1785' />
+    <nd ref='-1787' />
     <tag k='access' v='private' />
     <tag k='bicycle' v='yes' />
     <tag k='foot' v='yes' />
     <tag k='highway' v='unclassified' />
     <tag k='motor_vehicle' v='no' />
   </way>
-  <way id='-1624' action='modify' visible='true'>
-    <nd ref='-1630' />
-    <nd ref='-1627' />
+  <way id='-1819' action='modify' visible='true'>
+    <nd ref='-1789' />
+    <nd ref='-1783' />
     <tag k='access' v='private' />
     <tag k='bicycle' v='yes' />
     <tag k='foot' v='yes' />
     <tag k='highway' v='unclassified' />
     <tag k='source' v='cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010' />
   </way>
-  <way id='-1625' action='modify' visible='true'>
-    <nd ref='-1627' />
-    <nd ref='-1631' />
-    <nd ref='-1632' />
-    <nd ref='-1633' />
-    <nd ref='-1634' />
-    <nd ref='-1635' />
-    <nd ref='-1636' />
-    <nd ref='-1637' />
-    <nd ref='-1638' />
-    <nd ref='-1639' />
-    <nd ref='-1640' />
+  <way id='-1821' action='modify' visible='true'>
+    <nd ref='-1783' />
+    <nd ref='-1791' />
+    <nd ref='-1793' />
+    <nd ref='-1863' />
+    <nd ref='-1795' />
+    <nd ref='-1797' />
+    <nd ref='-1799' />
+    <nd ref='-1801' />
+    <nd ref='-1803' />
+    <nd ref='-1805' />
+    <nd ref='-1807' />
+    <nd ref='-1809' />
     <tag k='access' v='private' />
     <tag k='bicycle' v='yes' />
     <tag k='foot' v='yes' />
     <tag k='highway' v='unclassified' />
   </way>
-  <way id='-1626' action='modify' visible='true'>
-    <nd ref='-1627' />
-    <nd ref='-1641' />
-    <nd ref='-1642' />
-    <nd ref='-1643' />
+  <way id='-1823' action='modify' visible='true'>
+    <nd ref='-1783' />
+    <nd ref='-1811' />
+    <nd ref='-1813' />
+    <nd ref='-1815' />
     <tag k='access' v='private' />
     <tag k='bicycle' v='yes' />
     <tag k='foot' v='yes' />

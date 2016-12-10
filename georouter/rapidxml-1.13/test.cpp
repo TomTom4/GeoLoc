@@ -58,12 +58,12 @@ double DirectDistance(double lat1, double lng1, double lat2, double lng2)
 	return dist;
 }
 
-int GetDisplayX(double lon, double Min_lon){
+int GetDisplayX(double lon){
 	double temp = ((lon - Min_lon)*Alpha) + 10;
 	return temp;
 }
 
-int GetDisplayY(double lat, double Max_lat){
+int GetDisplayY(double lat){
 	double temp = ((Max_lat - lat)*Alpha) + 10;
 	return temp;
 }
@@ -129,14 +129,14 @@ class Road{
 
 	void Display(){
 		if (Alpha){		// Alpha needs to be defined to get (x,y) coordinates
-			int y1 = GetDisplayY(begin.latitude, Max_lat);
-			int x1 = GetDisplayX(begin.longitude, Min_lon);
-			int y2 = GetDisplayY(end.latitude, Max_lat);
-			int x2 = GetDisplayX(end.longitude, Min_lon);
+			int y1 = GetDisplayY(begin.latitude);
+			int x1 = GetDisplayX(begin.longitude);
+			int y2 = GetDisplayY(end.latitude);
+			int x2 = GetDisplayX(end.longitude);
 			if (id == CurrentRoad){
-				line(image, Point(x1,y1), Point(x2, y2), Scalar( 255, 0, 0, 255),  1, 0 );
+				line(image, Point(x1,y1), Point(x2, y2), Scalar( 255, 0, 0, 255),  3, 0 );
 			} else {
-				line(image, Point(x1,y1), Point(x2, y2), Scalar( 110, 220, 100),  1, 0 );
+				line(image, Point(x1,y1), Point(x2, y2), Scalar( 110, 220, 100),  3, 0 );
 			}
 		}
 	}
@@ -156,12 +156,23 @@ class Building{
 		Building_Corner_Vec.push_back(node);
 	}
 
+	//	Enable the building to have more than 4 walls.
 	void Display(){
 		if (Alpha){
-
+			int VecSize = Building_Corner_Vec.size();
+			int NumberOfCoordinates = VecSize*2;
+			int XAndYs [NumberOfCoordinates];						// EVEN numbers are the Xs and ODD numbers are Ys
+			XAndYs[0] = GetDisplayX(Building_Corner_Vec[0].longitude);
+			XAndYs[1] = GetDisplayY(Building_Corner_Vec[0].latitude);
+			int index;
+			for(index = 1; index < VecSize ; index++){
+					XAndYs[index*2] = GetDisplayX(Building_Corner_Vec[index].longitude);
+					XAndYs[index*2+1] = GetDisplayY(Building_Corner_Vec[index].latitude);
+					line(image, Point(XAndYs[(index-1)*2],XAndYs[(index-1)*2+1]), Point(XAndYs[index*2], XAndYs[index*2+1]), Scalar( 0, 220, 100, 255),  1, 0 );
+			}
+			line(image, Point(XAndYs[(index-1)*2],XAndYs[(index-1)*2+1]), Point(XAndYs[0], XAndYs[1]), Scalar( 0, 220, 100, 255),  1, 0 );
 		}
 	}
-
 };
 
 /********************************/
@@ -228,7 +239,7 @@ int main(){
 		//opencvtest.o :
 		//	$(CC) $(CPPFLAGS) -c opencvtest.cpp
 
-		file<> xmlFile("temp.xml");
+		file<> xmlFile("heavy.xml");
 		xml_document<> doc;
 		doc.parse<0>(xmlFile.data());
 		xml_node<> * root = doc.first_node();
@@ -324,6 +335,9 @@ int main(){
 			curr_node = curr_node->next_sibling();
 		}
 
+		std::cout << "Number of Nodes : " << Node_Vec.size() << '\n';
+		std::cout << "Number of Roads : " << Road_Vec.size() << '\n';
+
 		cout << "Which Road ? Point is 1.467821,43.570077 : \n";
 		WhichRoad(1.467821,43.570077, Road_Vec);
 		std::cout << "Current Road = " << CurrentRoad << '\n';
@@ -332,7 +346,7 @@ int main(){
 		DisplayAllRoads(Road_Vec);
 
 		// Position
-		circle(image, Point(GetDisplayX(1.467821, Min_lon), GetDisplayY(43.570077, Max_lat)),  5, Scalar(0, 0, 255, 255), -1, 8, 0);
+		circle(image, Point(GetDisplayX(1.467821), GetDisplayY(43.570077)),  5, Scalar(0, 0, 255, 255), -1, 8, 0);
 		imshow("Image",image);
 		waitKey(0);
 	}

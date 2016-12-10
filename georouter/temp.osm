@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <osm version='0.6' upload='true' generator='JOSM'>
   <node id='-8' action='modify' visible='true' lat='43.57000220025' lon='1.46789920138' />
-  <node id='-12' action='modify' visible='true' lat='43.57041050025' lon='1.46870630138' />
-  <node id='-14' action='modify' visible='true' lat='43.56990220025' lon='1.46771400138' />
-  <node id='-34' action='modify' visible='true' lat='43.57223060025' lon='1.46570310138' />
-  <node id='-40' action='modify' visible='true' lat='43.56919650025' lon='1.46868030138' />
-  <way id='-42' action='modify' visible='true'>
-    <nd ref='-14' />
-    <nd ref='-8' />
+  <node id='-10' action='modify' visible='true' lat='43.57041050025' lon='1.46870630138' />
+  <node id='-12' action='modify' visible='true' lat='43.56990220025' lon='1.46771400138' />
+  <node id='-14' action='modify' visible='true' lat='43.57223060025' lon='1.46570310138' />
+  <node id='-16' action='modify' visible='true' lat='43.56919650025' lon='1.46868030138' />
+  <way id='-18' action='modify' visible='true'>
     <nd ref='-12' />
+    <nd ref='-8' />
+    <nd ref='-10' />
     <tag k='access' v='private' />
     <tag k='bicycle' v='yes' />
     <tag k='foot' v='yes' />
@@ -16,10 +16,10 @@
     <tag k='motor_vehicle' v='no' />
     <tag k='source' v='cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010' />
   </way>
-  <way id='-48' action='modify' visible='true'>
-    <nd ref='-34' />
+  <way id='-20' action='modify' visible='true'>
+    <nd ref='-14' />
     <nd ref='-8' />
-    <nd ref='-40' />
+    <nd ref='-16' />
     <tag k='access' v='private' />
     <tag k='bicycle' v='yes' />
     <tag k='foot' v='yes' />

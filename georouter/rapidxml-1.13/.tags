@@ -1,0 +1,125 @@
+r	line:231	class:Building	file:
+PARSERV1_H	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^#define PARSERV1_H$/;"	macro	line:2
+LOCAL_PI	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^#define LOCAL_PI /;"	macro	line:5
+LARGEUR_FENETRE	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^#define LARGEUR_FENETRE /;"	macro	line:6
+HAUTEUR_FENETRE	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^#define HAUTEUR_FENETRE /;"	macro	line:7
+image	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^Mat image = Mat::zeros(Size(LARGEUR_FENETRE, HAUTEUR_FENETRE), CV_8UC3);$/;"	variable	line:8
+Min_lon	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^double Min_lon = 50;$/;"	variable	line:9
+Max_lon	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^double Max_lon = 0;$/;"	variable	line:10
+Min_lat	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^double Min_lat = 50;$/;"	variable	line:11
+Max_lat	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^double Max_lat = 0;$/;"	variable	line:12
+Alpha	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^double Alpha = 0;$/;"	variable	line:13
+CurrentRoad	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^int CurrentRoad = 0;$/;"	variable	line:14
+BaseIndexToCount	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^int BaseIndexToCount = 1000;$/;"	variable	line:15
+Node	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^class Node{$/;"	class	line:22
+Name	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^    string Name;$/;"	member	line:25	class:Node
+user	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^    int user = 0;$/;"	member	line:26	class:Node
+id	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^    double id;$/;"	member	line:27	class:Node
+latitude	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^    float latitude;$/;"	member	line:28	class:Node
+longitude	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^    float longitude;$/;"	member	line:29	class:Node
+Road	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^class Road{$/;"	class	line:46
+id	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^    double id;$/;"	member	line:49	class:Road
+begin	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^    Node begin;$/;"	member	line:50	class:Road
+end	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^    Node end;$/;"	member	line:51	class:Road
+a	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^    float a;$/;"	member	line:52	class:Road
+b	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^    float b;$/;"	member	line:53	class:Road
+width	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^    int width;$/;"	member	line:54	class:Road
+Road_Nodes	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^    vector<Node> Road_Nodes;$/;"	member	line:55	class:Road
+Building	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^class Building{$/;"	class	line:79
+id	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^    double id;$/;"	member	line:82	class:Building
+Name	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^    string Name;$/;"	member	line:83	class:Building
+Building_Corner_Vec	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parverV1.hpp	/^    vector<Node> Building_Corner_Vec;$/;"	member	line:84	class:Building
+PROG	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/makefile	/^PROG = parserV1$/;"	macro	line:4
+CC	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/makefile	/^CC = g++$/;"	macro	line:5
+CPPFLAGS	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/makefile	/^CPPFLAGS = -g -I \/usr\/local\/include -std=c++11$/;"	macro	line:7
+LDFLAGS	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/makefile	/^LDFLAGS = -L \/usr\/local\/lib  -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_objdetect$/;"	macro	line:8
+OBJS	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/makefile	/^OBJS = parserV1.o caller.o$/;"	macro	line:9
+main	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/caller.cpp	/^int main(){$/;"	function	line:10	signature:()
+PARSERV1_H	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.hpp	/^#define PARSERV1_H$/;"	macro	line:2
+Node	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.hpp	/^class Node{$/;"	class	line:15
+Name	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.hpp	/^    std::string Name;$/;"	member	line:18	class:Node
+user	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.hpp	/^    int user = 0;$/;"	member	line:19	class:Node
+id	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.hpp	/^    double id;$/;"	member	line:20	class:Node
+latitude	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.hpp	/^    float latitude;$/;"	member	line:21	class:Node
+longitude	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.hpp	/^    float longitude;$/;"	member	line:22	class:Node
+Road	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.hpp	/^class Road{$/;"	class	line:39
+id	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.hpp	/^    double id;$/;"	member	line:42	class:Road
+begin	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.hpp	/^    Node begin;$/;"	member	line:43	class:Road
+end	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.hpp	/^    Node end;$/;"	member	line:44	class:Road
+a	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.hpp	/^    float a;$/;"	member	line:45	class:Road
+b	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.hpp	/^    float b;$/;"	member	line:46	class:Road
+width	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.hpp	/^    int width;$/;"	member	line:47	class:Road
+Road_Nodes	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.hpp	/^    std::vector<Node> Road_Nodes;$/;"	member	line:48	class:Road
+Building	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.hpp	/^class Building{$/;"	class	line:72
+id	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.hpp	/^    double id;$/;"	member	line:75	class:Building
+Name	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.hpp	/^    std::string Name;$/;"	member	line:76	class:Building
+Building_Corner_Vec	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.hpp	/^    std::vector<Node> Building_Corner_Vec;$/;"	member	line:77	class:Building
+LOCAL_PI	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^#define LOCAL_PI /;"	macro	line:29	file:
+LARGEUR_FENETRE	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^#define LARGEUR_FENETRE /;"	macro	line:30	file:
+HAUTEUR_FENETRE	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^#define HAUTEUR_FENETRE /;"	macro	line:31	file:
+imageClose	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^Mat imageClose = Mat::zeros(Size(LARGEUR_FENETRE, HAUTEUR_FENETRE), CV_8UC3);$/;"	variable	line:34
+Min_lon	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^double Min_lon = 50;$/;"	variable	line:35
+Max_lon	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^double Max_lon = 0;$/;"	variable	line:36
+Min_lat	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^double Min_lat = 50;$/;"	variable	line:37
+Max_lat	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^double Max_lat = 0;$/;"	variable	line:38
+Alpha	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^double Alpha = 0;$/;"	variable	line:39
+Beta	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^double Beta = 0;$/;"	variable	line:40
+Delta_Lon	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^double Delta_Lon = 0;$/;"	variable	line:41
+Delta_Lat	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^double Delta_Lat = 0;$/;"	variable	line:42
+CurrentRoad	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^int CurrentRoad = 0;$/;"	variable	line:43
+BaseIndexToCount	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^int BaseIndexToCount = 1000;$/;"	variable	line:44
+CurrentPosition_Lon	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^double CurrentPosition_Lon = 0;$/;"	variable	line:46
+CurrentPosition_Lat	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^double CurrentPosition_Lat = 0;$/;"	variable	line:47
+PreviousPosition_Lon	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^double PreviousPosition_Lon = 0;$/;"	variable	line:48
+PreviousPosition_Lat	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^double PreviousPosition_Lat = 0;$/;"	variable	line:49
+Node_Vec	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^vector<Node *> Node_Vec;$/;"	variable	line:51
+Road_Vec	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^vector<Road *> Road_Vec;$/;"	variable	line:52
+Building_Vec	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^vector<Building *> Building_Vec;$/;"	variable	line:53
+User_Node	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^vector<Node *> User_Node;$/;"	variable	line:54
+BuildAllRoads	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^void BuildAllRoads(int id_road, vector<Node> VEC){$/;"	function	line:62	signature:(int id_road, vector<Node> VEC)
+ComputeCoefA	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^float ComputeCoefA(Node begin, Node end){$/;"	function	line:88	signature:(Node begin, Node end)
+CreateAll	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^int CreateAll(int close){$/;"	function	line:92	signature:(int close)
+DisplayImage	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^int DisplayImage(int close){$/;"	function	line:106	signature:(int close)
+DisplayMyPosition	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^int DisplayMyPosition(){$/;"	function	line:117	signature:()
+DisplayCloseMyPosition	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^int DisplayCloseMyPosition(){$/;"	function	line:122	signature:()
+DisplayCloseToLocation	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^int DisplayCloseToLocation(){$/;"	function	line:127	signature:()
+DirectDistance	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^double DirectDistance(double lat1, double lng1, double lat2, double lng2)$/;"	function	line:135	signature:(double lat1, double lng1, double lat2, double lng2)
+DisplayAllBuildings	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^void DisplayAllBuildings(vector<Building *> v, int close){$/;"	function	line:149	signature:(vector<Building *> v, int close)
+DisplayAllUserNodes	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^void DisplayAllUserNodes(vector<Node *> v, int close){$/;"	function	line:155	signature:(vector<Node *> v, int close)
+DisplayAllRoads	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^void DisplayAllRoads(vector<Road *> v, int close){$/;"	function	line:162	signature:(vector<Road *> v, int close)
+GetCloseDisplayX	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^int GetCloseDisplayX(double lon){$/;"	function	line:171	signature:(double lon)
+GetCloseDisplayY	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^int GetCloseDisplayY(double lat){$/;"	function	line:176	signature:(double lat)
+GetDisplayX	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^int GetDisplayX(double lon){$/;"	function	line:181	signature:(double lon)
+GetDisplayY	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^int GetDisplayY(double lat){$/;"	function	line:186	signature:(double lat)
+GetNodeById	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^Node * GetNodeById(long double id){$/;"	function	line:192	signature:(long double id)
+SetAlpha	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^void SetAlpha(){$/;"	function	line:203	signature:()
+SetBeta	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^void SetBeta(){$/;"	function	line:214	signature:()
+SetPosition	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^int SetPosition(double lon, double lat){$/;"	function	line:218	signature:(double lon, double lat)
+ToRadians	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^double ToRadians(double degrees)$/;"	function	line:233	signature:(double degrees)
+WhichRoad	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^void WhichRoad(double lon, double lat){$/;"	function	line:239	signature:(double lon, double lat)
+WhichRoadWithLatLon	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^double WhichRoadWithLatLon(){$/;"	function	line:253	signature:()
+ToString	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^void Node::ToString(){$/;"	function	line:268	class:Node	signature:()
+Node	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^Node::Node(){$/;"	function	line:275	class:Node	signature:()
+Node	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^Node::Node(double Node_Id, float lon, float lat){$/;"	function	line:279	class:Node	signature:(double Node_Id, float lon, float lat)
+SetName	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^void Node::SetName(string NAME){$/;"	function	line:285	class:Node	signature:(string NAME)
+Display	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^void Node::Display(int close){$/;"	function	line:290	class:Node	signature:(int close)
+GetLatitude	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^float Node::GetLatitude(){$/;"	function	line:304	class:Node	signature:()
+GetLongitude	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^float Node::GetLongitude(){$/;"	function	line:307	class:Node	signature:()
+GetId	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^double Node::GetId(){$/;"	function	line:310	class:Node	signature:()
+Compute_Coefs	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^void Road::Compute_Coefs(){$/;"	function	line:320	class:Road	signature:()
+ToString	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^void Road::ToString(){$/;"	function	line:325	class:Road	signature:()
+Road	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^Road::Road(double Road_Id, vector<Node> VEC){$/;"	function	line:330	class:Road	signature:(double Road_Id, vector<Node> VEC)
+Road	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^Road::Road(double Road_Id, Node b, Node e){$/;"	function	line:336	class:Road	signature:(double Road_Id, Node b, Node e)
+SetEndNode	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^void Road::SetEndNode(Node e){$/;"	function	line:343	class:Road	signature:(Node e)
+DistanceToCenter	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^double Road::DistanceToCenter(double lon, double lat){$/;"	function	line:348	class:Road	signature:(double lon, double lat)
+Display	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^void Road::Display(int close){$/;"	function	line:368	class:Road	signature:(int close)
+GetA	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^float Road::GetA(){$/;"	function	line:397	class:Road	signature:()
+GetB	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^float Road::GetB(){$/;"	function	line:400	class:Road	signature:()
+GetId	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^double Road::GetId(){$/;"	function	line:403	class:Road	signature:()
+GetBegin	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^Node Road::GetBegin(){$/;"	function	line:406	class:Road	signature:()
+GetEnd	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^Node Road::GetEnd(){$/;"	function	line:409	class:Road	signature:()
+Building	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^Building::Building(int ID, string NAME, vector<Node> VEC){$/;"	function	line:420	class:Building	signature:(int ID, string NAME, vector<Node> VEC)
+Display	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^void Building::Display(int close){$/;"	function	line:427	class:Building	signature:(int close)
+GetName	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^string Building::GetName(){$/;"	function	line:461	class:Building	signature:()
+GetId	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^double Building::GetId(){$/;"	function	line:465	class:Building	signature:()
+init	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/rapidxml-1.13/parserV1.cpp	/^int init(){$/;"	function	line:488	signature:()
