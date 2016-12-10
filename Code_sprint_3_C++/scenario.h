@@ -10,24 +10,14 @@ class Scenario
 	double long_end;
 	double lat_end;
 	
-	double x_start;
-	double y_start;
-	double x_end;
-	double y_end;
-	double x,y;
-	double x_gps, y_gps;
-
-	double coef_long;
-	double coef_lat;
-
-	double cap_cible, cap_fin, cap_gps;
-
+	float cap_cible;
 	double mesure;
 
 	Gps* gps;
 	Spi* spi;
+	MoveCar* move_car;
 	public:
-	Scenario(Gps* gps_sc, Spi* spi_sc);
+	Scenario(Gps* gps_sc, Spi* spi_sc, MoveCar* move_car_sc);
 	void start();
 };
 
