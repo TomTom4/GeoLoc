@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include <cmath>
 
 #include "minmea.h"
 #include "gps.h"
@@ -52,17 +53,23 @@ using namespace std;
 
 void Gps::readLineFromGps()
 {
-  	for(int i=0;i<1024;i++)
+  	int i;
+	for(i=0;i<1000;i++)
 		buffer[i] = 0;
-	read(fd,buffer, 1024);
-	//printf("buffer:%s\n",buffer);
+	read(fd,buffer, 1000);
+	i = 0;
+	while(buffer[i] != '\n')
+		i++;
+  	for(;i<100;i++)
+		buffer[i] = 0;
+	printf("buffer:%s\n",buffer);
 	correct_sentence(buffer);
-	//printf("new buffre :%s\n\n\n",buffer);
+	printf("new buffer :%s\n\n\n",buffer);
 }
 
   void Gps::updatePos()
   {
-    bool ack = false;
+    bool ack = true;
     do
     { 
     readLineFromGps();
@@ -70,11 +77,21 @@ void Gps::readLineFromGps()
     {
         case MINMEA_SENTENCE_GGA:
         {
-            if (minmea_parse_gga(&frame_gga, buffer))
+            printf("GGA\n");
+		if (minmea_parse_gga(&frame_gga, buffer))
             {
-              longitude = (double)frame_gga.longitude.value/(frame_gga.longitude.scale*100);
-              latitude = (double)frame_gga.latitude.value/(frame_gga.latitude.scale*100);
-              nb_satellites = frame_gga.satellites_tracked;
+	      longitude = (double)(frame_gga.longitude.value/(frame_gga.longitude.scale*100));
+              	degre = floor(longitude);
+		minute = floor((longitude-degre)*100);
+		second = floor((degre - minute)*100);
+		longitude = degre+minute/60.0+second/3600.0;
+	      latitude = (double)(frame_gga.latitude.value/(frame_gga.latitude.scale*100));
+               	degre = floor(latitude);
+		minute = floor((latitude-degre)*100);
+		second = floor((degre-minute)*100);
+		latitude = degre+minute/60.0+second/3600.0;
+
+		nb_satellites = frame_gga.satellites_tracked;
               printf(" long : %f\n",latitude);
               printf(" lat : %f\n",longitude);
               printf(" nb sat: %d\n",nb_satellites);
@@ -88,17 +105,26 @@ void Gps::readLineFromGps()
 
           case MINMEA_SENTENCE_RMC:
           {
-              if (minmea_parse_rmc(&frame_rmc, buffer))
+              printf("RMC\n");
+		if (minmea_parse_rmc(&frame_rmc, buffer))
               {
-                longitude = (double)frame_rmc.longitude.value/(frame_rmc.longitude.scale*100);
-                latitude = (double)frame_rmc.latitude.value/(frame_rmc.latitude.scale*100);
+	      longitude = (double)(frame_rmc.longitude.value/(frame_rmc.longitude.scale*100));
+              	degre = floor(longitude);
+		minute = floor((longitude-degre)*100);
+		second = floor((degre - minute)*100);
+		longitude = degre+minute/60.0+second/3600.0;
+	      latitude = (double)(frame_rmc.latitude.value/(frame_rmc.latitude.scale*100));
+               	degre = floor(latitude);
+		minute = floor((latitude-degre)*100);
+		second = floor((degre - minute)*100);
+		latitude = degre+minute/60.0+second/3600.0;
                 printf(" long : %f\n",latitude);
                 printf(" lat : %f\n",longitude);
               	ack = true;
 		}
               else
               {
-                  //printf(INDENT_SPACES "$xxRMC sentence is not parsed\n");
+                  printf(INDENT_SPACES "$xxRMC sentence is not parsed\n");
               }
             } break;
 
