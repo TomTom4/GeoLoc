@@ -247,8 +247,6 @@ static inline float minmea_tocoord(struct minmea_float *f)
     return (float) degrees + (float) minutes / (60 * f->scale);
 }
 
-void correct_sentence( char* sentence );
-
 #ifdef __cplusplus
 }
 #endif

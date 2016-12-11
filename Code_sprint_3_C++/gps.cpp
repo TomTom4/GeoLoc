@@ -53,25 +53,46 @@ using namespace std;
 
 void Gps::readLineFromGps()
 {
-  	int i;
-	for(i=0;i<1000;i++)
+  int i,j;
+  char buf[1024];
+  i = 0;
+  j = 1;
+
+  // cleat buufer
+  for(i=0;i<1024;i++)
 		buffer[i] = 0;
-	read(fd,buffer, 1000);
+  // read data from gps
+  read(fd,buffer, 1024);
+  printf("buffer: %s\n",buffer);
+  // look for start of sentence
+  while(sentence[i] != 'G' && sentence[j] != 'P' && i<1024)
+  {
+    i++;
+    j++;
+  }
+  //printf("offset = %d\n",i);
+  if(i<1024)
+  {
+    strcpy(buf+1,sentence+i);
+    buf[0] = '$';
+    //printf("new avant cpy : %s\n",buf);
+    strcpy(sentence,buf);
+  }
+  // look for end of sentence
 	i = 0;
 	while(buffer[i] != '\n')
 		i++;
-  	for(;i<100;i++)
+  // clear all after end of sentence
+  for(;i<1024;i++)
 		buffer[i] = 0;
-	printf("buffer:%s\n",buffer);
-	correct_sentence(buffer);
-	printf("new buffer :%s\n\n\n",buffer);
+	printf("new buffer :%s\n",buffer);
 }
 
   void Gps::updatePos()
   {
     bool ack = true;
     do
-    { 
+    {
     readLineFromGps();
     switch (minmea_sentence_id(buffer, false))
     {
@@ -148,4 +169,3 @@ double Gps::getLat(void)
 {
 	return(latitude);
 }
-

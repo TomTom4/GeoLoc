@@ -89,27 +89,6 @@ static inline bool minmea_isfield(char c) {
     return isprint((unsigned char) c) && c != ',' && c != '*';
 }
 
-void correct_sentence( char* sentence )
-{
-	char buf[1024];
-	int i = 0;
-	int j = 1;
-	while(sentence[i]!= 'G' && sentence[j]!= 'P' && i<=10)
-	{
-		i++;
-		j++;
-	}
-	//printf("offset = %d\n",i);
-	if(i!=10)
-	{
-		strcpy(buf+1,sentence+i);
-		buf[0] = '$';
-		//printf("new avant cpy : %s\n",buf);
-		strcpy(sentence,buf);
-	}
-}
-
-
 bool minmea_scan(const char *sentence, const char *format, ...)
 {
     bool result = false;
@@ -603,7 +582,7 @@ bool minmea_parse_vtg(struct minmea_sentence_vtg *frame, const char *sentence)
         return false;
     //frame->faa_mode = c_faa_mode;
 
-    return true;    
+    return true;
 }
 
 int minmea_gettime(struct timespec *ts, const struct minmea_date *date, const struct minmea_time *time_)
