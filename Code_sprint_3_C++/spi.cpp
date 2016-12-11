@@ -30,6 +30,16 @@ int Spi::spiDataRW(char* data, int lenght)
 	return wiringPiSPIDataRW(0,(unsigned char*)data,lenght);
 }
 
+float Spi::spiGetMesure1()
+{
+	return mesure1;
+}
+
+float Spi::spiGetMesure2()
+{
+	return mesure2;
+}
+
 int Spi::spiPrintRW(void)
 {
 	int ret;
@@ -106,6 +116,6 @@ int Spi::spiPrintRW(void)
 	//printf("mesure 1 : %c%c%c%c%c%c\n",data_spi_RW[0],data_spi_RW[1],data_spi_RW[2],data_spi_RW[3],data_spi_RW[4],data_spi_RW[5]);
 	//printf("mesure 2 : %c%c%c%c%c%c\n",data_spi_RW[10],data_spi_RW[11],data_spi_RW[12],data_spi_RW[13],data_spi_RW[14],data_spi_RW[15]);
 	printf("mesure 1 float = %f\n",mesure1);
-	printf("mesure 2 float = %f\n",mesure2); 
+	printf("mesure 2 float = %f\n",mesure2);
 	return ret;
 }

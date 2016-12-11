@@ -17,6 +17,7 @@ MoveCar::MoveCar(Spi* spi)
 	MOVE_RIGHT = 6;
 	CAPTOR = 7;
 	RIEN = 8;
+	CENTER = 9;
 }
 
 void MoveCar::rien(void)
@@ -73,5 +74,11 @@ void MoveCar::moveRight(void)
 void MoveCar::captor(void)
 {
 	spi_move_car->spiCopyCmd(CAPTOR);
+	while(!spi_move_car->spiPrintRW());
+}
+
+void MoveCar::center(void)
+{
+	spi_move_car->spiCopyCmd(CENTER);
 	while(!spi_move_car->spiPrintRW());
 }

@@ -15,6 +15,8 @@ public:
   void spiCopyCmd(int cmd);
   int spiDataRW(char* data, int lenght);
   int spiPrintRW(void);
+  float spiGetMesure1();
+  float spiGetMesure2();
 };
 
 #endif

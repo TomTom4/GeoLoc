@@ -27,6 +27,7 @@ public:
   void moveLeft(void);
   void moveRight(void);
   void captor(void);
+  void center(void)
 };
 
 #endif
