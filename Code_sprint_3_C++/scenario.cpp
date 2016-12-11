@@ -89,7 +89,7 @@ void Scenario::start(void)
 			// delay(??); // for center
 			cout << " Direction centrée" << endl;
 			delay(3000);
-			cout << " Start moteur" << endl;
+			cout << " Start moteur" << endl; 
 			move_car->moveFront();
 		}
 	}while(!test_fin());
