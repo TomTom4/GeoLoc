@@ -117,5 +117,6 @@ int Spi::spiPrintRW(void)
 	//printf("mesure 2 : %c%c%c%c%c%c\n",data_spi_RW[10],data_spi_RW[11],data_spi_RW[12],data_spi_RW[13],data_spi_RW[14],data_spi_RW[15]);
 	printf("mesure 1 float = %f\n",mesure1);
 	printf("mesure 2 float = %f\n",mesure2);
+	printf("delta mesure = %f\n",mesure1-mesure2);
 	return ret;
 }

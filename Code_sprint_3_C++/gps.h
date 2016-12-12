@@ -11,6 +11,7 @@ private:
     struct minmea_sentence_gga frame_gga;
     struct minmea_sentence_rmc frame_rmc;
     char buffer[1024]; // Trame GPS
+    
     int fd;
 public:
     Gps();

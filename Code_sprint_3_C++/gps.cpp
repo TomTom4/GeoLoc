@@ -63,9 +63,9 @@ void Gps::readLineFromGps()
 		buffer[i] = 0;
   // read data from gps
   read(fd,buffer, 1024);
-  printf("buffer: %s\n",buffer);
+  //printf("buffer: %s\n",buffer);
   // look for start of sentence
-  while(sentence[i] != 'G' && sentence[j] != 'P' && i<1024)
+  while(buffer[i] != 'G' && buffer[j] != 'P' && i<1024)
   {
     i++;
     j++;
@@ -73,10 +73,10 @@ void Gps::readLineFromGps()
   //printf("offset = %d\n",i);
   if(i<1024)
   {
-    strcpy(buf+1,sentence+i);
+    strcpy(buf+1,buffer+i);
     buf[0] = '$';
     //printf("new avant cpy : %s\n",buf);
-    strcpy(sentence,buf);
+    strcpy(buffer,buf);
   }
   // look for end of sentence
 	i = 0;
@@ -85,12 +85,12 @@ void Gps::readLineFromGps()
   // clear all after end of sentence
   for(;i<1024;i++)
 		buffer[i] = 0;
-	printf("new buffer :%s\n",buffer);
+	//printf("new buffer :%s\n",buffer);
 }
 
   void Gps::updatePos()
   {
-    bool ack = true;
+    bool ack = false;
     do
     {
     readLineFromGps();
@@ -98,25 +98,27 @@ void Gps::readLineFromGps()
     {
         case MINMEA_SENTENCE_GGA:
         {
-            printf("GGA\n");
+            //printf("GGA\n");
 		if (minmea_parse_gga(&frame_gga, buffer))
             {
-	      longitude = (double)(frame_gga.longitude.value/(frame_gga.longitude.scale*100));
-              	degre = floor(longitude);
-		minute = floor((longitude-degre)*100);
-		second = floor((degre - minute)*100);
+	      longitude = (double)(frame_gga.longitude.value);
+              	degre = floor(longitude/1000000.0);
+		minute = floor((longitude-degre*1000000.0)/10000.0);
+		second = floor((longitude - degre*1000000.0 - minute*10000.0))/100.0;
+                //printf(" long : %f + %f + %f\n",degre,minute,second);
 		longitude = degre+minute/60.0+second/3600.0;
-	      latitude = (double)(frame_gga.latitude.value/(frame_gga.latitude.scale*100));
-               	degre = floor(latitude);
-		minute = floor((latitude-degre)*100);
-		second = floor((degre-minute)*100);
-		latitude = degre+minute/60.0+second/3600.0;
+                //printf(" long : %f = %f + %f + %f\n",longitude,degre,minute/60.0,second/3600.0);
+                printf(" long : %f\n",longitude);
 
-		nb_satellites = frame_gga.satellites_tracked;
-              printf(" long : %f\n",latitude);
-              printf(" lat : %f\n",longitude);
-              printf(" nb sat: %d\n",nb_satellites);
-            	ack = true;
+	      latitude = (double)(frame_gga.latitude.value);
+              	degre = floor(latitude/1000000.0);
+		minute = floor((latitude-degre*1000000.0)/10000.0);
+		second = floor((latitude - degre*1000000.0 - minute*10000.0))/100.0;
+                //printf(" lat : %f + %f + %f\n",degre,minute,second);
+		latitude = degre+minute/60.0+second/3600.0;
+                //printf(" lat : %f = %f + %f + %f\n",latitude,degre,minute/60.0,second/3600.0);
+            	printf(" lat : %f\n",latitude);
+		ack = true;
 	      }
             else
             {
@@ -126,22 +128,27 @@ void Gps::readLineFromGps()
 
           case MINMEA_SENTENCE_RMC:
           {
-              printf("RMC\n");
-		if (minmea_parse_rmc(&frame_rmc, buffer))
+              //printf("RMC\n");
+	      if (minmea_parse_rmc(&frame_rmc, buffer))
               {
-	      longitude = (double)(frame_rmc.longitude.value/(frame_rmc.longitude.scale*100));
-              	degre = floor(longitude);
-		minute = floor((longitude-degre)*100);
-		second = floor((degre - minute)*100);
+	      longitude = (double)(frame_rmc.longitude.value);
+              	degre = floor(longitude/1000000.0);
+		minute = floor((longitude-degre*1000000.0)/10000.0);
+		second = floor((longitude - degre*1000000.0 - minute*10000.0))/100.0;
+                //printf(" long : %f + %f + %f\n",degre,minute,second);
 		longitude = degre+minute/60.0+second/3600.0;
-	      latitude = (double)(frame_rmc.latitude.value/(frame_rmc.latitude.scale*100));
-               	degre = floor(latitude);
-		minute = floor((latitude-degre)*100);
-		second = floor((degre - minute)*100);
+                //printf(" long : %f = %f + %f + %f\n",longitude,degre,minute/60.0,second/3600.0);
+        	printf(" long : %f\n",longitude);
+
+		latitude = (double)(frame_rmc.latitude.value);
+              	degre = floor(latitude/1000000.0);
+		minute = floor((latitude-degre*1000000.0)/10000.0);
+		second = floor((latitude - degre*1000000.0 - minute*10000.0))/100.0;
+                //printf(" lat : %f + %f + %f\n",degre,minute,second);
 		latitude = degre+minute/60.0+second/3600.0;
-                printf(" long : %f\n",latitude);
-                printf(" lat : %f\n",longitude);
-              	ack = true;
+                //printf(" lat : %f = %f + %f + %f\n",latitude,degre,minute/60.0,second/3600.0);
+	        printf(" lat : %f\n",latitude);
+		ack = true;
 		}
               else
               {

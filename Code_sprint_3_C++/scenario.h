@@ -12,7 +12,8 @@ class Scenario
 	
 	float cap_cible;
 	double mesure;
-
+	float distance;
+	float distance_old;
 	Gps* gps;
 	Spi* spi;
 	MoveCar* move_car;

@@ -1,12 +1,15 @@
 
 #include <wiringPi.h>
 #include <stdlib.h>
+#include <iostream>
 #include "minmea.h"
 #include "gps.h"
 #include "spi.h"
 #include "move_car.h"
 #include "scenario.h"
 #include "carmodel.hpp"
+
+using namespace std;
 
 Scenario::Scenario(Gps* gps_sc, Spi* spi_sc, MoveCar* move_car_sc)
 {	gps = gps_sc;
@@ -19,9 +22,194 @@ Scenario::Scenario(Gps* gps_sc, Spi* spi_sc, MoveCar* move_car_sc)
 void Scenario::start(void)
 {
 	// INIT
-	float distance_old;
-	float disatance;
+	if(1)
+	{
+	move_car->rien();
+	distance_old = spi->spiGetMesure2();
+	cout << " Init compteur codeur : " << distance_old << "m" << endl;
+	cout << " turn left 5s" << endl;
+	move_car->moveLeft();
+	delay(5000);
+	cout << " Start moteur" << endl;
+	move_car->moveFront();
+	while(distance - distance_old < 0.05)
+	{
+		delay(500);
+		move_car->rien();
+		distance = spi->spiGetMesure2();
+		printf("delta distance = %f\n",(distance - distance_old));
+	}
+	move_car->stopFrontBack();
+	move_car->stopFrontBack();
+	move_car->stopFrontBack();
+	cout << "Stop 2s" << endl;
+	delay(5000);
+	move_car->center();
+	move_car->center();
+	move_car->center();
+	cout << "Centrage 2s" << endl;
+	delay(5000);
+	move_car->moveFront();
+	move_car->moveFront();
+	move_car->moveFront();
+	cout << "start front 2s" << endl;
+	delay(5000);
+	move_car->stopFrontBack();
+	move_car->stopFrontBack();
+	move_car->stopFrontBack();
+	cout << "STOP POUR 15s" << endl;
+	delay(15000);
+	
+	
+	move_car->rien();
+	distance_old = spi->spiGetMesure2();
+	cout << " Init compteur codeur : " << distance_old << "m" << endl;
+	cout << " turn left 5s" << endl;
+	move_car->moveLeft();
+	delay(5000);
+	cout << " Start moteur" << endl;
+	move_car->moveFront();
+	while(distance - distance_old < 0.10)
+	{
+		delay(50);
+		move_car->rien();
+		distance = spi->spiGetMesure2();
+		printf("delta distance = %f\n",(distance - distance_old));
+	}
+	move_car->stopFrontBack();
+	cout << "Stop 2s" << endl;
+	delay(2000);
+	move_car->center();	
+	cout << "Centrage 2s" << endl;
+	delay(2000);
+	move_car->moveFront();
+	cout << "start front 2s" << endl;
+	delay(2000);
+	move_car->stopFrontBack();
+	cout << "STOP POUR 15s" << endl;
+	delay(15000);
 
+
+	move_car->rien();
+	distance_old = spi->spiGetMesure2();
+	cout << " Init compteur codeur : " << distance_old << "m" << endl;
+	cout << " turn left 5s" << endl;
+	move_car->moveLeft();
+	delay(5000);
+	cout << " Start moteur" << endl;
+	move_car->moveFront();
+	while(distance - distance_old < 0.20)
+	{
+		delay(100);
+		move_car->rien();
+		distance = spi->spiGetMesure2();
+		printf("delta distance = %f\n",(distance - distance_old));
+	}
+	move_car->stopFrontBack();
+	cout << "Stop 2s" << endl;
+	delay(2000);
+	move_car->center();
+	cout << "Centrage 2s" << endl;
+	delay(2000);
+	move_car->moveFront();
+	cout << "start front 2s" << endl;
+	delay(2000);
+	move_car->stopFrontBack();
+	cout << "STOP POUR 15s" << endl;
+	delay(15000);
+
+
+
+
+	move_car->rien();
+	distance_old = spi->spiGetMesure2();
+	cout << " Init compteur codeur : " << distance_old << "m" << endl;
+	cout << " turn right 5s" << endl;
+	move_car->moveRight();
+	delay(5000);
+	cout << " Start moteur" << endl;
+	move_car->moveFront();
+	while(distance - distance_old < 0.05)
+	{
+		delay(100);
+		move_car->rien();
+		distance = spi->spiGetMesure2();
+		printf("delta distance = %f\n",(distance - distance_old));
+	}
+
+	move_car->stopFrontBack();
+	cout << "Stop 2s" << endl;
+	delay(2000);
+	move_car->center();
+	cout << "Centrage 2s" << endl;
+	delay(2000);
+	move_car->moveFront();
+	cout << "start front 2s" << endl;
+	delay(2000);
+	move_car->stopFrontBack();
+	cout << "STOP POUR 15s" << endl;
+	delay(15000);
+	
+	
+	move_car->rien();
+	distance_old = spi->spiGetMesure2();
+	cout << " Init compteur codeur : " << distance_old << "m" << endl;
+	cout << " turn right 5s" << endl;
+	move_car->moveRight();
+	delay(5000);
+	cout << " Start moteur" << endl;
+	move_car->moveFront();
+	while(distance - distance_old < 0.10)
+	{
+		delay(100);
+		move_car->rien();
+		distance = spi->spiGetMesure2();
+		printf("delta distance = %f\n",(distance - distance_old));
+	}
+	move_car->stopFrontBack();
+	cout << "Stop 2s" << endl;
+	delay(2000);
+	move_car->center();
+	cout << "Centrage 2s" << endl;
+	delay(2000);
+	move_car->moveFront();
+	cout << "start front 2s" << endl;
+	delay(2000);
+	move_car->stopFrontBack();
+	cout << "STOP POUR 15s" << endl;
+	delay(15000);
+
+
+	move_car->rien();
+	distance_old = spi->spiGetMesure2();
+	cout << " Init compteur codeur : " << distance_old << "m" << endl;
+	cout << " turn right 5s" << endl;
+	move_car->moveRight();
+	delay(5000);
+	cout << " Start moteur" << endl;
+	move_car->moveFront();
+	while(distance - distance_old < 0.20)
+	{
+		delay(100);
+		move_car->rien();
+		distance = spi->spiGetMesure2();
+		printf("delta distance = %f\n",(distance - distance_old));
+	}
+	move_car->stopFrontBack();
+	cout << "Stop 2s" << endl;
+	delay(2000);
+	move_car->center();
+	cout << "Centrage 2s" << endl;
+	delay(2000);
+	move_car->moveFront();
+	cout << "start front 2s" << endl;
+	delay(2000);
+	move_car->stopFrontBack();
+	cout << "STOP POUR 15s" << endl;
+	delay(15000);
+	}
+	else
+	{
 	// No action, update mesure1 & mesure2 from spi
 	move_car->rien();
 	distance_old = spi->spiGetMesure2();
@@ -43,18 +231,19 @@ void Scenario::start(void)
 	do
 	{
 		// No action, update mesure1 & mesure2 from spi
+		delay(500);
 		move_car->rien();
-		disatance = spi->spiGetMesure2();
+		distance = spi->spiGetMesure2();
 		cout << "delta distance = "<< distance - distance_old << endl;
-		if((disatance - distance_old)>= 5.0)
+		if((distance - distance_old)>= 5.0)
 		{
 			// stop moteur
 			cout << "Stop moteur" << endl;
 			move_car->stopFrontBack();
 			move_car->rien();
-			disatance = spi->spiGetMesure2();
+			distance = spi->spiGetMesure2();
 			cout << "Distance 5m mesurée = "<< distance - distance_old << endl;
-			distance_old = disatance;
+			distance_old = distance;
 			// delay for gps fix
 			cout<< "GPS FIX" << endl;
 			delay(5000);
@@ -72,7 +261,7 @@ void Scenario::start(void)
 			{ // turn left
 				cout << "Vers la Gauche" << endl;
 				move_car->moveLeft();
-				//delay(??);
+				//delay();
 			}
 			else
 			{ // turn right
@@ -94,4 +283,5 @@ void Scenario::start(void)
 		}
 	}while(!test_fin());
 	cout << " VALIDATION OBJECTIF !!!!!!!!! GRANDE VALIDATION !!!!!" << endl;
+	}
 }

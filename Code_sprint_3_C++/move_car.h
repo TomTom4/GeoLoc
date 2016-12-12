@@ -16,6 +16,7 @@ private:
   int MOVE_RIGHT;
   int CAPTOR;
   int RIEN;
+  int CENTER;
 public:
   MoveCar(Spi* spi);
   void rien(void);
@@ -27,7 +28,7 @@ public:
   void moveLeft(void);
   void moveRight(void);
   void captor(void);
-  void center(void)
+  void center(void);
 };
 
 #endif
