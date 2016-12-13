@@ -111,15 +111,20 @@ void Manuel::lunchManuel(void)
 					printf("\n");
 					move_car_manuel.rien();
 					break;
+				case 'x': // rien
+					printf("\n");
+					move_car_manuel.center();
+					break;
 				case 'j': // rien
 					for(int j = 0; i<500; j++)
 					{
 						printf("\n");
 						delay(100);
 						move_car_manuel.rien();
+						spi_manuel.spiPrint();
 					}
+					move_car_manuel.stopFrontBack();
 					break;
-				
 
 				/*case 'x': // Cap et Position
 					cap = get_cap(*p_magneto_calib_manuel);
@@ -132,3 +137,4 @@ void Manuel::lunchManuel(void)
 		}//KBHIT
 	}//WHILE
 }//FONCTION
+

@@ -22,7 +22,7 @@ Scenario::Scenario(Gps* gps_sc, Spi* spi_sc, MoveCar* move_car_sc)
 void Scenario::start(void)
 {
 	// INIT
-	if(1)
+	if(0)
 	{
 	move_car->rien();
 	distance_old = spi->spiGetMesure2();
@@ -37,7 +37,7 @@ void Scenario::start(void)
 		delay(500);
 		move_car->rien();
 		distance = spi->spiGetMesure2();
-		printf("delta distance = %f\n",(distance - distance_old));
+		//printf("delta distance = %f\n",(distance - distance_old));
 	}
 	move_car->stopFrontBack();
 	move_car->stopFrontBack();
@@ -234,15 +234,25 @@ void Scenario::start(void)
 		delay(500);
 		move_car->rien();
 		distance = spi->spiGetMesure2();
-		cout << "delta distance = "<< distance - distance_old << endl;
+		printf("\n");
+		spi->spiPrint();
+		//cout << "delta distance = "<< distance - distance_old << endl;
 		if((distance - distance_old)>= 5.0)
 		{
 			// stop moteur
 			cout << "Stop moteur" << endl;
 			move_car->stopFrontBack();
+			move_car->stopFrontBack();
+			move_car->stopFrontBack();
+			move_car->stopFrontBack();
+			move_car->stopFrontBack();
+			move_car->stopFrontBack();
+			move_car->stopFrontBack();
+			move_car->stopFrontBack();			
 			move_car->rien();
 			distance = spi->spiGetMesure2();
-			cout << "Distance 5m mesurée = "<< distance - distance_old << endl;
+			cout << "Distance 5m mesure"<< endl;
+			spi->spiPrint();
 			distance_old = distance;
 			// delay for gps fix
 			cout<< "GPS FIX" << endl;
@@ -255,11 +265,16 @@ void Scenario::start(void)
 			// Find new cap
 			cap_cible = CapAlgorithm();
 			cout << "Cap cible calculé :" << cap_cible << endl;
-			delay(20000);
+			delay(5000);
 
 			if(cap_cible > 0 )
 			{ // turn left
 				cout << "Vers la Gauche" << endl;
+				move_car->moveLeft();
+				move_car->moveLeft();
+				move_car->moveLeft();
+				move_car->moveLeft();
+				move_car->moveLeft();
 				move_car->moveLeft();
 				//delay();
 			}
@@ -267,18 +282,40 @@ void Scenario::start(void)
 			{ // turn right
 				cout << "Vers la Droite" << endl;
 				move_car->moveRight();
+				move_car->moveRight();
+				move_car->moveRight();
+				move_car->moveRight();
+				move_car->moveRight();
 				//delay(??); // for front wheel
 			}
 			cout << " Start moteur" << endl;
 			move_car->moveFront();
-			//delay(??); // function of cap_cible ?
+			move_car->moveFront();
+			move_car->moveFront();
+			move_car->moveFront();
+			move_car->moveFront();
+			delay(2000); // function of cap_cible ?
+			move_car->stopFrontBack();
+			move_car->stopFrontBack();
+			move_car->stopFrontBack();
+			move_car->stopFrontBack();
+			move_car->stopFrontBack();
 			move_car->stopFrontBack();
 			cout << " Stop moteur" << endl;
+			delay(2000);
 			move_car->center();
-			// delay(??); // for center
-			cout << " Direction centrée" << endl;
-			delay(3000);
+			move_car->center();
+			move_car->center();
+			move_car->center();
+			move_car->center();
+			move_car->center();
+			cout << " Direction centre" << endl;
+			delay(2000); // for center
 			cout << " Start moteur" << endl; 
+			move_car->moveFront();
+			move_car->moveFront();
+			move_car->moveFront();
+			move_car->moveFront();
 			move_car->moveFront();
 		}
 	}while(!test_fin());
