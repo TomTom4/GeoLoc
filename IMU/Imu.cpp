@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include <stdio.h>
 
-#DEFINE alpha_LP_acc_mag 0.2
+
 
 /***********************************SETUP*************************************/
 /* Init all IMU sensors                                                      */
@@ -270,7 +270,7 @@ void Imu::magnetoCalib(void)
         // take in account magnero measuremet only if car horizontal
         if(accelero_data.z < -0.9765) // WUT ????
         {
-            getMagnetoData();  // modif magneto_data
+            getmagnetoData();  // modif magneto_data
 
             if(magneto_data.x > mag_max[0]) mag_max[0] = magneto_data.x;
             if(magneto_data.x < mag_min[0]) mag_min[0] = magneto_data.x;
