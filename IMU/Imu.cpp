@@ -1,7 +1,7 @@
 #include "Imu.h"
 #include "wiringPi.h"
-
-
+#include "wiringPiI2C.h"
+#include <stdint.h>
 
 /***********************************SETUP*************************************/
 /* Init all IMU sensors                                                      */
@@ -19,7 +19,7 @@ Imu::Imu()
     wiringPiI2CWriteReg8(acc_gyr_id,0x37,0x02);
 
     //init i2c device magneto
-    mag_id = wiringPiI2CSetup(mag_ADDRESS);
+    mag_id = wiringPiI2CSetup(MAG_ADDRESS);
     //output magneto 16 bits & continuous mode 100Hz
     wiringPiI2CWriteReg8(mag_id,0x0A,0x16);
 
@@ -178,7 +178,7 @@ void Imu::averageMagnetoData ()
     for (int i = 0; i< 5 ; i++)
     {
         // Get magneto_data & build the sum
-        getMagnetoData();
+        getmagnetoData();
         sum_x += magneto_data.x;
         sum_y += magneto_data.y;
         sum_z += magneto_data.z;
@@ -198,7 +198,7 @@ void Imu::averageMagnetoData ()
 void Imu::gyroCalib(void)
 {
     // sgyro_data tmp
-    gyro_data G;
+    GyroData G;
 
     // gyro tmp offsets
     float o_gx = 0.0;
