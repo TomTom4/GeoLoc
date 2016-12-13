@@ -29,7 +29,8 @@ void Manuel::lunchManuel(void)
 	printf("Stop Front & back = p ou enter \n");
 	printf("Music Voiture= a \n");
 	printf("GPS = g \n");
-	printf("SCenario = t \n");
+	printf("Scenario = t \n");
+	printf("Scenario wheel regulation = j \n");
 	printf("End Prog = e \n\n");
 
 	Spi spi_manuel;
@@ -110,6 +111,21 @@ void Manuel::lunchManuel(void)
 					printf("\n");
 					move_car_manuel.rien();
 					break;
+				case 'x': // rien
+					printf("\n");
+					move_car_manuel.center();
+					break;
+				case 'j': // rien
+					move_car_manuel.moveFront();
+					for(int j=0;j<100;j++)
+					{
+						printf("\n");
+						delay(100);
+						move_car_manuel.rien();
+						spi_manuel.spiPrint();
+					}
+					move_car_manuel.stopFrontBack();
+					break;
 
 				/*case 'x': // Cap et Position
 					cap = get_cap(*p_magneto_calib_manuel);
@@ -117,8 +133,9 @@ void Manuel::lunchManuel(void)
 					printf ("Position X : %lu\n", p_coord_voiture_manuel->posX);
 					printf ("Position Y : %lu\n", p_coord_voiture_manuel->posY);
 					break;*/
-				default: printf("NULLL !!!\n");
+				//default: printf("NULLL !!!\n");
 			}// SWITCH
 		}//KBHIT
 	}//WHILE
 }//FONCTION
+

@@ -17,6 +17,7 @@ public:
   int spiPrintRW(void);
   float spiGetMesure1();
   float spiGetMesure2();
+  void spiPrint(void);
 };
 
 #endif
