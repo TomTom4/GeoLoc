@@ -11,7 +11,7 @@ $(PROG) : $(OBJS)
 caller.o : Imu.h caller.cpp
 	$(CC) $(CPPFLAGS) -c caller.cpp
 
-Imu.o : Imu.cpp Imu.hpp
+Imu.o : Imu.cpp Imu.h
 	$(CC) $(CPPFLAGS) -c Imu.cpp
 
 clean :

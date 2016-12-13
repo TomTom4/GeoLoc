@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <iostream>
 
-
+using namespace std;
 /***********************************SETUP*************************************/
 /* Init all IMU sensors                                                      */
 /* WARING : results are valid if car is horizontal (max 10° on Yaw and Roll) */
@@ -20,22 +20,31 @@ Imu::Imu()
     acc_gyr_id = wiringPiI2CSetup(MPU9250_ADDRESS);
     // Configure gyroscope range
     wiringPiI2CWriteReg8(acc_gyr_id,27,GYRO_FULL_SCALE_500_DPS);
+    cout << "conf gyro" << endl;
     // Configure accelerometers range
     wiringPiI2CWriteReg8(acc_gyr_id,28,ACC_FULL_SCALE_8_G);
+    cout << "conf acc" << endl;
     // Set by pass mode for the magnetometers
     wiringPiI2CWriteReg8(acc_gyr_id,0x37,0x02);
+    cout << "conf mag" << endl;
 
     //init i2c device magneto
     mag_id = wiringPiI2CSetup(MAG_ADDRESS);
     //output magneto 16 bits & continuous mode 100Hz
+    cout << "init mag" << endl;
     wiringPiI2CWriteReg8(mag_id,0x0A,0x16);
+    cout << "init gyro" << endl;
 
     Imu::gyroCalib();
+    cout << "init gyro calib" << endl;
     Imu::magnetoCalib();
-
+    cout << "init mag calib" << endl;
     Imu::getAllData();
+    cout << "init get all" << endl;
     Imu::getAllData();
+    cout << "init get all" << endl;
     Imu::lpFiltering();
+    cout << "init filter" << endl;
 }
 
 void Imu::getAllData(void)
@@ -222,7 +231,7 @@ void Imu::gyroCalib(void)
     float o_gz = 0.0;
 
     // compute average offsets
-    for (int i = 0; i < 500;i++)
+    for (int i = 0; i < 50;i++)
     {
         // Get data
         getGyroData(); // TO DO
