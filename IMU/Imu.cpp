@@ -1,24 +1,5 @@
 #include "Imu.h"
 
-class IMU
-{
-  private:
-    int acc_gyr_id; // Identifiant Gyroscope
-    int mag_id; // Identifiant magnetometer
-
-    AcceleroData accelero_offset; // Accelerometer offset structure
-    AcceleroData accelero_data; // Accelerometer data structure
-    AcceleroData accelero_data_old; // Accelerometer data structure
-
-
-    GyroData gyro_offset; // Gyroscope offser structure TOUT A 0 ????
-    GyroData gyro_data; // Gyroscope data structure
-    GyroData gyro_data_old; // Gyroscope data structure
-
-    magnetoData magneto_offset; // magnetometer offset structure
-    magnetoData magneto_data; // magnetometer data structure
-    magnetoData magneto_data_old; // magnetometer data structure
-
   public:
 
     /***********************************SETUP*************************************/
