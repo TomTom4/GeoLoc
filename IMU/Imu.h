@@ -44,7 +44,25 @@
 #define    ACC_G_TO_SI               9.81
 
 
-class IMU
+// IMU Structures
+
+typedef struct _AcceleroData
+{
+	float x, y, z;
+} AcceleroData;
+
+typedef struct _GyroData
+{
+	float x, y, z;
+} GyroData;
+
+typedef struct _MagnetoData
+{
+	float x, y, z;
+	float gain_x, gain_y, gain_z;
+} MagnetoData;
+
+class Imu
 {
   private:
     int acc_gyr_id; // Identifiant Gyroscope
@@ -65,15 +83,14 @@ class IMU
 
 public:
 
-#include "Imu.h"
 
     /***********************************SETUP*************************************/
     /* Init all IMU sensors                                                      */
     /* WARING : results are valid if car is horizontal (max 10° on Yaw and Roll) */
     /*****************************************************************************/
-    Imu::IMU();
+    Imu();
 
-    void Imu::getAllData(void);
+    void getAllData(void);
 
     /*****************************GET_ACCELERO_DATA*******************************/
     /* Get the raw acceleration on all 3 axis converted to G (M/s/s)             */
@@ -81,7 +98,7 @@ public:
     /* Update accelero_data                                                      */
     /*****************************************************************************/
 
-    void Imu::getAcceleroData(void);
+    void getAcceleroData(void);
 
     /*****************************GET_GYRO_DATA***********************************/
     /* Get the raw rotation speed on all 3 axis converted to DPS                 */
@@ -89,7 +106,7 @@ public:
     /* Update gyro_offset                                                        */
     /*****************************************************************************/
 
-    void Imu::getGyroData(void);
+    void getGyroData(void);
 
     /*****************************GET_magNETO_DATA********************************/
     /* Get the raw magnetic field value on all 3 axis converted to uT            */
@@ -97,7 +114,7 @@ public:
     /* Update magneto_data structur                                              */
     /*****************************************************************************/
 
-    void Imu::getmagnetoData(void);
+    void getmagnetoData(void);
 
     /*****************************AVERAGE_MAGNETO_DATA****************************/
     /* Returns the magneto data average on 5 measurements                        */
@@ -105,7 +122,7 @@ public:
     /* Update magneto_data                                                       */
     /*****************************************************************************/
 
-    void Imu::averageMagnetoData ();
+    void averageMagnetoData ();
 
     /*****************************GYRO_CALIB**************************************/
     /* Get the offsets of gyroscope                                              */
@@ -113,7 +130,7 @@ public:
     /* Update accelero_offset                                                    */
     /*****************************************************************************/
 
-    void Imu::gyroCalib(void);
+    void gyroCalib(void);
 
     /*****************************MAGNETO_CALIB***********************************/
     /* To find the magnetometer sensor calib parameters (Offsets and Gains on    */
@@ -123,7 +140,7 @@ public:
     /* Update magneto_offset                                                     */
     /*****************************************************************************/
 
-    void Imu::magnetoCalib(void);
+    void magnetoCalib(void);
 
     /*****************************LP_FILTERING_IMU**************************************/
     /* Apply a simple Low Pass filter to raw IMU data	                           */
@@ -133,7 +150,7 @@ public:
 
     // low pass at 100 Hz on Accelero / Gyro / Mag raw data
 
-    void Imu::lpFiltering(void);
+    void lpFiltering(void);
 
     /*****************************REMOVE_GRAVITY**********************************/
     /* Removes the gravity influence from accelerometer raw data knowing IMU     */
@@ -178,28 +195,12 @@ public:
     /* Out : The acceleration vector  -  U                                              */
     /************************************************************************************/
 
-    /*void update_U (struct Matrix * M);
+    //void update_U (struct Matrix * M);
 
-}
+};
 
 
 
-// IMU Structures
 
-typedef struct _AcceleroData
-{
-	float x, y, z;
-}AcceleroData;
-
-typedef struct _GyroData
-{
-	float x, y, z;
-}GyroData;
-
-typedef struct _MagnetoData
-{
-	float x, y, z;
-	float gain_x, gain_y, gain_z;
-}MagnetoData;
 
 #endif
