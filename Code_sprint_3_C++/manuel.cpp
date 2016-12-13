@@ -11,7 +11,6 @@
 #include "carmodel.hpp"
 #include "scenario.h"
 
-
 Manuel::Manuel()
 {
 	touche = '0';
