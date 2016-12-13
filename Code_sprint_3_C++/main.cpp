@@ -24,7 +24,7 @@ using namespace std;
 
 int main (void)
 {
-  char choix = 'C';
+  char choix;
   Manuel manuel_main;
 	//PRESENTATION
 printf("\t\n\n\n");
@@ -56,11 +56,11 @@ printf("\t\t_/    _/  _/      _/  _/_/_/    _/_/_/  _/    _/      _/        \n\n
 
 	while(1)
 	{
-		//delay(500);
-		//if(kbhit())
-		//{
-			//choix = getchar();
-			//printf("\n");
+		delay(500);
+		if(kbhit())
+		{
+			choix = getchar();
+			printf("\n");
 			switch(choix)
 			{
 				case 'C' : //VOIR FICHIER "manuel.h"
@@ -68,9 +68,9 @@ printf("\t\t_/    _/  _/      _/  _/_/_/    _/_/_/  _/    _/      _/        \n\n
 					break;
 				case 'I' : //VOIR FICHIER "interface.h"
 					break;
-				default: printf("NULLL !!!\n");
+				//default: printf("NULLL !!!\n");
 			}// SWITCH
-		//}// IF
+		}// IF
 	}// WHILE
  return (0);
 }// MAIN
