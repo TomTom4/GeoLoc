@@ -3,7 +3,7 @@
 #include "wiringPiI2C.h"
 #include <stdint.h>
 #include <unistd.h>
-
+#include <stdio.h>
 
 #DEFINE alpha_LP_acc_mag 0.2
 
@@ -99,7 +99,7 @@ void Imu::getAcceleroData(void)
 /* Update gyro_offset                                                        */
 /*****************************************************************************/
 
-void Imu::getGyroData(GiroData * gyro_data)
+void Imu::getGyroData(void)
 {
     uint8_t buf[6];
 

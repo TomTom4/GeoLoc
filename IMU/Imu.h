@@ -43,6 +43,8 @@
 #define    GRAVITY                   -1         	// in G
 #define    ACC_G_TO_SI               9.81
 
+#define    alpha_LP_acc_mag          0.2
+
 
 // IMU Structures
 
@@ -97,6 +99,8 @@ public:
     /* WARING : results are valid if car is horizontal (max 10° on Yaw and Roll) */
     /*****************************************************************************/
     Imu();
+
+    void InitStruct(void);
 
     void getAllData(void);
 
