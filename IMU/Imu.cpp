@@ -2,6 +2,10 @@
 #include "wiringPi.h"
 #include "wiringPiI2C.h"
 #include <stdint.h>
+#include <unistd.h>
+
+
+#DEFINE alpha_LP_acc_mag 0.2
 
 /***********************************SETUP*************************************/
 /* Init all IMU sensors                                                      */
@@ -9,6 +13,9 @@
 /*****************************************************************************/
 Imu::Imu()
 {
+    //init to 0 the Structures
+    Imu::InitStruct();
+
     //init i2c device MPU9250
     acc_gyr_id = wiringPiI2CSetup(MPU9250_ADDRESS);
     // Configure gyroscope range
@@ -36,6 +43,18 @@ void Imu::getAllData(void)
     Imu::getAcceleroData();
     Imu::getGyroData();
     Imu::getmagnetoData();
+}
+
+void Imu::InitStruct(void){
+    magneto_data.x = 0;
+    magneto_data.y = 0;
+    magneto_data.z = 0;
+    gyro_data.x = 0;
+    gyro_data.y = 0;
+    gyro_data.z = 0;
+    accelero_data.x = 0;
+    accelero_data.y = 0;
+    accelero_data.z = 0;
 }
 
 /*****************************GET_ACCELERO_DATA*******************************/
@@ -80,7 +99,7 @@ void Imu::getAcceleroData(void)
 /* Update gyro_offset                                                        */
 /*****************************************************************************/
 
-void Imu::getGyroData(void)
+void Imu::getGyroData(GiroData * gyro_data)
 {
     uint8_t buf[6];
 
@@ -197,9 +216,6 @@ void Imu::averageMagnetoData ()
 
 void Imu::gyroCalib(void)
 {
-    // sgyro_data tmp
-    GyroData G;
-
     // gyro tmp offsets
     float o_gx = 0.0;
     float o_gy = 0.0;
@@ -209,11 +225,11 @@ void Imu::gyroCalib(void)
     for (int i = 0; i < 500;i++)
     {
         // Get data
-        getGyroData(&G); // TO DO
+        getGyroData(); // TO DO
         // compute mean for all offsets (addition)
-        o_gx += G.X;
-        o_gy += G.Y;
-        o_gz += G.Z;
+        o_gx += gyro_data.x;
+        o_gy += gyro_data.y;
+        o_gz += gyro_data.z;
         usleep(10000); // A VERIF
     }
 
@@ -222,9 +238,9 @@ void Imu::gyroCalib(void)
     o_gy /= 500;
     o_gz /= 500;
 
-    gyro_offset.X = o_gx;
-    gyro_offset.Y = o_gy;
-    gyro_offset.Z = o_gz;
+    gyro_offset.x = o_gx;
+    gyro_offset.y = o_gy;
+    gyro_offset.z = o_gz;
 }
 
 /*****************************MAGNETO_CALIB***********************************/
@@ -243,8 +259,8 @@ void Imu::magnetoCalib(void)
     int16_t mag_max[3];   mag_max[0] = 0x80; mag_max[1] = 0x80; mag_max[2] = 0x80;
     int16_t mag_min[3];   mag_min[0] = 0x7F; mag_min[1] = 0x7F; mag_min[2] = 0x7F;
 
-    struct magneto_data M;
-    struct accelero_data A;
+    MagnetoData M;
+    AcceleroData A;
 
     sample_count = 2000;                                  // 60 sec de calib
     int i = 0;
@@ -289,7 +305,7 @@ void Imu::magnetoCalib(void)
     magneto_offset.gain_y = avg_rad/((float)mag_scale[1]);
     magneto_offset.gain_z = avg_rad/((float)mag_scale[2]);
 
-    printf("Mag Calibration done!\n");
+    std::cout << "Mag Calibration done!\n";
 }
 
 /*****************************LP_FILTERING_IMU**************************************/

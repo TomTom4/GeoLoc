@@ -48,18 +48,26 @@
 
 typedef struct _AcceleroData
 {
-	float x, y, z;
+	float x;
+    float y;
+    float z;
 } AcceleroData;
 
 typedef struct _GyroData
 {
-	float x, y, z;
+    float x;
+    float y;
+    float z;
 } GyroData;
 
 typedef struct _MagnetoData
 {
-	float x, y, z;
-	float gain_x, gain_y, gain_z;
+    float x;
+    float y;
+    float z;
+	float gain_x;
+    float gain_y;
+    float gain_z;
 } MagnetoData;
 
 class Imu
