@@ -29,8 +29,8 @@ void Manuel::lunchManuel(void)
 	printf("Stop Front & back = p ou enter \n");
 	printf("Music Voiture= a \n");
 	printf("GPS = g \n");
-	printf("Scenario = t \n");
-	printf("Scenario wheel regulation = j \n");
+	printf("Scenario Cap = t \n");
+	printf("Scenario wheel Regulation = j \n");
 	printf("End Prog = e \n\n");
 
 	Spi spi_manuel;
@@ -116,8 +116,7 @@ void Manuel::lunchManuel(void)
 					move_car_manuel.center();
 					break;
 				case 'j': // rien
-					move_car_manuel.moveFront();
-					for(int j=0;j<100;j++)
+					for(int j = 0; i<500; j++)
 					{
 						printf("\n");
 						delay(100);
