@@ -1,0 +1,28 @@
+###############################################################################
+##################### CONVENTION DE NOMMAGE TEAM KNIGHT #######################
+###############################################################################
+
+VARIABLES:
+---------
+->classique: maVariable
+-> dans une classe : m_maVariable
+
+
+FONCTIONS:
+---------
+-> nomDeMaFonction()
+-> 4 paramètres max
+-> setter : setValeur()
+-> getter : getValeur()
+-> constructeur : Class()
+
+
+COMMENTAIRES:
+------------
+
+En entête de chaque fonction
+/*************************************************
+*Une Description brève mais clair de la fonction *
+*Une Description brève mais clair de la fonction *
+*Une Description brève mais clair de la fonction *
+*************************************************/ 
