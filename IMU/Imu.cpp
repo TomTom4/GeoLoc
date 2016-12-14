@@ -100,6 +100,10 @@ void Imu::getAcceleroData(void)
     accelero_data.x = (float)ax * ACCELERO_MUL_8_G + accelero_offset.x;  // real existing bias on X axis
     accelero_data.y = (float)ay * ACCELERO_MUL_8_G + accelero_offset.y;
     accelero_data.z = -((float)az * ACCELERO_MUL_8_G + accelero_offset.z);
+
+    std::cout << "Accelero Data X : " << accelero_data.x << '\n';
+    std::cout << "Accelero Data Y : " << accelero_data.y << '\n';
+    std::cout << "Accelero Data Z : " << accelero_data.z << '\n';
 }
 
 /*****************************GET_GYRO_DATA***********************************/
@@ -136,6 +140,10 @@ void Imu::getGyroData(void)
     gyro_data.x = -((float)gx * GYRO_MUL_500_DPS + gyro_offset.x) ;
     gyro_data.y = -((float)gy * GYRO_MUL_500_DPS + gyro_offset.y);
     gyro_data.z = -((float)gz * GYRO_MUL_500_DPS + gyro_offset.z);     //-   clockwise convention
+
+    std::cout << "Gyro Data X : " << gyro_data.x << '\n';
+    std::cout << "Gyro Data Y : " << gyro_data.y << '\n';
+    std::cout << "Gyro Data Z : " << gyro_data.z << '\n';
 
 }
 
@@ -187,6 +195,9 @@ void Imu::getmagnetoData(void)
     magneto_data.y = ((float)my * magneto_offset.gain_y * MAG_MUL_16_BITS - magneto_offset.y);
     magneto_data.z = ((float)mz * magneto_offset.gain_z * MAG_MUL_16_BITS - magneto_offset.z);
 
+    std::cout << "Magneto Data X : " << magneto_data.x << '\n';
+    std::cout << "Magneto Data Y : " << magneto_data.y << '\n';
+    std::cout << "Magneto Data Z : " << magneto_data.z << '\n';
 }
 
 /*****************************AVERAGE_MAGNETO_DATA****************************/
