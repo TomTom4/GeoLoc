@@ -9,9 +9,13 @@
 #include <iostream>
 
 #include "parserV1.hpp"
+#include "rapidxml_utils.hpp"
+
 
 int main(){
-    init();
+
+    rapidxml::file<> xmlFile("heavy.osm");
+    Map MyMap(xmlFile);
 
 	double ExamplePointLat = 43.570779;
     double ExamplePointLon =  1.466925;
@@ -21,19 +25,19 @@ int main(){
 
     double ExampleDestLat = 43.5708618;
     double ExampleDestLon = 1.4670463;
-    SetPosition(ExamplePointLon,ExamplePointLat);
-    SetDestination(ExampleDestLon, ExampleDestLat);
-    WhichRoadWithLatLon();
-    DisplayMyPosition();
-    CreateAll(0);
-    DisplayImage(0);
-    CreateAll(1);
-    DisplayCloseMyPosition();
-    DisplayImage(1);
-    SetPosition(ExamplePointLon_2, ExamplePointLat_2);
-    std::cout << "The cap to follow : " << CapAlgorithm() << '\n';
-    CreateAll(1);
-    DisplayCloseMyPosition();
-    DisplayImage(1);
+    MyMap.SetPosition(ExamplePointLon,ExamplePointLat);
+    MyMap.SetDestination(ExampleDestLon, ExampleDestLat);
+    MyMap.WhichRoadWithLatLon();
+    MyMap.DisplayMyPosition();
+    MyMap.CreateAll(0, MyMap.image);
+    MyMap.DisplayImage(0);
+    MyMap.CreateAll(1, MyMap.imageClose);
+    MyMap.DisplayCloseMyPosition();
+    MyMap.DisplayImage(1);
+    MyMap.SetPosition(ExamplePointLon_2, ExamplePointLat_2);
+    std::cout << "The cap to follow : " << MyMap.CapAlgorithm() << '\n';
+    MyMap.CreateAll(1, MyMap.imageClose);
+    MyMap.DisplayCloseMyPosition();
+    MyMap.DisplayImage(1);
     return 1;
 }

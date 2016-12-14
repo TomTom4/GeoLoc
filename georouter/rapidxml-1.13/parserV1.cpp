@@ -9,7 +9,6 @@
 #include <vector>
 #include <stdio.h>
 #include <string.h>
-#include <math.h>
 #include "rapidxml_utils.hpp"
 #include <math.h>
 #include <opencv2/core/core.hpp>
@@ -21,48 +20,19 @@ using namespace rapidxml;
 using namespace cv;
 using namespace std;
 
-/********************************/
-/*								*/
-/*		GLOBAL VARIABLES		*/
-/*								*/
-/********************************/
-#define LOCAL_PI 3.1415926535897932385
-#define LARGEUR_FENETRE 700
-#define HAUTEUR_FENETRE 700
-#define DISTANCE_BETWEEN_ACQUISITIONS 5
-#define GPS_UNCERTAINTY 2.5
+double Map::Min_lon = 50;
+double Map::Max_lon = 0;
+double Map::Min_lat = 50;
+double Map::Max_lat = 0;
+double Map::Alpha = 0;
+double Map::Beta = 0;
+double Map::Delta_Lon = 0;
+double Map::Delta_Lat = 0;
+int Map::CurrentRoad = 0;
+cv::Mat Map::image;
+cv::Mat Map::imageClose;
 
-Mat image = Mat::zeros(Size(LARGEUR_FENETRE, HAUTEUR_FENETRE), CV_8UC3);
-Mat imageClose = Mat::zeros(Size(LARGEUR_FENETRE, HAUTEUR_FENETRE), CV_8UC3);
-double Min_lon = 50;
-double Max_lon = 0;
-double Min_lat = 50;
-double Max_lat = 0;
-double Alpha = 0;
-double Beta = 0;
-double Delta_Lon = 0;
-double Delta_Lat = 0;
-int CurrentRoad = 0;
-int BaseIndexToCount = 1000;
-
-double CurrentPosition_Lon = 0;
-double CurrentPosition_Lat = 0;
-double PreviousPosition_Lon = 0;
-double PreviousPosition_Lat = 0;
-double DestinationPosition_Lon = 0;
-double DestinationPosition_Lat = 0;
-vector<Node *> Node_Vec;
-vector<Road *> Road_Vec;
-vector<Building *> Building_Vec;
-vector<Node *> User_Node;
-
-/*************************************************************/
-/*									  						 */
-/*							FUNCTIONS						 */
-/*															 */
-/*************************************************************/
-
-void BuildAllRoads(int id_road, vector<Node> VEC){
+void Map::BuildAllRoads(int id_road, vector<Node> VEC){
 	//Create the first road
 	int index = 1;
 	Node begin = VEC[0];
@@ -82,70 +52,91 @@ void BuildAllRoads(int id_road, vector<Node> VEC){
 			Road_Vec.push_back(myRoad);
 			begin = end;
 			end = TempEndNode;
-			myRoad = new Road(BaseIndexToCount + index, begin, end);
+			myRoad = new Road(BaseIndexToCount++, begin, end);
 		}
 	}
 	Road_Vec.push_back(myRoad);
 }
 
-float ComputeCoefA(Node begin, Node end){
+float Map::ComputeCoefA(Node begin, Node end){
 	return (end.GetLatitude() - begin.GetLatitude())/(end.GetLongitude() - begin.GetLongitude());
 }
 
-int CreateAll(int close){
-	if (close){
-		imageClose = Mat::zeros(Size(LARGEUR_FENETRE, HAUTEUR_FENETRE), CV_8UC3);
-		DisplayAllRoads(Road_Vec, 1);
-		DisplayAllBuildings(Building_Vec, 1);
-		DisplayAllUserNodes(User_Node, 1);
-	} else {
-		DisplayAllRoads(Road_Vec, 0);
-		DisplayAllBuildings(Building_Vec, 0);
-		DisplayAllUserNodes(User_Node, 0);
-	}
+int Map::CreateAll(int close, cv::Mat imageToWriteOn){
+		imageToWriteOn = Mat::zeros(Size(LARGEUR_FENETRE, HAUTEUR_FENETRE), CV_8UC3);
+		DisplayAllRoads(Road_Vec, close, imageToWriteOn);
+		DisplayAllBuildings(Building_Vec, close, imageToWriteOn);
+		DisplayAllUserNodes(User_Node, close, imageToWriteOn);
 	return 1;
 }
 
-float CapAlgorithm(){
+float Map::CapAlgorithm(){
 	// Need to have called SetPosition() right before and 5 meters before
 	// Our CurrentPosition_Lon and CurrentPosition_Lat are the GPS position.
 	// Our PreviousPosition_Lon and PreviousPosition_Lat are the origins.
 	// distance in [meters]
+	float Corrective_Cap = 0.0;
 
-	std::cout << "Distance brute avant correction de position: " << DirectDistance(CurrentPosition_Lon, CurrentPosition_Lat, PreviousPosition_Lon, PreviousPosition_Lat) << '\n';
-	double distance = DirectDistance(CurrentPosition_Lat, CurrentPosition_Lon, PreviousPosition_Lat, PreviousPosition_Lon);
-	// We assume an uncertainty of 2.5 meters on the GPS measure.
-	float Cap_Actuel = 0;
-	float Cap_Destination = 0;
+	if (PathSet){
+		std::cout << "Distance brute avant correction de position: " << DirectDistance(CurrentPosition_Lon, CurrentPosition_Lat, PreviousPosition_Lon, PreviousPosition_Lat) << '\n';
+		double distance = DirectDistance(CurrentPosition_Lat, CurrentPosition_Lon, PreviousPosition_Lat, PreviousPosition_Lon);
+		// We assume an uncertainty of 2.5 meters on the GPS measure.
+		float Cap_Actuel = 0;
+		float Cap_Destination = 0;
 
-	Cap_Actuel = ComputeCoefA(Node(1, CurrentPosition_Lon, CurrentPosition_Lat), Node(2, PreviousPosition_Lon, PreviousPosition_Lat));
+		Cap_Actuel = ComputeCoefA(Node(1, CurrentPosition_Lon, CurrentPosition_Lat), Node(2, PreviousPosition_Lon, PreviousPosition_Lat));
 
-	//Correction de position
-	float rapport = DISTANCE_BETWEEN_ACQUISITIONS / distance;
-	CurrentPosition_Lon = PreviousPosition_Lon + rapport * (CurrentPosition_Lon - PreviousPosition_Lon);
-	CurrentPosition_Lat = PreviousPosition_Lat + rapport * (CurrentPosition_Lat - PreviousPosition_Lat);
+		//Correction de position
+		float rapport = DISTANCE_BETWEEN_ACQUISITIONS / distance;
+		CurrentPosition_Lon = PreviousPosition_Lon + rapport * (CurrentPosition_Lon - PreviousPosition_Lon);
+		CurrentPosition_Lat = PreviousPosition_Lat + rapport * (CurrentPosition_Lat - PreviousPosition_Lat);
 
-	std::cout << "Distance normalement égale à 5 après Correction de position: " << DirectDistance(CurrentPosition_Lon, CurrentPosition_Lat, PreviousPosition_Lon, PreviousPosition_Lat) << '\n';
+		std::cout << "Distance normalement égale à 5 après Correction de position: " << DirectDistance(CurrentPosition_Lon, CurrentPosition_Lat, PreviousPosition_Lon, PreviousPosition_Lat) << '\n';
 
-	double RemainingDistance = DirectDistance(CurrentPosition_Lon, CurrentPosition_Lat, DestinationPosition_Lon, DestinationPosition_Lat);
+		double Local_DestinationPosition_Lon = PathToDestination[CurrentIntermediateDestinationNode].GetLongitude();
+		double Local_DestinationPosition_Lat = PathToDestination[CurrentIntermediateDestinationNode].GetLatitude();
 
-	Cap_Destination = ComputeCoefA(Node(1, DestinationPosition_Lon, DestinationPosition_Lat), Node(1, PreviousPosition_Lon, PreviousPosition_Lat));
 
-	Cap_Actuel = atan(Cap_Actuel) * 180 / LOCAL_PI;
-	Cap_Destination = atan(Cap_Destination) * 180 / LOCAL_PI;
+		double RemainingDistance = DirectDistance(CurrentPosition_Lon, CurrentPosition_Lat, DestinationPosition_Lon, DestinationPosition_Lat);
 
-	float Cap_Derive = (Cap_Destination - Cap_Actuel);
+		// We enter here if we are closer than 5 meters from the intermediate Node
+	 	while(RemainingDistance < 5){
+			// Test if we were heading to the last intermediate Node before final destination
+			if (CurrentIntermediateDestinationNode == PathToDestination.size() - 1){
+				// If so, we are now heading to the final destination ( user defined point)
+				Local_DestinationPosition_Lon = DestinationPosition_Lon;
+				Local_DestinationPosition_Lat = DestinationPosition_Lat;
+				CurrentIntermediateDestinationNode = 0;
+			} else {
+				// else, we are now heading to the next intermediate node
+				CurrentIntermediateDestinationNode++;
+				Local_DestinationPosition_Lon = PathToDestination[CurrentIntermediateDestinationNode].GetLongitude();
+				Local_DestinationPosition_Lat = PathToDestination[CurrentIntermediateDestinationNode].GetLatitude();
+				double RemainingDistance = DirectDistance(CurrentPosition_Lon, CurrentPosition_Lat, Local_DestinationPosition_Lon, Local_DestinationPosition_Lat);
+			}
+		}
 
-	float OppositeAngle = asin(sin(Cap_Derive)*5/RemainingDistance);
+		Cap_Destination = ComputeCoefA(Node(1, Local_DestinationPosition_Lon, Local_DestinationPosition_Lat), Node(1, PreviousPosition_Lon, PreviousPosition_Lat));
 
-	float Corrective_Cap = OppositeAngle + Cap_Derive;
+		Cap_Actuel = atan(Cap_Actuel) * 180 / LOCAL_PI;
+		Cap_Destination = atan(Cap_Destination) * 180 / LOCAL_PI;
 
+		float Cap_Derive = (Cap_Destination - Cap_Actuel);
+
+		float OppositeAngle = asin(sin(Cap_Derive)*5/RemainingDistance);
+
+		Corrective_Cap = OppositeAngle + Cap_Derive;
+
+	} else {
+		//Path not set
+		std::cout << "Path NOT SET ! Error" << '\n';
+	}
 	return Corrective_Cap;
 }
 
 
 // Position
-int DisplayImage(int close){
+int Map::DisplayImage(int close){
 	if (close){
 		imshow("Image",imageClose);
 	} else {
@@ -156,25 +147,25 @@ int DisplayImage(int close){
 	return 1;
 }
 
-int DisplayMyPosition(){
+int Map::DisplayMyPosition(){
 	circle(image, Point(GetDisplayX(CurrentPosition_Lon), GetDisplayY(CurrentPosition_Lat)),  5, Scalar(0, 0, 255, 255), -1, 8, 0);
 	return 1;
 }
 
-int DisplayCloseMyPosition(){
+int Map::DisplayCloseMyPosition(){
 	circle(imageClose, Point(GetCloseDisplayX(CurrentPosition_Lon), GetCloseDisplayY(CurrentPosition_Lat)),  5, Scalar(0, 0, 255, 255), -1, 8, 0);
 	return 1;
 }
 
-int DisplayCloseToLocation(){
+int Map::DisplayCloseToLocation(cv::Mat imageToWriteOn){
 	//Position in the center of the screen
 	SetBeta();
-	CreateAll(1);
+	CreateAll(1, imageToWriteOn);
 	return 1;
 }
 
 // Distance between two points (longitude, latitude)
-double DirectDistance(double lat1, double lng1, double lat2, double lng2)
+double Map::DirectDistance(double lat1, double lng1, double lat2, double lng2)
 {
 	double earthRadius = 6371000; //meters
 	double dLat = ToRadians(lat2-lat1);
@@ -188,50 +179,50 @@ double DirectDistance(double lat1, double lng1, double lat2, double lng2)
 }
 
 //Draw the buildings on the image (or imageClose)
-void DisplayAllBuildings(vector<Building *> v, int close){
+void Map::DisplayAllBuildings(vector<Building *> v, int close, cv::Mat imageToWriteOn){
 	for(vector<Building *>::iterator it = v.begin(); it != v.end(); ++it) {
-		(*it)->Display(close);
+		(*it)->Display(close, imageToWriteOn);
 	}
 }
 
-void DisplayAllUserNodes(vector<Node *> v, int close){
+void Map::DisplayAllUserNodes(vector<Node *> v, int close, cv::Mat imageToWriteOn){
 	for(vector<Node *>::iterator it = v.begin(); it != v.end(); ++it) {
-		(*it)->Display(close);
+		(*it)->Display(close, imageToWriteOn);
 	}
 }
 
 //	Display every roads and the one we are on with a different color
-void DisplayAllRoads(vector<Road *> v, int close){
+void Map::DisplayAllRoads(vector<Road *> v, int close, cv::Mat imageToWriteOn){
 	int i = 0;
 	for(vector<Road *>::iterator it = v.begin(); it != v.end(); ++it) {
-		(*it)->Display(close);
+		(*it)->Display(close, imageToWriteOn);
 		i++;
 	}
 	cout << "roads displayed : " << i << '\n';
 }
 
-int GetCloseDisplayX(double lon){
+int Map::GetCloseDisplayX(double lon){
 	double temp = ((lon - Min_lon)*Beta) - Delta_Lon;
 	return temp;
 }
 
-int GetCloseDisplayY(double lat){
+int Map::GetCloseDisplayY(double lat){
 	double temp = ((Max_lat - lat)*Beta) - Delta_Lat;
 	return temp;
 }
 
-int GetDisplayX(double lon){
+int Map::GetDisplayX(double lon){
 	double temp = ((lon - Min_lon)*Alpha) + 10;
 	return temp;
 }
 
-int GetDisplayY(double lat){
+int Map::GetDisplayY(double lat){
 	double temp = ((Max_lat - lat)*Alpha) + 10;
 	return temp;
 }
 
 // Returns the Node with the specified ID
-Node * GetNodeById(long double id){
+Node * Map::GetNodeById(long double id){
 	Node * null = NULL;
 	for(vector<Node *>::iterator it = Node_Vec.begin(); it != Node_Vec.end(); ++it) {
 		if((*it)->GetId() == id){
@@ -242,7 +233,7 @@ Node * GetNodeById(long double id){
 }
 
 // Set the alpha factor that convert longitude/latitude in pixels
-void SetAlpha(){
+void Map::SetAlpha(){
 	double Alpha_lon = (LARGEUR_FENETRE - 20)/(Max_lon - Min_lon);
 	double Alpha_lat = (HAUTEUR_FENETRE - 20)/(Max_lat - Min_lat);
 	if (Alpha_lon < Alpha_lat){
@@ -253,11 +244,17 @@ void SetAlpha(){
 	cout << "Alpha = " << Alpha << '\n';
 }
 
-void SetBeta(){
+void Map::SetBeta(){
 	Beta = 5 * Alpha;
 }
 
-int SetPosition(double lon, double lat){
+void Map::SetPath(vector<Node> path){
+	PathToDestination = path;
+	CurrentIntermediateDestinationNode = 0;
+	PathSet = 1;
+}
+
+int Map::SetPosition(double lon, double lat){
 	PreviousPosition_Lat = CurrentPosition_Lat;
 	PreviousPosition_Lon = CurrentPosition_Lon;
 	CurrentPosition_Lon = lon;
@@ -270,18 +267,24 @@ int SetPosition(double lon, double lat){
 	return 1;
 }
 
-void SetDestination(double lon, double lat){
+void Map::SetDestination(double lon, double lat){
 	DestinationPosition_Lon = lon;
 	DestinationPosition_Lat = lat;
 }
-
-double ToRadians(double degrees)
+/*
+vector<Node> SortCatsByAge(){
+vector< cat > cats_copy = cats;
+std::sort(cats_copy.begin(), cats_copy.end());
+return cats_copy;
+}
+*/
+double Map::ToRadians(double degrees)
 {
 	double radians = degrees * LOCAL_PI / 180;
 	return radians;
 }
 
-void WhichRoad(double lon, double lat){
+void Map::WhichRoad(double lon, double lat){
 	int Road_Nb = 0;
 	double Distance_Min = 5000;
 	for(vector<Road *>::iterator it = Road_Vec.begin(); it != Road_Vec.end(); ++it) {
@@ -295,7 +298,7 @@ void WhichRoad(double lon, double lat){
 	CurrentRoad = Road_Nb;
 }
 
-double WhichRoadWithLatLon(){
+double Map::WhichRoadWithLatLon(){
 	cout << "Which Road ? Point is : " <<  CurrentPosition_Lon << " , " << CurrentPosition_Lat << '\n';
 	WhichRoad(CurrentPosition_Lon,CurrentPosition_Lat);
 	std::cout << "Current Road = " << CurrentRoad << '\n';
@@ -303,240 +306,27 @@ double WhichRoadWithLatLon(){
 }
 
 
-/********************************/
-/*								*/
-/*			NODE				*/
-/*								*/
-/********************************/
+Map::Map(rapidxml::file<> xmlFile){
 
+	image = cv::Mat::zeros(cv::Size(LARGEUR_FENETRE, HAUTEUR_FENETRE), CV_8UC3);
+	imageClose = cv::Mat::zeros(cv::Size(LARGEUR_FENETRE, HAUTEUR_FENETRE), CV_8UC3);
 
-void Node::ToString(){
-	if (user){
-		cout << "Node called : " << Name << "    with id : " << id << " longitude : " << longitude << " and latitude : " << latitude << "\n";
-	} else {
-		cout << "My node with id : " << id << " longitude : " << longitude << " and latitude : " << latitude << "\n";
-	}
-}
-Node::Node(){
-	id = 0;
-}
+	Min_lon = 50;
+	Max_lon = 0;
+	Min_lat = 50;
+	Max_lat = 0;
+	Alpha = 0;
+	Beta = 0;
+	Delta_Lon = 0;
+	Delta_Lat = 0;
+	static int CurrentRoad = 0;
 
-Node::Node(double Node_Id, float lon, float lat){
-	id = Node_Id;
-	longitude = lon;
-	latitude = lat;
-}
-
-void Node::SetName(string NAME){
-	Name = NAME;
-	user = 1;
-}
-
-void Node::Display(int close){
-	if (close){
-		circle(imageClose, Point(GetCloseDisplayX(longitude), GetCloseDisplayY(latitude)),  5, Scalar(0, 20, 170, 255), 1, 8, 0);
-		putText(imageClose, Name, cvPoint(GetCloseDisplayX(longitude)+5,GetCloseDisplayY(latitude)+5),
-		FONT_HERSHEY_COMPLEX_SMALL, 0.5, cvScalar(200,200,250), 1, CV_AA);
-	} else {
-		if (user){
-			circle(image, Point(GetDisplayX(longitude), GetDisplayY(latitude)),  5, Scalar(0, 20, 170, 255), 1, 8, 0);
-			putText(image, Name, cvPoint(GetDisplayX(longitude)+5,GetDisplayY(latitude)+5),
-			FONT_HERSHEY_COMPLEX_SMALL, 0.5, cvScalar(200,200,250), 1, CV_AA);
-		}
-	}
-}
-
-float Node::GetLatitude(){
-	return latitude;
-}
-float Node::GetLongitude(){
-	return longitude;
-}
-double Node::GetId(){
-	return id;
-}
-
-/********************************/
-/*								*/
-/*			ROAD				*/
-/*								*/
-/********************************/
-
-void Road::Compute_Coefs(){
-	a = (end.GetLatitude() - begin.GetLatitude())/(end.GetLongitude() - begin.GetLongitude());
-	b = begin.GetLatitude() - begin.GetLongitude() * a;
-}
-
-void Road::ToString(){
-	cout.precision(12);
-	cout << "My road with id : " << id << " has an equation : " << a << " x + " << b << "\n";
-}
-
-Road::Road(double Road_Id, vector<Node> VEC){
-	id = Road_Id;
-	Road_Nodes = VEC;
-	Compute_Coefs();
-}
-
-Road::Road(double Road_Id, Node b, Node e){
-	id = Road_Id;
-	begin = b;
-	end = e;
-	Compute_Coefs();
-}
-
-void Road::SetEndNode(Node e){
-	end = e;
-	Compute_Coefs();
-}
-
-double Road::DistanceToCenter(double lon, double lat){
-	double Proj_Lon = (lon + a*lat - a*b)/(1 + a*a);
-	double Proj_Lat = (a*lon + a*a*lat + b)/(1 + a*a);
-	if (Proj_Lat > begin.GetLatitude() && Proj_Lat > end.GetLatitude()){
-		if (end.GetLatitude() > begin.GetLatitude()){
-			return DirectDistance(lat, lon, end.GetLatitude(), end.GetLongitude());
-		} else {
-			return DirectDistance(lat, lon, begin.GetLatitude(), begin.GetLongitude());
-		}
-	} else if (Proj_Lat < begin.GetLatitude() && Proj_Lat < end.GetLatitude()){
-		if (end.GetLatitude() < begin.GetLatitude()){
-			return DirectDistance(lat, lon, end.GetLatitude(), end.GetLongitude());
-		} else {
-			return DirectDistance(lat, lon, begin.GetLatitude(), begin.GetLongitude());
-		}
-	} else {
-		return DirectDistance(lat, lon, Proj_Lat, Proj_Lon);
-	}
-}
-
-void Road::Display(int close){
-	if (close){
-		if (!Beta){
-			SetBeta();
-		}
-		if (id == CurrentRoad){
-			line(imageClose, Point(GetCloseDisplayX(begin.GetLongitude()),GetCloseDisplayY(begin.GetLatitude())), Point(GetCloseDisplayX(end.GetLongitude()), GetCloseDisplayY(end.GetLatitude())), Scalar( 255, 0, 0, 255),  1, 0 );
-		} else {
-			line(imageClose, Point(GetCloseDisplayX(begin.GetLongitude()),GetCloseDisplayY(begin.GetLatitude())), Point(GetCloseDisplayX(end.GetLongitude()), GetCloseDisplayY(end.GetLatitude())), Scalar( 110, 220, 100),  1, 0 );
-		}
-	} else {
-		if (Alpha){		// Alpha needs to be defined to get (x,y) coordinates
-			int y1 = GetDisplayY(begin.GetLatitude());
-			int x1 = GetDisplayX(begin.GetLongitude());
-			int y2 = GetDisplayY(end.GetLatitude());
-			int x2 = GetDisplayX(end.GetLongitude());
-			if (id == CurrentRoad){
-				line(image, Point(x1,y1), Point(x2, y2), Scalar( 255, 0, 0, 255),  1, 0 );
-			} else {
-				line(image, Point(x1,y1), Point(x2, y2), Scalar( 110, 220, 100),  1, 0 );
-			}
-		}
-	}
-}
-
-float Road::GetA(){
-	return a;
-}
-float Road::GetB(){
-	return b;
-}
-double Road::GetId(){
-	return id;
-}
-Node Road::GetBegin(){
-	return begin;
-}
-Node Road::GetEnd(){
-	return end;
-}
-
-
-/********************************/
-/*								*/
-/*			BUILDING			*/
-/*								*/
-/********************************/
-
-Building::Building(int ID, string NAME, vector<Node> VEC){
-	id = ID;
-	Name = NAME;
-	Building_Corner_Vec = VEC;
-}
-
-//	Enable the building to have more than 4 walls.
-void Building::Display(int close){
-	if (close){
-		if (Beta){
-			long VecSize = Building_Corner_Vec.size();
-			long NumberOfCoordinates = VecSize*2;
-			int XAndYs [NumberOfCoordinates];						// EVEN numbers are the Xs and ODD numbers are Ys
-			XAndYs[0] = GetCloseDisplayX(Building_Corner_Vec[0].GetLongitude());
-			XAndYs[1] = GetCloseDisplayY(Building_Corner_Vec[0].GetLatitude());
-			int index;
-			for(index = 1; index < VecSize ; index++){
-				XAndYs[index*2] = GetCloseDisplayX(Building_Corner_Vec[index].GetLongitude());
-				XAndYs[index*2+1] = GetCloseDisplayY(Building_Corner_Vec[index].GetLatitude());
-				line(imageClose, Point(XAndYs[(index-1)*2],XAndYs[(index-1)*2+1]), Point(XAndYs[index*2], XAndYs[index*2+1]), Scalar( 0, 220, 100, 255),  1, 0 );
-			}
-			line(imageClose, Point(XAndYs[(index-1)*2],XAndYs[(index-1)*2+1]), Point(XAndYs[0], XAndYs[1]), Scalar( 0, 220, 100, 255),  1, 0 );
-		}
-	} else {
-		if (Alpha){
-			long VecSize = Building_Corner_Vec.size();
-			long NumberOfCoordinates = VecSize*2;
-			int XAndYs [NumberOfCoordinates];						// EVEN numbers are the Xs and ODD numbers are Ys
-			XAndYs[0] = GetDisplayX(Building_Corner_Vec[0].GetLongitude());
-			XAndYs[1] = GetDisplayY(Building_Corner_Vec[0].GetLatitude());
-			int index;
-			for(index = 1; index < VecSize ; index++){
-				XAndYs[index*2] = GetDisplayX(Building_Corner_Vec[index].GetLongitude());
-				XAndYs[index*2+1] = GetDisplayY(Building_Corner_Vec[index].GetLatitude());
-				line(image, Point(XAndYs[(index-1)*2],XAndYs[(index-1)*2+1]), Point(XAndYs[index*2], XAndYs[index*2+1]), Scalar( 0, 220, 100, 255),  1, 0 );
-			}
-			line(image, Point(XAndYs[(index-1)*2],XAndYs[(index-1)*2+1]), Point(XAndYs[0], XAndYs[1]), Scalar( 0, 220, 100, 255),  1, 0 );
-		}
-	}
-}
-
-string Building::GetName(){
-	return Name;
-}
-
-double Building::GetId(){
-	return id;
-}
-
-
-
-
-
-
-
-/*************************************/
-/*									 */
-/*				MAIN / INIT		 	 */
-/*									 */
-/*************************************/
-
-
-
-
-
-
-
-
-int init(){
 	try {
-		file<> xmlFile("heavy.osm");
 		xml_document<> doc;
 		doc.parse<0>(xmlFile.data());
 		xml_node<> * root = doc.first_node();
 
-		Min_lon = 50;
-		Max_lon = 0;
-		Min_lat = 50;
-		Max_lat = 0;
+
 
 		double id = 0;
 		double lon = 0;
@@ -681,5 +471,226 @@ int init(){
 	{
 		cout << "Problem when opening the map file : " << '\n';
 	}
-	return 1;
+}
+
+
+
+
+
+
+
+
+/********************************/
+/*								*/
+/*			NODE				*/
+/*								*/
+/********************************/
+
+
+void Node::ToString(){
+	if (user){
+		cout << "Node called : " << Name << "    with id : " << id << " longitude : " << longitude << " and latitude : " << latitude << "\n";
+	} else {
+		cout << "My node with id : " << id << " longitude : " << longitude << " and latitude : " << latitude << "\n";
+	}
+}
+Node::Node(){
+	id = 0;
+}
+
+Node::Node(double Node_Id, float lon, float lat){
+	id = Node_Id;
+	longitude = lon;
+	latitude = lat;
+}
+
+bool Node::operator< (const Node &other) {
+	return id < other.id;
+}
+
+void Node::SetName(string NAME){
+	Name = NAME;
+	user = 1;
+}
+
+void Node::Display(int close, cv::Mat imageToWriteOn){
+	if (close){
+		circle(imageToWriteOn, Point(Map::GetCloseDisplayX(longitude), Map::GetCloseDisplayY(latitude)),  5, Scalar(0, 20, 170, 255), 1, 8, 0);
+		putText(imageToWriteOn, Name, cvPoint(Map::GetCloseDisplayX(longitude)+5,Map::GetCloseDisplayY(latitude)+5),
+		FONT_HERSHEY_COMPLEX_SMALL, 0.5, cvScalar(200,200,250), 1, CV_AA);
+	} else {
+		if (user){
+			circle(imageToWriteOn, Point(Map::GetDisplayX(longitude), Map::GetDisplayY(latitude)),  5, Scalar(0, 20, 170, 255), 1, 8, 0);
+			putText(imageToWriteOn, Name, cvPoint(Map::GetDisplayX(longitude)+5,Map::GetDisplayY(latitude)+5),
+			FONT_HERSHEY_COMPLEX_SMALL, 0.5, cvScalar(200,200,250), 1, CV_AA);
+		}
+	}
+}
+
+float Node::GetLatitude(){
+	return latitude;
+}
+float Node::GetLongitude(){
+	return longitude;
+}
+double Node::GetId(){
+	return id;
+}
+
+
+
+
+
+
+
+
+/********************************/
+/*								*/
+/*			ROAD				*/
+/*								*/
+/********************************/
+
+void Road::Compute_Coefs(){
+	a = (end.GetLatitude() - begin.GetLatitude())/(end.GetLongitude() - begin.GetLongitude());
+	b = begin.GetLatitude() - begin.GetLongitude() * a;
+}
+
+void Road::ToString(){
+	cout.precision(12);
+	cout << "My road with id : " << id << " has an equation : " << a << " x + " << b << "\n";
+}
+
+Road::Road(double Road_Id, vector<Node> VEC){
+	id = Road_Id;
+	Road_Nodes = VEC;
+	Compute_Coefs();
+}
+
+Road::Road(double Road_Id, Node b, Node e){
+	id = Road_Id;
+	begin = b;
+	end = e;
+	Compute_Coefs();
+}
+
+void Road::SetEndNode(Node e){
+	end = e;
+	Compute_Coefs();
+}
+
+double Road::DistanceToCenter(double lon, double lat){
+	double Proj_Lon = (lon + a*lat - a*b)/(1 + a*a);
+	double Proj_Lat = (a*lon + a*a*lat + b)/(1 + a*a);
+	if (Proj_Lat > begin.GetLatitude() && Proj_Lat > end.GetLatitude()){
+		if (end.GetLatitude() > begin.GetLatitude()){
+			return Map::DirectDistance(lat, lon, end.GetLatitude(), end.GetLongitude());
+		} else {
+			return Map::DirectDistance(lat, lon, begin.GetLatitude(), begin.GetLongitude());
+		}
+	} else if (Proj_Lat < begin.GetLatitude() && Proj_Lat < end.GetLatitude()){
+		if (end.GetLatitude() < begin.GetLatitude()){
+			return Map::DirectDistance(lat, lon, end.GetLatitude(), end.GetLongitude());
+		} else {
+			return Map::DirectDistance(lat, lon, begin.GetLatitude(), begin.GetLongitude());
+		}
+	} else {
+		return Map::DirectDistance(lat, lon, Proj_Lat, Proj_Lon);
+	}
+}
+
+void Road::Display(int close, cv::Mat imageToWriteOn){
+	if (close){
+		if (!Map::Beta){
+			Map::SetBeta();
+		}
+		if (id == Map::CurrentRoad){
+			line(imageToWriteOn, Point(Map::GetCloseDisplayX(begin.GetLongitude()),Map::GetCloseDisplayY(begin.GetLatitude())), Point(Map::GetCloseDisplayX(end.GetLongitude()), Map::GetCloseDisplayY(end.GetLatitude())), Scalar( 255, 0, 0, 255),  1, 0 );
+		} else {
+			line(imageToWriteOn, Point(Map::GetCloseDisplayX(begin.GetLongitude()),Map::GetCloseDisplayY(begin.GetLatitude())), Point(Map::GetCloseDisplayX(end.GetLongitude()), Map::GetCloseDisplayY(end.GetLatitude())), Scalar( 110, 220, 100),  1, 0 );
+		}
+	} else {
+		if (Map::Alpha){		// Alpha needs to be defined to get (x,y) coordinates
+			int y1 = Map::GetDisplayY(begin.GetLatitude());
+			int x1 = Map::GetDisplayX(begin.GetLongitude());
+			int y2 = Map::GetDisplayY(end.GetLatitude());
+			int x2 = Map::GetDisplayX(end.GetLongitude());
+			if (id == Map::CurrentRoad){
+				line(imageToWriteOn, Point(x1,y1), Point(x2, y2), Scalar( 255, 0, 0, 255),  1, 0 );
+			} else {
+				line(imageToWriteOn, Point(x1,y1), Point(x2, y2), Scalar( 110, 220, 100),  1, 0 );
+			}
+		}
+	}
+}
+
+float Road::GetA(){
+	return a;
+}
+float Road::GetB(){
+	return b;
+}
+double Road::GetId(){
+	return id;
+}
+Node Road::GetBegin(){
+	return begin;
+}
+Node Road::GetEnd(){
+	return end;
+}
+
+
+/********************************/
+/*								*/
+/*			BUILDING			*/
+/*								*/
+/********************************/
+
+Building::Building(int ID, string NAME, vector<Node> VEC){
+	id = ID;
+	Name = NAME;
+	Building_Corner_Vec = VEC;
+}
+
+//	Enable the building to have more than 4 walls.
+void Building::Display(int close, cv::Mat imageToWriteOn){
+	if (close){
+		if (Map::Beta){
+			long VecSize = Building_Corner_Vec.size();
+			long NumberOfCoordinates = VecSize*2;
+			int XAndYs [NumberOfCoordinates];						// EVEN numbers are the Xs and ODD numbers are Ys
+			XAndYs[0] = Map::GetCloseDisplayX(Building_Corner_Vec[0].GetLongitude());
+			XAndYs[1] = Map::GetCloseDisplayY(Building_Corner_Vec[0].GetLatitude());
+			int index;
+			for(index = 1; index < VecSize ; index++){
+				XAndYs[index*2] = Map::GetCloseDisplayX(Building_Corner_Vec[index].GetLongitude());
+				XAndYs[index*2+1] = Map::GetCloseDisplayY(Building_Corner_Vec[index].GetLatitude());
+				line(imageToWriteOn, Point(XAndYs[(index-1)*2],XAndYs[(index-1)*2+1]), Point(XAndYs[index*2], XAndYs[index*2+1]), Scalar( 0, 220, 100, 255),  1, 0 );
+			}
+			line(imageToWriteOn, Point(XAndYs[(index-1)*2],XAndYs[(index-1)*2+1]), Point(XAndYs[0], XAndYs[1]), Scalar( 0, 220, 100, 255),  1, 0 );
+		}
+	} else {
+		if (Map::Alpha){
+			long VecSize = Building_Corner_Vec.size();
+			long NumberOfCoordinates = VecSize*2;
+			int XAndYs [NumberOfCoordinates];						// EVEN numbers are the Xs and ODD numbers are Ys
+			XAndYs[0] = Map::GetDisplayX(Building_Corner_Vec[0].GetLongitude());
+			XAndYs[1] = Map::GetDisplayY(Building_Corner_Vec[0].GetLatitude());
+			int index;
+			for(index = 1; index < VecSize ; index++){
+				XAndYs[index*2] = Map::GetDisplayX(Building_Corner_Vec[index].GetLongitude());
+				XAndYs[index*2+1] = Map::GetDisplayY(Building_Corner_Vec[index].GetLatitude());
+				line(imageToWriteOn, Point(XAndYs[(index-1)*2],XAndYs[(index-1)*2+1]), Point(XAndYs[index*2], XAndYs[index*2+1]), Scalar( 0, 220, 100, 255),  1, 0 );
+			}
+			line(imageToWriteOn, Point(XAndYs[(index-1)*2],XAndYs[(index-1)*2+1]), Point(XAndYs[0], XAndYs[1]), Scalar( 0, 220, 100, 255),  1, 0 );
+		}
+	}
+}
+
+string Building::GetName(){
+	return Name;
+}
+
+double Building::GetId(){
+	return id;
 }
