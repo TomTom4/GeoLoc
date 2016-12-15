@@ -3,43 +3,54 @@
 #include <cstdio>
 #include <cstdlib>
 #include <vector>
-// Router.cpp is interface to routing/navigation python function.
-// Parameters: startpoint ID of osm xml, destination ID of xml.
-// Return : char array or vector of route
+#include <stdlib.h>
 using namespace std;
-typedef char Point[8];
-vector<char> listTupleToVector_Int(PyObject* incoming); 
-// TODO change 'main' to function name , parameters should be 
-// startpoint ID of osm xml file and destination ID of osm xml file.
-// save strItem to new data type ,it can be vector or just a array depends 
-// on caller function.
+#define PY_router "routing"
+
+vector<char*> getpath(char pointA[],char pointB[]);
+//int main()
 int main(int argc,char *argv[])
 {
-    PyObject *pName, *pModule, *pDict, *pFunc, *pInstance, *pPath, *pListItem;
-    char *strItem;
-    std:: vector<char> path;
-    // init variables for extract elements from list.
-    int element_num,k;
-    int i;
-    Point *p;
+    std::vector<char*> ipath;
+    char pointA[7] = "-1630";
+    char pointB[7] = "-1633";
+     
+    printf("%s.....%s\n",pointA,pointB);
+    ipath = getpath(pointA,pointB);
+    int len = (int)ipath.size();
+    printf("ipath lentfh :%d",len); 
+    return 0;
+}
 
+vector<char*> getpath(char pointA[] ,char pointB[])
+//int main(int argc,char *argv[])
+{
+    PyObject *pName, *pModule, *pDict, *pFunc,  *pPath, *pListItem;
+    PyObject *arglist;
+    char *pycpp_path_result;
+    std::vector<char*> path;
+    std::vector<char*>::iterator itpath;
+    
+    int element_num,k;
+    printf("%s...getpath..%s\n",pointA,pointB);
+    arglist = Py_BuildValue("ss",pointA,pointB);
+    
+    // init variables for extract elements from list.
     // Initialize the Python interpreter
+    // TODO system call export PYTHONPATH=$PWD
+    system("echo -------------lajsldklajsdjlsajdlkjsaljlkdlksaljdlkjsa");
+    system("export PYTHONPATH=$PWD");
     Py_Initialize();
     if(!Py_IsInitialized())
     {
         printf("init error\n");
     }
-    PyRun_SimpleString("print '----import re,string,sys----'");
-    PyRun_SimpleString("print '----import xml.sax as sax----'");
-    PyRun_SimpleString("print '----from math import radians,cos,sin,asin,sqrt----'");
     PyRun_SimpleString("import re,string,sys");
     PyRun_SimpleString("import xml.sax as sax ");
     PyRun_SimpleString("from math import radians,cos,sin,asin,sqrt");
     
     // Build the name object
-    pName = PyString_FromString(argv[1]);
-    //p1 = PyString_FromString(argv[2]);
-    //p2 = PyString_FromString(argv[3]);
+    pName = PyString_FromString("routing");
 
     // Load the module object
     pModule = PyImport_Import(pName);
@@ -47,34 +58,38 @@ int main(int argc,char *argv[])
     {
         PyErr_Print();
         printf("can't find routing.py\n");
-        return 0;
+        return path; 
     }
 
     // pDict is a borrowed reference
     pDict = PyModule_GetDict(pModule);
     if(!pDict)
     {
-        return 0;
+        printf("Pymodule_getDict() fail\n");
+        return path;
     }
 
     // Build the name of a callable class
     pFunc = PyDict_GetItemString(pDict, "cpp_call");
+    pPath = PyObject_CallFunctionObjArgs(pFunc,arglist,NULL);
     
-    pPath = PyObject_CallFunction(pFunc,NULL);
-    //PyArg_ParseTuple(pPath,"-1",&element_num,*p1,*p2);
     element_num = PyObject_Length(pPath);
     k = PyObject_Size(pPath);
-    printf("C++ ................pPath size or length:%d, %d\n",element_num,k);
-    printf("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n"); 
+    printf("ROUTER_CPP: pPath size or length -:%d, %d\n",element_num,k);
+    itpath = path.begin();
     for (int i = 0; i < element_num; i++)
     {
         pListItem = PyList_GetItem(pPath, i);
-        strItem = PyString_AsString(pListItem);
-        printf("%s\n",strItem );
+        pycpp_path_result = PyString_AsString(pListItem);
+        itpath = path.insert(itpath,pycpp_path_result);
+        printf("ROUTER_CPP : path via - %s\n",pycpp_path_result);
     }
-        printf("IN CPP we got : %d elements from PYTHON\n",element_num);
-
+    for(itpath=path.begin();itpath<path.end();itpath++)
+        std::cout<<' '<<*itpath;
+    std::cout<<'\n';
+        //printf("IN CPP we got : %d elements from PYTHON\n",element_num);
     Py_Finalize();
+    return path;
 }
 
 
