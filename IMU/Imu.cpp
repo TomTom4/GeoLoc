@@ -100,10 +100,10 @@ void Imu::getAcceleroData(void)
     accelero_data.x = (float)ax * ACCELERO_MUL_8_G + accelero_offset.x;  // real existing bias on X axis
     accelero_data.y = (float)ay * ACCELERO_MUL_8_G + accelero_offset.y;
     accelero_data.z = -((float)az * ACCELERO_MUL_8_G + accelero_offset.z);
+}
 
-    std::cout << "Accelero Data X : " << accelero_data.x << '\n';
-    std::cout << "Accelero Data Y : " << accelero_data.y << '\n';
-    std::cout << "Accelero Data Z : " << accelero_data.z << '\n';
+void Imu::DisplayAcceleroData(void){
+    std::cout << "Accelero X : " << accelero_data.x << "\tAccelero Y : " << accelero_data.y <<"\tAccelero Z : " << accelero_data.z << '\n';
 }
 
 /*****************************GET_GYRO_DATA***********************************/
@@ -137,15 +137,16 @@ void Imu::getGyroData(void)
     gyro_data_old.y = gyro_data.y;
     gyro_data_old.z = gyro_data.z;
 
-    gyro_data.x = -((float)gx * GYRO_MUL_500_DPS + gyro_offset.x) ;
+    gyro_data.x = -((float)gx * GYRO_MUL_500_DPS + gyro_offset.x);
     gyro_data.y = -((float)gy * GYRO_MUL_500_DPS + gyro_offset.y);
     gyro_data.z = -((float)gz * GYRO_MUL_500_DPS + gyro_offset.z);     //-   clockwise convention
-
-    std::cout << "Gyro Data X : " << gyro_data.x << '\n';
-    std::cout << "Gyro Data Y : " << gyro_data.y << '\n';
-    std::cout << "Gyro Data Z : " << gyro_data.z << '\n';
-
 }
+
+void Imu::DisplayGyroData(void){
+    std::cout << "Gyro X : " << gyro_data.x << "\tGyro Y : " << gyro_data.y <<"\tGyro Z : " << gyro_data.z << '\n';
+}
+
+
 
 /*****************************GET_magNETO_DATA********************************/
 /* Get the raw magnetic field value on all 3 axis converted to uT            */
@@ -194,10 +195,10 @@ void Imu::getmagnetoData(void)
     magneto_data.x = ((float)mx * magneto_offset.gain_x * MAG_MUL_16_BITS - magneto_offset.x);
     magneto_data.y = ((float)my * magneto_offset.gain_y * MAG_MUL_16_BITS - magneto_offset.y);
     magneto_data.z = ((float)mz * magneto_offset.gain_z * MAG_MUL_16_BITS - magneto_offset.z);
+}
 
-    std::cout << "Magneto Data X : " << magneto_data.x << '\n';
-    std::cout << "Magneto Data Y : " << magneto_data.y << '\n';
-    std::cout << "Magneto Data Z : " << magneto_data.z << '\n';
+void Imu::DisplayMagnetoData(void){
+    std::cout << "Magneto X : " << magneto_data.x << "\tMagneto Y : " << magneto_data.y <<"\tMagneto Z : " << magneto_data.z << '\n';
 }
 
 /*****************************AVERAGE_MAGNETO_DATA****************************/
@@ -214,7 +215,7 @@ void Imu::averageMagnetoData ()
 
     // Loop for 5 measurements
 
-    for (int i = 0; i< 5 ; i++)
+    for (int i = 0; i< 50 ; i++)
     {
         // Get magneto_data & build the sum
         getmagnetoData();
@@ -223,9 +224,9 @@ void Imu::averageMagnetoData ()
         sum_z += magneto_data.z;
     }
     // Build the average value for each axis
-    magneto_data.x = sum_x / 5.0;
-    magneto_data.y = sum_y / 5.0;
-    magneto_data.z = sum_z / 5.0;
+    magneto_data.x = sum_x / 50.0;
+    magneto_data.y = sum_y / 50.0;
+    magneto_data.z = sum_z / 50.0;
 }
 
 /*****************************GYRO_CALIB**************************************/
@@ -244,23 +245,17 @@ void Imu::gyroCalib(void)
     // compute average offsets
     for (int i = 0; i < 50;i++)
     {
-        // Get data
-        getGyroData(); // TO DO
+        getGyroData(); // Get data
         // compute mean for all offsets (addition)
         o_gx += gyro_data.x;
         o_gy += gyro_data.y;
         o_gz += gyro_data.z;
-        usleep(10000); // A VERIF
+        usleep(10000);
     }
-
     // compute mean
-    o_gx /= 500;
-    o_gy /= 500;
-    o_gz /= 500;
-
-    gyro_offset.x = o_gx;
-    gyro_offset.y = o_gy;
-    gyro_offset.z = o_gz;
+    gyro_offset.x = o_gx / 50.0;
+    gyro_offset.y = o_gy / 50.0;
+    gyro_offset.z = o_gz / 50.0;
 }
 
 /*****************************MAGNETO_CALIB***********************************/
@@ -284,7 +279,7 @@ void Imu::magnetoCalib(void)
 
     sample_count = 2000;                                  // 60 sec de calib
     int i = 0;
-    for(int i = 0; i < sample_count; i++)
+    for(; i < sample_count; i++)
     {
         getAcceleroData(); // modif accelero_data
         // take in account magnero measuremet only if car horizontal
@@ -292,14 +287,20 @@ void Imu::magnetoCalib(void)
         {
             getmagnetoData();  // modif magneto_data
 
-            if(magneto_data.x > mag_max[0]) mag_max[0] = magneto_data.x;
-            if(magneto_data.x < mag_min[0]) mag_min[0] = magneto_data.x;
+            if(magneto_data.x > mag_max[0])
+                mag_max[0] = magneto_data.x;
+            if(magneto_data.x < mag_min[0])
+                mag_min[0] = magneto_data.x;
 
-            if(magneto_data.y > mag_max[1]) mag_max[1] = magneto_data.y;
-            if(magneto_data.y < mag_min[1]) mag_min[1] = magneto_data.y;
+            if(magneto_data.y > mag_max[1])
+                mag_max[1] = magneto_data.y;
+            if(magneto_data.y < mag_min[1])
+                mag_min[1] = magneto_data.y;
 
-            if(magneto_data.z > mag_max[2]) mag_max[2] = magneto_data.z;
-            if(magneto_data.z < mag_min[2]) mag_min[2] = magneto_data.z;
+            if(magneto_data.z > mag_max[2])
+                mag_max[2] = magneto_data.z;
+            if(magneto_data.z < mag_min[2])
+                mag_min[2] = magneto_data.z;
 
             usleep(10000);  // at 100 Hz ODR, new mag data is available every 10 ms
         }
@@ -355,6 +356,15 @@ void Imu::lpFiltering(void)
     accelero_data_old = accelero_data;
     gyro_data_old = gyro_data;
     magneto_data_old = magneto_data;
+}
+
+void Imu::DisplayHeading(void){
+    getmagnetoData();
+    float heading = 180 * atan2(magneto_data.y,magneto_data.x)/PI;
+    if(heading < 0)
+        heading += 360;
+
+    std::cout << "heading : " << heading << '\n';
 }
 
 /*****************************REMOVE_GRAVITY**********************************/

@@ -230,14 +230,6 @@ public:
 
 };
 
-static double Min_lon = 50;
-static double Max_lon = 0;
-static double Min_lat = 50;
-static double Max_lat = 0;
-static double Alpha = 0;
-static double Beta = 0;
-static double Delta_Lon = 0;
-static double Delta_Lat = 0;
-static int CurrentRoad = 0;
+
 
 #endif
