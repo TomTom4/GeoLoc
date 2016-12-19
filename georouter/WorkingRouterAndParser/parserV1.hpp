@@ -16,7 +16,7 @@
 #define DISTANCE_BETWEEN_ACQUISITIONS 5
 #define GPS_UNCERTAINTY 2.5
 
-
+using namespace std;
 
 
 
@@ -54,6 +54,7 @@ public:
     float GetLatitude();
     float GetLongitude();
     double GetId();
+    string GetName();
 
     bool operator< (const Node &other);
 };
@@ -216,6 +217,8 @@ public:
     Node * GetNodeById(long double id);
 
     Road * GetRoadById(double id);
+
+    vector<tuple<string, double>> GetTupleOfDestinations();
 
     Map(rapidxml::file<> xmlFile);
 

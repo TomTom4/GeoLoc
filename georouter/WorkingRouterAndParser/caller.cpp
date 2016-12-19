@@ -19,23 +19,28 @@ int main(){
     rapidxml::file<> xmlFile("heavy.osm");
     Map MyMap(xmlFile);
 
+    std::vector<tuple<string, double>> MyVectorOfUserDestination = MyMap.GetTupleOfDestinations();
+
     double ExamplePointLat = 43.570779;
     double ExamplePointLon =  1.466925;
 
-    double ExamplePointLat_2 = 43.570825;
-    double ExamplePointLon_2 = 1.466964;
+    double ExamplePointLat_2 = 43.5721781;
+    double ExamplePointLon_2 = 1.4669524;
 
     double ExampleDestLat = 43.5708618;
     double ExampleDestLon = 1.4670463;
     MyMap.SetPosition(ExamplePointLon,ExamplePointLat);
     MyMap.SetDestination(ExampleDestLon, ExampleDestLat);
     MyMap.WhichRoadWithLatLon();
-    MyMap.DisplayMyPosition();
+
     MyMap.CreateAll(0, MyMap.image);
+    MyMap.DisplayMyPosition();
     MyMap.DisplayImage(0);
+
     MyMap.CreateAll(1, MyMap.imageClose);
     MyMap.DisplayCloseMyPosition();
     MyMap.DisplayImage(1);
+
     MyMap.SetPosition(ExamplePointLon_2, ExamplePointLat_2);
 
     MyMap.CreateAll(1, MyMap.imageClose);
@@ -45,7 +50,7 @@ int main(){
     // new
 
     double CurrentClosestNode = MyMap.GetClosestNode()->GetId();
-    CurrentClosestNode = trunc(CurrentClosestNode*1000000)/1000000;
+
     // Zepeng Code
 
     Router MyRouter;
@@ -54,7 +59,8 @@ int main(){
 
     //char pointA[7] = "-1630";
     char pointA [10];
-    sprintf (pointA, "%f", CurrentClosestNode);
+    // Need to remove the decimals
+    sprintf (pointA, "%.0f", CurrentClosestNode);
     std::cout << "Current closest node : " << pointA << '\n';
     char pointB[7] = "-1858";
 
@@ -63,12 +69,12 @@ int main(){
     int len = ipath.size();
     std::cout << "ipath length : " << len << '\n';
 
-    // Zepeng Code //
-
+    // End Zepeng Code //
 
     MyMap.SetPath(ipath);
     std::cout << "The cap to follow : " << MyMap.CapAlgorithm() << '\n';
     MyMap.DisplayPath(0, MyMap.image);
+    MyMap.DisplayImage(0);
 
     return 1;
 }
