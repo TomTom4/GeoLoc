@@ -1,4 +1,4 @@
-#include <Python/Python.h>
+#include <Python.h>
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>

@@ -13,6 +13,7 @@
 #include <math.h>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 
 #include "parserV1.hpp"
 
@@ -682,7 +683,7 @@ void Building::Display(int close, cv::Mat imageToWriteOn){
 				XAndYs[index*2+1] = Map::GetDisplayY(Building_Corner_Vec[index].GetLatitude());
 				line(imageToWriteOn, Point(XAndYs[(index-1)*2],XAndYs[(index-1)*2+1]), Point(XAndYs[index*2], XAndYs[index*2+1]), Scalar( 0, 220, 100, 255),  1, 0 );
 			}
-			line(imageToWriteOn, Point(XAndYs[(index-1)*2],XAndYs[(index-1)*2+1]), Point(XAndYs[0], XAndYs[1]), Scalar( 0, 220, 100, 255),  1, 0 );
+			cv::line(imageToWriteOn, Point(XAndYs[(index-1)*2],XAndYs[(index-1)*2+1]), Point(XAndYs[0], XAndYs[1]), Scalar( 0, 220, 100, 255),  1, 0 );
 		}
 	}
 }

@@ -7,6 +7,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <tuple>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -14,6 +15,7 @@
 #include <math.h>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 
 #include "parserV1.hpp"
 
