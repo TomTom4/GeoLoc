@@ -4,13 +4,31 @@
 #include <string>
 #include <vector>
 
+#include "rapidxml_utils.hpp"
 
-double ToRadians(double degrees);
-double DirectDistance(double lat1, double lng1, double lat2, double lng2);
-int GetDisplayX(double lon);
-int GetDisplayY(double lat);
-int GetCloseDisplayX(double lon);
-int GetCloseDisplayY(double lat);
+#include <math.h>
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+
+#define LOCAL_PI 3.1415926535897932385
+#define LARGEUR_FENETRE 700
+#define HAUTEUR_FENETRE 700
+#define DISTANCE_BETWEEN_ACQUISITIONS 5
+#define GPS_UNCERTAINTY 2.5
+
+
+
+
+
+
+
+
+
+/********************************/
+/*								*/
+/*		        NODE		    */
+/*								*/
+/********************************/
 
 class Node{
 
@@ -29,12 +47,26 @@ public:
 
     void SetName(std::string NAME);
 
-    void Display(int close);
+    void Display(int close, cv::Mat imageToWriteOn);
 
     float GetLatitude();
     float GetLongitude();
     double GetId();
+
+    bool operator< (const Node &other);
 };
+
+
+
+
+
+
+
+/********************************/
+/*								*/
+/*			   ROAD			    */
+/*								*/
+/********************************/
 
 class Road{
 
@@ -60,7 +92,7 @@ public:
 
     double DistanceToCenter(double lon, double lat);
 
-    void Display(int close);
+    void Display(int close, cv::Mat imageToWriteOn);
 
     float GetA();
     float GetB();
@@ -68,6 +100,15 @@ public:
     Node GetBegin();
     Node GetEnd();
 };
+
+
+
+
+/********************************/
+/*								*/
+/*			BUILDING			*/
+/*								*/
+/********************************/
 
 class Building{
 
@@ -80,7 +121,7 @@ public:
     Building(int ID, std::string NAME, std::vector<Node> VEC);
 
     //	Enable the building to have more than 4 walls.
-    void Display(int close);
+    void Display(int close, cv::Mat imageToWriteOn);
 
     std::string GetName();
 
@@ -89,58 +130,106 @@ public:
 
 /********************************/
 /*								*/
-/*			FUNCTIONS			*/
+/*			   MAP		        */
 /*								*/
 /********************************/
 
-//	Display every roads and the one we are on with a different color
-void DisplayAllRoads(std::vector<Road *> v, int close);
+class Map {
 
-//	Display every buildings
-void DisplayAllBuildings(std::vector<Building *> v, int close);
+private:
+    static double Min_lon;
+    static double Max_lon;
+    static double Min_lat;
+    static double Max_lat;
+    static double Delta_Lon;
+    static double Delta_Lat;
 
-void DisplayAllUserNodes(std::vector<Node *> v, int close);
+    int BaseIndexToCount = 1000;
 
-void WhichRoad(double lon, double lat, std::vector<Road *> v);
+    double CurrentPosition_Lon = 0;
+    double CurrentPosition_Lat = 0;
+    double PreviousPosition_Lon = 0;
+    double PreviousPosition_Lat = 0;
+    double DestinationPosition_Lon = 0;
+    double DestinationPosition_Lat = 0;
 
-// Set the alpha factor that convert longitude/latitude in pixels
-void SetAlpha();
+    std::vector<Node *> Node_Vec;
+    std::vector<Road *> Road_Vec;
+    std::vector<Building *> Building_Vec;
+    std::vector<Node *> User_Node;
 
-void SetBeta();
+    std::vector<Node> PathToDestination;
+    int CurrentIntermediateDestinationNode;
+    int PathSet = 0;
 
-float ComputeCoefA(Node begin, Node end);
+    int IntermediateDestinationReached = 0;
+    int FinalDestinationReached = 0;
 
-/********************************/
-/*								*/
-/*		GLOBAL VARIABLES		*/
-/*								*/
-/********************************/
+public:
+    static cv::Mat image;
+    static cv::Mat imageClose;
+    static double Alpha;
+    static double Beta;
+    static int CurrentRoad;
+
+    static double ToRadians(double degrees);
+
+    static double DirectDistance(double lat1, double lng1, double lat2, double lng2);
+
+    static int GetDisplayX(double lon);
+
+    static int GetDisplayY(double lat);
+
+    static int GetCloseDisplayX(double lon);
+
+    static int GetCloseDisplayY(double lat);
+
+    //	Display every roads and the one we are on with a different color
+    void DisplayAllRoads(std::vector<Road *> v, int close, cv::Mat imageToWriteOn);
+
+    //	Display every buildings
+    void DisplayAllBuildings(std::vector<Building *> v, int close, cv::Mat imageToWriteOn);
+
+    void DisplayAllUserNodes(std::vector<Node *> v, int close, cv::Mat imageToWriteOn);
+
+    void WhichRoad(double lon, double lat);
+
+    // Set the alpha factor that convert longitude/latitude in pixels
+    static void SetAlpha();
+
+    static void SetBeta();
+
+    float ComputeCoefA(Node begin, Node end);
+
+    void BuildAllRoads(int id_road, std::vector<Node> VEC);
+
+    // Returns the Node with the specified ID
+    Node * GetNodeById(long double id);
+
+    Map(rapidxml::file<> xmlFile);
+
+    double WhichRoadWithLatLon();
+
+    int CreateAll(int close, cv::Mat imageToWriteOn);
+
+    int DisplayImage(int close);
+
+    int SetPosition(double lon, double lat);
+
+    int DisplayMyPosition();
+
+    int DisplayCloseMyPosition();
+
+    int DisplayCloseToLocation(cv::Mat imageToWriteOn);
+
+    float CapAlgorithm();
+
+    void SetDestination(double lon, double lat);
+
+    void SetPath(std::vector<Node> path);
+
+};
 
 
-
-void BuildAllRoads(int id_road, std::vector<Node> VEC);
-
-// Returns the Node with the specified ID
-Node * GetNodeById(long double id);
-
-int init();
-
-double WhichRoadWithLatLon();
-
-int CreateAll(int close);
-
-int DisplayImage(int close);
-
-int SetPosition(double lon, double lat);
-
-int DisplayMyPosition();
-
-int DisplayCloseMyPosition();
-
-int DisplayCloseToLocation();
-
-float CapAlgorithm();
-
-void SetDestination(double lon, double lat);
 
 #endif

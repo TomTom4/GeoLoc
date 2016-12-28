@@ -200,8 +200,8 @@ class routingDb():
 			   #print "keeping node: " + str(i)
 			   tmpListOfNodes[i] = self.listOfNodes[i]
 		self.listOfNodes = tmpListOfNodes
-		print "<----------- Cleanup Done ---------------->"
-		self.printStatus()
+		#print "<----------- Cleanup Done ---------------->"
+		#self.printStatus()
 
 	def printStatus(self):
 		#print "<------------ Printing Status --------------->"
@@ -212,13 +212,13 @@ class routingDb():
 
 
 def readDb(dateiname,db):
-    print dateiname
+    #print dateiname
     handler = DictHandler()
     handler.setDb(db)
     parser = sax.make_parser()
     parser.setContentHandler(handler)
     parser.parse(dateiname)
-    print handler.notecount
+    #print handler.notecount
     return handler.ergebnis
 
 def findNextNodes(node):
@@ -285,14 +285,14 @@ def startRouting(db,startID,endID):
     maxSteps = 20
     startNode = db.getNode(startId)
     endNode = db.getNode(endId)
-    print "start Ziehl distanz: " + str(calcDistance(startNode,endNode))
+    #print "start Ziehl distanz: " + str(calcDistance(startNode,endNode))
     #startNode.printConnections()
 
     nowNode = startNode
     knownNodes.append(nowNode)
 
     while ((nowNode != endNode) & (len(knownNodes) > 0) & (maxSteps > 0)):
-      print "<< This is Step: " + str(maxSteps) + " >>"
+#      print "<< This is Step: " + str(maxSteps) + " >>"
       #maxSteps = maxSteps - 1
       knownNodes.remove(nowNode)
       exploredNodes.append(nowNode)
@@ -307,12 +307,12 @@ def startRouting(db,startID,endID):
 	      print i.id + " is allread known"
 	    else:
 	      knownNodes.append(i)
-      print "I know some Nodes: "
-      for i in knownNodes:
-	print i.id
-      print "I explored some Nodes: "
-      for i in exploredNodes:
-	print i.id
+#      print "I know some Nodes: "
+#      for i in knownNodes:
+#	print i.id
+#      print "I explored some Nodes: "
+#      for i in exploredNodes:
+#	print i.id
 
       nowNode = findTopNode(knownNodes)
 
@@ -328,20 +328,12 @@ def startRouting(db,startID,endID):
     return mypath
 
 def cpp_call_test():
-    print "I enter into python!!!!"
+    print "Python Function: cpp_call_test!!!!"
 
-def cpp_call():
+def cpp_call(pointAB):
+    print "Python Function : cpp_call"
     db = routingDb()
     print readDb(open(filepath,"r"),db)
     db.cleanUp()
-    a="-1630"
-    b="-1640"
-    #return startRouting(db,a,b)
-    print "\n py----------------- Enter startRouting "
-    mypath=startRouting(db,a,b)
-    print "\n py----------------- Out startRouting "
-    #print "\n now i have node in mypath , i will back  this list to cpp"
-    #for i in mypath:
-    #    print "now i have node in mypath , i will send this list to cpp"+i
-    print "\n the length of mypath ,i will back this list to cpp" ,len(mypath)
+    mypath=startRouting(db,pointAB[0],pointAB[1])
     return mypath

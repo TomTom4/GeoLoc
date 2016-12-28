@@ -1,0 +1,20 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	0	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+Imu	/Users/guiwake/Documents/Programmation/GeoLoc/IMU/Imu.cpp	/^Imu::Imu()$/;"	function	line:14	class:Imu	signature:()
+getAllData	/Users/guiwake/Documents/Programmation/GeoLoc/IMU/Imu.cpp	/^void Imu::getAllData(void)$/;"	function	line:50	class:Imu	signature:(void)
+InitStruct	/Users/guiwake/Documents/Programmation/GeoLoc/IMU/Imu.cpp	/^void Imu::InitStruct(void){$/;"	function	line:57	class:Imu	signature:(void)
+getAcceleroData	/Users/guiwake/Documents/Programmation/GeoLoc/IMU/Imu.cpp	/^void Imu::getAcceleroData(void)$/;"	function	line:75	class:Imu	signature:(void)
+DisplayAcceleroData	/Users/guiwake/Documents/Programmation/GeoLoc/IMU/Imu.cpp	/^void Imu::DisplayAcceleroData(void){$/;"	function	line:105	class:Imu	signature:(void)
+getGyroData	/Users/guiwake/Documents/Programmation/GeoLoc/IMU/Imu.cpp	/^void Imu::getGyroData(void)$/;"	function	line:115	class:Imu	signature:(void)
+DisplayGyroData	/Users/guiwake/Documents/Programmation/GeoLoc/IMU/Imu.cpp	/^void Imu::DisplayGyroData(void){$/;"	function	line:145	class:Imu	signature:(void)
+getmagnetoData	/Users/guiwake/Documents/Programmation/GeoLoc/IMU/Imu.cpp	/^void Imu::getmagnetoData(void)$/;"	function	line:157	class:Imu	signature:(void)
+DisplayMagnetoData	/Users/guiwake/Documents/Programmation/GeoLoc/IMU/Imu.cpp	/^void Imu::DisplayMagnetoData(void){$/;"	function	line:200	class:Imu	signature:(void)
+averageMagnetoData	/Users/guiwake/Documents/Programmation/GeoLoc/IMU/Imu.cpp	/^void Imu::averageMagnetoData ()$/;"	function	line:210	class:Imu	signature:()
+gyroCalib	/Users/guiwake/Documents/Programmation/GeoLoc/IMU/Imu.cpp	/^void Imu::gyroCalib(void)$/;"	function	line:238	class:Imu	signature:(void)
+magnetoCalib	/Users/guiwake/Documents/Programmation/GeoLoc/IMU/Imu.cpp	/^void Imu::magnetoCalib(void)$/;"	function	line:269	class:Imu	signature:(void)
+lpFiltering	/Users/guiwake/Documents/Programmation/GeoLoc/IMU/Imu.cpp	/^void Imu::lpFiltering(void)$/;"	function	line:340	class:Imu	signature:(void)
+DisplayHeading	/Users/guiwake/Documents/Programmation/GeoLoc/IMU/Imu.cpp	/^void Imu::DisplayHeading(void){$/;"	function	line:361	class:Imu	signature:(void)

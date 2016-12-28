@@ -25,7 +25,7 @@
 
 #define    GYRO_MUL_250_DPS          2*250.0/32767.0
 #define    GYRO_MUL_500_DPS          2*500.0/32768.0
-#define    GYRO_MUL_1000_DPS	       2*1000.0/32767.0
+#define    GYRO_MUL_1000_DPS	     2*1000.0/32767.0
 #define    GYRO_MUL_2000_DPS         2*2000.0/32767.0
 
 #define    ACCELERO_MUL_2_G          2.0/32767.0
@@ -44,7 +44,7 @@
 #define    ACC_G_TO_SI               9.81
 
 #define    alpha_LP_acc_mag          0.2
-
+#define    PI    				 3.1415926535897932385
 
 // IMU Structures
 
@@ -112,13 +112,25 @@ public:
 
     void getAcceleroData(void);
 
-    /*****************************GET_GYRO_DATA***********************************/
-    /* Get the raw rotation speed on all 3 axis converted to DPS                 */
-    /* Use gyro_offset                                                           */
-    /* Update gyro_offset                                                        */
+	/*****************************DisplayAcceleroData*****************************/
+    /*                															 */
     /*****************************************************************************/
 
+	void DisplayAcceleroData(void);
+
+	/*****************************GET_GYRO_DATA***********************************/
+	/* Get the raw rotation speed on all 3 axis converted to DPS                 */
+	/* Use gyro_offset                                                           */
+	/* Update gyro_offset                                                        */
+	/*****************************************************************************/
+
     void getGyroData(void);
+
+	/*****************************DisplayGyroData*****************************/
+	/*                															 */
+	/*****************************************************************************/
+
+	void DisplayGyroData(void);
 
     /*****************************GET_magNETO_DATA********************************/
     /* Get the raw magnetic field value on all 3 axis converted to uT            */
@@ -127,6 +139,12 @@ public:
     /*****************************************************************************/
 
     void getmagnetoData(void);
+
+	/*****************************DisplayMagnetoData*****************************/
+	/*                															 */
+	/*****************************************************************************/
+
+	void DisplayMagnetoData(void);
 
     /*****************************AVERAGE_MAGNETO_DATA****************************/
     /* Returns the magneto data average on 5 measurements                        */
