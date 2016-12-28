@@ -20,9 +20,35 @@ FONCTIONS:
 COMMENTAIRES:
 ------------
 
-En entête de chaque fonction
+En entête de chaque fonction dans le header
 /*************************************************
 *Une Description brève mais clair de la fonction *
 *Une Description brève mais clair de la fonction *
 *Une Description brève mais clair de la fonction *
 *************************************************/ 
+
+HEADERS:
+-------
+
+#ifndef DEF_CLASS
+#define DEF_CLASS
+
+#include <....>
+
+/!\
+******************************************
+ ne pas mettre using namespace std; 
+utiliser plutot std:: dans les headers. 
+******************************************
+
+class Class{
+	public:
+	type methode1(type arg);
+	type methode2(type arg);
+	...
+
+	private:
+	type m_attribut1; 
+	type m_attribut2;
+	...
+};
