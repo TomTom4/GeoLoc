@@ -34,10 +34,10 @@ Navigation.o: Navigation.cpp
 SensorFusion.o: SensorFusion.cpp
 	g++ -c SensorFusion.cpp -o SensorFusion.o
 
-Spi.o: Spi.cpp
+Spi.o: Spi.cpp 
 	g++ -c Spi.cpp -o Spi.o
 clean:
 	rm -rf *.o
 
-mrproper: clean
+mrpropre: clean
 	rm -rf geocar_exec
