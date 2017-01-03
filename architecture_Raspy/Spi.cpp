@@ -9,6 +9,7 @@ Spi *Spi::s_instance = 0;
 	Spi* Spi::instance(){
 		if(!Spi::s_instance)
 			Spi::s_instance = new Spi();
+			Spi::s_instance->m_mediator = Mediator::instance();
 		return Spi::s_instance;	
 	}
 

@@ -1,6 +1,8 @@
 #ifndef DEF_SPI
 #define DEF_SPI
 
+#include "Mediator.h"
+
 class Spi{
 	public:
 		static Spi* instance(); 
@@ -11,6 +13,7 @@ class Spi{
 		void spiMajCar();
 	private:
 		Spi();
+		Mediator *m_mediator;
 		static Spi *s_instance;
 		unsigned char m_length_string; 
 		unsigned char* m_string_spi;
