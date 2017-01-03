@@ -6,13 +6,13 @@ all:main
 main: main.o spi.o car.o
 	$(CXX) -o main main.o spi.o car.o $(CXXFLAGS)
 
-main.o: main.cpp spi.h car.h
+main.o: main.cpp spi.hpp car.hpp
 	$(CXX) -o main.o main.cpp $(CXXFLAGS)
 
-spi.o: spi.cpp spi.h car.h
+spi.o: spi.cpp spi.hpp car.hpp
 		$(CXX) -o spi.o spi.cpp $(CXXFLAGS)
 
-car.o: car.cpp car.h
+car.o: car.cpp car.hpp
 	 $(CXX) -o car.o car.cpp $(CXXFLAGS)
 
 clean:
