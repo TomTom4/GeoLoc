@@ -5,13 +5,13 @@
 //#include <wiringPi.h>
 //#include <wiringPiSPI.h>
 
-#include "car.h"
-#include "spi.h"
+#include "car.hpp"
+#include "spi.hpp"
 
 using namespace std;
 
   Spi::Spi(Car* voit)
-  {
+  { // Constructor
     lenght_string = 25;
     string_spi = new unsigned char[lenght_string];
     beacon_rasp_start = 0x69; // 0110b & 1001b
@@ -33,7 +33,11 @@ using namespace std;
   }
 
   void Spi::addDataString()
-  {
+  { // Add data to send to STM 32
+      // 1 - PWM Moteur AR G
+      // 2 - PWM Moteur AR D
+      // 3 - Compteur Direction
+
     clearString();
     string_spi[0] = beacon_rasp_start; // 0 - beacon_start (rasp)
     string_spi[1] = voiture->getData(1); // 1 - PWM Moteur AR G
@@ -45,6 +49,7 @@ using namespace std;
   void Spi::extractUsSensor(int offset_string)
   { /* Check ID of US sensor from the stm
     if OK -> add validity & distance to Car structure */
+    // offset_string = ID Position
     if(voiture->getData(offset_string) != string_spi[offset_string])
       throw string("ERREUR: US wrong ID");//  RASP:" << voiture->us_id_av_d << " STM:" << string_spi[6]);
     else
@@ -62,12 +67,14 @@ using namespace std;
       {
         if(voiture->getData(1) != string_spi[1]) // 1 - PWM Moteur AR G
           throw string("ERREUR: PWM Motor AR D different");//  RASP:" << voiture->pwm_motor_ar_d << " STM:" << string_spi[1]);
-        if(voiture->getData(2) != string_spi[2]) // 2 - PWM Moteur AR D
-          throw string("ERREUR: PWM Motor AR G different");//  RASP:" << voiture->pwm_motor_ar_g << " STM:" << string_spi[2]);
-        if(voiture->getData(3) != string_spi[3]) // 3 - Compteur Direction
+        if(voiture->getData(3) != string_spi[3]) // 3 - State Direction
           throw string("ERREUR: Dir wrong position");//  RASP:" << voiture->cpt_dir << " STM:" << string_spi[3]);
 
+        Spi::extractEncodeur()
+
         /* Prise du mutex SPI */
+
+        voiture->addDataEncodeur(encodeur_left,encodeur_right);
 
         voiture->addData(4, string_spi[4]); // 4 - encodeur wheel AR G
         voiture->addData(5, string_spi[5]); // 5 - encodeur wheel AR D
@@ -91,6 +98,12 @@ using namespace std;
     {
       cerr << error_string << endl;
     }
+  }
+
+  void Spi::extractEncodeur()
+  {
+    voiture->addData(4, (float)string_spi[3]*100.0 + (float)string_spi[4]*1.0 + (float)string_spi[5]*0.01);
+    voiture->addData(5, (float)string_spi[6]*100.0 + (float)string_spi[7]*1.0 + (float)string_spi[8]*0.01);
   }
 
   void Spi::majCar()
