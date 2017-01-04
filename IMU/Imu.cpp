@@ -1,7 +1,10 @@
+#include <stdint.h>
 #include "Imu.h"
 #include "wiringPi.h"
 #include "wiringPiI2C.h"
-#include <stdint.h>
+#include <inttypes.h>
+#include <cstdint>
+#include <sys/types.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <iostream>
@@ -372,12 +375,12 @@ void Imu::lpFiltering(void)
 
 void Imu::DisplayHeading(void){
     //getmagnetoData();
-    getCompassDate_calibrated();Mxyz[1]
+    getCompassDate_calibrated();
     //float heading = 180 * atan2(magneto_data.y,magneto_data.x)/PI;
     float heading = 180 * atan2(Mxyz[1], Mxyz[0])/PI;
-    if(heading < 0)
+    if(heading < 0){
         heading += 360;
-
+    }
     std::cout << "heading : " << heading << '\n';
 }
 
@@ -451,7 +454,7 @@ void Imu::get_calibration_Data ()
         if (mx_sample[2] <= mx_sample[0])mx_sample[0] = mx_sample[2];
         if (my_sample[2] <= my_sample[0])my_sample[0] = my_sample[2]; //find min value
         if (mz_sample[2] <= mz_sample[0])mz_sample[0] = mz_sample[2];
-
+	usleep(20000);
     }
 
     mx_max = mx_sample[1];
@@ -465,6 +468,7 @@ void Imu::get_calibration_Data ()
     mx_centre = (mx_max + mx_min) / 2;
     my_centre = (my_max + my_min) / 2;
     mz_centre = (mz_max + mz_min) / 2;
+	std::cout << "Center : Mx : " << mx_centre << "\t My : " << my_centre << "\t Mz : " << mz_centre << "\n";
 }
 
 void Imu::get_one_sample_date_mxyz()
@@ -502,6 +506,7 @@ void Imu::getCompass_Data(void)
     Mxyz[0] = (double) mx * 1200 / 4096;
     Mxyz[1] = (double) my * 1200 / 4096;
     Mxyz[2] = (double) mz * 1200 / 4096;
+	std::cout << "Mx : " << Mxyz[0] << "\t My : " << Mxyz[1] << "\t Mz : " << Mxyz[2] << "\n";
 }
 
 void Imu::getCompassDate_calibrated()
