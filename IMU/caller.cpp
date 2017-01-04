@@ -1,11 +1,12 @@
+#include <stdint.h>
 #include "Imu.h"
 #include <unistd.h>
 
 int main(){
     Imu MyImu;
-    MyImu.InitStruct();
-    MyImu.getAllData();
-
+//    MyImu.InitStruct();
+//    MyImu.getAllData();
+/*
     int times = 20;
     while(times){
         MyImu.getAcceleroData();
@@ -29,12 +30,17 @@ int main(){
         times--;
         usleep(2000000);
     }
-
-    MyImu.get_calibration_Data ();
-
+*/
+    int times = 500;
+    MyImu.get_calibration_Data();
+    MyImu.DisplayHeading();
+/*
     while(times){
         MyImu.DisplayHeading();
+	usleep(10000);    
+	times--;
     }
+*/
 
     return 1;
 }
