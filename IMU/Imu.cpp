@@ -193,7 +193,7 @@ void Imu::getmagnetoData(void)
     magneto_data_old.x = magneto_data.x;
     magneto_data_old.y = magneto_data.y;
     magneto_data_old.z = magneto_data.z;
-    
+
     std::cout << "mx : " << mx << "\tmy : " << my <<"\tmz : " << mz << '\n';
     std::cout << "Magneto Offset Gain X : " << magneto_offset.gain_x << "\tMagneto Offset Gain Y : " << magneto_offset.gain_y <<"\tMagneto Offset Gain Z : " << magneto_offset.gain_z << '\n';
     magneto_data.x = ((float)mx * magneto_offset.gain_x * MAG_MUL_16_BITS - magneto_offset.x);
@@ -260,7 +260,7 @@ void Imu::gyroCalib(void)
     gyro_offset.x = o_gx / 50.0;
     gyro_offset.y = o_gy / 50.0;
     gyro_offset.z = o_gz / 50.0;
-    
+
     std::cout << "Gyro Offset X : " << gyro_offset.x << "\tGyro Offset Y : " << gyro_offset.y <<"\tGyro Offset Z : " << gyro_offset.z << '\n';
 }
 
@@ -365,9 +365,16 @@ void Imu::lpFiltering(void)
     magneto_data_old = magneto_data;
 }
 
+/*****************************Display Heading***************************************/
+/* Display the heading of the car                   	                           */
+/* In : Magneto data X & Y                                                         */
+/***********************************************************************************/
+
 void Imu::DisplayHeading(void){
-    getmagnetoData();
-    float heading = 180 * atan2(magneto_data.y,magneto_data.x)/PI;
+    //getmagnetoData();
+    getCompassDate_calibrated();Mxyz[1]
+    //float heading = 180 * atan2(magneto_data.y,magneto_data.x)/PI;
+    float heading = 180 * atan2(Mxyz[1], Mxyz[0])/PI;
     if(heading < 0)
         heading += 360;
 
@@ -424,3 +431,83 @@ mul_matrixes(&Rot, &Acc_IMU, A_map);
 change_referential_to_map (ACCDATA_f, M);   // still gravity influence
 //remove_gravity(&U_uncompensated, M);                      // after removing gravity
 }*/
+
+void Imu::get_calibration_Data ()
+{
+    for (int i = 0; i < 5000; i++)
+    {
+        get_one_sample_date_mxyz();
+        /*
+        Serial.print(mx_sample[2]);
+        Serial.print(" ");
+        Serial.print(my_sample[2]);                            //you can see the sample data here .
+        Serial.print(" ");
+        Serial.println(mz_sample[2]);
+        */
+        if (mx_sample[2] >= mx_sample[1])mx_sample[1] = mx_sample[2];
+        if (my_sample[2] >= my_sample[1])my_sample[1] = my_sample[2]; //find max value
+        if (mz_sample[2] >= mz_sample[1])mz_sample[1] = mz_sample[2];
+
+        if (mx_sample[2] <= mx_sample[0])mx_sample[0] = mx_sample[2];
+        if (my_sample[2] <= my_sample[0])my_sample[0] = my_sample[2]; //find min value
+        if (mz_sample[2] <= mz_sample[0])mz_sample[0] = mz_sample[2];
+
+    }
+
+    mx_max = mx_sample[1];
+    my_max = my_sample[1];
+    mz_max = mz_sample[1];
+
+    mx_min = mx_sample[0];
+    my_min = my_sample[0];
+    mz_min = mz_sample[0];
+
+    mx_centre = (mx_max + mx_min) / 2;
+    my_centre = (my_max + my_min) / 2;
+    mz_centre = (mz_max + mz_min) / 2;
+}
+
+void Imu::get_one_sample_date_mxyz()
+{
+    getCompass_Data();
+    mx_sample[2] = Mxyz[0];
+    my_sample[2] = Mxyz[1];
+    mz_sample[2] = Mxyz[2];
+}
+
+void Imu::getCompass_Data(void)
+{
+    uint8_t ST1;
+    // Acess request to magnetometer chip
+    do
+    {
+        ST1 = wiringPiI2CReadReg8(mag_id,0x02);
+    }
+    while (!(ST1&0x01));
+    // Read magnetometer data
+    buffer_m[0] = wiringPiI2CReadReg8(mag_id,0x03);
+    buffer_m[1] = wiringPiI2CReadReg8(mag_id,0x04);
+
+    buffer_m[2] = wiringPiI2CReadReg8(mag_id,0x05);
+    buffer_m[3] = wiringPiI2CReadReg8(mag_id,0x06);
+
+    buffer_m[4] = wiringPiI2CReadReg8(mag_id,0x07);
+    buffer_m[5] = wiringPiI2CReadReg8(mag_id,0x08);
+
+
+    mx = ((int16_t)(buffer_m[1]) << 8) | buffer_m[0] ;
+    my = ((int16_t)(buffer_m[3]) << 8) | buffer_m[2] ;
+    mz = ((int16_t)(buffer_m[5]) << 8) | buffer_m[4] ;
+
+    Mxyz[0] = (double) mx * 1200 / 4096;
+    Mxyz[1] = (double) my * 1200 / 4096;
+    Mxyz[2] = (double) mz * 1200 / 4096;
+}
+
+void Imu::getCompassDate_calibrated()
+{
+    getCompass_Data();
+    Mxyz[0] = Mxyz[0] - mx_centre;
+    Mxyz[1] = Mxyz[1] - my_centre;
+    Mxyz[2] = Mxyz[2] - mz_centre;
+}

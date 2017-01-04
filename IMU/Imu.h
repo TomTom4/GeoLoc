@@ -91,6 +91,42 @@ class Imu
     MagnetoData magneto_data; // magnetometer data structure
     MagnetoData magneto_data_old; // magnetometer data structure
 
+/* NEW */
+
+	uint8_t buffer_m[6];
+
+	int16_t ax, ay, az;
+	int16_t gx, gy, gz;
+	int16_t mx, my, mz;
+
+	float heading;
+	float tiltheading;
+
+	float Axyz[3];
+	float Gxyz[3];
+	float Mxyz[3];
+
+	#define sample_num_mdate  5000
+
+	volatile float mx_sample[3];
+	volatile float my_sample[3];
+	volatile float mz_sample[3];
+
+	static float mx_centre = 0;
+	static float my_centre = 0;
+	static float mz_centre = 0;
+
+	volatile int mx_max = 0;
+	volatile int my_max = 0;
+	volatile int mz_max = 0;
+
+	volatile int mx_min = 0;
+	volatile int my_min = 0;
+	volatile int mz_min = 0;
+
+/* END OF NEW */
+
+
 public:
 
 
@@ -229,6 +265,19 @@ public:
 
 
     void DisplayHeading(void);
+
+
+/* NEW */
+
+	void get_calibration_Data ();
+
+	void get_one_sample_date_mxyz();
+
+	void getCompass_Data(void);
+
+	void getCompassDate_calibrated ();
+
+/* END OF NEW */
 
 };
 
