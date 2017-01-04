@@ -227,6 +227,9 @@ public:
 
     //void update_U (struct Matrix * M);
 
+
+    void DisplayHeading(void);
+
 };
 
 

@@ -5,6 +5,8 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <iostream>
+#include <math.h>
+#include <cmath>
 
 using namespace std;
 /***********************************SETUP*************************************/
@@ -191,7 +193,9 @@ void Imu::getmagnetoData(void)
     magneto_data_old.x = magneto_data.x;
     magneto_data_old.y = magneto_data.y;
     magneto_data_old.z = magneto_data.z;
-
+    
+    std::cout << "mx : " << mx << "\tmy : " << my <<"\tmz : " << mz << '\n';
+    std::cout << "Magneto Offset Gain X : " << magneto_offset.gain_x << "\tMagneto Offset Gain Y : " << magneto_offset.gain_y <<"\tMagneto Offset Gain Z : " << magneto_offset.gain_z << '\n';
     magneto_data.x = ((float)mx * magneto_offset.gain_x * MAG_MUL_16_BITS - magneto_offset.x);
     magneto_data.y = ((float)my * magneto_offset.gain_y * MAG_MUL_16_BITS - magneto_offset.y);
     magneto_data.z = ((float)mz * magneto_offset.gain_z * MAG_MUL_16_BITS - magneto_offset.z);
@@ -256,6 +260,8 @@ void Imu::gyroCalib(void)
     gyro_offset.x = o_gx / 50.0;
     gyro_offset.y = o_gy / 50.0;
     gyro_offset.z = o_gz / 50.0;
+    
+    std::cout << "Gyro Offset X : " << gyro_offset.x << "\tGyro Offset Y : " << gyro_offset.y <<"\tGyro Offset Z : " << gyro_offset.z << '\n';
 }
 
 /*****************************MAGNETO_CALIB***********************************/
@@ -326,6 +332,7 @@ void Imu::magnetoCalib(void)
     magneto_offset.gain_y = avg_rad/((float)mag_scale[1]);
     magneto_offset.gain_z = avg_rad/((float)mag_scale[2]);
 
+    std::cout << "Magneto Offset X : " << magneto_offset.x << "\tMagneto Offset Y : " << magneto_offset.y <<"\tMagneto Offset Z : " << magneto_offset.z << '\n';
     std::cout << "Mag Calibration done!\n";
 }
 
