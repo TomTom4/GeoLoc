@@ -6,37 +6,68 @@ class Model{
 	public:
 	//methodes
 		Model();
+	//getter for propulsors pwm
+		unsigned char getBackRightPwmMotor();
+		unsigned char getBackLeftPwmMotor();
+
+	//getter for directional counter
+	unsigned char getDirectionalCounter();
+
+	//getter for wheel Encoder
+		unsigned char getBackRightEncoderWheel();
+		unsigned char getBackLeftEncoderWheel();
+
+	//getter for ultrasonic sensors
+		unsigned char getRightFrontUltrasonicId();
+		unsigned char getRightFrontUltrasonicValidity();
+		unsigned char getRightFrontUltrasonicDistance();
+		unsigned char getCenterFrontUltrasonicId();
+		unsigned char getCenterFrontUltrasonicValidity();
+		unsigned char getCenterFrontUltrasonicDistance();
+		unsigned char getLeftFrontUltrasonicId();
+		unsigned char getLeftFrontUltrasonicValidity();
+		unsigned char getLeftFrontUltrasonicDistance();
+		unsigned char getBackRightUltrasonicId();
+		unsigned char getBackRightUltrasonicValidity();
+		unsigned char getBackRightUltrasonicDistance();
+		unsigned char getBackCenterUltrasonicId();
+		unsigned char getBackCenterUltrasonicValidity();
+		unsigned char getBackCenterUltrasonicDistance();
+		unsigned char getBackLeftUltrasonicId();
+		unsigned char getBackLeftUltrasonicValidity();
+		unsigned char getBackLeftUltrasonicDistance();
+
 	private:
 	//attributs
-		unsigned char m_pwm_motor_ar_d;
-		unsigned char m_pwm_motor_ar_g;
-		unsigned char m_cpt_dir;
-		unsigned char m_encodeur_wheel_ar_d;
-		unsigned char m_encodeur_wheel_ar_g;
+		unsigned char m_pwm_back_right_motor;
+		unsigned char m_pwm_back_left_motor;
+		unsigned char m_directional_counter;
+		unsigned char m_back_right_wheel_encoder;
+		unsigned char m_back_left_wheel_encoder;
 
-		unsigned char m_us_id_av_d;
-		unsigned char m_us_validity_av_d;
-		unsigned char m_us_distance_av_d;
+		unsigned char m_right_front_ultrasonic_id;
+		unsigned char m_right_front_ultrasonic_validity;
+		unsigned char m_right_front_ultrasonic_distance;
 
-		unsigned char m_us_id_av_c;
-		unsigned char m_us_validity_av_c;
-		unsigned char m_us_distance_av_c;
+		unsigned char m_center_front_ultrasonic_id;
+		unsigned char m_center_front_ultrasonic_validity;
+		unsigned char m_center_front_ultrasonic_distance;
 
-		unsigned char m_us_id_av_g;
-		unsigned char m_us_validity_av_g;
-		unsigned char m_us_distance_av_g;
+		unsigned char m_left_front_ultrasonic_id;
+		unsigned char m_left_front_ultrasonic_validity;
+		unsigned char m_left_front_ultrasonic_distance;
 
-		unsigned char m_us_id_ar_d;
-		unsigned char m_us_validity_ar_d;
-		unsigned char m_us_distance_ar_d;
+		unsigned char m_right_back_ultrasonic_id;
+		unsigned char m_right_back_ultrasonic_validity;
+		unsigned char m_right_back_ultrasonic_distance;
 
-		unsigned char m_us_id_ar_c;
-		unsigned char m_us_validity_ar_c;
-		unsigned char m_us_distance_ar_c;
+		unsigned char m_center_back_ultrasonic_id;
+		unsigned char m_center_back_ultrasonic_validity;
+		unsigned char m_center_back_ultrasonic_distance;
 
-		unsigned char m_us_id_ar_g;
-		unsigned char m_us_validity_ar_g;
-		unsigned char m_us_distance_ar_g;
+		unsigned char m_left_back_ultrasonic_id;
+		unsigned char m_left_back_ultrasonic_validity;
+		unsigned char m_left_back_ultrasonic_distance;
 
 
 };
