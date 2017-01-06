@@ -37,6 +37,37 @@ class Model{
 		unsigned char getBackLeftUltrasonicValidity();
 		unsigned char getBackLeftUltrasonicDistance();
 
+	//setter for propulsors pwm
+		void setBackRightPwmMotor(unsigned char value);
+		void setBackLeftPwmMotor(unsigned char value);
+
+	//setter for directional counter
+		void setDirectionalCounter(unsigned char value);
+
+	//setter for wheel Encoder
+		void setBackRightEncoderWheel(unsigned char value);
+		void setBackLeftEncoderWheel(unsigned char value);
+	//setters for ultrasonic sensors
+		void setRightFrontUltrasonicId(unsigned char value);
+		void setRightFrontUltrasonicValidity(unsigned char value);
+		void setRightFrontUltrasonicDistance(unsigned char value);
+		void setCenterFrontUltrasonicId(unsigned char value);
+		void setCenterFrontUltrasonicValidity(unsigned char value);
+		void setCenterFrontUltrasonicDistance(unsigned char value);
+		void setLeftFrontUltrasonicId(unsigned char value);
+		void setLeftFrontUltrasonicValidity(unsigned char value);
+		void setLeftFrontUltrasonicDistance(unsigned char value);
+		void setBackRightUltrasonicId(unsigned char value);
+		void setBackRightUltrasonicValidity(unsigned char value);
+		void setBackRightUltrasonicDistance(unsigned char value);
+		void setBackCenterUltrasonicId(unsigned char value);
+		void setBackCenterUltrasonicValidity(unsigned char value);
+		void setBackCenterUltrasonicDistance(unsigned char value);
+		void setBackLeftUltrasonicId(unsigned char value);
+		void setBackLeftUltrasonicValidity(unsigned char value);
+		void setBackLeftUltrasonicDistance(unsigned char value);
+
+
 	private:
 	//attributs
 		unsigned char m_pwm_back_right_motor;
