@@ -9,13 +9,22 @@ class Car
   //~Car(); // Destructor
   unsigned char getData(int num);
   void addData(unsigned char num, unsigned char val);
-  void addDataEncodeur(float encodeur_left, float encodeur_right);
+  void addDataEncodeur();
+  void printEncodeur(void);
   void printCar(void);
 
-  private:
+  //private:
 
   unsigned char pwm_motor_back;
   unsigned char state_steering_wheel;
+  
+  unsigned char encodeur_wheel_back_left_100m;
+  unsigned char encodeur_wheel_back_left_1m;
+  unsigned char encodeur_wheel_back_left_1cm;
+  unsigned char encodeur_wheel_back_right_100m;
+  unsigned char encodeur_wheel_back_right_1m;
+  unsigned char encodeur_wheel_back_right_1cm;
+
   float encodeur_wheel_back_left;
   float encodeur_wheel_back_right;
 

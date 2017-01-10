@@ -12,6 +12,7 @@ public:
   void extractDataString();
   void extractEncodeur();
   void majCar();
+  void printStringSpi();
 
 private:
   unsigned char lenght_string;

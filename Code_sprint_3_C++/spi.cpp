@@ -27,8 +27,13 @@ void Spi::spiCopyCmd(int cmd)
 
 int Spi::spiDataRW(char* data, int lenght)
 {
-	return wiringPiSPIDataRW(0,(unsigned char*)data,lenght);
-}
+	int etat;
+	etat = wiringPiSPIDataRW(0,(unsigned char*)data,lenght);
+	printf(" chaine = %s\n",data);
+	printf(" taille = %d\n",lenght);
+	printf(" etat = %d\n",etat);
+	return etat;
+}	
 
 float Spi::spiGetMesure1()
 {

@@ -21,8 +21,15 @@ using namespace std;
 
   void Spi::readWriteData()
   {
-    //wiringPiSPIDataRW(0,string_spi,lenght_string);
-  }
+	//int etat = -1;
+	//while(etat != 0)
+	//{
+	wiringPiSPIDataRW(0,(unsigned char*)string_spi,lenght_string);
+    	//printf(" chaine = %d\n",string_spi[0]);
+	//printf(" taille = %d\n",lenght_string);
+	//printf(" etat = %d\n",etat);
+  	//}
+}
 
   void Spi::clearString()
   {
@@ -86,20 +93,43 @@ using namespace std;
     }
     catch(string const& error_string)
     {
-      cerr << error_string << endl;
+      //cerr << error_string << endl;
     }
   }
 
   void Spi::extractEncodeur()
   { // Calculate distance from left and right wheels
     // Add it to encodeur_wheel_back_left && encodeur_wheel_back_left in CAR structure
-    voiture->addData(ENCODEUR_WHEEL_BACK_LEFT_100M, (float)string_spi[ENCODEUR_WHEEL_BACK_LEFT_100M]*100.0 + (float)string_spi[ENCODEUR_WHEEL_BACK_LEFT_1M]*1.0 + (float)string_spi[ENCODEUR_WHEEL_BACK_LEFT_1CM]*0.01);
-    voiture->addData(ENCODEUR_WHEEL_BACK_RIGHT_100M, (float)string_spi[ENCODEUR_WHEEL_BACK_RIGHT_100M]*100.0 + (float)string_spi[ENCODEUR_WHEEL_BACK_RIGHT_1M]*1.0 + (float)string_spi[ENCODEUR_WHEEL_BACK_RIGHT_1CM]*0.01);
+	//voiture->encodeur_wheel_back_left_100m = string_spi[3];
+	//voiture->encodeur_wheel_back_left_1m = string_spi[4];
+	//voiture->encodeur_wheel_back_left_1cm = string_spi[5];
+    
+	//cout << "100m = "<< (int)voiture->encodeur_wheel_back_left_100m << endl;
+    /*voiture->addData(ENCODEUR_WHEEL_BACK_LEFT_100M, string_spi[ENCODEUR_WHEEL_BACK_LEFT_100M]);
+    voiture->addData(ENCODEUR_WHEEL_BACK_LEFT_1M, string_spi[ENCODEUR_WHEEL_BACK_LEFT_1M]);
+    voiture->addData(ENCODEUR_WHEEL_BACK_LEFT_1CM, string_spi[ENCODEUR_WHEEL_BACK_LEFT_1CM]);
+    voiture->addData(ENCODEUR_WHEEL_BACK_RIGHT_100M, string_spi[ENCODEUR_WHEEL_BACK_RIGHT_100M]);
+    voiture->addData(ENCODEUR_WHEEL_BACK_RIGHT_1M, string_spi[ENCODEUR_WHEEL_BACK_RIGHT_1M]);
+    voiture->addData(ENCODEUR_WHEEL_BACK_RIGHT_1CM, string_spi[ENCODEUR_WHEEL_BACK_RIGHT_1CM]);*/
+    //voiture->addDataEncodeur();
   }
 
   void Spi::majCar()
   {
     addDataString();
+    //cout << "Tx :";
+    //Spi::printStringSpi();
     readWriteData();
+    //cout << "Rx :";
+    Spi::printStringSpi();
     extractDataString();
+  }
+
+  void Spi::printStringSpi()
+  {
+	/*for(int i = 0; i< lenght_string; i++)
+	  cout <<(int)string_spi[i]<<"|";
+	cout << endl;*/
+	printf("Distance Left = %02d%02d.%02dm \n",(int)string_spi[3],(int)string_spi[4],(int)string_spi[5]);
+	printf("Distance Right = %02d%02d.%02dm \n",(int)string_spi[6],(int)string_spi[7],(int)string_spi[8]);
   }

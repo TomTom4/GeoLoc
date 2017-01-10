@@ -60,6 +60,7 @@ void Manuel::lunchManuel(void)
 
 				case 'k': // Gauche
 				case 68 :// key left
+					printf("k ok");
 					move_car_manuel.moveLeft();
 					break;
 
@@ -116,7 +117,7 @@ void Manuel::lunchManuel(void)
 					move_car_manuel.center();
 					break;
 				case 'j': // rien
-					for(int j = 0; i<500; j++)
+					for(int j = 0; j<500; j++)
 					{
 						printf("\n");
 						delay(100);

@@ -1,4 +1,4 @@
-const unsigned char SPI_LENGHT_STRING = 25;
+const unsigned char SPI_LENGHT_STRING = 28;
 
 const unsigned char BEACON_RASP_START = 0x69; // 0110b & 1001b
 const unsigned char BEACON_RASP_END = 0xA5;   // 1010b & 0101b

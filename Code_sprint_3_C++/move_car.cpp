@@ -61,8 +61,11 @@ void MoveCar::moveBack(void)
 
 void MoveCar::moveLeft(void)
 {
+	
 	spi_move_car->spiCopyCmd(MOVE_LEFT);
+	printf(" move left ok");
 	while(!spi_move_car->spiPrintRW());
+	printf("while ok");
 }
 
 void MoveCar::moveRight(void)
