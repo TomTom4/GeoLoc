@@ -13,7 +13,7 @@ using namespace std;
 Car::Car()
 {
   pwm_motor_back = 0;
-  state_steering_wheel = 6;
+  state_steering_wheel = 3;
   encodeur_wheel_back_left = 0.0;
   encodeur_wheel_back_right = 0.0;
 
