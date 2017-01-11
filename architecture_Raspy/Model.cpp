@@ -4,7 +4,6 @@ using namespace std;
 	//Add your methodes over here 
 	Model::Model(){
 		m_pwm_back_motor = 0;
-		m_pwm_back_left_motor = 0;
 		m_directional_counter = 0;
 		m_back_right_wheel_encoder = 0;
 		m_back_left_wheel_encoder = 0;
@@ -43,9 +42,6 @@ using namespace std;
 		return Model::m_pwm_back_motor;
 	}
 
-	unsigned char Model::getBackLeftPwmMotor(){
-		return Model::m_pwm_back_left_motor;
-	}
 	//getter for directional counter
 	unsigned char Model::getDirectionalCounter(){
 		return Model::m_directional_counter;
@@ -138,9 +134,6 @@ using namespace std;
 		Model::m_pwm_back_motor = value;
 	}
 
-	void Model::setBackLeftPwmMotor(unsigned char value){
-		Model::m_pwm_back_left_motor = value;
-	}
 	//getter for directional counter
 	void Model::setDirectionalCounter(unsigned char value){
 		Model::m_directional_counter = value;
