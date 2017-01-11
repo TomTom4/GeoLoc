@@ -10,31 +10,55 @@ class Car
 
   //******** GET ********//
   //** PWM
-  unsigned char Car::getPwmMotorBack(void);
+  unsigned char getPwmMotorBack(void);
   //** Steering Wheel
-  unsigned char Car::getStateSteeringWheel(void);
+  unsigned char getStateSteeringWheel(void);
   //** Encodeur
-  float Car::getEncodeurWheelBackLeft(void);
-  float Car::getEncodeurWheelBackRight(void);
+  float getEncodeurWheelBackLeft(void);
+  float getEncodeurWheelBackRight(void);
   //** US Validity
-  unsigned char Car::getValidityFrontLeft(void);
-  unsigned char Car::getValidityFrontCenter(void);
-  unsigned char Car::getValidityFrontRight(void);
-  unsigned char Car::getValidityBackLeft(void);
-  unsigned char Car::getValidityBackCenter(void);
-  unsigned char Car::getValidityBackRight(void);
+  unsigned char getValidityFrontLeft(void);
+  unsigned char getValidityFrontCenter(void);
+  unsigned char getValidityFrontRight(void);
+  unsigned char getValidityBackLeft(void);
+  unsigned char getValidityBackCenter(void);
+  unsigned char getValidityBackRight(void);
   //** Distance
-  unsigned char Car::getDistanceFrontLeft(void);
-  unsigned char Car::getDistanceFrontCenter(void);
-  unsigned char Car::getDistanceFrontRight(void);
-  unsigned char Car::getDistanceBackLeft(void);
-  unsigned char Car::getDistanceBackCenter(void);
-  unsigned char Car::getDistanceBackRight(void);
+  unsigned char getDistanceFrontLeft(void);
+  unsigned char getDistanceFrontCenter(void);
+  unsigned char getDistanceFrontRight(void);
+  unsigned char getDistanceBackLeft(void);
+  unsigned char getDistanceBackCenter(void);
+  unsigned char getDistanceBackRight(void);
+
+//** PWM
+void addPwmMotorBack(unsigned char val);
+
+//** Steering Wheel
+void addStateSteeringWheel(unsigned char val);
+
+//** Encodeur
+void addEncodeurWheelBackLeft(float val);
+void addEncodeurWheelBackRight(float val);
+
+//** US Validity
+void addValidityFrontLeft(unsigned char val);
+void addValidityFrontCenter(unsigned char val);
+void addValidityFrontRight(unsigned char val);
+void addValidityBackLeft(unsigned char val);
+void addValidityBackCenter(unsigned char val);
+void addValidityBackRight(unsigned char val);
+void addDistanceFrontLeft(unsigned char val);
+void addDistanceFrontCenter(unsigned char val);
+void addDistanceFrontRight(unsigned char val);
+void addDistanceBackLeft(unsigned char val);
+void addDistanceBackCenter(unsigned char val);
+void addDistanceBackRight(unsigned char val);
 
   void printEncodeur(void);
   void printCar(void);
 
-  //private:
+  private:
 
   unsigned char pwm_motor_back;
   unsigned char state_steering_wheel;
