@@ -2,8 +2,9 @@
 
 using namespace std;
 
-	// Add your methodes over here
+	// setting s_instance which is a static attribut that needs to be setted
 	Mediator *Mediator::s_instance = 0;
+	// implementing Mediator constructor
 	Mediator::Mediator(): m_model(){}
 	
 	Mediator* Mediator::instance(){
@@ -11,3 +12,5 @@ using namespace std;
 			Mediator::s_instance = new Mediator;
 		return Mediator::s_instance;
 	}
+
+	

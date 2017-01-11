@@ -3,7 +3,7 @@
 using namespace std;
 	//Add your methodes over here 
 	Model::Model(){
-		m_pwm_back_right_motor = 0;
+		m_pwm_back_motor = 0;
 		m_pwm_back_left_motor = 0;
 		m_directional_counter = 0;
 		m_back_right_wheel_encoder = 0;
@@ -39,8 +39,8 @@ using namespace std;
 *****************************************************************************************************/
 
 	//getter for propulsors pwm
-	unsigned char Model::getBackRightPwmMotor(){
-		return Model::m_pwm_back_right_motor;
+	unsigned char Model::getBackPwmMotor(){
+		return Model::m_pwm_back_motor;
 	}
 
 	unsigned char Model::getBackLeftPwmMotor(){
@@ -134,8 +134,8 @@ using namespace std;
 ************************************************ SETTERS *********************************************
 *****************************************************************************************************/
 	//getter for propulsors pwm
-	void Model::setBackRightPwmMotor(unsigned char value){
-		Model::m_pwm_back_right_motor = value;
+	void Model::setBackPwmMotor(unsigned char value){
+		Model::m_pwm_back_motor = value;
 	}
 
 	void Model::setBackLeftPwmMotor(unsigned char value){

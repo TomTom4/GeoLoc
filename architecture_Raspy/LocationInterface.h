@@ -3,10 +3,15 @@
 
 class LocationInterface{
 
+
 	public:
-	//methodes
+		//methodes
+		static LocationInterface *instance();
 	private:
-	//attributs
+		//Constructeur
+		LocationInterface();
+		//attributs
+		static LocationInterface *s_instance;
 
 };
 
