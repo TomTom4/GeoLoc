@@ -20,7 +20,7 @@
 #include "parserV1.hpp"
 
 using namespace rapidxml;
-using namespace cv;
+//using namespace cv;
 using namespace std;
 
 double Map::Min_lon = 50;
