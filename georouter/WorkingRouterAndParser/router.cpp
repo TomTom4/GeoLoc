@@ -1,4 +1,10 @@
-#include <Python.h>
+#ifdef __APPLE__
+   #include <Python/Python.h>
+#else
+    #include <Python.h>
+#endif
+
+
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
@@ -41,7 +47,7 @@ vector<char*> Router::getpath(char pointA[] ,char pointB[])
     // Initialize the Python interpreter
     // TODO system call export PYTHONPATH=$PWD
     system("echo -------------lajsldklajsdjlsajdlkjsaljlkdlksaljdlkjsa");
-    system("export PYTHONPATH=$PWD");
+    system("echo export PYTHONPATH=$PWD");
     Py_Initialize();
     if(!Py_IsInitialized())
     {

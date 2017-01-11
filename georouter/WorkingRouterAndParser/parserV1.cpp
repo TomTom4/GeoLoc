@@ -17,6 +17,7 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
+#include "router.hpp"
 #include "parserV1.hpp"
 
 using namespace rapidxml;
@@ -76,11 +77,16 @@ float Map::ComputeCoefA(Node begin, Node end){
 	return (end.GetLatitude() - begin.GetLatitude())/(end.GetLongitude() - begin.GetLongitude());
 }
 
-int Map::CreateAll(int close, cv::Mat imageToWriteOn){
-	imageToWriteOn = Mat::zeros(Size(LARGEUR_FENETRE, HAUTEUR_FENETRE), CV_8UC3);
-	DisplayAllRoads(Road_Vec, close, imageToWriteOn);
-	DisplayAllBuildings(Building_Vec, close, imageToWriteOn);
-	DisplayAllUserNodes(User_Node, close, imageToWriteOn);
+int Map::CreateAll(int close){
+	if (close){
+		DisplayAllRoads(Road_Vec, close, imageClose);
+		DisplayAllBuildings(Building_Vec, close, imageClose);
+		DisplayAllUserNodes(User_Node, close, imageClose);
+	} else {
+		DisplayAllRoads(Road_Vec, close, image);
+		DisplayAllBuildings(Building_Vec, close, image);
+		DisplayAllUserNodes(User_Node, close, image);
+	}
 	return 1;
 }
 
@@ -150,6 +156,23 @@ float Map::CapAlgorithm(){
 	return Corrective_Cap;
 }
 
+void Map::Display(int close){
+	switch (close){
+		case 0:
+			image = cv::Mat::zeros(cv::Size(LARGEUR_FENETRE, HAUTEUR_FENETRE), CV_8UC3);
+			break;
+		case 1:
+			imageClose = cv::Mat::zeros(cv::Size(LARGEUR_FENETRE, HAUTEUR_FENETRE), CV_8UC3);
+			break;
+		default:
+			cout << "Error, Provide either 0 for full map, 1 for a zoomed map\n";
+			break;
+	}
+	CreateAll(close);
+	DisplayMyPosition(close);
+	DisplayImage(close);
+	//imshow("Image",imageLocale);
+}
 
 // Position
 int Map::DisplayImage(int close){
@@ -163,23 +186,22 @@ int Map::DisplayImage(int close){
 	return 1;
 }
 
-int Map::DisplayMyPosition(){
-	circle(image, Point(GetDisplayX(CurrentPosition_Lon), GetDisplayY(CurrentPosition_Lat)),  5, Scalar(0, 0, 255, 255), -1, 8, 0);
+int Map::DisplayMyPosition(int close){
+	if (close){
+		circle(imageClose, Point(GetCloseDisplayX(CurrentPosition_Lon), GetCloseDisplayY(CurrentPosition_Lat)),  5, Scalar(0, 0, 255, 255), -1, 8, 0);
+	} else {
+		circle(image, Point(GetDisplayX(CurrentPosition_Lon), GetDisplayY(CurrentPosition_Lat)),  5, Scalar(0, 0, 255, 255), -1, 8, 0);
+	}
 	return 1;
 }
-
-int Map::DisplayCloseMyPosition(){
-	circle(imageClose, Point(GetCloseDisplayX(CurrentPosition_Lon), GetCloseDisplayY(CurrentPosition_Lat)),  5, Scalar(0, 0, 255, 255), -1, 8, 0);
-	return 1;
-}
-
+/*
 int Map::DisplayCloseToLocation(cv::Mat imageToWriteOn){
-	//Position in the center of the screen
-	SetBeta();
-	CreateAll(1, imageToWriteOn);
-	return 1;
+//Position in the center of the screen
+SetBeta();
+CreateAll(1, imageToWriteOn);
+return 1;
 }
-
+*/
 // Distance between two points (longitude, latitude)
 double Map::DirectDistance(double lat1, double lng1, double lat2, double lng2)
 {
@@ -335,12 +357,37 @@ int Map::SetPosition(double lon, double lat){
 	Delta_Lon = 0;
 	Delta_Lat = GetCloseDisplayY(CurrentPosition_Lat) - (HAUTEUR_FENETRE/2);
 	Delta_Lon = GetCloseDisplayX(CurrentPosition_Lon) - (LARGEUR_FENETRE/2);
+
+	WhichRoad(CurrentPosition_Lon, CurrentPosition_Lat);
+
 	return 1;
 }
 
 void Map::SetDestination(double lon, double lat){
 	DestinationPosition_Lon = lon;
 	DestinationPosition_Lat = lat;
+	//It calculates the path to the Destination
+	double CurrentClosestNode = GetClosestNode()->GetId();
+
+	Router MyRouter;
+
+	std::vector<char*> ipath;
+
+	//char pointA[7] = "-1630";
+	char pointA [10];
+	// Need to remove the decimals
+	sprintf (pointA, "%.0f", CurrentClosestNode);
+	std::cout << "Current closest node : " << pointA << '\n';
+	char pointB[7] = "-1858";
+
+	std::cout << "From : " << pointA << " ... to : " << pointB << '\n';
+	ipath = MyRouter.getpath(pointA,pointB);
+	int len = ipath.size();
+	std::cout << "ipath length : " << len << '\n';
+
+	// End Zepeng Code //
+
+	SetPath(ipath);
 }
 /*
 vector<Node> SortCatsByAge(){
@@ -376,7 +423,8 @@ double Map::WhichRoadWithLatLon(){
 }
 
 
-Map::Map(rapidxml::file<> xmlFile){
+Map::Map(char * OsmFilePath){
+	rapidxml::file<> xmlFile(OsmFilePath);
 
 	image = cv::Mat::zeros(cv::Size(LARGEUR_FENETRE, HAUTEUR_FENETRE), CV_8UC3);
 	imageClose = cv::Mat::zeros(cv::Size(LARGEUR_FENETRE, HAUTEUR_FENETRE), CV_8UC3);
