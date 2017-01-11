@@ -4,7 +4,7 @@ import re, string, sys
 import xml.sax as sax
 from math import radians, cos, sin, asin, sqrt
 
-print "Hello, World!";
+print("Hello, World!")
 
 filepath = sys.argv[1]
 
