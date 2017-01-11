@@ -220,21 +220,21 @@ public:
 
     vector<tuple<string, double>> GetTupleOfDestinations();
 
-    Map(rapidxml::file<> xmlFile);
+    Map(char * OsmFilePath);
 
     double WhichRoadWithLatLon();
 
-    int CreateAll(int close, cv::Mat imageToWriteOn);
+    int CreateAll(int close);
+
+    void Display(int close);
 
     int DisplayImage(int close);
 
     int SetPosition(double lon, double lat);
 
-    int DisplayMyPosition();
+    int DisplayMyPosition(int close);
 
-    int DisplayCloseMyPosition();
-
-    int DisplayCloseToLocation(cv::Mat imageToWriteOn);
+    //int DisplayCloseToLocation(cv::Mat imageToWriteOn);
 
     float CapAlgorithm();
 
