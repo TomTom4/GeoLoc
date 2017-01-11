@@ -1,4 +1,4 @@
-const unsigned char SPI_LENGHT_STRING = 28;
+const unsigned char SPI_LENGHT_STRING = 22;
 
 const unsigned char BEACON_RASP_START = 0x69; // 0110b & 1001b
 const unsigned char BEACON_RASP_END = 0xA5;   // 1010b & 0101b
@@ -22,35 +22,29 @@ const unsigned char ENCODEUR_WHEEL_BACK_RIGHT_1M = 7;   //Counter 1m : 0 -> 99
 const unsigned char ENCODEUR_WHEEL_BACK_RIGHT_1CM = 8;  //counter 0.01m : 0 -> 99
 
 /** US sensors **/
-const unsigned char US_ID_FRONT_LEFT = 9;
-const unsigned char US_VALIDITY_FRONT_LEFT = 10;
-const unsigned char US_DISTANCE_FRONT_LEFT = 11;
+const unsigned char US_VALIDITY_FRONT_LEFT = 9;
+const unsigned char US_DISTANCE_FRONT_LEFT = 10;
 
-const unsigned char US_ID_FRONT_CENTER = 12;
-const unsigned char US_VALIDITY_FRONT_CENTER = 13;
-const unsigned char US_DISTANCE_FRONT_CENTER = 14;
+const unsigned char US_VALIDITY_FRONT_CENTER = 11;
+const unsigned char US_DISTANCE_FRONT_CENTER = 12;
 
-const unsigned char US_ID_FRONT_RIGHT = 15;
-const unsigned char US_VALIDITY_FRONT_RIGHT = 16;
-const unsigned char US_DISTANCE_FRONT_RIGHT = 17;
+const unsigned char US_VALIDITY_FRONT_RIGHT = 13;
+const unsigned char US_DISTANCE_FRONT_RIGHT = 14;
 
-const unsigned char US_ID_BACK_LEFT = 18;
-const unsigned char US_VALIDITY_BACK_LEFT = 19;
-const unsigned char US_DISTANCE_BACK_LEFT = 20;
+const unsigned char US_VALIDITY_BACK_LEFT = 15;
+const unsigned char US_DISTANCE_BACK_LEFT = 16;
 
-const unsigned char US_ID_BACK_CENTER = 21;
-const unsigned char US_VALIDITY_BACK_CENTER = 22;
-const unsigned char US_DISTANCE_BACK_CENTER = 23;
+const unsigned char US_VALIDITY_BACK_CENTER = 17;
+const unsigned char US_DISTANCE_BACK_CENTER = 18;
 
-const unsigned char US_ID_BACK_RIGHT = 24;
-const unsigned char US_VALIDITY_BACK_RIGHT = 25;
-const unsigned char US_DISTANCE_BACK_RIGHT = 26;
+const unsigned char US_VALIDITY_BACK_RIGHT = 19;
+const unsigned char US_DISTANCE_BACK_RIGHT = 20;
 
-const unsigned char BEACON_STOP = 27; //beacon_stop (rasp or stm)
+const unsigned char BEACON_STOP = 21; //beacon_stop (rasp or stm)
 
 //*** PHYSIQUE DATA ***//
-const unsigned char SPEED_0 = 50;
-const unsigned char STEERING_WHEEL_CENTER = 6;
+const unsigned char SPEED_0 = 0; // 0 cm.s
+const unsigned char STEERING_WHEEL_CENTER = 6; // Center
 
 const unsigned char US_ID_FRONT_LEFT_VAL = 0x01;
 const unsigned char US_ID_FRONT_CENTER_VAL = 0x02;

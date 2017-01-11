@@ -8,7 +8,6 @@ public:
   void readWriteData();
   void clearString();
   void addDataString();
-  void extractUsSensor(int offset_string);
   void extractDataString();
   void extractEncodeur();
   void majCar();

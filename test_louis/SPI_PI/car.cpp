@@ -17,130 +17,186 @@ Car::Car()
   encodeur_wheel_back_left = 0.0;
   encodeur_wheel_back_right = 0.0;
 
-  us_id_front_left = US_ID_FRONT_LEFT_VAL;
   us_validity_front_left = 0;
   us_distance_front_left = 0xFF;
 
-  us_id_front_center = US_ID_FRONT_CENTER_VAL;
   us_validity_front_center = 0;
   us_distance_front_center = 0xFF;
 
-  us_id_front_right = US_ID_FRONT_RIGHT_VAL;
   us_validity_front_right = 0;
   us_distance_front_right = 0xFF;
 
-  us_id_back_left = US_ID_BACK_LEFT_VAL;
   us_validity_back_left = 0;
   us_distance_back_left = 0xFF;
 
-  us_id_back_center = US_ID_BACK_CENTER_VAL;
   us_validity_back_center = 0;
   us_distance_back_center = 0xFF;
 
-  us_id_back_right = US_ID_BACK_RIGHT_VAL;
   us_validity_back_right = 0;
   us_distance_back_right = 0xFF;
 }
 
-unsigned char Car::getData(int num)
+//******** GET ********//
+
+//** PWM
+unsigned char Car::getPwmMotorBack(void)
 {
-  switch(num)
-  {
-    case PWM_MOTOR_BACK:                return(pwm_motor_back); break;
-    case STATE_STEERING_WHEEL:          return(state_steering_wheel); break;
-    case ENCODEUR_WHEEL_BACK_LEFT_100M:
-    case ENCODEUR_WHEEL_BACK_LEFT_1M:
-    case ENCODEUR_WHEEL_BACK_LEFT_1CM: return(encodeur_wheel_back_left); break;
-
-    case ENCODEUR_WHEEL_BACK_RIGHT_100M:
-    case ENCODEUR_WHEEL_BACK_RIGHT_1M:
-    case ENCODEUR_WHEEL_BACK_RIGHT_1CM: return(encodeur_wheel_back_right); break;
-
-    case US_ID_FRONT_LEFT:          return(us_id_front_left); break;
-    case US_VALIDITY_FRONT_LEFT:    return(us_validity_front_left); break;
-    case US_DISTANCE_FRONT_LEFT:    return(us_distance_front_left); break;
-
-    case US_ID_FRONT_CENTER:        return(us_id_front_center); break;
-    case US_VALIDITY_FRONT_CENTER:  return(us_validity_front_center); break;
-    case US_DISTANCE_FRONT_CENTER:  return(us_distance_front_center); break;
-
-    case US_ID_FRONT_RIGHT:         return(us_id_front_right); break;
-    case US_VALIDITY_FRONT_RIGHT:   return(us_validity_front_right); break;
-    case US_DISTANCE_FRONT_RIGHT:   return(us_distance_front_right); break;
-
-    case US_ID_BACK_LEFT:           return(us_id_back_left); break;
-    case US_VALIDITY_BACK_LEFT:     return(us_validity_back_left); break;
-    case US_DISTANCE_BACK_LEFT:     return(us_distance_back_left); break;
-
-    case US_ID_BACK_CENTER:         return(us_id_back_center); break;
-    case US_VALIDITY_BACK_CENTER:   return(us_validity_back_center); break;
-    case US_DISTANCE_BACK_CENTER:   return(us_distance_back_center); break;
-
-    case US_ID_BACK_RIGHT:          return(us_id_back_right); break;
-    case US_VALIDITY_BACK_RIGHT:    return(us_validity_back_right); break;
-    case US_DISTANCE_BACK_RIGHT:    return(us_distance_back_right); break;
-  }
-return (0);
+  return(pwm_motor_back);
 }
 
-void Car::addDataEncodeur(void)
+//** Steering Wheel
+unsigned char Car::getStateSteeringWheel(void)
 {
-  encodeur_wheel_back_left = (float)encodeur_wheel_back_left_100m*100.0 + (float)encodeur_wheel_back_left_1m + (float)encodeur_wheel_back_left_1cm*0.01;
-  encodeur_wheel_back_right = (float)encodeur_wheel_back_right_100m*100.0 + (float)encodeur_wheel_back_right_1m + (float)encodeur_wheel_back_right_1cm*0.01;
+  return(state_steering_wheel);
 }
 
-void Car::addData(unsigned char num, unsigned char val)
+//** Encodeur
+float Car::getEncodeurWheelBackLeft(void)
 {
-  switch(num)
-  {
-    case PWM_MOTOR_BACK:                pwm_motor_back = val; break;
-    case STATE_STEERING_WHEEL:          state_steering_wheel = val; break;
+  return(encodeur_wheel_back_left);
+}
+float Car::getEncodeurWheelBackRight(void)
+{
+  return(encodeur_wheel_back_right);
+}
 
-    case ENCODEUR_WHEEL_BACK_LEFT_100M:  encodeur_wheel_back_left_100m = val; break;
-    case ENCODEUR_WHEEL_BACK_LEFT_1M:  encodeur_wheel_back_left_1m = val; break;
-    case ENCODEUR_WHEEL_BACK_LEFT_1CM:  encodeur_wheel_back_left_1cm = val; break;
+//** US Validity
+unsigned char Car::getValidityFrontLeft(void)
+{
+  return(us_validity_front_left);
+}
+unsigned char Car::getValidityFrontCenter(void)
+{
+  return(us_validity_front_center);
+}
+unsigned char Car::getValidityFrontRight(void)
+{
+  return(us_validity_front_right);
+}
+unsigned char Car::getValidityBackLeft(void)
+{
+  return(us_validity_back_left);
+}
+unsigned char Car::getValidityBackCenter(void)
+{
+  return(us_validity_back_center);
+}
+unsigned char Car::getValidityBackRight(void)
+{
+  return(us_validity_back_left);
+}
 
-    case ENCODEUR_WHEEL_BACK_RIGHT_100M: encodeur_wheel_back_right_100m = val; break;
-    case ENCODEUR_WHEEL_BACK_RIGHT_1M: encodeur_wheel_back_right_1m = val; break;
-    case ENCODEUR_WHEEL_BACK_RIGHT_1CM: encodeur_wheel_back_right_1cm = val; break;
+//** Distance
+unsigned char Car::getDistanceFrontLeft(void)
+{
+  return(us_distance_front_left);
+}
+unsigned char Car::getDistanceFrontCenter(void)
+{
+  return(us_distance_front_center);
+}
+unsigned char Car::getDistanceFrontRight(void)
+{
+  return(us_distance_front_right);
+}
+unsigned char Car::getDistanceBackLeft(void)
+{
+  return(us_distance_back_left);
+}
+unsigned char Car::getDistanceBackCenter(void)
+{
+  return(us_distance_back_center);
+}
+unsigned char Car::getDistanceBackRight(void)
+{
+  return(us_distance_back_right);
+}
 
-    case US_ID_FRONT_LEFT:              us_id_front_left = val; break;
-    case US_VALIDITY_FRONT_LEFT:        us_validity_front_left = val; break;
-    case US_DISTANCE_FRONT_LEFT:        us_distance_front_left = val; break;
+//******** ADD ********//
 
-    case US_ID_FRONT_CENTER:            us_id_front_center = val; break;
-    case US_VALIDITY_FRONT_CENTER:      us_validity_front_center = val; break;
-    case US_DISTANCE_FRONT_CENTER:      us_distance_front_center = val; break;
+void Car::addPwmMotorBack(unsigned char val)
+{
+  pwm_motor_back = val;
+}
 
-    case US_ID_FRONT_RIGHT:             us_id_front_right = val; break;
-    case US_VALIDITY_FRONT_RIGHT:       us_validity_front_right = val; break;
-    case US_DISTANCE_FRONT_RIGHT:       us_distance_front_right = val; break;
+//** Steering Wheel
+void Car::addStateSteeringWheel(unsigned char val)
+{
+  state_steering_wheel = val;
+}
 
-    case US_ID_BACK_LEFT:               us_id_back_left = val; break;
-    case US_VALIDITY_BACK_LEFT:         us_validity_back_left = val; break;
-    case US_DISTANCE_BACK_LEFT:         us_distance_back_left = val; break;
+//** Encodeur
+void Car::addEncodeurWheelBackLeft(float val)
+{
+  encodeur_wheel_back_left = val;
+}
+void Car::addEncodeurWheelBackRight(float val)
+{
+  encodeur_wheel_back_right = val;
+}
 
-    case US_ID_BACK_CENTER:             us_id_back_center = val; break;
-    case US_VALIDITY_BACK_CENTER:       us_validity_back_center = val; break;
-    case US_DISTANCE_BACK_CENTER:       us_distance_back_center = val; break;
+//** US Validity
+void Car::addValidityFrontLeft(unsigned char val)
+{
+  us_validity_front_left = val;
+}
+void Car::addValidityFrontCenter(unsigned char val)
+{
+  us_validity_front_center = val;
+}
+void Car::addValidityFrontRight(unsigned char val)
+{
+  us_validity_front_right = val;
+}
+void Car::addValidityBackLeft(unsigned char val)
+{
+  us_validity_back_left = val;
+}
+void Car::addValidityBackCenter(unsigned char val)
+{
+  us_validity_back_center = val;
+}
+void Car::addValidityBackRight(unsigned char val)
+{
+  us_validity_back_left = val;
+}
 
-    case US_ID_BACK_RIGHT:               us_id_back_right = val; break;
-    case US_VALIDITY_BACK_RIGHT:         us_validity_back_right = val; break;
-    case US_DISTANCE_BACK_RIGHT:         us_distance_back_right = val; break;
-  }
+void Car::addDistanceFrontLeft(unsigned char val)
+{
+  us_distance_front_left = val;
+}
+void Car::addDistanceFrontCenter(unsigned char val)
+{
+  us_distance_front_center = val;
+}
+void Car::addDistanceFrontRight(unsigned char val)
+{
+  us_distance_front_right = val;
+}
+void Car::addDistanceBackLeft(unsigned char val)
+{
+  us_distance_back_left = val;
+}
+void Car::addDistanceBackCenter(unsigned char val)
+{
+  us_distance_back_center = val;
+}
+void Car::addDistanceBackRight(unsigned char val)
+{
+  us_distance_back_right = val;
 }
 
 void Car::printEncodeur()
 {
-	cout << "Distance Left : " << (float)encodeur_wheel_back_left << endl;
-  	cout << "Distance Right : " << (float)encodeur_wheel_back_right << endl;
-	cout << "Erreur : " << (float)encodeur_wheel_back_left - (float)encodeur_wheel_back_right << endl;
+	cout << "Distance Left : " << encodeur_wheel_back_left << endl;
+  cout << "Distance Right : " << encodeur_wheel_back_right << endl;
+	cout << "Erreur : " << encodeur_wheel_back_left - encodeur_wheel_back_right << endl;
 }
 
 void Car::printCar(void)
 {
-  cout << "\tCAR STATE\n" << endl;
-  /*cout << "Pwm : " << (int)pwm_motor_back << endl;
+  cout << "  CAR STATE  " << endl << endl;
+  cout << "Pwm : " << (int)pwm_motor_back << endl;
   cout << "Steering wheel state : " << (int)state_steering_wheel << endl;
   cout << "Distance Left : " << (float)encodeur_wheel_back_left << endl;
   cout << "Distance Right : " << (float)encodeur_wheel_back_right << endl;
@@ -151,15 +207,4 @@ void Car::printCar(void)
   cout << "Us back left, Validity : " << (int)us_validity_back_left << ", Distance : " << (int)us_distance_back_left <<"cm " << endl;
   cout << "Us back center, Validity : " << (int)us_validity_back_center << ", Distance : " << (int)us_distance_back_center <<"cm " << endl;
   cout << "Us back right, Validity : " << (int)us_validity_back_right << ", Distance : " << (int)us_distance_back_right <<"cm " << endl;
-*/
 }
-
-/*Car& Car::Instance();
-{
-    // Since it's a static variable, if the class has already been created,
-    // It won't be created again.
-    // And it **is** thread-safe in C++11.
-    static Car myInstance;
-    // Return a reference to our instance.
-    return myInstance;
-}*/

@@ -7,9 +7,30 @@ class Car
   public:
   Car(); // Constructor
   //~Car(); // Destructor
-  unsigned char getData(int num);
-  void addData(unsigned char num, unsigned char val);
-  void addDataEncodeur();
+
+  //******** GET ********//
+  //** PWM
+  unsigned char Car::getPwmMotorBack(void);
+  //** Steering Wheel
+  unsigned char Car::getStateSteeringWheel(void);
+  //** Encodeur
+  float Car::getEncodeurWheelBackLeft(void);
+  float Car::getEncodeurWheelBackRight(void);
+  //** US Validity
+  unsigned char Car::getValidityFrontLeft(void);
+  unsigned char Car::getValidityFrontCenter(void);
+  unsigned char Car::getValidityFrontRight(void);
+  unsigned char Car::getValidityBackLeft(void);
+  unsigned char Car::getValidityBackCenter(void);
+  unsigned char Car::getValidityBackRight(void);
+  //** Distance
+  unsigned char Car::getDistanceFrontLeft(void);
+  unsigned char Car::getDistanceFrontCenter(void);
+  unsigned char Car::getDistanceFrontRight(void);
+  unsigned char Car::getDistanceBackLeft(void);
+  unsigned char Car::getDistanceBackCenter(void);
+  unsigned char Car::getDistanceBackRight(void);
+
   void printEncodeur(void);
   void printCar(void);
 
@@ -17,13 +38,13 @@ class Car
 
   unsigned char pwm_motor_back;
   unsigned char state_steering_wheel;
-  
-  unsigned char encodeur_wheel_back_left_100m;
+
+  /*unsigned char encodeur_wheel_back_left_100m;
   unsigned char encodeur_wheel_back_left_1m;
   unsigned char encodeur_wheel_back_left_1cm;
   unsigned char encodeur_wheel_back_right_100m;
   unsigned char encodeur_wheel_back_right_1m;
-  unsigned char encodeur_wheel_back_right_1cm;
+  unsigned char encodeur_wheel_back_right_1cm;*/
 
   float encodeur_wheel_back_left;
   float encodeur_wheel_back_right;
