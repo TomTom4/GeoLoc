@@ -1,221 +1,203 @@
-#include "Model.h"
+#include "Model.hpp"
+
 
 using namespace std;
-	//Add your methodes over here 
-	Model::Model(){
-		m_pwm_back_motor = 0;
-		m_directional_counter = 0;
-		m_back_right_wheel_encoder = 0;
-		m_back_left_wheel_encoder = 0;
 
-		m_right_front_ultrasonic_id = 0;
-		m_right_front_ultrasonic_validity = 0;
-		m_right_front_ultrasonic_distance = 0;
+Model::Model()
+{
+  pwm_motor_back = 0;
+  state_steering_wheel = 3;
+  encoder_wheel_back_left = 0.0;
+  encoder_wheel_back_right = 0.0;
 
-		m_center_front_ultrasonic_id = 0;
-		m_center_front_ultrasonic_validity = 0;
-		m_center_front_ultrasonic_distance = 0;
+  us_validity_front_left = 0;
+  us_distance_front_left = 0xFF;
 
-		m_left_front_ultrasonic_id = 0;
-		m_left_front_ultrasonic_validity = 0;
-		m_left_front_ultrasonic_distance = 0;
+  us_validity_front_center = 0;
+  us_distance_front_center = 0xFF;
 
-		m_right_back_ultrasonic_id = 0;
-		m_right_back_ultrasonic_validity = 0;
-		m_right_back_ultrasonic_distance = 0;
+  us_validity_front_right = 0;
+  us_distance_front_right = 0xFF;
 
-		m_center_back_ultrasonic_id = 0;
-		m_center_back_ultrasonic_validity = 0;
-		m_center_back_ultrasonic_distance = 0;
+  us_validity_back_left = 0;
+  us_distance_back_left = 0xFF;
 
-		m_left_back_ultrasonic_id = 0;
-		m_left_back_ultrasonic_validity = 0;
-		m_left_back_ultrasonic_distance = 0;
-	}
+  us_validity_back_center = 0;
+  us_distance_back_center = 0xFF;
 
-/*****************************************************************************************************
-********************************************** GETTERS ***********************************************
-*****************************************************************************************************/
+  us_validity_back_right = 0;
+  us_distance_back_right = 0xFF;
+}
 
-	//getter for propulsors pwm
-	unsigned char Model::getBackPwmMotor(){
-		return Model::m_pwm_back_motor;
-	}
+//******** GET ********//
 
-	//getter for directional counter
-	unsigned char Model::getDirectionalCounter(){
-		return Model::m_directional_counter;
-	}
-	//getter for wheel Encoder
-	unsigned char Model::getBackRightEncoderWheel(){
-		return Model::m_back_right_wheel_encoder;
-	}
-	
-	unsigned char Model::getBackLeftEncoderWheel(){
-		return Model::m_back_left_wheel_encoder;
-	}
-	//getter for ultrasonic sensors
-	unsigned char Model::getRightFrontUltrasonicId(){
-		return Model::m_right_front_ultrasonic_id;
-	}
+//** PWM
+unsigned char Model::getPwmMotorBack(void)
+{
+  return(pwm_motor_back);
+}
 
-	unsigned char Model::getRightFrontUltrasonicValidity(){
-		return Model::m_right_front_ultrasonic_validity;
-	}
+//** Steering Wheel
+unsigned char Model::getStateSteeringWheel(void)
+{
+  return(state_steering_wheel);
+}
 
-	unsigned char Model::getRightFrontUltrasonicDistance(){
-		return Model::m_right_front_ultrasonic_distance;
-	}
-	
-	unsigned char Model::getCenterFrontUltrasonicId(){
-		return Model::m_center_front_ultrasonic_id;
-	}
+//** Encoder
+float Model::getEncoderWheelBackLeft(void)
+{
+  return(encoder_wheel_back_left);
+}
+float Model::getEncoderWheelBackRight(void)
+{
+  return(encoder_wheel_back_right);
+}
 
-	unsigned char Model::getCenterFrontUltrasonicValidity(){
-		return Model::m_center_front_ultrasonic_validity;
-	}
+//** US Validity
+unsigned char Model::getValidityFrontLeft(void)
+{
+  return(us_validity_front_left);
+}
+unsigned char Model::getValidityFrontCenter(void)
+{
+  return(us_validity_front_center);
+}
+unsigned char Model::getValidityFrontRight(void)
+{
+  return(us_validity_front_right);
+}
+unsigned char Model::getValidityBackLeft(void)
+{
+  return(us_validity_back_left);
+}
+unsigned char Model::getValidityBackCenter(void)
+{
+  return(us_validity_back_center);
+}
+unsigned char Model::getValidityBackRight(void)
+{
+  return(us_validity_back_left);
+}
 
-	unsigned char Model::getCenterFrontUltrasonicDistance(){
-		return Model::m_center_front_ultrasonic_distance;
-	}
+//** Distance
+unsigned char Model::getDistanceFrontLeft(void)
+{
+  return(us_distance_front_left);
+}
+unsigned char Model::getDistanceFrontCenter(void)
+{
+  return(us_distance_front_center);
+}
+unsigned char Model::getDistanceFrontRight(void)
+{
+  return(us_distance_front_right);
+}
+unsigned char Model::getDistanceBackLeft(void)
+{
+  return(us_distance_back_left);
+}
+unsigned char Model::getDistanceBackCenter(void)
+{
+  return(us_distance_back_center);
+}
+unsigned char Model::getDistanceBackRight(void)
+{
+  return(us_distance_back_right);
+}
 
-	unsigned char Model::getLeftFrontUltrasonicId(){
-		return Model::m_left_front_ultrasonic_id;
-	}
+//******** ADD ********//
 
-	unsigned char Model::getLeftFrontUltrasonicValidity(){
-		return Model::m_left_front_ultrasonic_validity;
-	}
+void Model::addPwmMotorBack(unsigned char val)
+{
+  pwm_motor_back = val;
+}
 
-	unsigned char Model::getLeftFrontUltrasonicDistance(){
-		return Model::m_left_front_ultrasonic_distance;
-	}
-	
-	unsigned char Model::getBackRightUltrasonicId(){
-		return Model::m_right_back_ultrasonic_id;
-	}
+//** Steering Wheel
+void Model::addStateSteeringWheel(unsigned char val)
+{
+  state_steering_wheel = val;
+}
 
-	unsigned char Model::getBackRightUltrasonicValidity(){
-		return Model::m_right_back_ultrasonic_validity;
-	}
+//** Encoder
+void Model::addEncoderWheelBackLeft(float val)
+{
+  encoder_wheel_back_left = val;
+}
+void Model::addEncoderWheelBackRight(float val)
+{
+  encoder_wheel_back_right = val;
+}
 
-	unsigned char Model::getBackRightUltrasonicDistance(){
-		return Model::m_right_back_ultrasonic_distance;
-	}
+//** US Validity
+void Model::addValidityFrontLeft(unsigned char val)
+{
+  us_validity_front_left = val;
+}
+void Model::addValidityFrontCenter(unsigned char val)
+{
+  us_validity_front_center = val;
+}
+void Model::addValidityFrontRight(unsigned char val)
+{
+  us_validity_front_right = val;
+}
+void Model::addValidityBackLeft(unsigned char val)
+{
+  us_validity_back_left = val;
+}
+void Model::addValidityBackCenter(unsigned char val)
+{
+  us_validity_back_center = val;
+}
+void Model::addValidityBackRight(unsigned char val)
+{
+  us_validity_back_left = val;
+}
 
-	unsigned char Model::getBackCenterUltrasonicId(){
-		return Model::m_center_back_ultrasonic_id;
-	}
+void Model::addDistanceFrontLeft(unsigned char val)
+{
+  us_distance_front_left = val;
+}
+void Model::addDistanceFrontCenter(unsigned char val)
+{
+  us_distance_front_center = val;
+}
+void Model::addDistanceFrontRight(unsigned char val)
+{
+  us_distance_front_right = val;
+}
+void Model::addDistanceBackLeft(unsigned char val)
+{
+  us_distance_back_left = val;
+}
+void Model::addDistanceBackCenter(unsigned char val)
+{
+  us_distance_back_center = val;
+}
+void Model::addDistanceBackRight(unsigned char val)
+{
+  us_distance_back_right = val;
+}
 
-	unsigned char Model::getBackCenterUltrasonicValidity(){
-		return Model::m_center_back_ultrasonic_validity;
-	}
+void Model::printEncoder()
+{
+	cout << "Distance Left : " << encoder_wheel_back_left << endl;
+  cout << "Distance Right : " << encoder_wheel_back_right << endl;
+	cout << "Erreur : " << encoder_wheel_back_left - encoder_wheel_back_right << endl;
+}
 
-	unsigned char Model::getBackCenterUltrasonicDistance(){
-		return Model::m_center_back_ultrasonic_distance;
-	}
+void Model::printModel(void)
+{
+  cout << "  CAR STATE  " << endl << endl;
+  cout << "Pwm : " << (int)pwm_motor_back << endl;
+  cout << "Steering wheel state : " << (int)state_steering_wheel << endl;
+  cout << "Distance Left : " << (float)encoder_wheel_back_left << endl;
+  cout << "Distance Right : " << (float)encoder_wheel_back_right << endl;
+  cout << "Us front left, Validity : " << (int)us_validity_front_left << ", Distance : " << (int)us_distance_front_left <<"cm " << endl;
+  cout << "Us front center, Validity : " << (int)us_validity_front_center << ", Distance : " << (int)us_distance_front_center <<"cm " << endl;
+  cout << "Us front right, Validity : " << (int)us_validity_front_right << ", Distance : " << (int)us_distance_front_right <<"cm " << endl;
 
-	unsigned char Model::getBackLeftUltrasonicId(){
-		return Model::m_left_back_ultrasonic_id;
-	}
-
-	unsigned char Model::getBackLeftUltrasonicValidity(){
-		return Model::m_left_back_ultrasonic_validity;
-	}
-
-	unsigned char Model::getBackLeftUltrasonicDistance(){
-		return Model::m_left_back_ultrasonic_distance;
-	}
-/*****************************************************************************************************
-************************************************ SETTERS *********************************************
-*****************************************************************************************************/
-	//getter for propulsors pwm
-	void Model::setBackPwmMotor(unsigned char value){
-		Model::m_pwm_back_motor = value;
-	}
-
-	//getter for directional counter
-	void Model::setDirectionalCounter(unsigned char value){
-		Model::m_directional_counter = value;
-	}
-	//getter for wheel Encoder
-	void Model::setBackRightEncoderWheel(unsigned char value){
-		Model::m_back_right_wheel_encoder = value;
-	}
-	
-	void Model::setBackLeftEncoderWheel(unsigned char value){
-		Model::m_back_left_wheel_encoder = value;
-	}
-	//getter for ultrasonic sensors
-	void Model::setRightFrontUltrasonicId(unsigned char value){
-		Model::m_right_front_ultrasonic_id = value ;
-	}
-
-	void Model::setRightFrontUltrasonicValidity(unsigned char value){
-		Model::m_right_front_ultrasonic_validity = value ;
-	}
-
-	void Model::setRightFrontUltrasonicDistance(unsigned char value){
-		Model::m_right_front_ultrasonic_distance = value ;
-	}
-	
-	void Model::setCenterFrontUltrasonicId(unsigned char value){
-		Model::m_center_front_ultrasonic_id = value ;
-	}
-
-	void Model::setCenterFrontUltrasonicValidity(unsigned char value){
-		Model::m_center_front_ultrasonic_validity = value ;
-	}
-
-	void Model::setCenterFrontUltrasonicDistance(unsigned char value){
-		Model::m_center_front_ultrasonic_distance = value ;
-	}
-
-	void Model::setLeftFrontUltrasonicId(unsigned char value){
-		Model::m_left_front_ultrasonic_id = value ;
-	}
-
-	void Model::setLeftFrontUltrasonicValidity(unsigned char value){
-		Model::m_left_front_ultrasonic_validity = value ;
-	}
-
-	void Model::setLeftFrontUltrasonicDistance(unsigned char value){
-		Model::m_left_front_ultrasonic_distance = value ;
-	}
-	
-	void Model::setBackRightUltrasonicId(unsigned char value){
-		Model::m_right_back_ultrasonic_id = value ;
-	}
-
-	void Model::setBackRightUltrasonicValidity(unsigned char value){
-		Model::m_right_back_ultrasonic_validity = value ;
-	}
-
-	void Model::setBackRightUltrasonicDistance(unsigned char value){
-		Model::m_right_back_ultrasonic_distance = value ;
-	}
-
-	void Model::setBackCenterUltrasonicId(unsigned char value){
-		Model::m_center_back_ultrasonic_id = value ;
-	}
-
-	void Model::setBackCenterUltrasonicValidity(unsigned char value){
-		Model::m_center_back_ultrasonic_validity = value ;
-	}
-
-	void Model::setBackCenterUltrasonicDistance(unsigned char value){
-		Model::m_center_back_ultrasonic_distance = value ;
-	}
-
-	void Model::setBackLeftUltrasonicId(unsigned char value){
-		Model::m_left_back_ultrasonic_id = value ;
-	}
-
-	void Model::setBackLeftUltrasonicValidity(unsigned char value){
-		Model::m_left_back_ultrasonic_validity = value ;
-	}
-
-	void Model::setBackLeftUltrasonicDistance(unsigned char value){
-		Model::m_left_back_ultrasonic_distance = value ;
-	}
-
+  cout << "Us back left, Validity : " << (int)us_validity_back_left << ", Distance : " << (int)us_distance_back_left <<"cm " << endl;
+  cout << "Us back center, Validity : " << (int)us_validity_back_center << ", Distance : " << (int)us_distance_back_center <<"cm " << endl;
+  cout << "Us back right, Validity : " << (int)us_validity_back_right << ", Distance : " << (int)us_distance_back_right <<"cm " << endl;
+}
