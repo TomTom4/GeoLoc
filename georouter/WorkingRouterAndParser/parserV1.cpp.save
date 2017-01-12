@@ -17,7 +17,6 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
-#include "router.hpp"
 #include "parserV1.hpp"
 
 using namespace rapidxml;
@@ -77,16 +76,11 @@ float Map::ComputeCoefA(Node begin, Node end){
 	return (end.GetLatitude() - begin.GetLatitude())/(end.GetLongitude() - begin.GetLongitude());
 }
 
-int Map::CreateAll(int close){
-	if (close){
-		DisplayAllRoads(Road_Vec, close, imageClose);
-		DisplayAllBuildings(Building_Vec, close, imageClose);
-		DisplayAllUserNodes(User_Node, close, imageClose);
-	} else {
-		DisplayAllRoads(Road_Vec, close, image);
-		DisplayAllBuildings(Building_Vec, close, image);
-		DisplayAllUserNodes(User_Node, close, image);
-	}
+int Map::CreateAll(int close, cv::Mat imageToWriteOn){
+	imageToWriteOn = cv::Mat::zeros(Size(LARGEUR_FENETRE, HAUTEUR_FENETRE), CV_8UC3);
+	DisplayAllRoads(Road_Vec, close, imageToWriteOn);
+	DisplayAllBuildings(Building_Vec, close, imageToWriteOn);
+	DisplayAllUserNodes(User_Node, close, imageToWriteOn);
 	return 1;
 }
 
@@ -140,7 +134,7 @@ float Map::CapAlgorithm(){
 
 			Cap_Actuel = atan(Cap_Actuel) * 180 / LOCAL_PI;
 			Cap_Destination = atan(Cap_Destination) * 180 / LOCAL_PI;
-
+	
 			float Cap_Derive = (Cap_Destination - Cap_Actuel);
 
 			float OppositeAngle = asin(sin(Cap_Derive)*5/RemainingDistance);
@@ -156,52 +150,36 @@ float Map::CapAlgorithm(){
 	return Corrective_Cap;
 }
 
-void Map::Display(int close){
-	switch (close){
-		case 0:
-			image = cv::Mat::zeros(cv::Size(LARGEUR_FENETRE, HAUTEUR_FENETRE), CV_8UC3);
-			break;
-		case 1:
-			imageClose = cv::Mat::zeros(cv::Size(LARGEUR_FENETRE, HAUTEUR_FENETRE), CV_8UC3);
-			break;
-		default:
-			cout << "Error, Provide either 0 for full map, 1 for a zoomed map\n";
-			break;
-	}
-	CreateAll(close);
-	DisplayMyPosition(close);
-	DisplayImage(close);
-	//imshow("Image",imageLocale);
-}
 
 // Position
 int Map::DisplayImage(int close){
 	if (close){
-		cv::imshow("Image",imageClose);
+		imshow("Image",imageClose);
 	} else {
-		cv::imshow("Image",image);
+		imshow("Image",image);
 	}
-	cv::waitKey(0);
+	waitKey(0);
 	cout << "end" << '\n';
 	return 1;
 }
 
-int Map::DisplayMyPosition(int close){
-	if (close){
-		cv::circle(imageClose, cv::Point(GetCloseDisplayX(CurrentPosition_Lon), GetCloseDisplayY(CurrentPosition_Lat)),  5, cv::Scalar(0, 0, 255, 255), -1, 8, 0);
-	} else {
-		cv::circle(image, cv::Point(GetDisplayX(CurrentPosition_Lon), GetDisplayY(CurrentPosition_Lat)),  5, cv::Scalar(0, 0, 255, 255), -1, 8, 0);
-	}
+int Map::DisplayMyPosition(){
+	circle(image, Point(GetDisplayX(CurrentPosition_Lon), GetDisplayY(CurrentPosition_Lat)),  5, Scalar(0, 0, 255, 255), -1, 8, 0);
 	return 1;
 }
-/*
-int Map::DisplayCloseToLocation(cv::Mat imageToWriteOn){
-//Position in the center of the screen
-SetBeta();
-CreateAll(1, imageToWriteOn);
-return 1;
+
+int Map::DisplayCloseMyPosition(){
+	circle(imageClose, Point(GetCloseDisplayX(CurrentPosition_Lon), GetCloseDisplayY(CurrentPosition_Lat)),  5, Scalar(0, 0, 255, 255), -1, 8, 0);
+	return 1;
 }
-*/
+
+int Map::DisplayCloseToLocation(cv::Mat imageToWriteOn){
+	//Position in the center of the screen
+	SetBeta();
+	CreateAll(1, imageToWriteOn);
+	return 1;
+}
+
 // Distance between two points (longitude, latitude)
 double Map::DirectDistance(double lat1, double lng1, double lat2, double lng2)
 {
@@ -240,7 +218,6 @@ void Map::DisplayAllRoads(vector<Road *> v, int close, cv::Mat imageToWriteOn){
 }
 
 void Map::DisplayPath(int close, cv::Mat imageToWriteOn){
-	
 	if (PathToDestination.size() != 0){
 		for (int i=0 ; i<PathToDestination.size() ; i++){
 			GetNodeById(PathToDestination[i]->GetId())->DisplayAsPathNode(close, imageToWriteOn);
@@ -358,37 +335,12 @@ int Map::SetPosition(double lon, double lat){
 	Delta_Lon = 0;
 	Delta_Lat = GetCloseDisplayY(CurrentPosition_Lat) - (HAUTEUR_FENETRE/2);
 	Delta_Lon = GetCloseDisplayX(CurrentPosition_Lon) - (LARGEUR_FENETRE/2);
-
-	WhichRoad(CurrentPosition_Lon, CurrentPosition_Lat);
-
 	return 1;
 }
 
 void Map::SetDestination(double lon, double lat){
 	DestinationPosition_Lon = lon;
 	DestinationPosition_Lat = lat;
-	//It calculates the path to the Destination
-	double CurrentClosestNode = GetClosestNode()->GetId();
-
-	Router MyRouter;
-
-	std::vector<char*> ipath;
-
-	//char pointA[7] = "-1630";
-	char pointA [10];
-	// Need to remove the decimals
-	sprintf (pointA, "%.0f", CurrentClosestNode);
-	std::cout << "Current closest node : " << pointA << '\n';
-	char pointB[7] = "-1858";
-
-	std::cout << "From : " << pointA << " ... to : " << pointB << '\n';
-	ipath = MyRouter.getpath(pointA,pointB);
-	int len = ipath.size();
-	std::cout << "ipath length : " << len << '\n';
-
-	// End Zepeng Code //
-
-	SetPath(ipath);
 }
 /*
 vector<Node> SortCatsByAge(){
@@ -424,8 +376,7 @@ double Map::WhichRoadWithLatLon(){
 }
 
 
-Map::Map(char * OsmFilePath){
-	rapidxml::file<> xmlFile(OsmFilePath);
+Map::Map(rapidxml::file<> xmlFile){
 
 	image = cv::Mat::zeros(cv::Size(LARGEUR_FENETRE, HAUTEUR_FENETRE), CV_8UC3);
 	imageClose = cv::Mat::zeros(cv::Size(LARGEUR_FENETRE, HAUTEUR_FENETRE), CV_8UC3);
@@ -634,23 +585,23 @@ void Node::SetName(string NAME){
 
 void Node::Display(int close, cv::Mat imageToWriteOn){
 	if (close){
-		cv::circle(imageToWriteOn, cv::Point(Map::GetCloseDisplayX(longitude), Map::GetCloseDisplayY(latitude)),  5, cv::Scalar(0, 20, 170, 255), 1, 8, 0);
-		cv::putText(imageToWriteOn, Name, cv::Point(Map::GetCloseDisplayX(longitude)+5,Map::GetCloseDisplayY(latitude)+5),
-		cv::FONT_HERSHEY_COMPLEX_SMALL, 0.5, cv::Scalar(200,200,250), 1, CV_AA);
+		circle(imageToWriteOn, Point(Map::GetCloseDisplayX(longitude), Map::GetCloseDisplayY(latitude)),  5, Scalar(0, 20, 170, 255), 1, 8, 0);
+		putText(imageToWriteOn, Name, cvPoint(Map::GetCloseDisplayX(longitude)+5,Map::GetCloseDisplayY(latitude)+5),
+		FONT_HERSHEY_COMPLEX_SMALL, 0.5, cvScalar(200,200,250), 1, CV_AA);
 	} else {
 		if (user){
-			cv::circle(imageToWriteOn, cv::Point(Map::GetDisplayX(longitude), Map::GetDisplayY(latitude)),  5, cv::Scalar(0, 20, 170, 255), 1, 8, 0);
-			cv::putText(imageToWriteOn, Name, cv::Point(Map::GetDisplayX(longitude)+5,Map::GetDisplayY(latitude)+5),
-			cv::FONT_HERSHEY_COMPLEX_SMALL, 0.5, cv::Scalar(200,200,250), 1, CV_AA);
+			circle(imageToWriteOn, Point(Map::GetDisplayX(longitude), Map::GetDisplayY(latitude)),  5, Scalar(0, 20, 170, 255), 1, 8, 0);
+			putText(imageToWriteOn, Name, cvPoint(Map::GetDisplayX(longitude)+5,Map::GetDisplayY(latitude)+5),
+			FONT_HERSHEY_COMPLEX_SMALL, 0.5, cvScalar(200,200,250), 1, CV_AA);
 		}
 	}
 }
 
 void Node::DisplayAsPathNode(int close, cv::Mat imageToWriteOn){
 	if (close){
-		cv::circle(imageToWriteOn, cv::Point(Map::GetCloseDisplayX(longitude), Map::GetCloseDisplayY(latitude)),  5, cv::Scalar(252, 189, 47, 255), 1, 8, 0);
+		circle(imageToWriteOn, Point(Map::GetCloseDisplayX(longitude), Map::GetCloseDisplayY(latitude)),  5, Scalar(252, 189, 47, 255), 1, 8, 0);
 	} else {
-		cv::circle(imageToWriteOn, cv::Point(Map::GetDisplayX(longitude), Map::GetDisplayY(latitude)),  5, cv::Scalar(252, 189, 47, 255), 1, 8, 0);
+		circle(imageToWriteOn, Point(Map::GetDisplayX(longitude), Map::GetDisplayY(latitude)),  5, Scalar(252, 189, 47, 255), 1, 8, 0);
 	}
 }
 
@@ -740,9 +691,9 @@ void Road::Display(int close, cv::Mat imageToWriteOn){
 			Map::SetBeta();
 		}
 		if (id == Map::CurrentRoad){
-			cv::line(imageToWriteOn, cv::Point(Map::GetCloseDisplayX(begin.GetLongitude()),Map::GetCloseDisplayY(begin.GetLatitude())), cv::Point(Map::GetCloseDisplayX(end.GetLongitude()), Map::GetCloseDisplayY(end.GetLatitude())), cv::Scalar( 255, 0, 0, 255),  1, 0 );
+			line(imageToWriteOn, Point(Map::GetCloseDisplayX(begin.GetLongitude()),Map::GetCloseDisplayY(begin.GetLatitude())), Point(Map::GetCloseDisplayX(end.GetLongitude()), Map::GetCloseDisplayY(end.GetLatitude())), Scalar( 255, 0, 0, 255),  1, 0 );
 		} else {
-			cv::line(imageToWriteOn, cv::Point(Map::GetCloseDisplayX(begin.GetLongitude()),Map::GetCloseDisplayY(begin.GetLatitude())), cv::Point(Map::GetCloseDisplayX(end.GetLongitude()), Map::GetCloseDisplayY(end.GetLatitude())), cv::Scalar( 110, 220, 100),  1, 0 );
+			line(imageToWriteOn, Point(Map::GetCloseDisplayX(begin.GetLongitude()),Map::GetCloseDisplayY(begin.GetLatitude())), Point(Map::GetCloseDisplayX(end.GetLongitude()), Map::GetCloseDisplayY(end.GetLatitude())), Scalar( 110, 220, 100),  1, 0 );
 		}
 	} else {
 		if (Map::Alpha){		// Alpha needs to be defined to get (x,y) coordinates
@@ -751,9 +702,9 @@ void Road::Display(int close, cv::Mat imageToWriteOn){
 			int y2 = Map::GetDisplayY(end.GetLatitude());
 			int x2 = Map::GetDisplayX(end.GetLongitude());
 			if (id == Map::CurrentRoad){
-				cv::line(imageToWriteOn, cv::Point(x1,y1), cv::Point(x2, y2), cv::Scalar( 255, 0, 0, 255),  1, 0 );
+				line(imageToWriteOn, Point(x1,y1), Point(x2, y2), Scalar( 255, 0, 0, 255),  1, 0 );
 			} else {
-				cv::line(imageToWriteOn, cv::Point(x1,y1), cv::Point(x2, y2), cv::Scalar( 110, 220, 100),  1, 0 );
+				line(imageToWriteOn, Point(x1,y1), Point(x2, y2), Scalar( 110, 220, 100),  1, 0 );
 			}
 		}
 	}
@@ -805,9 +756,9 @@ void Building::Display(int close, cv::Mat imageToWriteOn){
 			for(index = 1; index < VecSize ; index++){
 				XAndYs[index*2] = Map::GetCloseDisplayX(Building_Corner_Vec[index].GetLongitude());
 				XAndYs[index*2+1] = Map::GetCloseDisplayY(Building_Corner_Vec[index].GetLatitude());
-				cv::line(imageToWriteOn, cv::Point(XAndYs[(index-1)*2],XAndYs[(index-1)*2+1]), cv::Point(XAndYs[index*2], XAndYs[index*2+1]), cv::Scalar( 0, 220, 100, 255),  1, 0 );
+				line(imageToWriteOn, Point(XAndYs[(index-1)*2],XAndYs[(index-1)*2+1]), Point(XAndYs[index*2], XAndYs[index*2+1]), Scalar( 0, 220, 100, 255),  1, 0 );
 			}
-			cv::line(imageToWriteOn, cv::Point(XAndYs[(index-1)*2],XAndYs[(index-1)*2+1]), cv::Point(XAndYs[0], XAndYs[1]), cv::Scalar( 0, 220, 100, 255),  1, 0 );
+			line(imageToWriteOn, Point(XAndYs[(index-1)*2],XAndYs[(index-1)*2+1]), Point(XAndYs[0], XAndYs[1]), Scalar( 0, 220, 100, 255),  1, 0 );
 		}
 	} else {
 		if (Map::Alpha){
@@ -820,9 +771,9 @@ void Building::Display(int close, cv::Mat imageToWriteOn){
 			for(index = 1; index < VecSize ; index++){
 				XAndYs[index*2] = Map::GetDisplayX(Building_Corner_Vec[index].GetLongitude());
 				XAndYs[index*2+1] = Map::GetDisplayY(Building_Corner_Vec[index].GetLatitude());
-				cv::line(imageToWriteOn, cv::Point(XAndYs[(index-1)*2],XAndYs[(index-1)*2+1]), cv::Point(XAndYs[index*2], XAndYs[index*2+1]), cv::Scalar( 0, 220, 100, 255),  1, 0 );
+				line(imageToWriteOn, Point(XAndYs[(index-1)*2],XAndYs[(index-1)*2+1]), Point(XAndYs[index*2], XAndYs[index*2+1]), Scalar( 0, 220, 100, 255),  1, 0 );
 			}
-			cv::line(imageToWriteOn, cv::Point(XAndYs[(index-1)*2],XAndYs[(index-1)*2+1]), cv::Point(XAndYs[0], XAndYs[1]), cv::Scalar( 0, 220, 100, 255),  1, 0 );
+			line(imageToWriteOn, Point(XAndYs[(index-1)*2],XAndYs[(index-1)*2+1]), Point(XAndYs[0], XAndYs[1]), Scalar( 0, 220, 100, 255),  1, 0 );
 		}
 	}
 }

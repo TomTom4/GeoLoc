@@ -17,7 +17,7 @@ int main()
 	wiringPiSetup ();
 
 	//PARAMETRAGE SPI
-	wiringPiSPISetup(0,1000000);
+	wiringPiSPISetup(0,10000);
 	//	fprintf("SPI Setup failed ");
 
 	car_main.printCar();
