@@ -19,6 +19,8 @@
 class Spi /*:: public Singleton*/
 {
 public:
+	void testSpi(Mediator *mediator, Spi *spi);
+
 	static Spi* instance();	
 	void readWriteData();
 	void clearString();
