@@ -4,7 +4,7 @@ using namespace std;
 
 	//Add your methodes over here 
 
-void testSpi(Mediator *mediator,Spi *spi){
+void testSpi(Mediator *mediator, Spi *spi){
 
 	mediator->printModel();
 	//PARAMETRAGE BIB WIRINGPI
@@ -14,39 +14,18 @@ void testSpi(Mediator *mediator,Spi *spi){
 	wiringPiSPISetup(0,1000000);
 	//	fprintf("SPI Setup failed ");
 
-	mediator.printModel();
+	mediator->printModel();
 
 	for(int i=0;i<1000;i++)
 	{
-		mediator.addPwmMotorBack(30);
-		spi.majCar();
-		mediator.printEncodeur();
+		mediator->addPwmMotorBack(30);
+		spi->majCar();
+		mediator->printEncodeur();
 		delay(1000);
 		cout << endl;
 	}
-	mediator.addPwmMotorBack(0);
-	spi.majCar();
-
-  /*for(i=0;i<=50;i=i+5)
-  {
-    tutur.addData(1,i);
-    //cout << "\t\t MajCar "<< endl << endl;
-    com.majCar();
-    tutur.printEncodeur();
-    delay(100);
-  }
-  for(i=50;i>=0;i=i-5)
-  {
-    tutur.addData(1,i);
-    //cout << "\t\t MajCar "<< endl << endl;
-    com.majCar();
-    tutur.printEncodeur();
-
-    delay(100);
-  }
-  delay(500);
-  tutur.addData(2,2);
-  com.majCar();*/
+	mediator->addPwmMotorBack(0);
+	spi->majCar();
 }
 	
 }
