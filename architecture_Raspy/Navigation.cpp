@@ -12,4 +12,4 @@ using namespace std;
 			Navigation::s_instance = new Navigation;
 		return Navigation::s_instance;
 	}
-	Navigation::Navigation():m_cap_model(){}
+	Navigation::Navigation(){}

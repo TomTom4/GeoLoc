@@ -34,7 +34,7 @@ int main(){
     MyMap.Display(1);
 
     MyMap.SetPosition(1.466078, 43.570376);
-    std::cout << "GetCorrectiveHeading(3) : " << GetCorrectiveHeading(3.0); << '\n';
+    std::cout << "GetCorrectiveHeading(3) : " << MyMap.GetCorrectiveHeading(3.0) << '\n';
 
     MyMap.Display(1);
 /*

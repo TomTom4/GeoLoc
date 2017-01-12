@@ -17,7 +17,7 @@ Spi *Spi::s_instance = 0;
 	{ // Constructor
 		lenght_string = SPI_LENGHT_STRING;
 		string_spi = new unsigned char[lenght_string];
-		voiture = Mediator::instance();
+		m_mediator = Mediator::instance();
 	}
 
 	void Spi::readWriteData()
@@ -41,8 +41,8 @@ Spi *Spi::s_instance = 0;
 
 		clearString();
 		string_spi[BEACON_START] = BEACON_RASP_START; // 0 - beacon_start (rasp)
-		string_spi[PWM_MOTOR_BACK] = voiture->getPwmMotorBack(); // 1 - PWM Moteur AR
-		string_spi[STATE_STEERING_WHEEL] = voiture->getStateSteeringWheel(); // 2 - Compteur Direction
+		string_spi[PWM_MOTOR_BACK] = m_mediator->getPwmMotorBack(); // 1 - PWM Moteur AR
+		string_spi[STATE_STEERING_WHEEL] = m_mediator->getStateSteeringWheel(); // 2 - Compteur Direction
 		string_spi[3] = BEACON_RASP_END; // 3 - beacon_stop (rasp)
 	}
 
@@ -52,26 +52,26 @@ Spi *Spi::s_instance = 0;
 		{
 			if(string_spi[BEACON_START] == BEACON_STM_START) // 0 - beacon_start (stm)
 			{
-				if(voiture->getPwmMotorBack() != string_spi[PWM_MOTOR_BACK ]) // 1 - PWM Moteur AR
-					throw string("ERREUR: PWM Motor AR D different");//	RASP:" << voiture->pwm_motor_ar_d << " STM:" << string_spi[1]);
-				if(voiture->getStateSteeringWheel() != string_spi[STATE_STEERING_WHEEL]) // 3 - State Direction
-					throw string("ERREUR: Dir wrong position");//	RASP:" << voiture->cpt_dir << " STM:" << string_spi[3]);
+				if(m_mediator->getPwmMotorBack() != string_spi[PWM_MOTOR_BACK ]) // 1 - PWM Moteur AR
+					throw string("ERREUR: PWM Motor AR D different");//	RASP:" << m_mediator->pwm_motor_ar_d << " STM:" << string_spi[1]);
+				if(m_mediator->getStateSteeringWheel() != string_spi[STATE_STEERING_WHEEL]) // 3 - State Direction
+					throw string("ERREUR: Dir wrong position");//	RASP:" << m_mediator->cpt_dir << " STM:" << string_spi[3]);
 
 				/* Prise du mutex SPI */
 				Spi::extractEncoder();
-				voiture->addValidityFrontLeft(string_spi[US_VALIDITY_FRONT_LEFT]);
-				voiture->addDistanceFrontLeft(string_spi[US_DISTANCE_FRONT_LEFT]);
-				voiture->addValidityFrontCenter(string_spi[US_VALIDITY_FRONT_CENTER]);
-				voiture->addDistanceFrontCenter(string_spi[US_DISTANCE_FRONT_CENTER]);
-				voiture->addValidityFrontRight(string_spi[US_VALIDITY_FRONT_RIGHT]);
-				voiture->addDistanceFrontRight(string_spi[US_DISTANCE_FRONT_RIGHT]);
+				m_mediator->addValidityFrontLeft(string_spi[US_VALIDITY_FRONT_LEFT]);
+				m_mediator->addDistanceFrontLeft(string_spi[US_DISTANCE_FRONT_LEFT]);
+				m_mediator->addValidityFrontCenter(string_spi[US_VALIDITY_FRONT_CENTER]);
+				m_mediator->addDistanceFrontCenter(string_spi[US_DISTANCE_FRONT_CENTER]);
+				m_mediator->addValidityFrontRight(string_spi[US_VALIDITY_FRONT_RIGHT]);
+				m_mediator->addDistanceFrontRight(string_spi[US_DISTANCE_FRONT_RIGHT]);
 
-				voiture->addValidityBackLeft(string_spi[US_VALIDITY_BACK_LEFT]);
-				voiture->addDistanceBackLeft(string_spi[US_DISTANCE_BACK_LEFT]);
-				voiture->addValidityBackCenter(string_spi[US_VALIDITY_BACK_CENTER]);
-				voiture->addDistanceBackCenter(string_spi[US_DISTANCE_BACK_CENTER]);
-				voiture->addValidityBackRight(string_spi[US_VALIDITY_BACK_RIGHT]);
-				voiture->addDistanceBackRight(string_spi[US_DISTANCE_BACK_RIGHT]);
+				m_mediator->addValidityBackLeft(string_spi[US_VALIDITY_BACK_LEFT]);
+				m_mediator->addDistanceBackLeft(string_spi[US_DISTANCE_BACK_LEFT]);
+				m_mediator->addValidityBackCenter(string_spi[US_VALIDITY_BACK_CENTER]);
+				m_mediator->addDistanceBackCenter(string_spi[US_DISTANCE_BACK_CENTER]);
+				m_mediator->addValidityBackRight(string_spi[US_VALIDITY_BACK_RIGHT]);
+				m_mediator->addDistanceBackRight(string_spi[US_DISTANCE_BACK_RIGHT]);
 
 				if(BEACON_STM_END != string_spi[BEACON_STOP]) // - beacon_end (stm)
 					throw string("ERROR: Wrong beacon_stm_end");//	RASP:" << beacon_stm_start << " STM:" << string_spi[24]);
@@ -100,15 +100,15 @@ Spi *Spi::s_instance = 0;
 		cpt_1cm = string_spi[ENCODEUR_WHEEL_BACK_LEFT_1CM];
 
 		dist = (float)(cpt_100m)*100.0 + (float)(cpt_1m)*1.0 + (float)(cpt_1cm)*0.01;
-		voiture->addEncoderWheelBackLeft(dist);
-			cout << "Left " << (float)cpt_100m <<"/"<< (float)cpt_1m <<"/"<< (float)cpt_1cm<< " = "<<voiture->getEncoderWheelBackLeft()<< endl;
+		m_mediator->addEncoderWheelBackLeft(dist);
+			cout << "Left " << (float)cpt_100m <<"/"<< (float)cpt_1m <<"/"<< (float)cpt_1cm<< " = "<<m_mediator->getEncoderWheelBackLeft()<< endl;
 
 		cpt_100m = string_spi[ENCODEUR_WHEEL_BACK_RIGHT_100M];
 		cpt_1m = string_spi[ENCODEUR_WHEEL_BACK_RIGHT_1M];
 		cpt_1cm = string_spi[ENCODEUR_WHEEL_BACK_RIGHT_1CM];
 		dist = (float)(cpt_100m)*100.0 + (float)(cpt_1m)*1.0 + (float)(cpt_1cm)*0.01;
-		voiture->addEncoderWheelBackRight(dist);
-			cout << "Left " << (float)cpt_100m <<"/"<< (float)cpt_1m <<"/"<< (float)cpt_1cm<< " = "<<voiture->getEncoderWheelBackRight()<< endl;
+		m_mediator->addEncoderWheelBackRight(dist);
+			cout << "Left " << (float)cpt_100m <<"/"<< (float)cpt_1m <<"/"<< (float)cpt_1cm<< " = "<<m_mediator->getEncoderWheelBackRight()<< endl;
 
 	}
 

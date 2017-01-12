@@ -1,7 +1,6 @@
 #ifndef DEF_NAVIGATION
 #define DEF_NAVIGATION
 
-#include "CapModel.h"
 
 class Navigation{
 
@@ -13,7 +12,6 @@ class Navigation{
 		Navigation();
 		//attributs
 		static Navigation *s_instance;
-		CapModel m_cap_model;
 	
 };
 

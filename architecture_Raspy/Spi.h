@@ -20,13 +20,12 @@ class Spi /*:: public Singleton*/
 {
 public:
 	void testSpi(Mediator *mediator, Spi *spi);
-
 	static Spi* instance();	
 	void readWriteData();
 	void clearString();
 	void addDataString();
 	void extractDataString();
-	void extractEncodeur();
+	void extractEncoder();
 	void majCar();
 	void printStringSpi();
 

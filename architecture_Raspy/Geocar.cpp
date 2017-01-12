@@ -20,7 +20,7 @@ void testSpi(Mediator *mediator, Spi *spi){
 	{
 		mediator->addPwmMotorBack(30);
 		spi->majCar();
-		mediator->printEncodeur();
+		mediator->printEncoder();
 		delay(1000);
 		cout << endl;
 	}
@@ -28,7 +28,6 @@ void testSpi(Mediator *mediator, Spi *spi){
 	spi->majCar();
 }
 	
-}
 
 int main(){
 	Controler *controler;
