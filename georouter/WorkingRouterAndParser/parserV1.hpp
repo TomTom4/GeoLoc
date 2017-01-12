@@ -200,7 +200,7 @@ public:
 
     void DisplayAllUserNodes(std::vector<Node *> v, int close, cv::Mat imageToWriteOn);
 
-    void DisplayPath(int close, cv::Mat imageToWriteOn);
+    void DisplayPath(int close);
 
     void WhichRoad(double lon, double lat);
 
