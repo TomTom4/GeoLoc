@@ -1,41 +1,44 @@
-all: Geocar.o CapModel.o Controler.o GpsHandler.o ImuHandler.o Location.o LocationInterface.o Mediator.o Model.o Navigation.o SensorFusion.o Spi.o
-	g++ Geocar.o CapModel.o Controler.o GpsHandler.o ImuHandler.o Location.o LocationInterface.o Mediator.o Model.o Navigation.o SensorFusion.o Spi.o -o geocar_exec
+CXX = g++
+WALLFLAG = -Wall
+CFLAG = -c
+LDFLAGS = -lwiringPi
 
-Geocar.o: Geocar.cpp Geocar.h CapModel.h Controler.h GpsHandler.h ImuHandler.h Location.h LocationInterface.h Mediator.h Model.h Navigation.h SensorFusion.h Spi.h
-	g++ -c Geocar.cpp -o Geocar.o
+all: Geocar.o Controler.o GpsHandler.o Location.o LocationInterface.o Mediator.o Model.o Navigation.o Spi.o
+	$(CXX) Geocar.o Controler.o GpsHandler.o Location.o LocationInterface.o Mediator.o Model.o Navigation.o Spi.o -o geocar_exec $(WALLFLAG) $(LDFLAGS)
 
-CapModel.o: CapModel.cpp
-	g++ -c CapModel.cpp -o CapModel.o
+Geocar.o: Geocar.cpp Geocar.h Controler.h GpsHandler.h Location.h LocationInterface.h Mediator.h Model.h Navigation.h Spi.h
+	$(CXX) $(CFLAG) Geocar.cpp -o Geocar.o $(WALLFLAG) $(LDFLAGS)
 
 Controler.o: Controler.cpp
-	g++ -c Controler.cpp -o Controler.o
+	$(CXX) $(CFLAG) Controler.cpp -o Controler.o $(WALLFLAG) $(LDFLAGS)
 
 GpsHandler.o: GpsHandler.cpp
-	g++ -c GpsHandler.cpp -o GpsHandler.o
+	$(CXX) $(CFLAG) GpsHandler.cpp -o GpsHandler.o $(WALLFLAG) $(LDFLAGS)
 
 ImuHandler.o: ImuHandler.cpp
-	g++ -c ImuHandler.cpp -o ImuHandler.o
+	$(CXX) $(CFLAG) ImuHandler.cpp -o ImuHandler.o $(WALLFLAG) $(LDFLAGS)
 
 Location.o: Location.cpp
-	g++ -c Location.cpp -o Location.o
+	$(CXX) $(CFLAG) Location.cpp -o Location.o $(WALLFLAG) $(LDFLAGS)
 
 LocationInterface.o: LocationInterface.cpp
-	g++ -c LocationInterface.cpp -o LocationInterface.o
+	$(CXX) $(CFLAG) LocationInterface.cpp -o LocationInterface.o $(WALLFLAG) $(LDFLAGS)
 
-Mediator.o: Mediator.cpp
-	g++ -c Mediator.cpp -o Mediator.o
+Mediator.o: Mediator.cpp Model.h
+	$(CXX) $(CFLAG) Mediator.cpp -o Mediator.o $(WALLFLAG) $(LDFLAGS)
 
 Model.o: Model.cpp
-	g++ -c Model.cpp -o Model.o
+	$(CXX) $(CFLAG) Model.cpp -o Model.o $(WALLFLAG) $(LDFLAGS)
 
 Navigation.o: Navigation.cpp
-	g++ -c Navigation.cpp -o Navigation.o
+	$(CXX) $(CFLAG) Navigation.cpp -o Navigation.o $(WALLFLAG) $(LDFLAGS)
 
 SensorFusion.o: SensorFusion.cpp
-	g++ -c SensorFusion.cpp -o SensorFusion.o
+	$(CXX) $(CFLAG) SensorFusion.cpp -o SensorFusion.o $(WALLFLAG) $(LDFLAGS)
 
-Spi.o: Spi.cpp 
-	g++ -c Spi.cpp -o Spi.o
+Spi.o: Spi.cpp Spi.h Mediator.h const.hpp
+	$(CXX) $(CFLAG) Spi.cpp -o Spi.o $(WALLFLAG) $(LDFLAGS)
+
 clean:
 	rm -rf *.o
 

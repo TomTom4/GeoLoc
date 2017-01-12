@@ -173,12 +173,13 @@ cout << " VALIDATION OBJECTIF !!!!!!!!! GRANDE VALIDATION !!!!!" << endl;
   /*
 
 
-	for(int i=0;i<1000;i++)
+	for(int i=0;i<200;i++)
 	{
-		car_main.addPwmMotorBack(30);
+		//car_main.addPwmMotorBack(30);
+		car_main.addStateSteeringWheel(18);
 		spi_main.majCar();
 		car_main.printEncodeur();
-		delay(1000);
+		delay(100);
 		cout << endl;
 	}
 	car_main.addPwmMotorBack(0);

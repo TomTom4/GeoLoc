@@ -21,18 +21,28 @@ int main(){
 
     std::vector<tuple<string, double>> MyVectorOfUserDestination = MyMap.GetTupleOfDestinations();
 
-    double ExamplePointLat = 43.570779;
-    double ExamplePointLon =  1.466925;
+    double ExamplePointLat = 43.570358;
+    double ExamplePointLon =  1.466047;
 
-    double ExampleDestLat = 43.5708618;
-    double ExampleDestLon = 1.4670463;
-
+    //double ExampleDestLat = 43.5708618;
+    //double ExampleDestLon = 1.4670463;
     MyMap.SetPosition(ExamplePointLon,ExamplePointLat);
-    MyMap.SetDestination(ExampleDestLon, ExampleDestLat);
+    MyMap.SetDestination(-1858);
     //MyMap.WhichRoadWithLatLon();
 
     MyMap.Display(0);
     MyMap.Display(1);
+
+    MyMap.SetPosition(1.466078, 43.570376);
+    std::cout << "GetCorrectiveHeading(3) : " << MyMap.GetCorrectiveHeading(3.0) << '\n';
+
+    MyMap.Display(1);
+
+	MyMap.SetPosition(1.466117,43.570386);
+std::cout << "GetCorrectiveHeading(3) : " << MyMap.GetCorrectiveHeading(3.0) << '\n';
+
+	MyMap.Display(1);
+
 /*
     MyMap.CreateAll(0, MyMap.image);
     MyMap.DisplayMyPosition();

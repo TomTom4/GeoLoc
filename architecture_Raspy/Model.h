@@ -1,128 +1,85 @@
 #ifndef DEF_MODEL
 #define DEF_MODEL
 
-class Model{
+#include <stdio.h>
+#include <iostream>
 
+#include <wiringPi.h>
+#include <wiringPiSPI.h>
+
+#include "const.hpp"
+
+class Model
+{
+	//private:
 	public:
-	//methodes
-		Model();
-	//getter for propulsors pwm
-		unsigned char getBackPwmMotor();
+		Model(); // Constructor
+		//~Model(); // Destructor
 
-	//getter for directional counter
-	unsigned char getDirectionalCounter();
+		//******** GET ********//
+		//** PWM
+		unsigned char getPwmMotorBack(void);
+		//** Steering Wheel
+		unsigned char getStateSteeringWheel(void);
+		//** Encoder
+		float getEncoderWheelBackLeft(void);
+		float getEncoderWheelBackRight(void);
+		//** US Validity
+		unsigned char getValidityFrontLeft(void);
+		unsigned char getValidityFrontCenter(void);
+		unsigned char getValidityFrontRight(void);
+		unsigned char getValidityBackLeft(void);
+		unsigned char getValidityBackCenter(void);
+		unsigned char getValidityBackRight(void);
+		//** Distance
+		unsigned char getDistanceFrontLeft(void);
+		unsigned char getDistanceFrontCenter(void);
+		unsigned char getDistanceFrontRight(void);
+		unsigned char getDistanceBackLeft(void);
+		unsigned char getDistanceBackCenter(void);
+		unsigned char getDistanceBackRight(void);
 
-	//getter for wheel Encoder
-		unsigned char getBackRightEncoderWheel();
-		unsigned char getBackLeftEncoderWheel();
+		//** PWM
+		void addPwmMotorBack(unsigned char val);
 
-	//getter for ultrasonic sensors
-		unsigned char getRightFrontUltrasonicId();
-		unsigned char getRightFrontUltrasonicValidity();
-		unsigned char getRightFrontUltrasonicDistance();
-		unsigned char getCenterFrontUltrasonicId();
-		unsigned char getCenterFrontUltrasonicValidity();
-		unsigned char getCenterFrontUltrasonicDistance();
-		unsigned char getLeftFrontUltrasonicId();
-		unsigned char getLeftFrontUltrasonicValidity();
-		unsigned char getLeftFrontUltrasonicDistance();
-		unsigned char getBackRightUltrasonicId();
-		unsigned char getBackRightUltrasonicValidity();
-		unsigned char getBackRightUltrasonicDistance();
-		unsigned char getBackCenterUltrasonicId();
-		unsigned char getBackCenterUltrasonicValidity();
-		unsigned char getBackCenterUltrasonicDistance();
-		unsigned char getBackLeftUltrasonicId();
-		unsigned char getBackLeftUltrasonicValidity();
-		unsigned char getBackLeftUltrasonicDistance();
+		//** Steering Wheel
+		void addStateSteeringWheel(unsigned char val);
 
-	//setter for propulsors pwm
-		void setBackPwmMotor(unsigned char value);
+		//** Encoder
+		void addEncoderWheelBackLeft(float val);
+		void addEncoderWheelBackRight(float val);
 
-	//setter for directional counter
-		void setDirectionalCounter(unsigned char value);
+		//** US Validity
+		void addValidityFrontLeft(unsigned char val);
+		void addValidityFrontCenter(unsigned char val);
+		void addValidityFrontRight(unsigned char val);
+		void addValidityBackLeft(unsigned char val);
+		void addValidityBackCenter(unsigned char val);
+		void addValidityBackRight(unsigned char val);
+		void addDistanceFrontLeft(unsigned char val);
+		void addDistanceFrontCenter(unsigned char val);
+		void addDistanceFrontRight(unsigned char val);
+		void addDistanceBackLeft(unsigned char val);
+		void addDistanceBackCenter(unsigned char val);
+		void addDistanceBackRight(unsigned char val);
 
-	//setter for wheel Encoder
-		void setBackRightEncoderWheel(unsigned char value);
-		void setBackLeftEncoderWheel(unsigned char value);
-	//setters for ultrasonic sensors
-		void setRightFrontUltrasonicId(unsigned char value);
-		void setRightFrontUltrasonicValidity(unsigned char value);
-		void setRightFrontUltrasonicDistance(unsigned char value);
-
-		void setCenterFrontUltrasonicId(unsigned char value);
-		void setCenterFrontUltrasonicValidity(unsigned char value);
-		void setCenterFrontUltrasonicDistance(unsigned char value);
-
-		void setLeftFrontUltrasonicId(unsigned char value);
-		void setLeftFrontUltrasonicValidity(unsigned char value);
-		void setLeftFrontUltrasonicDistance(unsigned char value);
-
-		void setBackRightUltrasonicId(unsigned char value);
-		void setBackRightUltrasonicValidity(unsigned char value);
-		void setBackRightUltrasonicDistance(unsigned char value);
-
-		void setBackCenterUltrasonicId(unsigned char value);
-		void setBackCenterUltrasonicValidity(unsigned char value);
-		void setBackCenterUltrasonicDistance(unsigned char value);
-
-		void setBackLeftUltrasonicId(unsigned char value);
-		void setBackLeftUltrasonicValidity(unsigned char value);
-		void setBackLeftUltrasonicDistance(unsigned char value);
-
-		//code louis*********************************************
-		unsigned char getData(int num);
-		void addData(unsigned char num, unsigned char val);
-		void addDataEncodeur();
-		void printEncodeur(void);
-		void printCar(void);
-		//*******************************************************
-
+		void printEncoder(void);
+		void printModel(void);
 
 	private:
-	//attributs
-		unsigned char m_pwm_back_motor;
-		unsigned char m_pwm_back_left_motor;
-		unsigned char m_directional_counter;
-		unsigned char m_back_right_wheel_encoder;
-		unsigned char m_back_left_wheel_encoder;
 
-		unsigned char m_right_front_ultrasonic_id;
-		unsigned char m_right_front_ultrasonic_validity;
-		unsigned char m_right_front_ultrasonic_distance;
-
-		unsigned char m_center_front_ultrasonic_id;
-		unsigned char m_center_front_ultrasonic_validity;
-		unsigned char m_center_front_ultrasonic_distance;
-
-		unsigned char m_left_front_ultrasonic_id;
-		unsigned char m_left_front_ultrasonic_validity;
-		unsigned char m_left_front_ultrasonic_distance;
-
-		unsigned char m_right_back_ultrasonic_id;
-		unsigned char m_right_back_ultrasonic_validity;
-		unsigned char m_right_back_ultrasonic_distance;
-
-		unsigned char m_center_back_ultrasonic_id;
-		unsigned char m_center_back_ultrasonic_validity;
-		unsigned char m_center_back_ultrasonic_distance;
-
-		unsigned char m_left_back_ultrasonic_id;
-		unsigned char m_left_back_ultrasonic_validity;
-		unsigned char m_left_back_ultrasonic_distance;
-
-		//attributs louis
 		unsigned char pwm_motor_back;
 		unsigned char state_steering_wheel;
-		unsigned char encodeur_wheel_back_left_100m;
-		unsigned char encodeur_wheel_back_left_1m;
-		unsigned char encodeur_wheel_back_left_1cm;
-		unsigned char encodeur_wheel_back_right_100m;
-		unsigned char encodeur_wheel_back_right_1m;
-		unsigned char encodeur_wheel_back_right_1cm;
 
-		float encodeur_wheel_back_left;
-		float encodeur_wheel_back_right;
+		/*unsigned char encoder_wheel_back_left_100m;
+		unsigned char encoder_wheel_back_left_1m;
+		unsigned char encoder_wheel_back_left_1cm;
+		unsigned char encoder_wheel_back_right_100m;
+		unsigned char encoder_wheel_back_right_1m;
+		unsigned char encoder_wheel_back_right_1cm;*/
+	
+		float encoder_wheel_back_left;
+		float encoder_wheel_back_right;
 
 		unsigned char us_id_front_left;
 		unsigned char us_validity_front_left;
@@ -147,6 +104,6 @@ class Model{
 		unsigned char us_id_back_right;
 		unsigned char us_validity_back_right;
 		unsigned char us_distance_back_right;
-
 };
+
 #endif
