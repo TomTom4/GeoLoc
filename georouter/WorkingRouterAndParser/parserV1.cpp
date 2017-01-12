@@ -140,7 +140,7 @@ float Map::GetCorrectiveHeading(float DrivenDistance){
 					Local_DestinationPosition_Lon = DestinationPosition_Lon;
 					Local_DestinationPosition_Lat = DestinationPosition_Lat;
 					CurrentIntermediateDestinationNode = -1;
-				//	We were heading to an intermediate node
+					//	We were heading to an intermediate node
 				} else {
 					// else, we are now heading to the next intermediate node
 					CurrentIntermediateDestinationNode++;
@@ -174,17 +174,18 @@ float Map::GetCorrectiveHeading(float DrivenDistance){
 void Map::Display(int close){
 	switch (close){
 		case 0:
-			image = cv::Mat::zeros(cv::Size(LARGEUR_FENETRE, HAUTEUR_FENETRE), CV_8UC3);
-			break;
+		image = cv::Mat::zeros(cv::Size(LARGEUR_FENETRE, HAUTEUR_FENETRE), CV_8UC3);
+		break;
 		case 1:
-			imageClose = cv::Mat::zeros(cv::Size(LARGEUR_FENETRE, HAUTEUR_FENETRE), CV_8UC3);
-			break;
+		imageClose = cv::Mat::zeros(cv::Size(LARGEUR_FENETRE, HAUTEUR_FENETRE), CV_8UC3);
+		break;
 		default:
-			cout << "Error, Provide either 0 for full map, 1 for a zoomed map\n";
-			break;
+		cout << "Error, Provide either 0 for full map, 1 for a zoomed map\n";
+		break;
 	}
 	CreateAll(close);
 	DisplayMyPosition(close);
+	DisplayPath(close);
 	DisplayImage(close);
 	//imshow("Image",imageLocale);
 }
@@ -254,14 +255,23 @@ void Map::DisplayAllRoads(vector<Road *> v, int close, cv::Mat imageToWriteOn){
 	cout << "roads displayed : " << i << '\n';
 }
 
-void Map::DisplayPath(int close, cv::Mat imageToWriteOn){
-
-	if (PathToDestination.size() != 0){
-		for (int i=0 ; i<PathToDestination.size() ; i++){
-			GetNodeById(PathToDestination[i]->GetId())->DisplayAsPathNode(close, imageToWriteOn);
+void Map::DisplayPath(int close){
+	if (close){
+		if (PathToDestination.size() != 0){
+			for (int i=0 ; i<PathToDestination.size() ; i++){
+				GetNodeById(PathToDestination[i]->GetId())->DisplayAsPathNode(close, imageClose);
+			}
+		} else {
+			std::cout << "Can't display a path without nodes" << '\n';
 		}
 	} else {
-		std::cout << "Can't display a path without nodes" << '\n';
+		if (PathToDestination.size() != 0){
+			for (int i=0 ; i<PathToDestination.size() ; i++){
+				GetNodeById(PathToDestination[i]->GetId())->DisplayAsPathNode(close, image);
+			}
+		} else {
+			std::cout << "Can't display a path without nodes" << '\n';
+		}
 	}
 }
 
