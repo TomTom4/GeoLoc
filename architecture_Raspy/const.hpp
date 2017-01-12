@@ -1,3 +1,6 @@
+#ifndef DEF_CONST
+#define DEF_CONST
+
 const unsigned char SPI_LENGHT_STRING = 22;
 
 const unsigned char BEACON_RASP_START = 0x69; // 0110b & 1001b
@@ -52,3 +55,5 @@ const unsigned char US_ID_FRONT_RIGHT_VAL = 0x03;
 const unsigned char US_ID_BACK_LEFT_VAL = 0x04;
 const unsigned char US_ID_BACK_CENTER_VAL = 0x05;
 const unsigned char US_ID_BACK_RIGHT_VAL = 0x06;
+
+#endif

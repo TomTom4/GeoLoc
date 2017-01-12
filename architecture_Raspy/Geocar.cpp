@@ -4,7 +4,7 @@ using namespace std;
 
 	//Add your methodes over here 
 
-void testSpi(mediator, spi){
+void testSpi(Mediator *mediator,Spi *spi){
 
 	mediator->printModel();
 	//PARAMETRAGE BIB WIRINGPI
