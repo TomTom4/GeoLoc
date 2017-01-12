@@ -1,5 +1,8 @@
 #include "car.hpp"
 #include "spi.hpp"
+#include "navigation.hpp"
+#include "gps.hpp"
+
 #include <iostream>
 
 #include <wiringPi.h>
@@ -12,7 +15,7 @@ int main()
 {
   Car car_main;
   Spi spi_main(&car_main);
-  Gps gps_main;
+  Gps gps;
 
 	//PARAMETRAGE BIB WIRINGPI
 	wiringPiSetup ();
@@ -78,7 +81,7 @@ double long_end = 43.5708618;
 double lat_end = 1.4670463;
 
 	float cap_cible;
-	double mesure;
+	//double mesure;
 	float distance;
 	float distance_old;
 
@@ -87,7 +90,7 @@ cout << " On Stop !" << endl;
 car_main.addPwmMotorBack(0);
 car_main.addStateSteeringWheel(12);
 spi_main.majCar();
-distance_old = Car.getDistanceFrontLeft();
+distance_old = car_main.getDistanceFrontLeft();
 cout << "Distance old = " << distance_old << endl;
 delay(3000);
 
@@ -96,9 +99,9 @@ delay(2000);
 
 // acquisition position départ
 cout << " get GPS position !" << endl;
-gps->updatePos();
-long_start = gps->getLong();
-lat_start = gps->getLat();
+gps.updatePos();
+long_start = gps.getLong();
+lat_start = gps.getLat();
 cout << "Init position GPS start, Long:" << long_start << "Lat:"<< lat_start << endl;
 cout << "Init position GPS end, Long:" << long_end << "Lat:"<< lat_end << endl;
 
@@ -111,7 +114,7 @@ do
   // No action, update mesure1 & mesure2 from spi
   delay(100);
   spi_main.majCar();
-  distance = car.getEncodeurWheelBackLeft();
+  distance = car_main.getEncodeurWheelBackLeft();
   car_main.printEncodeur();
   //cout << "delta distance = "<< distance - distance_old << endl;
   if((distance - distance_old)>= 5.0)
@@ -128,10 +131,10 @@ do
     cout<< "GPS FIX" << endl;
     delay(5000);
     // get gps position
-    gps->updatePos();
+    gps.updatePos();
     // update actual position of the car from GPS !
-    cout << "Position GPS mesurée, Long:" <<gps->getLong() << "Lat:"<< gps->getLat() << endl;
-    SetPosition(gps->getLong(),gps->getLat());
+    cout << "Position GPS mesurée, Long:" <<gps.getLong() << "Lat:"<< gps.getLat() << endl;
+    SetPosition(gps.getLong(),gps.getLat());
     // Find new cap
     cap_cible = CapAlgorithm();
     cout << "Cap cible calculé :" << cap_cible << endl;
@@ -162,7 +165,7 @@ do
     spi_main.majCar();
     delay(2000);
 
-    out << " On centre !" << endl;
+    cout << " On centre !" << endl;
     car_main.addStateSteeringWheel(12);
     spi_main.majCar();
     delay(3000);
@@ -170,10 +173,8 @@ do
   }
 }while(!test_fin());
 cout << " VALIDATION OBJECTIF !!!!!!!!! GRANDE VALIDATION !!!!!" << endl;
-  /*
-
-
-	for(int i=0;i<200;i++)
+  
+/*for(int i=0;i<200;i++)
 	{
 		//car_main.addPwmMotorBack(30);
 		car_main.addStateSteeringWheel(18);
@@ -183,7 +184,7 @@ cout << " VALIDATION OBJECTIF !!!!!!!!! GRANDE VALIDATION !!!!!" << endl;
 		cout << endl;
 	}
 	car_main.addPwmMotorBack(0);
-	spi_main.majCar();
+	spi_main.majCar();*/
 
   /*for(i=0;i<=50;i=i+5)
   {

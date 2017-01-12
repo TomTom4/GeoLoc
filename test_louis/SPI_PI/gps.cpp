@@ -27,7 +27,7 @@ using namespace std;
     fd = open("/dev/ttyS0", O_RDWR | O_NOCTTY | O_NDELAY);
     if (fd == -1)
     {
-      printf("GPS_Driver.c -> GPS_init -> Error opening /dev/ttyUSB0");
+      printf("gps.c -> Constructor -> Error opening /dev/ttyUSB0");
       exit(1);
     }
     usleep(100000);

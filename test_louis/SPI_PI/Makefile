@@ -17,7 +17,7 @@ spi.o: spi.cpp spi.hpp car.hpp const.hpp
 car.o: car.cpp car.hpp const.hpp
 	$(CXX) -o car.o car.cpp $(LDFLAGS) $(CFLAG) $(WALLFLAG)
 
-gps.o: gps.cpp gps.hpp
+gps.o: gps.cpp gps.hpp minmea.h
 	 $(CXX) -o gps.o gps.cpp $(CFLAG) $(CXXFLAGS)
 
 minmea.o: minmea.c minmea.h
