@@ -213,32 +213,34 @@ public:
 
     void BuildAllRoads(int id_road, std::vector<Node> VEC);
 
+    Node * GetUserNodeById(double id);
+
     // Returns the Node with the specified ID
-    Node * GetNodeById(long double id);
+    Node * GetNodeById(double id);
 
     Road * GetRoadById(double id);
 
     vector<tuple<string, double>> GetTupleOfDestinations();
 
-    Map(rapidxml::file<> xmlFile);
+    Map(char * OsmFilePath);
 
     double WhichRoadWithLatLon();
 
-    int CreateAll(int close, cv::Mat imageToWriteOn);
+    int CreateAll(int close);
+
+    void Display(int close);
 
     int DisplayImage(int close);
 
     int SetPosition(double lon, double lat);
 
-    int DisplayMyPosition();
+    int DisplayMyPosition(int close);
 
-    int DisplayCloseMyPosition();
+    //int DisplayCloseToLocation(cv::Mat imageToWriteOn);
 
-    int DisplayCloseToLocation(cv::Mat imageToWriteOn);
+    float GetCorrectiveHeading(float DrivenDistance);
 
-    float CapAlgorithm();
-
-    void SetDestination(double lon, double lat);
+    void SetDestination(double idDestNode);
 
     void SetPath(std::vector<char *> path);
 

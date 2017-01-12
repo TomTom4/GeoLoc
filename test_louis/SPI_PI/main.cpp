@@ -17,15 +17,16 @@ int main()
 	wiringPiSetup ();
 
 	//PARAMETRAGE SPI
-	if(wiringPiSPISetup(0,1000000)<0)
+	wiringPiSPISetup(0,1000000);
 	//	fprintf("SPI Setup failed ");
 
 	car_main.printCar();
 
-	for(int i=0;i<10;i++)
+	for(int i=0;i<1000;i++)
 	{
 		car_main.addPwmMotorBack(30);
 		spi_main.majCar();
+		car_main.printEncodeur();
 		delay(1000);
 		cout << endl;
 	}
