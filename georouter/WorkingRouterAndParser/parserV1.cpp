@@ -90,7 +90,7 @@ int Map::CreateAll(int close){
 	return 1;
 }
 
-float Map::CapAlgorithm(){
+float Map::GetCorrectiveHeading(float DrivenDistance){
 	// Need to have called SetPosition() right before and 5 meters before
 	// Our CurrentPosition_Lon and CurrentPosition_Lat are the GPS position.
 	// Our PreviousPosition_Lon and PreviousPosition_Lat are the origins.
@@ -98,8 +98,9 @@ float Map::CapAlgorithm(){
 	float Corrective_Cap = 0.0;
 
 	if (PathSet){
-		std::cout << "Distance brute avant correction de position: " << DirectDistance(CurrentPosition_Lon, CurrentPosition_Lat, PreviousPosition_Lon, PreviousPosition_Lat) << '\n';
 		double distance = DirectDistance(CurrentPosition_Lat, CurrentPosition_Lon, PreviousPosition_Lat, PreviousPosition_Lon);
+		std::cout << "Distance brute avant correction de position: " << distance << '\n';
+
 		// We assume an uncertainty of 2.5 meters on the GPS measure.
 		float Cap_Actuel = 0;
 		float Cap_Destination = 0;
@@ -107,44 +108,58 @@ float Map::CapAlgorithm(){
 		Cap_Actuel = ComputeCoefA(Node(1, CurrentPosition_Lon, CurrentPosition_Lat), Node(2, PreviousPosition_Lon, PreviousPosition_Lat));
 
 		//Correction de position
-		float rapport = DISTANCE_BETWEEN_ACQUISITIONS / distance;
+		//float rapport = DISTANCE_BETWEEN_ACQUISITIONS / distance;
+		float rapport = DrivenDistance / distance;
+
 		CurrentPosition_Lon = PreviousPosition_Lon + rapport * (CurrentPosition_Lon - PreviousPosition_Lon);
 		CurrentPosition_Lat = PreviousPosition_Lat + rapport * (CurrentPosition_Lat - PreviousPosition_Lat);
 
 		std::cout << "Distance normalement égale à 5 après Correction de position: " << DirectDistance(CurrentPosition_Lon, CurrentPosition_Lat, PreviousPosition_Lon, PreviousPosition_Lat) << '\n';
 		if (PathToDestination.size() != 0){
-			double Local_DestinationPosition_Lon = PathToDestination[CurrentIntermediateDestinationNode]->GetLongitude();
-			double Local_DestinationPosition_Lat = PathToDestination[CurrentIntermediateDestinationNode]->GetLatitude();
-			std::cout << "A" << '\n';
+			double Local_DestinationPosition_Lon;
+			double Local_DestinationPosition_Lat;
+			if (CurrentIntermediateDestinationNode != -1){
+				Local_DestinationPosition_Lon = PathToDestination[CurrentIntermediateDestinationNode]->GetLongitude();
+				Local_DestinationPosition_Lat = PathToDestination[CurrentIntermediateDestinationNode]->GetLatitude();
+			} else {
+				Local_DestinationPosition_Lon = DestinationPosition_Lon;
+				Local_DestinationPosition_Lat = DestinationPosition_Lat;
+			}
 
-			double RemainingDistance = DirectDistance(CurrentPosition_Lon, CurrentPosition_Lat, DestinationPosition_Lon, DestinationPosition_Lat);
-			std::cout << "B" << '\n';
-			// We enter here if we are closer than 5 meters from the intermediate Node
-			while(RemainingDistance < 5){
+			double RemainingDistance = DirectDistance(CurrentPosition_Lon, CurrentPosition_Lat, Local_DestinationPosition_Lon, Local_DestinationPosition_Lat);
+			// We enter here if we are closer than 3 meters from the intermediate Node
+			while(RemainingDistance < 3){
+				//	Test if we were heading to the final destination
+				if (CurrentIntermediateDestinationNode == -1){
+					std::cout << "\n\n\t ARRIVED !\n\n";
+					PathToDestination.clear();
+				}
 				// Test if we were heading to the last intermediate Node before final destination
 				if (CurrentIntermediateDestinationNode == PathToDestination.size() - 1){
 					// If so, we are now heading to the final destination ( user defined point)
 					Local_DestinationPosition_Lon = DestinationPosition_Lon;
 					Local_DestinationPosition_Lat = DestinationPosition_Lat;
-					CurrentIntermediateDestinationNode = 0;
+					CurrentIntermediateDestinationNode = -1;
+				//	We were heading to an intermediate node
 				} else {
 					// else, we are now heading to the next intermediate node
 					CurrentIntermediateDestinationNode++;
-					Local_DestinationPosition_Lon = PathToDestination[CurrentIntermediateDestinationNode]->GetLongitude();
-					Local_DestinationPosition_Lat = PathToDestination[CurrentIntermediateDestinationNode]->GetLatitude();
+					if (CurrentIntermediateDestinationNode >= PathToDestination.size()){
+						std::cout << "PROBLEME" << '\n';
+					} else {
+						Local_DestinationPosition_Lon = PathToDestination[CurrentIntermediateDestinationNode]->GetLongitude();
+						Local_DestinationPosition_Lat = PathToDestination[CurrentIntermediateDestinationNode]->GetLatitude();
+					}
 					RemainingDistance = DirectDistance(CurrentPosition_Lon, CurrentPosition_Lat, Local_DestinationPosition_Lon, Local_DestinationPosition_Lat);
 				}
 			}
-			std::cout << "C" << '\n';
+			//std::cout << "C" << '\n';
 			Cap_Destination = ComputeCoefA(Node(1, Local_DestinationPosition_Lon, Local_DestinationPosition_Lat), Node(1, PreviousPosition_Lon, PreviousPosition_Lat));
-
 			Cap_Actuel = atan(Cap_Actuel) * 180 / LOCAL_PI;
 			Cap_Destination = atan(Cap_Destination) * 180 / LOCAL_PI;
 
 			float Cap_Derive = (Cap_Destination - Cap_Actuel);
-
 			float OppositeAngle = asin(sin(Cap_Derive)*5/RemainingDistance);
-
 			Corrective_Cap = OppositeAngle + Cap_Derive;
 		} else {
 			std::cout << "Can't compute corrective cap since size of PathToDestination vector is 0" << '\n';
@@ -240,7 +255,7 @@ void Map::DisplayAllRoads(vector<Road *> v, int close, cv::Mat imageToWriteOn){
 }
 
 void Map::DisplayPath(int close, cv::Mat imageToWriteOn){
-	
+
 	if (PathToDestination.size() != 0){
 		for (int i=0 ; i<PathToDestination.size() ; i++){
 			GetNodeById(PathToDestination[i]->GetId())->DisplayAsPathNode(close, imageToWriteOn);
@@ -295,7 +310,17 @@ Node * Map::GetClosestNode(){
 }
 
 // Returns the Node with the specified ID
-Node * Map::GetNodeById(long double id){
+Node * Map::GetUserNodeById(double id){
+	Node * null = NULL;
+	for(vector<Node *>::iterator it = User_Node.begin(); it != User_Node.end(); ++it) {
+		if((*it)->GetId() == id){
+			return *it;
+		}
+	}
+	return null;
+}
+// Returns the Node with the specified ID
+Node * Map::GetNodeById(double id){
 	Node * null = NULL;
 	for(vector<Node *>::iterator it = Node_Vec.begin(); it != Node_Vec.end(); ++it) {
 		if((*it)->GetId() == id){
@@ -364,12 +389,16 @@ int Map::SetPosition(double lon, double lat){
 	return 1;
 }
 
-void Map::SetDestination(double lon, double lat){
-	DestinationPosition_Lon = lon;
-	DestinationPosition_Lat = lat;
+void Map::SetDestination(double idDestNode){
+	//DestinationPosition_Lon = lon;
+	//DestinationPosition_Lat = lat;
 	//It calculates the path to the Destination
+	DestinationPosition_Lon = GetUserNodeById(idDestNode)->GetLongitude();
+	std::cout << "hop" << '\n';
+	DestinationPosition_Lat = GetUserNodeById(idDestNode)->GetLatitude();
+	std::cout << "hop" << '\n';
 	double CurrentClosestNode = GetClosestNode()->GetId();
-
+	std::cout << "hop" << '\n';
 	Router MyRouter;
 
 	std::vector<char*> ipath;
@@ -379,7 +408,10 @@ void Map::SetDestination(double lon, double lat){
 	// Need to remove the decimals
 	sprintf (pointA, "%.0f", CurrentClosestNode);
 	std::cout << "Current closest node : " << pointA << '\n';
-	char pointB[7] = "-1858";
+
+	char pointB[10]; //= "-1858";
+	sprintf (pointB, "%.0f", idDestNode);
+
 
 	std::cout << "From : " << pointA << " ... to : " << pointB << '\n';
 	ipath = MyRouter.getpath(pointA,pointB);

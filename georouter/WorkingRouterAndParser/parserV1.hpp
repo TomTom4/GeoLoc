@@ -213,8 +213,10 @@ public:
 
     void BuildAllRoads(int id_road, std::vector<Node> VEC);
 
+    Node * GetUserNodeById(double id);
+
     // Returns the Node with the specified ID
-    Node * GetNodeById(long double id);
+    Node * GetNodeById(double id);
 
     Road * GetRoadById(double id);
 
@@ -236,9 +238,9 @@ public:
 
     //int DisplayCloseToLocation(cv::Mat imageToWriteOn);
 
-    float CapAlgorithm();
+    float GetCorrectiveHeading(float DrivenDistance);
 
-    void SetDestination(double lon, double lat);
+    void SetDestination(double idDestNode);
 
     void SetPath(std::vector<char *> path);
 
