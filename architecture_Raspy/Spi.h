@@ -4,6 +4,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <string>
+#include <unistd.h>
 
 #include <wiringPi.h>
 #include <wiringPiSPI.h>
@@ -29,8 +30,8 @@ public:
 	void extractEncoder();
 	void majCar();
 	void printStringSpi();
-	void *thSpi(void* arg);
-
+	void* thSpi(void);
+	static void* thSpiHelper(void *context);
 private:
 	Spi();
 	Mediator *m_mediator;
@@ -41,7 +42,6 @@ private:
 
 	//** THREAD
 	pthread_t th_spi;
-	pthread_attr_t attr_spi;
 };
 
 #endif

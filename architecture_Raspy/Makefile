@@ -5,10 +5,10 @@ LDFLAGS = -lwiringPi
 THFLAGS = -lpthread
 
 all: Geocar.o Controler.o GpsHandler.o Location.o LocationInterface.o Mediator.o Model.o Navigation.o Spi.o
-	$(CXX) Geocar.o Controler.o GpsHandler.o Location.o LocationInterface.o Mediator.o Model.o Navigation.o Spi.o -o geocar_exec $(WALLFLAG) $(LDFLAGS)
+	$(CXX) Geocar.o Controler.o GpsHandler.o Location.o LocationInterface.o Mediator.o Model.o Navigation.o Spi.o -o geocar_exec $(WALLFLAG) $(LDFLAGS)  $(THFLAGS)
 
 Geocar.o: Geocar.cpp Geocar.h Controler.h GpsHandler.h Location.h LocationInterface.h Mediator.h Model.h Navigation.h Spi.h
-	$(CXX) $(CFLAG) Geocar.cpp -o Geocar.o $(WALLFLAG) $(LDFLAGS)
+	$(CXX) $(CFLAG) Geocar.cpp -o Geocar.o $(WALLFLAG) $(LDFLAGS)  $(THFLAGS)
 
 Controler.o: Controler.cpp
 	$(CXX) $(CFLAG) Controler.cpp -o Controler.o $(WALLFLAG) $(LDFLAGS)

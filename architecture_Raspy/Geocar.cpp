@@ -30,16 +30,22 @@ void testSpi(Mediator *mediator, Spi *spi){
 	
 
 int main(){
-	Controler *controler;
+	//Controler *controler;
 	Mediator *mediator;
 	Spi *spi;
 	
 	mediator = Mediator::instance();
-	controler = Controler::instance();
+	//controler = Controler::instance();
 	spi = Spi::instance();
+	cout << "start thread " << endl;
 	spi->startThread();
 
 	//temporary :only to test of spi
-	testSpi(mediator, spi);
+	//testSpi(mediator, spi);
+	while(1)
+	{
+		usleep(1000000);
+		cout << " main "<< endl;
+	}
 	return 0;
 }
