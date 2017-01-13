@@ -7,9 +7,12 @@
 class Mediator{
 
 	public:
-		// singleton pattern methode
+		//** SINGLETON
 		static Mediator *instance();
-		//all this method are extracted from model
+		//** METHODS
+
+		//******** GET ********//
+		//** PWM
 		unsigned char getPwmMotorBack(void);
 		//** Steering Wheel
 		unsigned char getStateSteeringWheel(void);
@@ -30,17 +33,18 @@ class Mediator{
 		unsigned char getDistanceBackLeft(void);
 		unsigned char getDistanceBackCenter(void);
 		unsigned char getDistanceBackRight(void);
+		//** Gps
+		double getLongitude(void);
+		double getLatitude(void);
 
+		//******** ADD ********//
 		//** PWM
 		void addPwmMotorBack(unsigned char val);
-
 		//** Steering Wheel
 		void addStateSteeringWheel(unsigned char val);
-
 		//** Encoder
 		void addEncoderWheelBackLeft(float val);
 		void addEncoderWheelBackRight(float val);
-
 		//** US Validity
 		void addValidityFrontLeft(unsigned char val);
 		void addValidityFrontCenter(unsigned char val);
@@ -54,20 +58,24 @@ class Mediator{
 		void addDistanceBackLeft(unsigned char val);
 		void addDistanceBackCenter(unsigned char val);
 		void addDistanceBackRight(unsigned char val);
+		//** Gps
+		void addLongitude(double val);
+		void addLatitude(double val);
 
+		//******** PRINT ********//
 		void printEncoder(void);
 		void printModel(void);
-
+		//******** THREAD ********//
 		void lockMutex(void);
 		void unlockMutex(void);
 
 	private:
+		//** SINGLETON
 		Mediator();
-		static Mediator *s_instance;
 		Model m_model;
+		static Mediator *s_instance;
+		//** THREAD
 		pthread_mutex_t mutex_mediator;
-
-
 };
 
 #endif

@@ -13,8 +13,8 @@ Geocar.o: Geocar.cpp Geocar.h Controler.h GpsHandler.h Location.h LocationInterf
 Controler.o: Controler.cpp
 	$(CXX) $(CFLAG) Controler.cpp -o Controler.o $(WALLFLAG) $(LDFLAGS)
 
-GpsHandler.o: GpsHandler.cpp
-	$(CXX) $(CFLAG) GpsHandler.cpp -o GpsHandler.o $(WALLFLAG) $(LDFLAGS)
+GpsHandler.o: GpsHandler.cpp GpsHandler.h minmea.h
+	$(CXX) $(CFLAG) GpsHandler.cpp -o GpsHandler.o $(WALLFLAG) $(LDFLAGS) $(THFLAGS)
 
 ImuHandler.o: ImuHandler.cpp
 	$(CXX) $(CFLAG) ImuHandler.cpp -o ImuHandler.o $(WALLFLAG) $(LDFLAGS)

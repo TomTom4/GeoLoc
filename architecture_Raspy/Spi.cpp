@@ -18,14 +18,10 @@ Spi *Spi::s_instance = 0;
 		lenght_string = SPI_LENGHT_STRING;
 		string_spi = new unsigned char[lenght_string];
 		m_mediator = Mediator::instance();
-	}
-
-	void Spi::startThread()
-	{
-		int result_code;
+		//** Create Thread
 		result_code = pthread_create(&th_spi,NULL,thSpiHelper,this);
-		cout << " result code =" << result_code << endl;
-		//assert(result_code == 0);
+		if(result_code == 0)
+			cout << "Thread Spi Ok" << endl;
 	}
 
 	void *Spi::thSpi(void)
@@ -33,8 +29,8 @@ Spi *Spi::s_instance = 0;
 		while(1)
 		{
 			usleep(100000);
-			//Spi::majCar();
-			cout << " Th SPI " << endl;
+			Spi::majCar();
+			//cout << " Th SPI " << endl;
 		}
 	}
 

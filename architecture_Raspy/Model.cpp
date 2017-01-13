@@ -28,6 +28,9 @@ Model::Model()
 
   us_validity_back_right = 0;
   us_distance_back_right = 0xFF;
+
+  longitude = 0.0;
+  latitude = 0.0;
 }
 
 //******** GET ********//
@@ -109,6 +112,15 @@ unsigned char Model::getDistanceBackRight(void)
 {
   return(us_distance_back_right);
 }
+//** Gps
+double Gps::getLongitude(void)
+{
+  return(longitude);
+}
+double Gps::getLatitude(void)
+{
+  return(latitude);
+}
 
 //******** ADD ********//
 
@@ -186,6 +198,15 @@ void Model::addDistanceBackCenter(unsigned char val)
 void Model::addDistanceBackRight(unsigned char val)
 {
   us_distance_back_right = val;
+}
+//** Gps
+void Gps::addLongitude(double val)
+{
+  longitude = val;
+}
+void Gps::addLatitude(double val)
+{
+  latitude = val;
 }
 
 void Model::printEncoder()

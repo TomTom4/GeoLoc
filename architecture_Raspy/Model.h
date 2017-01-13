@@ -11,7 +11,6 @@
 
 class Model
 {
-	//private:
 	public:
 		Model(); // Constructor
 		//~Model(); // Destructor
@@ -39,18 +38,19 @@ class Model
 		unsigned char getDistanceBackLeft(void);
 		unsigned char getDistanceBackCenter(void);
 		unsigned char getDistanceBackRight(void);
+		//** Gps
+		double getLongitude(void);
+		double getLatitude(void);
 
+		//******** ADD ********//
 		//** PWM
 		void addPwmMotorBack(unsigned char val);
-
 		//** Steering Wheel
 		void addStateSteeringWheel(unsigned char val);
-
 		//** Encoder
 		void addEncoderWheelBackLeft(float val);
 		void addEncoderWheelBackRight(float val);
 		void addDistance(float val);
-
 		//** US Validity
 		void addValidityFrontLeft(unsigned char val);
 		void addValidityFrontCenter(unsigned char val);
@@ -64,42 +64,45 @@ class Model
 		void addDistanceBackLeft(unsigned char val);
 		void addDistanceBackCenter(unsigned char val);
 		void addDistanceBackRight(unsigned char val);
+		//** Gps
+		void addLongitude(double val);
+		void addLatitude(double val);
 
+		//******** PRINT ********//
 		void printEncoder(void);
 		void printModel(void);
 
 	private:
 
+		//** PWM
 		unsigned char pwm_motor_back;
+		//** Steering Wheel
 		unsigned char state_steering_wheel;
-
+		//** Encoder
 		float encoder_wheel_back_left;
 		float encoder_wheel_back_right;
 		float distance;
 
-		unsigned char us_id_front_left;
+		//** US Validity
 		unsigned char us_validity_front_left;
-		unsigned char us_distance_front_left;
-
-		unsigned char us_id_front_center;
 		unsigned char us_validity_front_center;
-		unsigned char us_distance_front_center;
-
-		unsigned char us_id_front_right;
 		unsigned char us_validity_front_right;
-		unsigned char us_distance_front_right;
-
-		unsigned char us_id_back_left;
 		unsigned char us_validity_back_left;
-		unsigned char us_distance_back_left;
-
-		unsigned char us_id_back_center;
 		unsigned char us_validity_back_center;
-		unsigned char us_distance_back_center;
-
-		unsigned char us_id_back_right;
 		unsigned char us_validity_back_right;
+
+		//** Distance
+		unsigned char us_distance_front_left;
+		unsigned char us_distance_front_center;
+		unsigned char us_distance_front_right;
+		unsigned char us_distance_back_left;
+		unsigned char us_distance_back_center;
 		unsigned char us_distance_back_right;
+
+		//** Gps
+		double longitude;
+		double latitude;
+
 };
 
 #endif

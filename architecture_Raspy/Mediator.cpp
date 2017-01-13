@@ -31,7 +31,7 @@ using namespace std;
 	{
 		unsigned char buff;
 		Mediator::lockMutex();
-		return m_model.getStateSteeringWheel();
+		buff = m_model.getStateSteeringWheel();
 		Mediator::unlockMutex();
 		return buff;
 	}
@@ -41,7 +41,7 @@ using namespace std;
 	{
 		float buff;
 		Mediator::lockMutex();
-		return m_model.getEncoderWheelBackLeft();
+		buff = m_model.getEncoderWheelBackLeft();
 		Mediator::unlockMutex();
 		return buff;
 	}
@@ -50,7 +50,7 @@ using namespace std;
 	{
 		float buff;
 		Mediator::lockMutex();
-		return m_model.getEncoderWheelBackRight();
+		buff = m_model.getEncoderWheelBackRight();
 		Mediator::unlockMutex();
 		return buff;
 	}
@@ -60,7 +60,7 @@ using namespace std;
 	{
 		unsigned char buff;
 		Mediator::lockMutex();
-		return m_model.getValidityFrontLeft();
+		buff = m_model.getValidityFrontLeft();
 		Mediator::unlockMutex();
 		return buff;
 	}
@@ -69,7 +69,7 @@ using namespace std;
 	{
 		unsigned char buff;
 		Mediator::lockMutex();
-		return m_model.getValidityFrontCenter();
+		buff = m_model.getValidityFrontCenter();
 		Mediator::unlockMutex();
 		return buff;
 	}
@@ -78,7 +78,7 @@ using namespace std;
 	{
 		unsigned char buff;
 		Mediator::lockMutex();
-		return m_model.getValidityFrontRight();
+		buff = m_model.getValidityFrontRight();
 		Mediator::unlockMutex();
 		return buff;
 	}
@@ -87,7 +87,7 @@ using namespace std;
 	{
 		unsigned char buff;
 		Mediator::lockMutex();
-		return m_model.getValidityBackLeft();
+		buff = m_model.getValidityBackLeft();
 		Mediator::unlockMutex();
 		return buff;
 	}
@@ -96,7 +96,7 @@ using namespace std;
 	{
 		unsigned char buff;
 		Mediator::lockMutex();
-		return m_model.getValidityBackCenter();
+		buff = m_model.getValidityBackCenter();
 		Mediator::unlockMutex();
 		return buff;
 	}
@@ -105,7 +105,7 @@ using namespace std;
 	{
 		unsigned char buff;
 		Mediator::lockMutex();
-		return m_model.getValidityBackRight();
+		buff = m_model.getValidityBackRight();
 		Mediator::unlockMutex();
 		return buff;
 	}
@@ -115,7 +115,7 @@ using namespace std;
 	{
 		unsigned char buff;
 		Mediator::lockMutex();
-  	return m_model.getDistanceFrontLeft();
+  	buff = m_model.getDistanceFrontLeft();
 		Mediator::unlockMutex();
 		return buff;
 	}
@@ -124,7 +124,7 @@ using namespace std;
 	{
 		unsigned char buff;
 		Mediator::lockMutex();
-		return m_model.getDistanceFrontCenter();
+		buff = m_model.getDistanceFrontCenter();
 		Mediator::unlockMutex();
 		return buff;
 	}
@@ -133,7 +133,7 @@ using namespace std;
 	{
 		unsigned char buff;
 		Mediator::lockMutex();
-		return m_model.getDistanceFrontRight();
+		buff = m_model.getDistanceFrontRight();
 		Mediator::unlockMutex();
 		return buff;
 	}
@@ -142,7 +142,7 @@ using namespace std;
 	{
 		unsigned char buff;
 		Mediator::lockMutex();
-		return m_model.getDistanceBackLeft();
+		buff = m_model.getDistanceBackLeft();
 		Mediator::unlockMutex();
 		return buff;
 	}
@@ -151,7 +151,7 @@ using namespace std;
 	{
 		unsigned char buff;
 		Mediator::lockMutex();
-		return m_model.getDistanceBackCenter();
+		buff = m_model.getDistanceBackCenter();
 		Mediator::unlockMutex();
 		return buff;
 	}
@@ -160,7 +160,24 @@ using namespace std;
 	{
 		unsigned char buff;
 		Mediator::lockMutex();
-		return m_model.getDistanceBackRight();
+		buff = m_model.getDistanceBackRight();
+		Mediator::unlockMutex();
+		return buff;
+	}
+	//** GPS
+	double Mediator::getLongitude()
+	{
+		double buff;
+		Mediator::lockMutex();
+		buff = m_model.getLongitude();
+		Mediator::unlockMutex();
+		return buff;
+	}
+	double Mediator::getLatitude()
+	{
+		double buff;
+		Mediator::lockMutex();
+		buff = m_model.getLatitude();
 		Mediator::unlockMutex();
 		return buff;
 	}
@@ -280,6 +297,23 @@ using namespace std;
 		Mediator::lockMutex();
 		m_model.addDistanceBackRight(val);
 		Mediator::unlockMutex();
+	}
+	//** GPS
+	void Mediator::addLongitude(double val)
+	{
+		unsigned char buff;
+		Mediator::lockMutex();
+		buff = m_model.getLongitude(val);
+		Mediator::unlockMutex();
+		return buff;
+	}
+	void Mediator::getLatitude(double val)
+	{
+		unsigned char buff;
+		Mediator::lockMutex();
+		buff = m_model.getLatitude(val);
+		Mediator::unlockMutex();
+		return buff;
 	}
 
 	void Mediator::printEncoder()
