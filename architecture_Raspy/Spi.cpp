@@ -19,7 +19,7 @@ Spi *Spi::s_instance = 0;
 		string_spi = new unsigned char[lenght_string];
 		m_mediator = Mediator::instance();
 	}
-	
+
 	void Spi::startThread()
 	{
 		int result_code;
@@ -34,12 +34,12 @@ Spi *Spi::s_instance = 0;
 		{
 			usleep(100000);
 			//Spi::majCar();
-			cout << " Th SPI " << endl;	
+			cout << " Th SPI " << endl;
 		}
 	}
-	
+
 	void *Spi::thSpiHelper(void* context)
-	{ 
+	{
 		return((Spi*)context)->Spi::thSpi();
 	}
 
@@ -81,6 +81,7 @@ Spi *Spi::s_instance = 0;
 				//	throw string("ERREUR: Dir wrong position");//	RASP:" << m_mediator->cpt_dir << " STM:" << string_spi[3]);
 
 				Spi::extractEncoder();
+				m_mediator->addDistance((m_mediator->getEncodeurWheelBackLeft()+m_mediator->getEncoderWheelBackRight())/2.0);
 				m_mediator->addValidityFrontLeft(string_spi[US_VALIDITY_FRONT_LEFT]);
 				m_mediator->addDistanceFrontLeft(string_spi[US_DISTANCE_FRONT_LEFT]);
 				m_mediator->addValidityFrontCenter(string_spi[US_VALIDITY_FRONT_CENTER]);
@@ -150,5 +151,3 @@ Spi *Spi::s_instance = 0;
 			cout <<(int)string_spi[i]<<"|";
 		cout << endl;
 	}
-
-	

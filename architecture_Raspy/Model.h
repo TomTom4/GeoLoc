@@ -24,6 +24,7 @@ class Model
 		//** Encoder
 		float getEncoderWheelBackLeft(void);
 		float getEncoderWheelBackRight(void);
+		float getDistance(void);
 		//** US Validity
 		unsigned char getValidityFrontLeft(void);
 		unsigned char getValidityFrontCenter(void);
@@ -48,6 +49,7 @@ class Model
 		//** Encoder
 		void addEncoderWheelBackLeft(float val);
 		void addEncoderWheelBackRight(float val);
+		void addDistance(float val);
 
 		//** US Validity
 		void addValidityFrontLeft(unsigned char val);
@@ -73,6 +75,7 @@ class Model
 
 		float encoder_wheel_back_left;
 		float encoder_wheel_back_right;
+		float distance;
 
 		unsigned char us_id_front_left;
 		unsigned char us_validity_front_left;

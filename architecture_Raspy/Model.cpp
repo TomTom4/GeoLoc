@@ -9,6 +9,7 @@ Model::Model()
   state_steering_wheel = 3;
   encoder_wheel_back_left = 0.0;
   encoder_wheel_back_right = 0.0;
+  distance = 0.0;
 
   us_validity_front_left = 0;
   us_distance_front_left = 0xFF;
@@ -51,6 +52,10 @@ float Model::getEncoderWheelBackLeft(void)
 float Model::getEncoderWheelBackRight(void)
 {
   return(encoder_wheel_back_right);
+}
+float Model::getDisatnce(void)
+{
+  retrun(Disantce);
 }
 
 //** US Validity
@@ -127,6 +132,10 @@ void Model::addEncoderWheelBackRight(float val)
 {
   encoder_wheel_back_right = val;
 }
+void Model::addDistance(float val)
+{
+  distance = val;
+}
 
 //** US Validity
 void Model::addValidityFrontLeft(unsigned char val)
@@ -183,6 +192,7 @@ void Model::printEncoder()
 {
 	cout << "Distance Left : " << encoder_wheel_back_left << endl;
   cout << "Distance Right : " << encoder_wheel_back_right << endl;
+  cout << "Distance : " << distance << endl;
 	cout << "Erreur : " << encoder_wheel_back_left - encoder_wheel_back_right << endl;
 }
 
@@ -193,6 +203,7 @@ void Model::printModel(void)
   cout << "Steering wheel state : " << (int)state_steering_wheel << endl;
   cout << "Distance Left : " << (float)encoder_wheel_back_left << endl;
   cout << "Distance Right : " << (float)encoder_wheel_back_right << endl;
+  cout << "Distance : " << (float)distance << endl;
   cout << "Us front left, Validity : " << (int)us_validity_front_left << ", Distance : " << (int)us_distance_front_left <<"cm " << endl;
   cout << "Us front center, Validity : " << (int)us_validity_front_center << ", Distance : " << (int)us_distance_front_center <<"cm " << endl;
   cout << "Us front right, Validity : " << (int)us_validity_front_right << ", Distance : " << (int)us_distance_front_right <<"cm " << endl;

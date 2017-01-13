@@ -2,7 +2,7 @@
 
 using namespace std;
 
-	//Add your methodes over here 
+	//Add your methodes over here
 
 void testSpi(Mediator *mediator, Spi *spi){
 
@@ -14,26 +14,49 @@ void testSpi(Mediator *mediator, Spi *spi){
 	wiringPiSPISetup(0,1000000);
 	//	fprintf("SPI Setup failed ");
 
-	mediator->printModel();
-
-	for(int i=0;i<100;i++)
-	{
-		mediator->addPwmMotorBack(30);
-		spi->majCar();
-		mediator->printEncoder();
-		delay(100);
-		cout << endl;
-	}
+	mediator->printModel(); // State of the car
+	cout << " On avance !" << endl;
+	mediator->addPwmMotorBack(30);
+	usleep(2000);
+	cout << " On stop !" << endl;
 	mediator->addPwmMotorBack(0);
-	spi->majCar();
+	usleep(2000);
+	cout << " On tourne à gauche !" << endl;
+  mediator->addStateSteeringWheel(6);
+  usleep(2000);
+	cout << " On avance !" << endl;
+	mediator->addPwmMotorBack(30);
+	usleep(2000);
+	cout << " On stop !" << endl;
+	mediator->addPwmMotorBack(0);
+	usleep(2000);
+	cout << " On centre !" << endl;
+  mediator->addStateSteeringWheel(12);
+  usleep(2000);
+	cout << " On avance !" << endl;
+	mediator->addPwmMotorBack(30);
+	usleep(2000);
+	cout << " On stop !" << endl;
+	mediator->addPwmMotorBack(0);
+	usleep(2000);
+	cout << " On tourne à droite !" << endl;
+  mediator->addStateSteeringWheel(18);
+  usleep(2000);
+	cout << " On avance !" << endl;
+	mediator->addPwmMotorBack(30);
+	usleep(2000);
+	cout << " On stop !" << endl;
+	mediator->addPwmMotorBack(0);
+	usleep(2000);
+
 }
-	
+
 
 int main(){
 	//Controler *controler;
 	Mediator *mediator;
 	Spi *spi;
-	
+
 	mediator = Mediator::instance();
 	//controler = Controler::instance();
 	spi = Spi::instance();
@@ -41,11 +64,11 @@ int main(){
 	spi->startThread();
 
 	//temporary :only to test of spi
-	//testSpi(mediator, spi);
-	while(1)
+	testSpi(mediator, spi);
+	/*while(1)
 	{
 		usleep(1000000);
 		cout << " main "<< endl;
-	}
+	}*/
 	return 0;
 }
