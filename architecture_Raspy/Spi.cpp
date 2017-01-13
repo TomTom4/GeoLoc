@@ -10,7 +10,6 @@ Spi *Spi::s_instance = 0;
 		if(!Spi::s_instance)
 			Spi::s_instance = new Spi();
 			Spi::s_instance->m_mediator = Mediator::instance();
-			pthread_create(&th_spi,NULL,void *(*thSpi) (void *), void *arg);
 		return Spi::s_instance;
 	}
 
@@ -18,8 +17,8 @@ Spi *Spi::s_instance = 0;
 	{ // Constructor
 		lenght_string = SPI_LENGHT_STRING;
 		string_spi = new unsigned char[lenght_string];
-
 		m_mediator = Mediator::instance();
+		pthread_create(&th_spi,NULL,thSpi, (void*)NULL);
 	}
 
 	void Spi::readWriteData()

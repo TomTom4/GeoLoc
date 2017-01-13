@@ -58,8 +58,8 @@ class Mediator{
 		void printEncoder(void);
 		void printModel(void);
 
-		void Mediator::lockMutex(void);
-		void Mediator::unlockMutex(void);
+		void lockMutex(void);
+		void unlockMutex(void);
 
 	private:
 		Mediator();

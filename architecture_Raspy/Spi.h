@@ -27,6 +27,7 @@ public:
 	void extractEncoder();
 	void majCar();
 	void printStringSpi();
+	void *thSpi(void* arg);
 
 private:
 	Spi();
