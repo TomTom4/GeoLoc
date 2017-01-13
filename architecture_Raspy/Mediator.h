@@ -2,6 +2,7 @@
 #define DEF_MEDIATOR
 
 #include "Model.h"
+#include <pthread.h>
 
 class Mediator{
 
@@ -57,12 +58,15 @@ class Mediator{
 		void printEncoder(void);
 		void printModel(void);
 
+		void Mediator::lockMutex(void);
+		void Mediator::unlockMutex(void);
 
 	private:
 		Mediator();
 		static Mediator *s_instance;
 		Model m_model;
-		
+		pthread_mutex_t mutex_mediator;
+
 
 };
 

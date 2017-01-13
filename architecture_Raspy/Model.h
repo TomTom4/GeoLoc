@@ -71,13 +71,6 @@ class Model
 		unsigned char pwm_motor_back;
 		unsigned char state_steering_wheel;
 
-		/*unsigned char encoder_wheel_back_left_100m;
-		unsigned char encoder_wheel_back_left_1m;
-		unsigned char encoder_wheel_back_left_1cm;
-		unsigned char encoder_wheel_back_right_100m;
-		unsigned char encoder_wheel_back_right_1m;
-		unsigned char encoder_wheel_back_right_1cm;*/
-	
 		float encoder_wheel_back_left;
 		float encoder_wheel_back_right;
 

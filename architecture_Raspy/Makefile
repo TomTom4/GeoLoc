@@ -2,6 +2,7 @@ CXX = g++
 WALLFLAG = -Wall
 CFLAG = -c
 LDFLAGS = -lwiringPi
+THFLAGS = -lpthread
 
 all: Geocar.o Controler.o GpsHandler.o Location.o LocationInterface.o Mediator.o Model.o Navigation.o Spi.o
 	$(CXX) Geocar.o Controler.o GpsHandler.o Location.o LocationInterface.o Mediator.o Model.o Navigation.o Spi.o -o geocar_exec $(WALLFLAG) $(LDFLAGS)
@@ -25,7 +26,7 @@ LocationInterface.o: LocationInterface.cpp
 	$(CXX) $(CFLAG) LocationInterface.cpp -o LocationInterface.o $(WALLFLAG) $(LDFLAGS)
 
 Mediator.o: Mediator.cpp Model.h
-	$(CXX) $(CFLAG) Mediator.cpp -o Mediator.o $(WALLFLAG) $(LDFLAGS)
+	$(CXX) $(CFLAG) Mediator.cpp -o Mediator.o $(WALLFLAG) $(LDFLAGS) $(THFLAGS)
 
 Model.o: Model.cpp
 	$(CXX) $(CFLAG) Model.cpp -o Model.o $(WALLFLAG) $(LDFLAGS)
@@ -37,7 +38,7 @@ SensorFusion.o: SensorFusion.cpp
 	$(CXX) $(CFLAG) SensorFusion.cpp -o SensorFusion.o $(WALLFLAG) $(LDFLAGS)
 
 Spi.o: Spi.cpp Spi.h Mediator.h const.hpp
-	$(CXX) $(CFLAG) Spi.cpp -o Spi.o $(WALLFLAG) $(LDFLAGS)
+	$(CXX) $(CFLAG) Spi.cpp -o Spi.o $(WALLFLAG) $(LDFLAGS) $(THFLAGS)
 
 clean:
 	rm -rf *.o

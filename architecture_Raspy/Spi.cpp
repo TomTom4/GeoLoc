@@ -5,18 +5,20 @@ using namespace std;
 
 Spi *Spi::s_instance = 0;
 
-	//Add your methodes over here 
+	//Add your methodes over here
 	Spi* Spi::instance(){
 		if(!Spi::s_instance)
 			Spi::s_instance = new Spi();
 			Spi::s_instance->m_mediator = Mediator::instance();
-		return Spi::s_instance;	
+			pthread_create(&th_spi,NULL,void *(*thSpi) (void *), void *arg);
+		return Spi::s_instance;
 	}
 
 	Spi::Spi()
 	{ // Constructor
 		lenght_string = SPI_LENGHT_STRING;
 		string_spi = new unsigned char[lenght_string];
+
 		m_mediator = Mediator::instance();
 	}
 
@@ -48,16 +50,15 @@ Spi *Spi::s_instance = 0;
 
 	void Spi::extractDataString()
 	{
-		try
-		{
+		//try
+		//{
 			if(string_spi[BEACON_START] == BEACON_STM_START) // 0 - beacon_start (stm)
 			{
-				if(m_mediator->getPwmMotorBack() != string_spi[PWM_MOTOR_BACK ]) // 1 - PWM Moteur AR
-					throw string("ERREUR: PWM Motor AR D different");//	RASP:" << m_mediator->pwm_motor_ar_d << " STM:" << string_spi[1]);
-				if(m_mediator->getStateSteeringWheel() != string_spi[STATE_STEERING_WHEEL]) // 3 - State Direction
-					throw string("ERREUR: Dir wrong position");//	RASP:" << m_mediator->cpt_dir << " STM:" << string_spi[3]);
+				//if(m_mediator->getPwmMotorBack() != string_spi[PWM_MOTOR_BACK ]) // 1 - PWM Moteur AR
+				//	throw string("ERREUR: PWM Motor AR D different");//	RASP:" << m_mediator->pwm_motor_ar_d << " STM:" << string_spi[1]);
+				//if(m_mediator->getStateSteeringWheel() != string_spi[STATE_STEERING_WHEEL]) // 3 - State Direction
+				//	throw string("ERREUR: Dir wrong position");//	RASP:" << m_mediator->cpt_dir << " STM:" << string_spi[3]);
 
-				/* Prise du mutex SPI */
 				Spi::extractEncoder();
 				m_mediator->addValidityFrontLeft(string_spi[US_VALIDITY_FRONT_LEFT]);
 				m_mediator->addDistanceFrontLeft(string_spi[US_DISTANCE_FRONT_LEFT]);
@@ -73,18 +74,17 @@ Spi *Spi::s_instance = 0;
 				m_mediator->addValidityBackRight(string_spi[US_VALIDITY_BACK_RIGHT]);
 				m_mediator->addDistanceBackRight(string_spi[US_DISTANCE_BACK_RIGHT]);
 
-				if(BEACON_STM_END != string_spi[BEACON_STOP]) // - beacon_end (stm)
-					throw string("ERROR: Wrong beacon_stm_end");//	RASP:" << beacon_stm_start << " STM:" << string_spi[24]);
+				//if(BEACON_STM_END != string_spi[BEACON_STOP]) // - beacon_end (stm)
+				//	throw string("ERROR: Wrong beacon_stm_end");//	RASP:" << beacon_stm_start << " STM:" << string_spi[24]);
 
-				/* Restitution du mutex */
 			}
-			else
-				throw string("ERROR: Wrong beacon_stm_start");//	RASP:" << beacon_stm_start << " STM:" << string_spi[0]);
-		}
-		catch(string const& error_string)
-		{
+			//else
+			//	throw string("ERROR: Wrong beacon_stm_start");//	RASP:" << beacon_stm_start << " STM:" << string_spi[0]);
+		//}
+		//catch(string const& error_string)
+		//{
 			//cerr << error_string << endl;
-		}
+		//}
 	}
 
 	void Spi::extractEncoder()
@@ -128,4 +128,15 @@ Spi *Spi::s_instance = 0;
 		for(int i = 0; i< lenght_string; i++)
 			cout <<(int)string_spi[i]<<"|";
 		cout << endl;
+	}
+
+	void *thSpi(void* arg)
+	{
+		while(1)
+		{
+			delay(100);
+			Spi::majCar();
+		}
+
+
 	}
