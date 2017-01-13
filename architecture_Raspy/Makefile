@@ -10,7 +10,7 @@ LDFLAGS = -lwiringPi -L/usr/local/lib  -lopencv_core -lopencv_imgproc -lopencv_h
 THFLAGS = -lpthread
 
 all: Geocar.o Controler.o GpsHandler.o Location.o LocationInterface.o Mediator.o Model.o Navigation.o Spi.o parserV1.o router.o
-	$(CXX) Geocar.o Controler.o GpsHandler.o Location.o LocationInterface.o Mediator.o Model.o Navigation.o Spi.o parserV1.o router.o -o geocar_exec $(WALLFLAG) $(LDFLAGS) $(THFLAGS) $(LIBS)
+	$(CXX) Geocar.o Controler.o GpsHandler.o Location.o LocationInterface.o Mediator.o Model.o Navigation.o Spi.o parserV1.o router.o -o geocar_exec $(WALLFLAG) $(LDFLAGS) $(THFLAGS) $(LIBS) $(CPPFLAGS)
 
 Geocar.o: Geocar.cpp Geocar.h Controler.h GpsHandler.h Location.h LocationInterface.h Mediator.h Model.h Navigation.h Spi.h
 	$(CXX) $(CFLAG) $(CPPFLAGS) Geocar.cpp -o Geocar.o $(WALLFLAG) $(LDFLAGS) $(THFLAGS) $(LIBS)

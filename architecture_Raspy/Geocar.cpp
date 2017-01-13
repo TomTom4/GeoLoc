@@ -28,7 +28,7 @@ void testSpi(Mediator *mediator, Spi *spi){
 	spi->majCar();
 }
 
-void testNavigation(){
+int testNavigation(){
 
 	//rapidxml::file<> xmlFile("heavy.osm");
 	Map MyMap("heavy.osm");
