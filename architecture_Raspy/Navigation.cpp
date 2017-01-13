@@ -2,9 +2,9 @@
 
 using namespace std;
 
-	//Add your methodes over here 
+	//Add your methodes over here
 
-	Navigation *Navigation::s_instance = 0;//setting s_instance because it is a static attribut. 
+	Navigation *Navigation::s_instance = 0;//setting s_instance because it is a static attribut.
 
 	// this function replace the construtor of the object
 	Navigation *Navigation::instance(){
@@ -12,4 +12,4 @@ using namespace std;
 			Navigation::s_instance = new Navigation;
 		return Navigation::s_instance;
 	}
-	Navigation::Navigation(){}
+	Navigation::Navigation():m_map(){}

@@ -4,20 +4,6 @@
 //
 //  Created by Guillaume GRANIE on 06/12/2016.
 //
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <tuple>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include "rapidxml_utils.hpp"
-#include <math.h>
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-
-#include "router.hpp"
 #include "parserV1.hpp"
 
 using namespace rapidxml;
@@ -543,11 +529,8 @@ Map::Map(char * OsmFilePath){
 				if (id != 0 && lon != 0 && lat != 0){
 					Node * myNode = new Node(id, lon, lat);
 					if (NotARoutingNode){
-						myNode->NotARoutingNode();
+						myNode->IsNotRoutingNode();
 						std::cout << "NotARoutingNode() : " << myNode->GetId() << '\n';
-						if (myNode->IsNotRoutingNode()){
-							std::cout << "Goood." << '\n';
-						}
 					}
 					if (user){
 						myNode->SetName(name);
