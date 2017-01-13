@@ -543,8 +543,11 @@ Map::Map(char * OsmFilePath){
 				if (id != 0 && lon != 0 && lat != 0){
 					Node * myNode = new Node(id, lon, lat);
 					if (NotARoutingNode){
-						myNode->IsNotRoutingNode();
+						myNode->NotARoutingNode();
 						std::cout << "NotARoutingNode() : " << myNode->GetId() << '\n';
+						if (myNode->IsNotRoutingNode()){
+							std::cout << "Goood." << '\n';
+						}
 					}
 					if (user){
 						myNode->SetName(name);
