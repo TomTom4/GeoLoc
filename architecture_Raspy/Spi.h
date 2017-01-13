@@ -19,6 +19,7 @@
 class Spi /*:: public Singleton*/
 {
 public:
+	void startThread();
 	void testSpi(Mediator *mediator, Spi *spi);
 	static Spi* instance();
 	void readWriteData();
@@ -40,7 +41,7 @@ private:
 
 	//** THREAD
 	pthread_t th_spi;
-
+	pthread_attr_t attr_spi;
 };
 
 #endif

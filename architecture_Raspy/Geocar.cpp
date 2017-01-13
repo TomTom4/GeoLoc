@@ -37,6 +37,7 @@ int main(){
 	mediator = Mediator::instance();
 	controler = Controler::instance();
 	spi = Spi::instance();
+	spi->startThread();
 
 	//temporary :only to test of spi
 	testSpi(mediator, spi);

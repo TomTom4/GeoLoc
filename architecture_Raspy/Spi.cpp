@@ -15,11 +15,19 @@ Spi *Spi::s_instance = 0;
 
 	Spi::Spi()
 	{ // Constructor
-		int result_code;
 		lenght_string = SPI_LENGHT_STRING;
 		string_spi = new unsigned char[lenght_string];
 		m_mediator = Mediator::instance();
-		result_code = pthread_create(&th_spi,NULL,thSpi, s_instance);
+	}
+	
+	void Spi::startThread()
+	{
+		int result_code;
+		result_code = pthread_attr_init(&attr_spi);
+		assert(result_code == 0);
+		result_code = pthread_create(&Spi::th_spi,&Spi::attr_spi,Spi::thSpi,NULL);
+		assert(result_code == 0);
+		result_code = pthread_attr_destroy(&attr_spi);
 		assert(result_code == 0);
 	}
 
@@ -131,12 +139,11 @@ Spi *Spi::s_instance = 0;
 		cout << endl;
 	}
 
-	void *thSpi(void* arg)
+	void *Spi::thSpi(void* arg)
 	{
-		Spi* spi_thread = arg;
 		while(1)
 		{
-			delay(100);
-			spi_thread->majCar();
+			usleep(100000);
+			Spi::majCar();
 		}
 	}
