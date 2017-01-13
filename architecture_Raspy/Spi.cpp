@@ -15,10 +15,12 @@ Spi *Spi::s_instance = 0;
 
 	Spi::Spi()
 	{ // Constructor
+		int result_code;
 		lenght_string = SPI_LENGHT_STRING;
 		string_spi = new unsigned char[lenght_string];
 		m_mediator = Mediator::instance();
-		pthread_create(&th_spi,NULL,thSpi, (void*)NULL);
+		result_code = pthread_create(&th_spi,NULL,thSpi, s_instance);
+		assert(result_code == 0);
 	}
 
 	void Spi::readWriteData()
@@ -131,11 +133,10 @@ Spi *Spi::s_instance = 0;
 
 	void *thSpi(void* arg)
 	{
+		Spi* spi_thread = arg;
 		while(1)
 		{
 			delay(100);
-			Spi::majCar();
+			spi_thread->majCar();
 		}
-
-
 	}

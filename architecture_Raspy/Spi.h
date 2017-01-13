@@ -8,6 +8,7 @@
 #include <wiringPi.h>
 #include <wiringPiSPI.h>
 #include <pthread.h>
+#include <assert.h>
 
 #include "Model.h"
 #include "Spi.h"
