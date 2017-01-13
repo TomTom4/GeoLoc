@@ -10,7 +10,7 @@
 #include "Spi.h"
 #include "Mediator.h"
 #include "parserV1.hpp"
-
+#include "Navigation.h"
 class GeoCar{
 
 	public:

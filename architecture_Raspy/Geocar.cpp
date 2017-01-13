@@ -95,8 +95,7 @@ void testkey(Mediator *mediator, Spi *spi, Gps *gps)
 	usleep(2000);
 }
 
-void testNavigation()
-{
+int testNavigation(){
 
 	//rapidxml::file<> xmlFile("heavy.osm");
 	Map MyMap("heavy.osm");
