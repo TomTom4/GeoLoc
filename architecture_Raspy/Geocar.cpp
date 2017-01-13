@@ -16,12 +16,12 @@ void testSpi(Mediator *mediator, Spi *spi){
 
 	mediator->printModel();
 
-	for(int i=0;i<1000;i++)
+	for(int i=0;i<100;i++)
 	{
 		mediator->addPwmMotorBack(30);
 		spi->majCar();
 		mediator->printEncoder();
-		delay(1000);
+		delay(100);
 		cout << endl;
 	}
 	mediator->addPwmMotorBack(0);
