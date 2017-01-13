@@ -211,6 +211,7 @@ magnetoCalib	/Users/guiwake/Documents/Programmation/GeoLoc/IMU/Imu.cpp	/^void Im
 lpFiltering	/Users/guiwake/Documents/Programmation/GeoLoc/IMU/Imu.cpp	/^void Imu::lpFiltering(void)$/;"	function	line:340	class:Imu	signature:(void)
 DisplayHeading	/Users/guiwake/Documents/Programmation/GeoLoc/IMU/Imu.cpp	/^void Imu::DisplayHeading(void){$/;"	function	line:361	class:Imu	signature:(void)
 getpath	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/router.cpp	/^vector<char*> Router::getpath(char pointA[] ,char pointB[])$/;"	function	line:33	class:Router	signature:(char pointA[] ,char pointB[])
+main	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/caller.cpp	/^int main(){$/;"	function	line:17	signature:()
 PARSERV1_H	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^#define PARSERV1_H$/;"	macro	line:2
 LOCAL_PI	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^#define LOCAL_PI /;"	macro	line:13
 LARGEUR_FENETRE	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^#define LARGEUR_FENETRE /;"	macro	line:14
@@ -223,46 +224,47 @@ user	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndPar
 id	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    double id;$/;"	member	line:38	class:Node
 latitude	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    float latitude;$/;"	member	line:39	class:Node
 longitude	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    float longitude;$/;"	member	line:40	class:Node
-Road	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^class Road{$/;"	class	line:74
-id	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    double id;$/;"	member	line:77	class:Road
-begin	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    Node begin;$/;"	member	line:78	class:Road
-end	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    Node end;$/;"	member	line:79	class:Road
-a	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    float a;$/;"	member	line:80	class:Road
-b	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    float b;$/;"	member	line:81	class:Road
-width	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    int width;$/;"	member	line:82	class:Road
-Road_Nodes	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    std::vector<Node> Road_Nodes;$/;"	member	line:83	class:Road
-Building	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^class Building{$/;"	class	line:119
-id	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    double id;$/;"	member	line:122	class:Building
-Name	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    std::string Name;$/;"	member	line:123	class:Building
-Building_Corner_Vec	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    std::vector<Node> Building_Corner_Vec;$/;"	member	line:124	class:Building
-Map	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^class Map {$/;"	class	line:143
-Min_lon	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    static double Min_lon;$/;"	member	line:146	class:Map
-Max_lon	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    static double Max_lon;$/;"	member	line:147	class:Map
-Min_lat	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    static double Min_lat;$/;"	member	line:148	class:Map
-Max_lat	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    static double Max_lat;$/;"	member	line:149	class:Map
-Delta_Lon	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    static double Delta_Lon;$/;"	member	line:150	class:Map
-Delta_Lat	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    static double Delta_Lat;$/;"	member	line:151	class:Map
-BaseIndexToCount	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    int BaseIndexToCount = 1000;$/;"	member	line:153	class:Map
-CurrentPosition_Lon	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    double CurrentPosition_Lon = 0;$/;"	member	line:155	class:Map
-CurrentPosition_Lat	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    double CurrentPosition_Lat = 0;$/;"	member	line:156	class:Map
-PreviousPosition_Lon	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    double PreviousPosition_Lon = 0;$/;"	member	line:157	class:Map
-PreviousPosition_Lat	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    double PreviousPosition_Lat = 0;$/;"	member	line:158	class:Map
-DestinationPosition_Lon	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    double DestinationPosition_Lon = 0;$/;"	member	line:159	class:Map
-DestinationPosition_Lat	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    double DestinationPosition_Lat = 0;$/;"	member	line:160	class:Map
-Node_Vec	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    std::vector<Node *> Node_Vec;$/;"	member	line:162	class:Map
-Road_Vec	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    std::vector<Road *> Road_Vec;$/;"	member	line:163	class:Map
-Building_Vec	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    std::vector<Building *> Building_Vec;$/;"	member	line:164	class:Map
-User_Node	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    std::vector<Node *> User_Node;$/;"	member	line:165	class:Map
-PathToDestination	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    std::vector<Node *> PathToDestination;$/;"	member	line:167	class:Map
-CurrentIntermediateDestinationNode	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    int CurrentIntermediateDestinationNode;$/;"	member	line:168	class:Map
-PathSet	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    int PathSet = 0;$/;"	member	line:169	class:Map
-IntermediateDestinationReached	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    int IntermediateDestinationReached = 0;$/;"	member	line:171	class:Map
-FinalDestinationReached	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    int FinalDestinationReached = 0;$/;"	member	line:172	class:Map
-image	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    static cv::Mat image;$/;"	member	line:175	class:Map
-imageClose	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    static cv::Mat imageClose;$/;"	member	line:176	class:Map
-Alpha	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    static double Alpha;$/;"	member	line:177	class:Map
-Beta	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    static double Beta;$/;"	member	line:178	class:Map
-CurrentRoad	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    static int CurrentRoad;$/;"	member	line:179	class:Map
+NotRoutingNode	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    int NotRoutingNode = 0;$/;"	member	line:41	class:Node
+Road	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^class Road{$/;"	class	line:76
+id	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    double id;$/;"	member	line:79	class:Road
+begin	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    Node begin;$/;"	member	line:80	class:Road
+end	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    Node end;$/;"	member	line:81	class:Road
+a	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    float a;$/;"	member	line:82	class:Road
+b	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    float b;$/;"	member	line:83	class:Road
+width	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    int width;$/;"	member	line:84	class:Road
+Road_Nodes	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    std::vector<Node> Road_Nodes;$/;"	member	line:85	class:Road
+Building	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^class Building{$/;"	class	line:121
+id	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    double id;$/;"	member	line:124	class:Building
+Name	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    std::string Name;$/;"	member	line:125	class:Building
+Building_Corner_Vec	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    std::vector<Node> Building_Corner_Vec;$/;"	member	line:126	class:Building
+Map	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^class Map {$/;"	class	line:145
+Min_lon	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    static double Min_lon;$/;"	member	line:148	class:Map
+Max_lon	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    static double Max_lon;$/;"	member	line:149	class:Map
+Min_lat	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    static double Min_lat;$/;"	member	line:150	class:Map
+Max_lat	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    static double Max_lat;$/;"	member	line:151	class:Map
+Delta_Lon	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    static double Delta_Lon;$/;"	member	line:152	class:Map
+Delta_Lat	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    static double Delta_Lat;$/;"	member	line:153	class:Map
+BaseIndexToCount	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    int BaseIndexToCount = 1000;$/;"	member	line:155	class:Map
+CurrentPosition_Lon	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    double CurrentPosition_Lon = 0;$/;"	member	line:157	class:Map
+CurrentPosition_Lat	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    double CurrentPosition_Lat = 0;$/;"	member	line:158	class:Map
+PreviousPosition_Lon	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    double PreviousPosition_Lon = 0;$/;"	member	line:159	class:Map
+PreviousPosition_Lat	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    double PreviousPosition_Lat = 0;$/;"	member	line:160	class:Map
+DestinationPosition_Lon	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    double DestinationPosition_Lon = 0;$/;"	member	line:161	class:Map
+DestinationPosition_Lat	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    double DestinationPosition_Lat = 0;$/;"	member	line:162	class:Map
+Node_Vec	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    std::vector<Node *> Node_Vec;$/;"	member	line:164	class:Map
+Road_Vec	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    std::vector<Road *> Road_Vec;$/;"	member	line:165	class:Map
+Building_Vec	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    std::vector<Building *> Building_Vec;$/;"	member	line:166	class:Map
+User_Node	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    std::vector<Node *> User_Node;$/;"	member	line:167	class:Map
+PathToDestination	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    std::vector<Node *> PathToDestination;$/;"	member	line:169	class:Map
+CurrentIntermediateDestinationNode	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    int CurrentIntermediateDestinationNode;$/;"	member	line:170	class:Map
+PathSet	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    int PathSet = 0;$/;"	member	line:171	class:Map
+IntermediateDestinationReached	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    int IntermediateDestinationReached = 0;$/;"	member	line:173	class:Map
+FinalDestinationReached	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    int FinalDestinationReached = 0;$/;"	member	line:174	class:Map
+image	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    static cv::Mat image;$/;"	member	line:177	class:Map
+imageClose	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    static cv::Mat imageClose;$/;"	member	line:178	class:Map
+Alpha	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    static double Alpha;$/;"	member	line:179	class:Map
+Beta	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    static double Beta;$/;"	member	line:180	class:Map
+CurrentRoad	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.hpp	/^    static int CurrentRoad;$/;"	member	line:181	class:Map
 Min_lon	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^double Map::Min_lon = 50;$/;"	member	line:27	class:Map	file:
 Max_lon	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^double Map::Max_lon = 0;$/;"	member	line:28	class:Map	file:
 Min_lat	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^double Map::Min_lat = 50;$/;"	member	line:29	class:Map	file:
@@ -298,39 +300,40 @@ GetTupleOfDestinations	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/W
 SetAlpha	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^void Map::SetAlpha(){$/;"	function	line:363	class:Map	signature:()
 SetBeta	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^void Map::SetBeta(){$/;"	function	line:374	class:Map	signature:()
 SetPath	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^void Map::SetPath(vector<char *> path){$/;"	function	line:378	class:Map	signature:(vector<char *> path)
-SetPosition	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^int Map::SetPosition(double lon, double lat){$/;"	function	line:386	class:Map	signature:(double lon, double lat)
-SetDestination	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^void Map::SetDestination(double idDestNode){$/;"	function	line:402	class:Map	signature:(double idDestNode)
-ToRadians	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^double Map::ToRadians(double degrees)$/;"	function	line:442	class:Map	signature:(double degrees)
-WhichRoad	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^void Map::WhichRoad(double lon, double lat){$/;"	function	line:448	class:Map	signature:(double lon, double lat)
-WhichRoadWithLatLon	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^double Map::WhichRoadWithLatLon(){$/;"	function	line:462	class:Map	signature:()
-Map	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^Map::Map(char * OsmFilePath){$/;"	function	line:469	class:Map	signature:(char * OsmFilePath)
-ToString	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^void Node::ToString(){$/;"	function	line:651	class:Node	signature:()
-Node	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^Node::Node(){$/;"	function	line:658	class:Node	signature:()
-Node	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^Node::Node(double Node_Id, float lon, float lat){$/;"	function	line:662	class:Node	signature:(double Node_Id, float lon, float lat)
-operator <	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^bool Node::operator< (const Node &other) {$/;"	function	line:668	class:Node	signature:(const Node &other)
-SetName	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^void Node::SetName(string NAME){$/;"	function	line:672	class:Node	signature:(string NAME)
-Display	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^void Node::Display(int close, cv::Mat imageToWriteOn){$/;"	function	line:677	class:Node	signature:(int close, cv::Mat imageToWriteOn)
-DisplayAsPathNode	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^void Node::DisplayAsPathNode(int close, cv::Mat imageToWriteOn){$/;"	function	line:691	class:Node	signature:(int close, cv::Mat imageToWriteOn)
-GetLatitude	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^float Node::GetLatitude(){$/;"	function	line:699	class:Node	signature:()
-GetLongitude	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^float Node::GetLongitude(){$/;"	function	line:702	class:Node	signature:()
-GetId	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^double Node::GetId(){$/;"	function	line:705	class:Node	signature:()
-GetName	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^string Node::GetName(){$/;"	function	line:709	class:Node	signature:()
-Compute_Coefs	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^void Road::Compute_Coefs(){$/;"	function	line:726	class:Road	signature:()
-ToString	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^void Road::ToString(){$/;"	function	line:731	class:Road	signature:()
-Road	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^Road::Road(double Road_Id, vector<Node> VEC){$/;"	function	line:736	class:Road	signature:(double Road_Id, vector<Node> VEC)
-Road	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^Road::Road(double Road_Id, Node b, Node e){$/;"	function	line:742	class:Road	signature:(double Road_Id, Node b, Node e)
-SetEndNode	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^void Road::SetEndNode(Node e){$/;"	function	line:749	class:Road	signature:(Node e)
-SetVecRoadNodes	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^void Road::SetVecRoadNodes(std::vector<Node> VEC){$/;"	function	line:754	class:Road	signature:(std::vector<Node> VEC)
-DistanceToCenter	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^double Road::DistanceToCenter(double lon, double lat){$/;"	function	line:759	class:Road	signature:(double lon, double lat)
-Display	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^void Road::Display(int close, cv::Mat imageToWriteOn){$/;"	function	line:779	class:Road	signature:(int close, cv::Mat imageToWriteOn)
-GetRoadNodes	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^vector<Node> Road::GetRoadNodes(){$/;"	function	line:804	class:Road	signature:()
-GetA	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^float Road::GetA(){$/;"	function	line:808	class:Road	signature:()
-GetB	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^float Road::GetB(){$/;"	function	line:811	class:Road	signature:()
-GetId	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^double Road::GetId(){$/;"	function	line:814	class:Road	signature:()
-GetBegin	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^Node Road::GetBegin(){$/;"	function	line:817	class:Road	signature:()
-GetEnd	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^Node Road::GetEnd(){$/;"	function	line:820	class:Road	signature:()
-Building	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^Building::Building(int ID, string NAME, vector<Node> VEC){$/;"	function	line:831	class:Building	signature:(int ID, string NAME, vector<Node> VEC)
-Display	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^void Building::Display(int close, cv::Mat imageToWriteOn){$/;"	function	line:838	class:Building	signature:(int close, cv::Mat imageToWriteOn)
-GetName	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^string Building::GetName(){$/;"	function	line:872	class:Building	signature:()
-GetId	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^double Building::GetId(){$/;"	function	line:876	class:Building	signature:()
-main	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/caller.cpp	/^int main(){$/;"	function	line:17	signature:()
+SetPosition	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^int Map::SetPosition(double lon, double lat){$/;"	function	line:392	class:Map	signature:(double lon, double lat)
+SetDestination	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^void Map::SetDestination(double idDestNode){$/;"	function	line:408	class:Map	signature:(double idDestNode)
+ToRadians	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^double Map::ToRadians(double degrees)$/;"	function	line:448	class:Map	signature:(double degrees)
+WhichRoad	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^void Map::WhichRoad(double lon, double lat){$/;"	function	line:454	class:Map	signature:(double lon, double lat)
+WhichRoadWithLatLon	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^double Map::WhichRoadWithLatLon(){$/;"	function	line:468	class:Map	signature:()
+Map	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^Map::Map(char * OsmFilePath){$/;"	function	line:475	class:Map	signature:(char * OsmFilePath)
+ToString	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^void Node::ToString(){$/;"	function	line:665	class:Node	signature:()
+Node	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^Node::Node(){$/;"	function	line:672	class:Node	signature:()
+Node	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^Node::Node(double Node_Id, float lon, float lat){$/;"	function	line:676	class:Node	signature:(double Node_Id, float lon, float lat)
+operator <	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^bool Node::operator< (const Node &other) {$/;"	function	line:682	class:Node	signature:(const Node &other)
+SetName	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^void Node::SetName(string NAME){$/;"	function	line:686	class:Node	signature:(string NAME)
+Display	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^void Node::Display(int close, cv::Mat imageToWriteOn){$/;"	function	line:691	class:Node	signature:(int close, cv::Mat imageToWriteOn)
+DisplayAsPathNode	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^void Node::DisplayAsPathNode(int close, cv::Mat imageToWriteOn){$/;"	function	line:705	class:Node	signature:(int close, cv::Mat imageToWriteOn)
+GetLatitude	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^float Node::GetLatitude(){$/;"	function	line:713	class:Node	signature:()
+GetLongitude	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^float Node::GetLongitude(){$/;"	function	line:716	class:Node	signature:()
+GetId	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^double Node::GetId(){$/;"	function	line:719	class:Node	signature:()
+NotARoutingNode	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^void Node::NotARoutingNode(){$/;"	function	line:723	class:Node	signature:()
+IsNotRoutingNode	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^int Node::IsNotRoutingNode(){$/;"	function	line:727	class:Node	signature:()
+GetName	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^string Node::GetName(){$/;"	function	line:731	class:Node	signature:()
+Compute_Coefs	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^void Road::Compute_Coefs(){$/;"	function	line:748	class:Road	signature:()
+ToString	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^void Road::ToString(){$/;"	function	line:753	class:Road	signature:()
+Road	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^Road::Road(double Road_Id, vector<Node> VEC){$/;"	function	line:758	class:Road	signature:(double Road_Id, vector<Node> VEC)
+Road	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^Road::Road(double Road_Id, Node b, Node e){$/;"	function	line:764	class:Road	signature:(double Road_Id, Node b, Node e)
+SetEndNode	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^void Road::SetEndNode(Node e){$/;"	function	line:771	class:Road	signature:(Node e)
+SetVecRoadNodes	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^void Road::SetVecRoadNodes(std::vector<Node> VEC){$/;"	function	line:776	class:Road	signature:(std::vector<Node> VEC)
+DistanceToCenter	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^double Road::DistanceToCenter(double lon, double lat){$/;"	function	line:781	class:Road	signature:(double lon, double lat)
+Display	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^void Road::Display(int close, cv::Mat imageToWriteOn){$/;"	function	line:801	class:Road	signature:(int close, cv::Mat imageToWriteOn)
+GetRoadNodes	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^vector<Node> Road::GetRoadNodes(){$/;"	function	line:826	class:Road	signature:()
+GetA	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^float Road::GetA(){$/;"	function	line:830	class:Road	signature:()
+GetB	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^float Road::GetB(){$/;"	function	line:833	class:Road	signature:()
+GetId	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^double Road::GetId(){$/;"	function	line:836	class:Road	signature:()
+GetBegin	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^Node Road::GetBegin(){$/;"	function	line:839	class:Road	signature:()
+GetEnd	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^Node Road::GetEnd(){$/;"	function	line:842	class:Road	signature:()
+Building	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^Building::Building(int ID, string NAME, vector<Node> VEC){$/;"	function	line:853	class:Building	signature:(int ID, string NAME, vector<Node> VEC)
+Display	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^void Building::Display(int close, cv::Mat imageToWriteOn){$/;"	function	line:860	class:Building	signature:(int close, cv::Mat imageToWriteOn)
+GetName	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^string Building::GetName(){$/;"	function	line:894	class:Building	signature:()
+GetId	/Users/guiwake/Documents/Programmation/GeoLoc/georouter/WorkingRouterAndParser/parserV1.cpp	/^double Building::GetId(){$/;"	function	line:898	class:Building	signature:()

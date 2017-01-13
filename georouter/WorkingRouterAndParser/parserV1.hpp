@@ -38,6 +38,7 @@ private:
     double id;
     float latitude;
     float longitude;
+    int NotRoutingNode = 0;
 
 public:
     void ToString();
@@ -55,7 +56,8 @@ public:
     float GetLongitude();
     double GetId();
     string GetName();
-
+    void NotARoutingNode();
+    int IsNotRoutingNode();
     bool operator< (const Node &other);
 };
 

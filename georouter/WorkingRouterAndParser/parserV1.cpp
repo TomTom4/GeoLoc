@@ -377,7 +377,13 @@ void Map::SetBeta(){
 
 void Map::SetPath(vector<char *> path){
 	for (int i=0 ; i<path.size() ; i++){
-		PathToDestination.push_back(GetNodeById(atof(path[i])));
+		Node * TempNode = GetNodeById(atof(path[i]));
+		if (TempNode->IsNotRoutingNode() == 0){
+			PathToDestination.push_back(TempNode);
+			std::cout << TempNode->GetId() << '\n';
+		} else {
+			std::cout << "OKKK" << '\n';
+		}
 	}
 	CurrentIntermediateDestinationNode = 0;
 	PathSet = 1;
@@ -492,6 +498,7 @@ Map::Map(char * OsmFilePath){
 		double id = 0;
 		double lon = 0;
 		double lat = 0;
+		int NotARoutingNode = 0;
 		cout.precision(12);
 		double id_way = 0;
 		xml_node<> * curr_node = root->first_node();
@@ -505,6 +512,7 @@ Map::Map(char * OsmFilePath){
 				id = 0;
 				lon = 0;
 				lat = 0;
+				NotARoutingNode = 0;
 				xml_attribute<> * attr = curr_node->first_attribute();
 				while(attr){
 					if (strcmp(attr->name(), "id") == 0){
@@ -523,6 +531,8 @@ Map::Map(char * OsmFilePath){
 							if (strcmp(tag->first_attribute()->value(), "user") == 0){
 								user = 1;
 								name = string(tag->first_attribute()->next_attribute()->value());
+							} else if (strcmp(tag->first_attribute()->value(), "barrier") == 0){
+								NotARoutingNode = 1;
 							}
 						}
 					}
@@ -532,10 +542,14 @@ Map::Map(char * OsmFilePath){
 				//Create node if we have all the needed values
 				if (id != 0 && lon != 0 && lat != 0){
 					Node * myNode = new Node(id, lon, lat);
+					if (NotARoutingNode){
+						myNode->IsNotRoutingNode();
+						std::cout << "NotARoutingNode() : " << myNode->GetId() << '\n';
+					}
 					if (user){
 						myNode->SetName(name);
 						User_Node.push_back(myNode);
-						myNode->ToString();
+						//myNode->ToString();
 					} else {
 						Node_Vec.push_back(myNode);
 					}
@@ -704,6 +718,14 @@ float Node::GetLongitude(){
 }
 double Node::GetId(){
 	return id;
+}
+
+void Node::NotARoutingNode(){
+	NotRoutingNode = 1;
+}
+
+int Node::IsNotRoutingNode(){
+	return NotRoutingNode;
 }
 
 string Node::GetName(){
