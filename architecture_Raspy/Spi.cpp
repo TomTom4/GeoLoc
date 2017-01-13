@@ -23,12 +23,24 @@ Spi *Spi::s_instance = 0;
 	void Spi::startThread()
 	{
 		int result_code;
-		result_code = pthread_attr_init(&attr_spi);
-		assert(result_code == 0);
-		result_code = pthread_create(&Spi::th_spi,&Spi::attr_spi,Spi::thSpi,NULL);
-		assert(result_code == 0);
-		result_code = pthread_attr_destroy(&attr_spi);
-		assert(result_code == 0);
+		result_code = pthread_create(&th_spi,NULL,thSpiHelper,this);
+		cout << " result code =" << result_code << endl;
+		//assert(result_code == 0);
+	}
+
+	void *Spi::thSpi(void)
+	{
+		while(1)
+		{
+			usleep(100000);
+			//Spi::majCar();
+			cout << " Th SPI " << endl;	
+		}
+	}
+	
+	void *Spi::thSpiHelper(void* context)
+	{ 
+		return((Spi*)context)->Spi::thSpi();
 	}
 
 	void Spi::readWriteData()
@@ -37,7 +49,7 @@ Spi *Spi::s_instance = 0;
 		//printf(" chaine = %d\n",string_spi[0]);
 		//printf(" taille = %d\n",lenght_string);
 		//printf(" etat = %d\n",etat);
-}
+	}
 
 	void Spi::clearString()
 	{
@@ -139,11 +151,4 @@ Spi *Spi::s_instance = 0;
 		cout << endl;
 	}
 
-	void *Spi::thSpi(void* arg)
-	{
-		while(1)
-		{
-			usleep(100000);
-			Spi::majCar();
-		}
-	}
+	
