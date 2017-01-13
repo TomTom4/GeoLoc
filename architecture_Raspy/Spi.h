@@ -4,23 +4,25 @@
 #include <iostream>
 #include <stdio.h>
 #include <string>
+#include <unistd.h>
 
 #include <wiringPi.h>
 #include <wiringPiSPI.h>
+#include <pthread.h>
+#include <assert.h>
 
 #include "Model.h"
 #include "Spi.h"
 #include "const.hpp"
-
-
 
 #include "Mediator.h"
 
 class Spi /*:: public Singleton*/
 {
 public:
+	void startThread();
 	void testSpi(Mediator *mediator, Spi *spi);
-	static Spi* instance();	
+	static Spi* instance();
 	void readWriteData();
 	void clearString();
 	void addDataString();
@@ -28,14 +30,18 @@ public:
 	void extractEncoder();
 	void majCar();
 	void printStringSpi();
-
-private: 
+	void* thSpi(void);
+	static void* thSpiHelper(void *context);
+private:
 	Spi();
 	Mediator *m_mediator;
 	static Spi *s_instance;
 
 	unsigned char lenght_string;
 	unsigned char* string_spi;
+
+	//** THREAD
+	pthread_t th_spi;
 };
 
 #endif
