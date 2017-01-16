@@ -4,6 +4,23 @@
 //
 //  Created by Guillaume GRANIE on 06/12/2016.
 //
+
+#include <string>
+#include <vector>
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <tuple>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <math.h>
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+
+#include "rapidxml_utils.hpp"
+#include "router.hpp"
 #include "parserV1.hpp"
 
 using namespace rapidxml;

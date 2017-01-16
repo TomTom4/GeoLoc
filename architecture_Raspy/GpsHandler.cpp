@@ -1,3 +1,11 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+#include <cmath>
+#include <iostream>
+
+#include "minmea.h"
+#include "Mediator.h"
 #include "GpsHandler.h"
 
 using namespace std;
@@ -208,7 +216,7 @@ double Gps::getLat(void)
 }
 
 // Distance between two points (longitude, latitude)
-double DirectDistance(double lat1, double lng1, double lat2, double lng2)
+/*double DirectDistance(double lat1, double lng1, double lat2, double lng2)
 {
 	double earthRadius = 6371000; //meters
 	double dLat = ToRadians(lat2-lat1);
@@ -219,4 +227,4 @@ double DirectDistance(double lat1, double lng1, double lat2, double lng2)
 	double c = 2 * atan2(sqrt(a), sqrt(1-a));
 	float dist = (float) (earthRadius * c);
 	return dist;
-}
+}*/

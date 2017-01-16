@@ -1,8 +1,8 @@
 #ifndef DEF_MEDIATOR
 #define DEF_MEDIATOR
 
-#include "Model.h"
 #include <pthread.h>
+#include "Model.h"
 
 class Mediator{
 
@@ -19,6 +19,7 @@ class Mediator{
 		//** Encoder
 		float getEncoderWheelBackLeft(void);
 		float getEncoderWheelBackRight(void);
+		float getDistance(void);
 		//** US Validity
 		unsigned char getValidityFrontLeft(void);
 		unsigned char getValidityFrontCenter(void);
@@ -45,6 +46,7 @@ class Mediator{
 		//** Encoder
 		void addEncoderWheelBackLeft(float val);
 		void addEncoderWheelBackRight(float val);
+		void addDistance(float val);
 		//** US Validity
 		void addValidityFrontLeft(unsigned char val);
 		void addValidityFrontCenter(unsigned char val);

@@ -1,3 +1,16 @@
+#include <iostream>
+#include <stdio.h>
+#include <string>
+#include <unistd.h>
+
+#include <wiringPi.h>
+#include <wiringPiSPI.h>
+#include <pthread.h>
+#include <assert.h>
+
+#include "Model.h"
+#include "const.hpp"
+#include "Mediator.h"
 #include "Spi.h"
 
 using namespace std;
@@ -30,7 +43,7 @@ Spi *Spi::s_instance = 0;
 		{
 			usleep(100000);
 			Spi::majCar();
-			//cout << " Th SPI " << endl;
+			cout << " Th SPI " << endl;
 		}
 	}
 
@@ -60,8 +73,10 @@ Spi *Spi::s_instance = 0;
 
 		clearString();
 		string_spi[BEACON_START] = BEACON_RASP_START; // 0 - beacon_start (rasp)
+		cout << "avant get pwm" << endl;
 		string_spi[PWM_MOTOR_BACK] = m_mediator->getPwmMotorBack(); // 1 - PWM Moteur AR
-		string_spi[STATE_STEERING_WHEEL] = m_mediator->getStateSteeringWheel(); // 2 - Compteur Direction
+		cout << "avant get state" << endl;
+		//string_spi[STATE_STEERING_WHEEL] = m_mediator->getStateSteeringWheel(); // 2 - Compteur Direction
 		string_spi[3] = BEACON_RASP_END; // 3 - beacon_stop (rasp)
 	}
 
@@ -77,7 +92,7 @@ Spi *Spi::s_instance = 0;
 				//	throw string("ERREUR: Dir wrong position");//	RASP:" << m_mediator->cpt_dir << " STM:" << string_spi[3]);
 
 				Spi::extractEncoder();
-				m_mediator->addDistance((m_mediator->getEncodeurWheelBackLeft()+m_mediator->getEncoderWheelBackRight())/2.0);
+				m_mediator->addDistance((m_mediator->getEncoderWheelBackLeft()+m_mediator->getEncoderWheelBackRight())/2.0);
 				m_mediator->addValidityFrontLeft(string_spi[US_VALIDITY_FRONT_LEFT]);
 				m_mediator->addDistanceFrontLeft(string_spi[US_DISTANCE_FRONT_LEFT]);
 				m_mediator->addValidityFrontCenter(string_spi[US_VALIDITY_FRONT_CENTER]);
@@ -91,7 +106,7 @@ Spi *Spi::s_instance = 0;
 				m_mediator->addDistanceBackCenter(string_spi[US_DISTANCE_BACK_CENTER]);
 				m_mediator->addValidityBackRight(string_spi[US_VALIDITY_BACK_RIGHT]);
 				m_mediator->addDistanceBackRight(string_spi[US_DISTANCE_BACK_RIGHT]);
-
+				
 				//if(BEACON_STM_END != string_spi[BEACON_STOP]) // - beacon_end (stm)
 				//	throw string("ERROR: Wrong beacon_stm_end");//	RASP:" << beacon_stm_start << " STM:" << string_spi[24]);
 

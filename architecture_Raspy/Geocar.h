@@ -1,16 +1,12 @@
 #ifndef DEF_GEOCAR
 #define DEF_GEOCAR
 
-#include <string>
-#include <stdio.h>// c'est pas la même que iostream?
-#include <iostream>
-#include <tuple>
-
+#include "Mediator.h"
 #include "Controler.h"
 #include "Spi.h"
-#include "Mediator.h"
-#include "parserV1.hpp"
+#include "GpsHandler.h"
 #include "Navigation.h"
+
 class GeoCar{
 
 	public:

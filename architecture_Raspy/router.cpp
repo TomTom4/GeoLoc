@@ -1,3 +1,15 @@
+#ifdef __APPLE__
+   #include <Python/Python.h>
+#else
+    #include <Python.h>
+#endif
+
+#include <iostream>
+#include <cstdio>
+#include <cstdlib>
+#include <vector>
+#include <stdlib.h>
+
 #include "router.hpp"
 
 using namespace std;

@@ -1,14 +1,6 @@
 #ifndef DEF_MODEL
 #define DEF_MODEL
 
-#include <stdio.h>
-#include <iostream>
-
-#include <wiringPi.h>
-#include <wiringPiSPI.h>
-
-#include "const.hpp"
-
 class Model
 {
 	public:

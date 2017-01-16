@@ -1,5 +1,8 @@
-#include "Model.h"
 
+#include <stdio.h>
+#include <iostream>
+
+#include "Model.h"
 
 using namespace std;
 
@@ -56,9 +59,9 @@ float Model::getEncoderWheelBackRight(void)
 {
   return(encoder_wheel_back_right);
 }
-float Model::getDisatnce(void)
+float Model::getDistance(void)
 {
-  retrun(Disantce);
+  return(distance);
 }
 
 //** US Validity
@@ -113,11 +116,11 @@ unsigned char Model::getDistanceBackRight(void)
   return(us_distance_back_right);
 }
 //** Gps
-double Gps::getLongitude(void)
+double Model::getLongitude(void)
 {
   return(longitude);
 }
-double Gps::getLatitude(void)
+double Model::getLatitude(void)
 {
   return(latitude);
 }
@@ -200,11 +203,11 @@ void Model::addDistanceBackRight(unsigned char val)
   us_distance_back_right = val;
 }
 //** Gps
-void Gps::addLongitude(double val)
+void Model::addLongitude(double val)
 {
   longitude = val;
 }
-void Gps::addLatitude(double val)
+void Model::addLatitude(double val)
 {
   latitude = val;
 }

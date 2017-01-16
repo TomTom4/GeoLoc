@@ -1,3 +1,7 @@
+#include <iostream>
+#include <pthread.h>
+
+#include "Model.h"
 #include "Mediator.h"
 
 using namespace std;
@@ -6,7 +10,7 @@ using namespace std;
 	Mediator *Mediator::s_instance = 0;
 	// implementing Mediator constructor
 	Mediator::Mediator(): m_model(){
-	Mediator::mutex_mediator = PTHREAD_MUTEX_INITIALIZER;
+	//Mediator::mutex_mediator = PTHREAD_MUTEX_INITIALIZER;
 	}
 
 	Mediator* Mediator::instance(){
@@ -20,9 +24,13 @@ using namespace std;
 	unsigned char Mediator::getPwmMotorBack()
 	{
 		unsigned char buff;
+
+		cout << "avant Lock mutex" << endl;
 		Mediator::lockMutex();
+		cout << "Lock mutex" << endl;
 		buff = m_model.getPwmMotorBack();
 		Mediator::unlockMutex();
+		cout << "unLock mutex" << endl;
 		return buff;
 	 }
 
@@ -51,6 +59,15 @@ using namespace std;
 		float buff;
 		Mediator::lockMutex();
 		buff = m_model.getEncoderWheelBackRight();
+		Mediator::unlockMutex();
+		return buff;
+	}
+	
+	float Mediator::getDistance()
+	{
+		float buff;
+		Mediator::lockMutex();
+		buff = m_model.getDistance();
 		Mediator::unlockMutex();
 		return buff;
 	}
@@ -214,6 +231,13 @@ using namespace std;
 		Mediator::unlockMutex();
 	}
 
+	void Mediator::addDistance(float val)
+	{
+		Mediator::lockMutex();
+		m_model.addDistance(val);
+		Mediator::unlockMutex();
+	}
+
 	//** US Validity
 	void Mediator::addValidityFrontLeft(unsigned char val)
 	{
@@ -301,19 +325,15 @@ using namespace std;
 	//** GPS
 	void Mediator::addLongitude(double val)
 	{
-		unsigned char buff;
 		Mediator::lockMutex();
-		buff = m_model.getLongitude(val);
+		m_model.addLongitude(val);
 		Mediator::unlockMutex();
-		return buff;
 	}
-	void Mediator::getLatitude(double val)
+	void Mediator::addLatitude(double val)
 	{
-		unsigned char buff;
 		Mediator::lockMutex();
-		buff = m_model.getLatitude(val);
+		m_model.addLatitude(val);
 		Mediator::unlockMutex();
-		return buff;
 	}
 
 	void Mediator::printEncoder()
@@ -332,8 +352,22 @@ using namespace std;
 
 	//*** Thread
 	void Mediator::lockMutex(void)
-	{
-		pthread_mutex_lock(&mutex_mediator);
+	{	
+		int i;
+		cout << " dans mediator lovk mutex" << endl;
+		i = pthread_mutex_lock(&mutex_mediator);
+		switch(i)
+		{
+			case 0:  cout << "OKOK" << endl; break;
+			case EINVAL: cout << "EINVAL" << endl; break;
+			case EBUSY: cout << "EBUSY" << endl; break;
+			case EAGAIN: cout << "EAGAIN" << endl; break;
+			case EDEADLK: cout << "EDEADLK" << endl; break;
+			case EPERM: cout << "EPERM" << endl; break;
+			default:  cout << "???" << endl; break;
+		}
+
+
 	}
 
 	void Mediator::unlockMutex(void)

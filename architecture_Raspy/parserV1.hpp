@@ -17,7 +17,6 @@
 
 #include "rapidxml_utils.hpp"
 #include "router.hpp"
-#include "rapidxml_utils.hpp"
 
 #define LOCAL_PI 3.1415926535897932385
 #define LARGEUR_FENETRE 700
@@ -26,12 +25,6 @@
 #define GPS_UNCERTAINTY 2.5
 
 using namespace std;
-
-
-
-
-
-
 
 /********************************/
 /*								*/

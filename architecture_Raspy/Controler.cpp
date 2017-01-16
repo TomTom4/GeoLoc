@@ -1,3 +1,4 @@
+#include "Mediator.h"
 #include "Controler.h"
 
 using namespace std;

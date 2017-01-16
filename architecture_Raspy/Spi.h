@@ -1,20 +1,8 @@
 #ifndef DEF_SPI
 #define DEF_SPI
 
-#include <iostream>
-#include <stdio.h>
-#include <string>
-#include <unistd.h>
-
-#include <wiringPi.h>
-#include <wiringPiSPI.h>
-#include <pthread.h>
-#include <assert.h>
-
 #include "Model.h"
-#include "Spi.h"
 #include "const.hpp"
-
 #include "Mediator.h"
 
 class Spi /*:: public Singleton*/

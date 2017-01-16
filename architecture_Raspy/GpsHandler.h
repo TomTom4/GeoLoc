@@ -1,14 +1,10 @@
 #ifndef DEF_GPS_HANDLER
 #define DEF_GPS_HANDLER
 
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include <cmath>
-
 #include "minmea.h"
+#include "Mediator.h"
 
-class GpsHandler{
+class Gps{
 
 	public:
 		//** SINGLETON
