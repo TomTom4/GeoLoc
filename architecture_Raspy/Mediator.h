@@ -75,7 +75,7 @@ class Mediator{
 	private:
 		//** SINGLETON
 		Mediator();
-		Model m_model;
+		Model* m_model;
 		static Mediator *s_instance;
 		//** THREAD
 		mutex* mutex_mediator;
