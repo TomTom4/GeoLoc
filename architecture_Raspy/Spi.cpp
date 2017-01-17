@@ -34,7 +34,7 @@ Spi *Spi::s_instance = 0;
 		string_spi = new unsigned char[lenght_string];
 		m_mediator = Mediator::instance();
 		//** Create Thread
-		result_code = pthread_create(&th_Spi,NULL,thSpiHelper,this);
+		result_code = pthread_create(&th_spi,NULL,thSpiHelper,this);
 	  if(result_code == 0)
 	  cout << "Thread Gps Ok" << endl;
 	}
