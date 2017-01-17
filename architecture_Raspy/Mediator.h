@@ -4,6 +4,7 @@
 #include <mutex>
 #include "Model.h"
 
+using namespace std;
 class Mediator{
 
 	public:

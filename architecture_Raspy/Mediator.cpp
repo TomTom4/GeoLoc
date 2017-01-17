@@ -353,10 +353,10 @@ using namespace std;
 	//*** Thread
 	void Mediator::lockMutex(void)
 	{
-		int i;
-		cout << " dans mediator lovk mutex" << endl;
-		mutex_mediator.lock();
-		switch(i)
+		//int i;
+		cout << " dans mediator lock mutex" << endl;
+		mutex_mediator->lock();
+		/*switch(i)
 		{
 			case 0:  cout << "OKOK" << endl; break;
 			case EINVAL: cout << "EINVAL" << endl; break;
@@ -365,12 +365,10 @@ using namespace std;
 			case EDEADLK: cout << "EDEADLK" << endl; break;
 			case EPERM: cout << "EPERM" << endl; break;
 			default:  cout << "???" << endl; break;
-		}
-
-
+		}*/
 	}
 
 	void Mediator::unlockMutex(void)
 	{
-		mutex_mediator.unlock();
+		mutex_mediator->unlock();
 	}

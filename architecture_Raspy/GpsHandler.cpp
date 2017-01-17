@@ -182,7 +182,6 @@ void Gps::updatePos()
            //printf(" long : %f + %f + %f\n",degre,minute,second);
            longitude = degre+minute/60.0+second/3600.0;
            //printf(" long : %f = %f + %f + %f\n",longitude,degre,minute/60.0,second/3600.0);
-           c" long : %f\n",longitude);
            //m_mediator->addLongitude(longitude);
 
            latitude = (double)(frame_rmc.latitude.value);
@@ -192,7 +191,7 @@ void Gps::updatePos()
            //printf(" lat : %f + %f + %f\n",degre,minute,second);
            latitude = degre+minute/60.0+second/3600.0;
            //printf(" lat : %f = %f + %f + %f\n",latitude,degre,minute/60.0,second/3600.0);
-           printf(" lat : %f\n",latitude);
+           //printf(" lat : %f\n",latitude);
            //m_mediator->addLatitude(latitude);
            cout << " long now : "<< (float)longitude << endl;
            cout << " lat now : " << (float)latitude << endl;

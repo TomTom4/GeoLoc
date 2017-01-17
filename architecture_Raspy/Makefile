@@ -22,7 +22,7 @@ Model.o: Model.cpp Model.h
 Navigation.o: Navigation.cpp Navigation.h
 	$(CXX) $(CFLAG) $(WALLFLAG) Navigation.cpp -o Navigation.o $(CPPFLAGS)
 Controler.o: Controler.cpp Mediator.h Controler.h
-	$(CXX) $(CFLAG) $(WALLFLAG) Controler.cpp -o Controler.o
+	$(CXX) $(CFLAG) $(WALLFLAG) Controler.cpp -o Controler.o $(THFLAG)
 
 GpsHandler.o: GpsHandler.cpp Mediator.h minmea.h GpsHandler.h
 	$(CXX) $(CFLAG) $(WALLFLAG) GpsHandler.cpp -o GpsHandler.o $(WPFLAG) $(THFLAG)
