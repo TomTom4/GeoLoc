@@ -81,7 +81,7 @@ void thGps(void)
   }
 }
 
-void* Gps::thGpsHelper(void* context)
+void Gps::thGpsHelper(void* context)
 {
   return((Gps*)context)->Gps::thGps();
 }

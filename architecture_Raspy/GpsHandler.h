@@ -33,7 +33,7 @@ class Gps{
 		double ToRadians(double degrees);
 		//** THREAD
 		void thGps(void);
-		static void* thGpsHelper(void* context);
+		static void thGpsHelper(void* context);
 
 	private:
 		//** SINGLETON
