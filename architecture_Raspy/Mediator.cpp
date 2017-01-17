@@ -25,12 +25,12 @@ using namespace std;
 	{
 		unsigned char buff;
 
-		cout << "avant Lock mutex" << endl;
+		//cout << "avant Lock mutex" << endl;
 		Mediator::lockMutex();
-		cout << "Lock mutex" << endl;
+		//cout << "Lock mutex" << endl;
 		buff = m_model.getPwmMotorBack();
 		Mediator::unlockMutex();
-		cout << "unLock mutex" << endl;
+		//cout << "unLock mutex" << endl;
 		return buff;
 	 }
 
@@ -354,9 +354,9 @@ using namespace std;
 	void Mediator::lockMutex(void)
 	{
 		//int i;
-		cout << " dans mediator lock mutex" << endl;
-		mutex_mediator->lock();
-		cout << " apres mediator lock mutex" << endl;
+		//cout << " dans mediator lock mutex" << endl;
+		//mutex_mediator->lock();
+		//cout << " apres mediator lock mutex" << endl;
 
 		/*switch(i)
 		{
@@ -372,5 +372,5 @@ using namespace std;
 
 	void Mediator::unlockMutex(void)
 	{
-		mutex_mediator->unlock();
+		//mutex_mediator->unlock();
 	}
