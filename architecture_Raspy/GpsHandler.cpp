@@ -66,12 +66,12 @@ Gps::Gps()
   nb_satellites = 0;
 
   //** Create Thread
-  Gps::th_gps = new thread(Gps::thGps);
+  Gps::th_gps = new thread(Gps::thGpsHelper);
   //if(result_code == 0)
   //  cout << "Thread Gps Ok" << endl;
 }
 
-void Gps::thGps(void)
+void *Gps::thGps(void)
 { // Main program of Gps thread
   while(1)
   {
@@ -79,6 +79,11 @@ void Gps::thGps(void)
     Gps::updatePos();
     cout << " Th GPS " << endl;
   }
+}
+
+void *Gps::thGpsHelper(void* context)
+{
+  return((Gps*)context)->Gps::thGps();
 }
 
   /***************************READ_LINE_FROM_GPS********************************/
@@ -252,4 +257,3 @@ double DirectDistance(double lat1, double lng1, double lat2, double lng2)
 	float dist = (float) (earthRadius * c);
 	return dist;
 }
-
