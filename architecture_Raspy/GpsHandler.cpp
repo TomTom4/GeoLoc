@@ -66,24 +66,19 @@ Gps::Gps()
   nb_satellites = 0;
 
   //** Create Thread
-  Gps::th_gps = new thread(Gps::thGpsHelper);
+  Gps::th_gps = new thread(thGps,this);
   //if(result_code == 0)
   //  cout << "Thread Gps Ok" << endl;
 }
 
-void *Gps::thGps(void)
+void thGps(Gps* p_gps)
 { // Main program of Gps thread
   while(1)
   {
     usleep(200000);
-    Gps::updatePos();
+    p_gps->updatePos();
     cout << " Th GPS " << endl;
   }
-}
-
-void *Gps::thGpsHelper(void* context)
-{
-  return((Gps*)context)->Gps::thGps();
 }
 
   /***************************READ_LINE_FROM_GPS********************************/
