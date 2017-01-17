@@ -2,6 +2,7 @@
 #define DEF_SPI
 
 #include <thread>
+#include <pthread.h>
 
 #include "Model.h"
 #include "const.hpp"

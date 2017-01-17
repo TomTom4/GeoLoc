@@ -6,6 +6,7 @@
 #include <wiringPi.h>
 #include <wiringPiSPI.h>
 #include <thread>
+#include <pthread.h>
 #include <mutex>
 #include <assert.h>
 
