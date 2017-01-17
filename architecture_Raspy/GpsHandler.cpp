@@ -161,7 +161,7 @@ void Gps::updatePos()
 
            cout << " long now : "<< (float)longitude << endl;
            cout << " lat now : " << (float)latitude << endl;
-           if(DirectDistance(m_mediator->getLatitude(),m_mediator->getLongitude(), latitude, longitude) < 1.0)
+           if(Gps::DirectDistance(m_mediator->getLatitude(),m_mediator->getLongitude(), latitude, longitude) < 1.0)
            {
              m_mediator->addLatitude(latitude);
              m_mediator->addLongitude(longitude);
@@ -200,7 +200,7 @@ void Gps::updatePos()
            //m_mediator->addLatitude(latitude);
            cout << " long now : "<< (float)longitude << endl;
            cout << " lat now : " << (float)latitude << endl;
-           if(DirectDistance(m_mediator->getLatitude(),m_mediator->getLongitude(), latitude, longitude) < 1.0)
+           if(Gps::DirectDistance(m_mediator->getLatitude(),m_mediator->getLongitude(), latitude, longitude) < 1.0)
            {
              m_mediator->addLatitude(latitude);
              m_mediator->addLongitude(longitude);
@@ -238,20 +238,20 @@ double Gps::getLat(void)
 }
 
 
-double ToRadians(double degrees)
+double Gps::ToRadians(double degrees)
 {
 	double radians = degrees*3.1415926535897932385/180.0;
 	return radians;
 }
 
 // Distance between two points (longitude, latitude)
-double DirectDistance(double lat1, double lng1, double lat2, double lng2)
+double Gps::DirectDistance(double lat1, double lng1, double lat2, double lng2)
 {
 	double earthRadius = 6371000; //meters
-	double dLat = ToRadians(lat2-lat1);
-	double dLng = ToRadians(lng2-lng1);
+	double dLat = Gps::ToRadians(lat2-lat1);
+	double dLng = Gps::ToRadians(lng2-lng1);
 	double a = sin(dLat/2) * sin(dLat/2) +
-	cos(ToRadians(lat1)) * cos(ToRadians(lat2)) *
+	cos(Gps::ToRadians(lat1)) * cos(Gps::ToRadians(lat2)) *
 	sin(dLng/2) * sin(dLng/2);
 	double c = 2 * atan2(sqrt(a), sqrt(1-a));
 	float dist = (float) (earthRadius * c);
