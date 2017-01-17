@@ -1,5 +1,8 @@
 #include <ao/ao.h>
 #include <mpg123.h>
+#include <iostream>
+#include <stdio.h>
+#include <string.h>
 
 #include "Mediator.h"
 #include "music.h"
@@ -44,7 +47,7 @@ void* Music::thMusic(void)
 {
 	while(1)
 	{
-		mpg123_open(mh, table_music[m_mediator->getCptMusic());
+		mpg123_open(mh, table_music[m_mediator->getCptMusic()]);
 		mpg123_getformat(mh, &rate, &channels, &encoding);
 		format.bits = mpg123_encsize(encoding) * BITS;
 		format.rate = rate;
@@ -52,7 +55,7 @@ void* Music::thMusic(void)
 		format.byte_format = AO_FMT_NATIVE;
 		format.matrix = 0;
 		dev = ao_open_live(driver, &format, NULL);
-		while (mpg123_read(mh, buffer, buffer_size, &done) == MPG123_OK && m_mediator->getCptMusic() == etat_music_old)
+		while (mpg123_read(mh, buffer, buffer_size, &done) == MPG123_OK && m_mediator->getCptMusic() == cpt_music_old)
     {
 			ao_play(dev, (char*)buffer, done);
     }//WHILE

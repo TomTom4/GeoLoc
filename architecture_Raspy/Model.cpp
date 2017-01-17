@@ -34,7 +34,7 @@ Model::Model()
 
   longitude = 0.0;
   latitude = 0.0;
-  mode = 0;
+  mode_gps = 0;
 
   cpt_music = 0;
 }
@@ -44,7 +44,7 @@ Model::Model()
 //** PWM
 unsigned char Model::getPwmMotorBack(void)
 {
-  cout << " dans model pwm" << endl;
+  //cout << " dans model pwm" << endl;
   return(pwm_motor_back);
 }
 

@@ -3,6 +3,9 @@
 
 #include <ao/ao.h>
 #include <mpg123.h>
+#include <iostream>
+#include <stdio.h>
+#include <string.h>
 
 #include "Mediator.h"
 
@@ -12,8 +15,8 @@ public:
   //** SINGLETON
   static Music* instance();
   //** METHODS
-  void *Music::thMusicHelper(void* context);
-  void* Music::thMusic(void);
+  static void* thMusicHelper(void* context);
+  void* thMusic(void);
 
 private:
   //** SINGLETON

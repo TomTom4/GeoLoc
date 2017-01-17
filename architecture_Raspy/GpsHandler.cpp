@@ -128,7 +128,7 @@ void Gps::readLineFromGps()
   }
 }
 
-void Gps::updatePos(int mode)
+void Gps::updatePos()
 {
   bool ack = false;
   do

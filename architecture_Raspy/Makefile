@@ -29,7 +29,7 @@ Controler.o: Controler.cpp Mediator.h Controler.h
 GpsHandler.o: GpsHandler.cpp Mediator.h minmea.h GpsHandler.h
 	$(CXX) $(CFLAG) $(WALLFLAG) GpsHandler.cpp -o GpsHandler.o $(WPFLAG) $(THFLAG)
 minmea.o: minmea.c minmea.h
-	 $(CXX) $(CFLAG) minmea.c -o minmea.o
+	$(CXX) $(CFLAG) minmea.c -o minmea.o
 Spi.o: Spi.cpp Model.h const.hpp Mediator.h Spi.h
 	$(CXX) $(CFLAG) $(WALLFLAG) Spi.cpp -o Spi.o $(THFLAG) $(WPFLAG)
 
@@ -43,9 +43,9 @@ parserV1.o : parserV1.cpp rapidxml_utils.hpp router.hpp parserV1.hpp
 	$(CXX) $(CFLAG) $(WALLFLAG) parserV1.cpp -o parserV1.o $(LIBS) $(LDFLAGS) $(CPPFLAGS)
 
 kbhit.o: kbhit.cpp kbhit.h
-  $(CXX) $(CFLAG) $(WALLFLAG) kbhit.cpp -o kbhit.o
+	$(CXX) $(CFLAG) $(WALLFLAG) kbhit.cpp -o kbhit.o
 music.o: music.cpp music.h Mediator.h
-		 $(CXX) $(CFLAG) $(WALLFLAG) music.cpp -o music.o $(MUSICFLAGS)
+	$(CXX) $(CFLAG) $(WALLFLAG) music.cpp -o music.o $(THFLAGS) $(CPPFLAGS) $(MUSICFLAGS)
 #SensorFusion.o: SensorFusion.cpp
 #	$(CXX) $(CFLAG) $(WALLFLAG) SensorFusion.cpp -o SensorFusion.o
 #ImuHandler.o: ImuHandler.cpp ImuHandler.h
