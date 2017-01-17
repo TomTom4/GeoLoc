@@ -356,6 +356,8 @@ using namespace std;
 		//int i;
 		cout << " dans mediator lock mutex" << endl;
 		mutex_mediator->lock();
+		cout << " apres mediator lock mutex" << endl;
+
 		/*switch(i)
 		{
 			case 0:  cout << "OKOK" << endl; break;
