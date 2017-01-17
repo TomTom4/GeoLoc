@@ -25,12 +25,12 @@ using namespace std;
 	{
 		unsigned char buff;
 
-		//cout << "avant Lock mutex" << endl;
+		cout << "avant Lock mutex" << endl;
 		Mediator::lockMutex();
-		//cout << "Lock mutex" << endl;
+		cout << "Lock mutex" << endl;
 		buff = m_model.getPwmMotorBack();
 		Mediator::unlockMutex();
-		//cout << "unLock mutex" << endl;
+		cout << "unLock mutex" << endl;
 		return buff;
 	 }
 
