@@ -54,6 +54,12 @@ void testSpi(Mediator *mediator, Spi *spi){
 	cout << " On stop !" << endl;
 	mediator->addPwmMotorBack(0);
 	usleep(2000000);
+	cout << " On recule!" << endl;
+	mediator->addPwmMotorBack(30+128);
+	usleep(2000000);
+	cout << " On stop !" << endl;
+	mediator->addPwmMotorBack(0);
+	usleep(2000000);
 
 }
 
@@ -175,7 +181,7 @@ int testNavigation(){
 
 int main(){
 
-	
+
 	//PARAMETRAGE BIB WIRINGPI
 	wiringPiSetup ();
 
@@ -192,9 +198,9 @@ int main(){
 	spi = Spi::instance();
 	//gps = Gps::instance();
 	//navigator = Navigation::instance();
-	
+
 	cout << "dans le main" << endl;
-	
+
 	//testSpi(mediator, spi);
 	//testKey(mediator,spi,gps);
 	while(1)

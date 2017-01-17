@@ -5,6 +5,14 @@
 #include <iostream>
 #include <thread>
 
+#include <string>
+#include <vector>
+#include <fstream>
+#include <vector>
+#include <tuple>
+#include <stdlib.h>
+#include <math.h>
+
 #include "minmea.h"
 #include "Mediator.h"
 #include "GpsHandler.h"
@@ -136,8 +144,7 @@ void Gps::updatePos()
            //printf(" long : %f + %f + %f\n",degre,minute,second);
            longitude = degre+minute/60.0+second/3600.0;
            //printf(" long : %f = %f + %f + %f\n",longitude,degre,minute/60.0,second/3600.0);
-           printf(" long : %f\n",longitude);
-           m_mediator->addLongitude(longitude);
+
 
            latitude = (double)(frame_gga.latitude.value);
            degre = floor(latitude/1000000.0);
@@ -146,9 +153,16 @@ void Gps::updatePos()
            //printf(" lat : %f + %f + %f\n",degre,minute,second);
            latitude = degre+minute/60.0+second/3600.0;
            //printf(" lat : %f = %f + %f + %f\n",latitude,degre,minute/60.0,second/3600.0);
-           printf(" lat : %f\n",latitude);
-           m_mediator->addLatitude(latitude);
-           ack = true;
+
+           cout << " long now : "<< (float)longitude << endl;
+           cout << " lat now : " << (float)latitude << endl;
+           if(DirectDistance(m_mediator->getLatitude(),m_mediator->getLongitude(), latitude, longitude) < 1.0)
+           {
+             m_mediator->addLatitude(latitude);
+             m_mediator->addLongitude(longitude);
+             cout << " Gps - OK " << endl;
+             ack = true;
+           }
 	      }
         else
         {
@@ -168,8 +182,8 @@ void Gps::updatePos()
            //printf(" long : %f + %f + %f\n",degre,minute,second);
            longitude = degre+minute/60.0+second/3600.0;
            //printf(" long : %f = %f + %f + %f\n",longitude,degre,minute/60.0,second/3600.0);
-           printf(" long : %f\n",longitude);
-           m_mediator->addLongitude(longitude);
+           c" long : %f\n",longitude);
+           //m_mediator->addLongitude(longitude);
 
            latitude = (double)(frame_rmc.latitude.value);
            degre = floor(latitude/1000000.0);
@@ -179,8 +193,16 @@ void Gps::updatePos()
            latitude = degre+minute/60.0+second/3600.0;
            //printf(" lat : %f = %f + %f + %f\n",latitude,degre,minute/60.0,second/3600.0);
            printf(" lat : %f\n",latitude);
-           m_mediator->addLatitude(latitude);
-           ack = true;
+           //m_mediator->addLatitude(latitude);
+           cout << " long now : "<< (float)longitude << endl;
+           cout << " lat now : " << (float)latitude << endl;
+           if(DirectDistance(m_mediator->getLatitude(),m_mediator->getLongitude(), latitude, longitude) < 1.0)
+           {
+             m_mediator->addLatitude(latitude);
+             m_mediator->addLongitude(longitude);
+             cout << " Gps - OK " << endl;
+             ack = true;
+           }
          }
          else
          {
@@ -212,7 +234,7 @@ double Gps::getLat(void)
 }
 
 // Distance between two points (longitude, latitude)
-/*double DirectDistance(double lat1, double lng1, double lat2, double lng2)
+double DirectDistance(double lat1, double lng1, double lat2, double lng2)
 {
 	double earthRadius = 6371000; //meters
 	double dLat = ToRadians(lat2-lat1);
@@ -223,4 +245,4 @@ double Gps::getLat(void)
 	double c = 2 * atan2(sqrt(a), sqrt(1-a));
 	float dist = (float) (earthRadius * c);
 	return dist;
-}*/
+}

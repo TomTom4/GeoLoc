@@ -1,7 +1,21 @@
 #ifndef DEF_GPS_HANDLER
 #define DEF_GPS_HANDLER
 
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+#include <cmath>
+#include <iostream>
 #include <thread>
+
+#include <string>
+#include <vector>
+#include <fstream>
+#include <vector>
+#include <tuple>
+#include <stdlib.h>
+#include <math.h>
+
 #include "minmea.h"
 #include "Mediator.h"
 
