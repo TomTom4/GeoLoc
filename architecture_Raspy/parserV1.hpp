@@ -175,6 +175,8 @@ private:
     int IntermediateDestinationReached = 0;
     int FinalDestinationReached = 0;
 
+    int ManualDestinationSet = 0;
+
 public:
     static cv::Mat image;
     static cv::Mat imageClose;
@@ -245,6 +247,8 @@ public:
     float GetCorrectiveHeading(float DrivenDistance);
 
     void SetDestination(double idDestNode);
+
+    void SetDestinationManually(double lon, double lat);
 
     void SetPath(std::vector<char *> path);
 

@@ -118,13 +118,19 @@ float Map::GetCorrectiveHeading(float DrivenDistance){
 		CurrentPosition_Lat = PreviousPosition_Lat + rapport * (CurrentPosition_Lat - PreviousPosition_Lat);
 
 		std::cout << "Distance normalement égale à 5 après Correction de position: " << DirectDistance(CurrentPosition_Lon, CurrentPosition_Lat, PreviousPosition_Lon, PreviousPosition_Lat) << '\n';
-		if (PathToDestination.size() != 0){
-			double Local_DestinationPosition_Lon;
-			double Local_DestinationPosition_Lat;
-			if (CurrentIntermediateDestinationNode != -1){
-				Local_DestinationPosition_Lon = PathToDestination[CurrentIntermediateDestinationNode]->GetLongitude();
-				Local_DestinationPosition_Lat = PathToDestination[CurrentIntermediateDestinationNode]->GetLatitude();
-			} else {
+		if (PathToDestination.size() != 0 || ManualDestinationSet == 1){
+			if (ManualDestinationSet == 0){
+				double Local_DestinationPosition_Lon;
+				double Local_DestinationPosition_Lat;
+				if (CurrentIntermediateDestinationNode != -1){
+					Local_DestinationPosition_Lon = PathToDestination[CurrentIntermediateDestinationNode]->GetLongitude();
+					Local_DestinationPosition_Lat = PathToDestination[CurrentIntermediateDestinationNode]->GetLatitude();
+				} else {
+					Local_DestinationPosition_Lon = DestinationPosition_Lon;
+					Local_DestinationPosition_Lat = DestinationPosition_Lat;
+				}
+			} else if (ManualDestinationSet = 1){
+				std::cout << "Manual Destination Set." << '\n';
 				Local_DestinationPosition_Lon = DestinationPosition_Lon;
 				Local_DestinationPosition_Lat = DestinationPosition_Lat;
 			}
@@ -162,10 +168,10 @@ float Map::GetCorrectiveHeading(float DrivenDistance){
 			Cap_Destination = atan(Cap_Destination) * 180 / LOCAL_PI;
 
 			float Cap_Derive = (Cap_Destination - Cap_Actuel);
-			float OppositeAngle = asin(sin(Cap_Derive)*5/RemainingDistance);
+			float OppositeAngle = asin(sin(Cap_Derive) * DrivenDistance / RemainingDistance);
 			Corrective_Cap = OppositeAngle + Cap_Derive;
 		} else {
-			std::cout << "Can't compute corrective cap since size of PathToDestination vector is 0" << '\n';
+			std::cout << "Can't compute corrective cap since size of PathToDestination vector is 0 and no destination has been set manually." << '\n';
 		}
 	} else {
 		//Path not set
@@ -406,6 +412,13 @@ int Map::SetPosition(double lon, double lat){
 	WhichRoad(CurrentPosition_Lon, CurrentPosition_Lat);
 
 	return 1;
+}
+
+void Map::SetDestinationManually(double lon, double lat){
+	ManualDestinationSet = 1;
+	PathSet = 1;
+	DestinationPosition_Lon = lon;
+	DestinationPosition_Lat = lat;
 }
 
 void Map::SetDestination(double idDestNode){
