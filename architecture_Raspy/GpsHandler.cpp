@@ -70,6 +70,7 @@ Gps::Gps()
   result_code = pthread_create(&th_gps,NULL,thGpsHelper,this);
   if(result_code == 0)
   cout << "Thread Gps Ok" << endl;
+}
 
 void *Gps::thGps(void)
 { // Main program of Gps thread
