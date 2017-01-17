@@ -32,7 +32,7 @@ class Gps{
 		double DirectDistance(double lat1, double lng1, double lat2, double lng2);
 		double ToRadians(double degrees);
 		//** THREAD
-		static void thGps(void);
+		void thGps(void);
 
 	private:
 		//** SINGLETON
