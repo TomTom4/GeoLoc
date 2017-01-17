@@ -3,20 +3,20 @@ WALLFLAG = -Wall
 CFLAG = -c
 
 WPFLAG = -lwiringPi
-THFLAG = -lpthread
+THFLAG = -std=c++11 -lpthread
 
 CPPFLAGS = -g -I /usr/local/include -I/usr/include/python2.7 -std=c++11
 LIBS = -lpython2.7
 LDFLAGS = -L/usr/local/lib  -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_objdetect -L/usr/lib/python2.7/config/ -L/Library/Frameworks/Python.framework/Versions/3.3/lib/
 
-all: Geocar.o Mediator.o Model.o Navigation.o Controler.o GpsHandler.o minmea.o Spi.o Location.o LocationInterface.o router.o parserV1.o 
+all: Geocar.o Mediator.o Model.o Navigation.o Controler.o GpsHandler.o minmea.o Spi.o Location.o LocationInterface.o router.o parserV1.o
 	$(CXX) -o geocar_exec Geocar.o Mediator.o Model.o Navigation.o Controler.o GpsHandler.o minmea.o Spi.o Location.o LocationInterface.o router.o parserV1.o $(WPFLAG) $(THFLAG) $(LIBS) $(LDFLAGS) $(CPPFLAGS)
 
 Geocar.o: Geocar.cpp Geocar.h Mediator.h Controler.h Spi.h GpsHandler.h Navigation.h
-	$(CXX) $(CFLAG) $(WALLFLAG) Geocar.cpp -o Geocar.o $(WPFLAG) $(THFLAG) $(LIBS) $(LDFLAGS) $(CPPFLAGS) 
+	$(CXX) $(CFLAG) $(WALLFLAG) Geocar.cpp -o Geocar.o $(WPFLAG) $(THFLAG) $(LIBS) $(LDFLAGS) $(CPPFLAGS)
 
 Mediator.o: Mediator.cpp Model.h Mediator.h
-	$(CXX) $(CFLAG) $(WALLFLAG) Mediator.cpp -o Mediator.o $(THFLAGS) $(CPPFLAGS) 
+	$(CXX) $(CFLAG) $(WALLFLAG) Mediator.cpp -o Mediator.o $(THFLAGS) $(CPPFLAGS)
 Model.o: Model.cpp Model.h
 	$(CXX) $(CFLAG) $(WALLFLAG) Model.cpp -o Model.o
 Navigation.o: Navigation.cpp Navigation.h

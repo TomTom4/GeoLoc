@@ -5,7 +5,8 @@
 
 #include <wiringPi.h>
 #include <wiringPiSPI.h>
-#include <pthread.h>
+#include <thread>
+#include <mutex>
 #include <assert.h>
 
 #include "Model.h"
@@ -32,12 +33,12 @@ Spi *Spi::s_instance = 0;
 		string_spi = new unsigned char[lenght_string];
 		m_mediator = Mediator::instance();
 		//** Create Thread
-		result_code = pthread_create(&th_spi,NULL,thSpiHelper,this);
-		if(result_code == 0)
-			cout << "Thread Spi Ok" << endl;
+		Spi::th_spi = new thread(Spi::thSpi);
+		//if(result_code == 0)
+		//	cout << "Thread Spi Ok" << endl;
 	}
 
-	void *Spi::thSpi(void)
+	void Spi::thSpi(void)
 	{
 		while(1)
 		{
@@ -45,11 +46,6 @@ Spi *Spi::s_instance = 0;
 			Spi::majCar();
 			cout << " Th SPI " << endl;
 		}
-	}
-
-	void *Spi::thSpiHelper(void* context)
-	{
-		return((Spi*)context)->Spi::thSpi();
 	}
 
 	void Spi::readWriteData()
@@ -106,7 +102,7 @@ Spi *Spi::s_instance = 0;
 				m_mediator->addDistanceBackCenter(string_spi[US_DISTANCE_BACK_CENTER]);
 				m_mediator->addValidityBackRight(string_spi[US_VALIDITY_BACK_RIGHT]);
 				m_mediator->addDistanceBackRight(string_spi[US_DISTANCE_BACK_RIGHT]);
-				
+
 				//if(BEACON_STM_END != string_spi[BEACON_STOP]) // - beacon_end (stm)
 				//	throw string("ERROR: Wrong beacon_stm_end");//	RASP:" << beacon_stm_start << " STM:" << string_spi[24]);
 

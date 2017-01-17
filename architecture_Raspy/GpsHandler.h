@@ -1,6 +1,7 @@
 #ifndef DEF_GPS_HANDLER
 #define DEF_GPS_HANDLER
 
+#include <thread>
 #include "minmea.h"
 #include "Mediator.h"
 
@@ -16,15 +17,13 @@ class Gps{
     double getLat();
 		double DirectDistance(double lat1, double lng1, double lat2, double lng2);
 		//** THREAD
-		void* thGps(void);
-		static void* thGpsHelper(void *context);
+		void thGps(void);
 
 	private:
 		//** SINGLETON
 		Gps();
 		Mediator *m_mediator;
 		static Gps *s_instance;
-
 		//** ATTRIBUTES
 		double longitude;
 	  double latitude;
@@ -34,10 +33,9 @@ class Gps{
 		struct minmea_sentence_rmc frame_rmc;
 		char buffer[1024];
 		int fd;
-
 		//** ERROR
 		int result_code;
 		//** THREAD
-		pthread_t th_gps;
+		thread *th_gps;
 };
 #endif

@@ -3,6 +3,7 @@
 #include <ctype.h>
 #include <cmath>
 #include <iostream>
+#include <thread>
 
 #include "minmea.h"
 #include "Mediator.h"
@@ -35,7 +36,7 @@ Gps::Gps()
   if (fd == -1)
   {
     printf("gps.c -> Constructor -> Error opening /dev/ttyUSB0");
-    exit(1);
+    //exit(1);
   }
   usleep(100000);
 
@@ -57,24 +58,19 @@ Gps::Gps()
   nb_satellites = 0;
 
   //** Create Thread
-  result_code = pthread_create(&th_gps,NULL,thGpsHelper,this);
-  if(result_code == 0)
-    cout << "Thread Gps Ok" << endl;
+  Gps::th_gps = new thread(Gps::thGps);
+  //if(result_code == 0)
+  //  cout << "Thread Gps Ok" << endl;
 }
 
-void *Gps::thGps(void)
+void Gps::thGps(void)
 { // Main program of Gps thread
   while(1)
   {
     usleep(200000);
     Gps::updatePos();
-    //cout << " Th GPS " << endl;
+    cout << " Th GPS " << endl;
   }
-}
-
-void *Gps::thGpsHelper(void* context)
-{
-  return((Gps*)context)->Gps::thGps();
 }
 
   /***************************READ_LINE_FROM_GPS********************************/

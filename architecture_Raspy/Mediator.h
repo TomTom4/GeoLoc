@@ -1,7 +1,7 @@
 #ifndef DEF_MEDIATOR
 #define DEF_MEDIATOR
 
-#include <pthread.h>
+#include <mutex>
 #include "Model.h"
 
 class Mediator{
@@ -77,7 +77,7 @@ class Mediator{
 		Model m_model;
 		static Mediator *s_instance;
 		//** THREAD
-		pthread_mutex_t mutex_mediator;
+		mutex* mutex_mediator;
 };
 
 #endif

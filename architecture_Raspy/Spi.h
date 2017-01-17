@@ -1,9 +1,13 @@
 #ifndef DEF_SPI
 #define DEF_SPI
 
+#include <thread>
+
 #include "Model.h"
 #include "const.hpp"
 #include "Mediator.h"
+
+using namespace std;
 
 class Spi /*:: public Singleton*/
 {
@@ -19,8 +23,7 @@ public:
 	void majCar();
 	void printStringSpi();
 	//** THREAD
-	void* thSpi(void);
-	static void* thSpiHelper(void *context);
+	void thSpi(void);
 
 private:
 	//** SINGLETON
@@ -35,7 +38,7 @@ private:
 	//** ERROR
 	int result_code;
 	//** THREAD
-	pthread_t th_spi;
+	thread *th_spi;
 };
 
 #endif

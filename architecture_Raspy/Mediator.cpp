@@ -1,5 +1,5 @@
 #include <iostream>
-#include <pthread.h>
+#include <mutex>
 
 #include "Model.h"
 #include "Mediator.h"
@@ -10,7 +10,7 @@ using namespace std;
 	Mediator *Mediator::s_instance = 0;
 	// implementing Mediator constructor
 	Mediator::Mediator(): m_model(){
-	//Mediator::mutex_mediator = PTHREAD_MUTEX_INITIALIZER;
+	Mediator::mutex_mediator = new mutex();
 	}
 
 	Mediator* Mediator::instance(){
@@ -62,7 +62,7 @@ using namespace std;
 		Mediator::unlockMutex();
 		return buff;
 	}
-	
+
 	float Mediator::getDistance()
 	{
 		float buff;
@@ -352,10 +352,10 @@ using namespace std;
 
 	//*** Thread
 	void Mediator::lockMutex(void)
-	{	
+	{
 		int i;
 		cout << " dans mediator lovk mutex" << endl;
-		i = pthread_mutex_lock(&mutex_mediator);
+		mutex_mediator.lock();
 		switch(i)
 		{
 			case 0:  cout << "OKOK" << endl; break;
@@ -372,5 +372,5 @@ using namespace std;
 
 	void Mediator::unlockMutex(void)
 	{
-		pthread_mutex_unlock(&mutex_mediator);
+		mutex_mediator.unlock();
 	}
