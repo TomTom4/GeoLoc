@@ -9,7 +9,7 @@ using namespace std;
 	// setting s_instance which is a static attribut that needs to be setted
 	Mediator *Mediator::s_instance = 0;
 	// implementing Mediator constructor
-	Mediator::Mediator():{
+	Mediator::Mediator(){
 	Mediator::m_model = new model();
 	Mediator::mutex_mediator = new mutex();
 	}
