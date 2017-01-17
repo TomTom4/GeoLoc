@@ -29,6 +29,7 @@ using namespace std;
 		Mediator::lockMutex();
 		cout << "Lock mutex" << endl;
 		buff = m_model.getPwmMotorBack();
+		cout << "retour model pwm" << endl;
 		Mediator::unlockMutex();
 		cout << "unLock mutex" << endl;
 		return buff;

@@ -41,6 +41,7 @@ Model::Model()
 //** PWM
 unsigned char Model::getPwmMotorBack(void)
 {
+  cout << " dans model pwm" << endl;
   return(pwm_motor_back);
 }
 
