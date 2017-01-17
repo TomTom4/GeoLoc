@@ -4,6 +4,7 @@
 #include <cmath>
 #include <iostream>
 #include <thread>
+#include <pthread.h>
 
 #include <string>
 #include <vector>
@@ -66,26 +67,27 @@ Gps::Gps()
   nb_satellites = 0;
 
   //** Create Thread
-  Gps::th_gps = new thread(Gps::thGpsHelper,this,this);
+  result_code = pthread_create(&th_gps,NULL,thGpsHelper,this);
+  if(result_code == 0)
+  cout << "Thread Gps Ok" << endl;
   //if(result_code == 0)
   //  cout << "Thread Gps Ok" << endl;
 }
 
-void thGps(Gps* p_gps)
+void *Gps::thGps(void)
 { // Main program of Gps thread
   while(1)
   {
     usleep(200000);
-    p_gps->updatePos();
+    Gps::updatePos();
     cout << " Th GPS " << endl;
   }
 }
 
-void Gps::thGpsHelper(void* context, Gps* p_gps)
+void *Gps::thGpsHelper(void* context)
 {
-  return((Gps*)context)->Gps::thGps(p_gps);
+  return((Gps*)context)->Gps::thGps();
 }
-
   /***************************READ_LINE_FROM_GPS********************************/
 /* Get a line from GPS data flow in /dev/ttyUSB0 and returns it into a buffer*/
 /* In : the file descriptor for /dev/ttyUSB0                                 */
