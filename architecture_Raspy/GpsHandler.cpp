@@ -232,6 +232,13 @@ double Gps::getLat(void)
 	return(latitude);
 }
 
+
+double ToRadians(double degrees)
+{
+	double radians = degrees*3.1415926535897932385/180.0;
+	return radians;
+}
+
 // Distance between two points (longitude, latitude)
 double DirectDistance(double lat1, double lng1, double lat2, double lng2)
 {
@@ -246,8 +253,3 @@ double DirectDistance(double lat1, double lng1, double lat2, double lng2)
 	return dist;
 }
 
-double ToRadians(double degrees)
-{
-	double radians = degrees * LOCAL_PI / 180;
-	return radians;
-}

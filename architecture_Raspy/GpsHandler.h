@@ -30,10 +30,9 @@ class Gps{
     double getLong();
     double getLat();
 		double DirectDistance(double lat1, double lng1, double lat2, double lng2);
-		double DirectDistance(double lat1, double lng1, double lat2, double lng2);
 		double ToRadians(double degrees);
 		//** THREAD
-		void thGps(void);
+		static void thGps(void);
 
 	private:
 		//** SINGLETON
