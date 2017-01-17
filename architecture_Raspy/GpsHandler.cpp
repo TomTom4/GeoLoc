@@ -245,3 +245,9 @@ double DirectDistance(double lat1, double lng1, double lat2, double lng2)
 	float dist = (float) (earthRadius * c);
 	return dist;
 }
+
+double ToRadians(double degrees)
+{
+	double radians = degrees * LOCAL_PI / 180;
+	return radians;
+}
