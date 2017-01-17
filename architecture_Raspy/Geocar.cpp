@@ -13,14 +13,14 @@
 #include "GpsHandler.h"
 #include "Navigation.h"
 #include "Geocar.h"
+#include "kbhit.h"
 
 using namespace std;
-
-	//Add your methodes over here
 
 void testSpi(Mediator *mediator, Spi *spi){
 
 	mediator->printModel(); // State of the car
+	usleep(2000000);
 	cout << " On avance !" << endl;
 	mediator->addPwmMotorBack(30);
 	usleep(2000000);
@@ -63,48 +63,112 @@ void testSpi(Mediator *mediator, Spi *spi){
 
 }
 
-void testkey(Mediator *mediator, Spi *spi, Gps *gps)
+void manuel(Mediator *mediator)
 {
-	//PARAMETRAGE BIB WIRINGPI
-	wiringPiSetup ();
-	//PARAMETRAGE SPI
-	wiringPiSPISetup(0,1000000);
-	//	fprintf("SPI Setup failed ");
+	char touche;
+	int cpt;
+	//INSTRUCTIONS DE PILOTAGE
+	printf("\n\n");
+	printf("Front = o \n");
+	printf("Left = k \n");
+	printf("Back = l \n");
+	printf("Right = m \n");
 
-	mediator->printModel(); // State of the car
-	cout << " On avance !" << endl;
-	mediator->addPwmMotorBack(30);
-	usleep(2000);
-	cout << " On stop !" << endl;
-	mediator->addPwmMotorBack(0);
-	usleep(2000);
-	cout << " On tourne à gauche !" << endl;
-  mediator->addStateSteeringWheel(6);
-  usleep(2000);
-	cout << " On avance !" << endl;
-	mediator->addPwmMotorBack(30);
-	usleep(2000);
-	cout << " On stop !" << endl;
-	mediator->addPwmMotorBack(0);
-	usleep(2000);
-	cout << " On centre !" << endl;
-  mediator->addStateSteeringWheel(12);
-  usleep(2000);
-	cout << " On avance !" << endl;
-	mediator->addPwmMotorBack(30);
-	usleep(2000);
-	cout << " On stop !" << endl;
-	mediator->addPwmMotorBack(0);
-	usleep(2000);
-	cout << " On tourne à droite !" << endl;
-  mediator->addStateSteeringWheel(18);
-  usleep(2000);
-	cout << " On avance !" << endl;
-	mediator->addPwmMotorBack(30);
-	usleep(2000);
-	cout << " On stop !" << endl;
-	mediator->addPwmMotorBack(0);
-	usleep(2000);
+	printf("Stop = p \n");
+
+	printf("Music = a \n");
+	printf("GPS = g \n");
+	printf("Test Mvt = w \n");
+	printf("Test Cap = x \n");
+	printf("Test Wheel Regulation = j \n");
+	printf("End Prog = e \n\n");
+
+	while(1)
+	{
+		usleep(250000);
+		if(kbhit())
+		{
+			touche = getchar();
+			switch(touche)
+			{
+				case 'o': // Devant
+				case 65 :// key up
+					mediator->addPwmMotorBack(30);
+					break;
+
+				case 'k': // Gauche
+				case 68 :// key left
+					if(mediator->getStateSteeringWheel() == 12)
+					{
+						mediator->addStateSteeringWheel(6);
+					}
+					else
+					{
+						if(mediator->getStateSteeringWheel() == 18)
+						{
+							mediator->addStateSteeringWheel(12);
+						}
+					}
+					break;
+
+				case 'l': // Derriere
+				case 66 :// key down
+					mediator->addPwmMotorBack(30+128);
+					break;
+
+				case 'm':// Droite
+				case 67 :// key right
+					if(mediator->getStateSteeringWheel() == 12)
+					{
+						mediator->addStateSteeringWheel(18);
+					}
+					else
+					{
+						if(mediator->getStateSteeringWheel() == 6)
+						{
+							mediator->addStateSteeringWheel(12);
+						}
+					}
+					break;
+
+				case 'p' : // Stop front back
+				case '\n':
+					mediator->addPwmMotorBack(0);
+					break;
+
+				case 'e' : //Fin
+					mediator->addPwmMotorBack(0);
+					mediator->addStateSteeringWheel(12);
+					exit(1);
+					break;
+
+				case 'a': //Music
+					cpt = mediator->getCptMusic()
+					cpt++
+					if(cpt == 5)
+						cpt = 1;
+					mediator->addCptMusic(cpt);
+					break;
+
+				case 'z': //Stop Music
+					mediator->addCptMusic(0);
+					break;
+
+				case 'g': // GPS
+					mediator->printGps();
+					break;
+
+				case 'w': // Scenario
+					testSpi();
+					break;
+
+				case 'x': // Scenario
+					testCap();
+					break;
+
+			}// SWITCH
+		}//KBHIT
+	}//WHILE
 }
 
 int testNavigation(){
@@ -178,10 +242,94 @@ int testNavigation(){
 	return 1;
 }
 
+void testCap(Mediator* mediator)
+{
+	double long_start;
+	double lat_start;
+	double long_end;
+	double lat_end;
+	float cap_cible;
+	double mesure;
+	float distance;
+	float distance_old;
 
-int main(){
+	mediator->addPwmMotorBack(0);
+	mediator->addStateSteeringWheel(12);
+	// Update distance counter from car
+	distance_old = mediator->getDistance();
+	cout << " Init distance: " << distance_old << "m" << endl;
+  // Update start Gps position
+	long_start = mediator->getLongitude();
+	lat_start = mediator->getLatitude();
+	// Switch Gps acquisition mode
+	mediator->addModeGps(1);
+	// Update end Gps position
+	long_end = 43.5708618;
+	lat_end = 1.4670463;
+	cout << "Init position GPS start, Long:" << long_start << "Lat:"<< lat_start << endl;
+	cout << "Init position GPS end, Long:" << long_end << "Lat:"<< lat_end << endl;
 
-	cout << "dans le main" << endl << flush;
+	// Update actual position of the car on the map ??
+		//SetPosition(long_start, lat_start);
+	// update destination of the car on the map ??
+		//SetDestination(long_end,lat_end);
+	usleep(3000000);
+	do
+	{
+		cout << " Start moteur" << endl;
+		mediator->addPwmMotorBack(30);
+		while((mediator->getDistance()-distance_old)>=5.0)
+		{
+			usleep(100);
+		}
+		cout << "Stop moteur" << endl;
+		mediator->addPwmMotorBack(0);
+		// Update distance counter from car
+		distance_old = mediator->getDistance();
+		cout<< "GPS FIX" << endl;
+		usleep(3000000);
+		mediator->printGps();
+		// Update actual position of the car on the map ??
+			//SetPosition(mediator->getLongitude(), mediator->getLatitude());
+		// Update new cap
+			//cap_cible = CapAlgorithm();
+		cout << "Cap cible calculé :" << cap_cible << endl;
+		delay(3000000);
+		if(cap_cible > 0 )
+		{ // turn left
+			cout << "Vers la Gauche" << endl;
+			mediator->addStateSteeringWheel(6);
+			usleep(2000000);
+		}
+		else
+		{ // turn right
+			cout << "Vers la Droite" << endl;
+			mediator->addStateSteeringWheel(18);
+			usleep(2000000);
+		}
+		cout << "Start moteur" << endl;
+		mediator->addPwmMotorBack(30);
+		usleep(2000000);
+		cout << "Stop moteur" << endl;
+		mediator->addPwmMotorBack(0);
+		usleep(2000000)
+		cout << "Center" << endl;
+		mediator->addStateSteeringWheel(12);
+		usleep(2000000)
+	}while(!test_fin());
+	cout << " VALIDATION OBJECTIF !!!!!!!!! GRANDE VALIDATION !!!!!" << endl;
+}
+
+
+int main()
+{
+	//PRESENTATION
+	printf("\t\n\n\n");
+	printf("\t\t    _/    _/  _/      _/  _/_/_/    _/_/_/  _/    _/  _/_/_/_/_/\n");
+	printf("\t\t   _/  _/    _/_/    _/    _/    _/        _/    _/      _/     \n");
+	printf("\t\t  _/_/      _/  _/  _/    _/    _/  _/_/  _/_/_/_/      _/      \n");
+	printf("\t\t _/  _/    _/    _/_/    _/    _/    _/  _/    _/      _/       \n");
+	printf("\t\t_/    _/  _/      _/  _/_/_/    _/_/_/  _/    _/      _/        \n\n\n");
 
 	//PARAMETRAGE BIB WIRINGPI
 	wiringPiSetup ();
@@ -191,21 +339,26 @@ int main(){
 
 	Mediator *mediator = NULL;
 	mediator = Mediator::instance();
-	
-	Spi *spi;
+
+	Spi* spi;
 	spi = Spi::instance();
-	
+
+	Gps* gps;
+	gps = Gps::instance();
+
+	Music* music;
+	music = Music::instance();
+
 	//Navigation *navigator;
 	//navigator = Navigation::instance();
 
 	//Controler *controler;
 	//controler = Controler::instance();
-	
-	Gps *gps;
-	gps = Gps::instance();
 
 	//testSpi(mediator, spi);
 	//testKey(mediator,spi,gps);
+
+	void manuel(mediator);
 	while(1)
 	{
 		usleep(1000000);

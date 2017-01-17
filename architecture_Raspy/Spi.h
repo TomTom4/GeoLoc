@@ -26,6 +26,7 @@ public:
 	//** THREAD
 	void* thSpi(void);
 	static void* thSpiHelper(void* context);
+	
 private:
 	//** SINGLETON
 	Spi();

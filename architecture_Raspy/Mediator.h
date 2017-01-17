@@ -38,6 +38,9 @@ class Mediator{
 		//** Gps
 		double getLongitude(void);
 		double getLatitude(void);
+		int getModeGps(void);
+		//** Music
+		int getCptMusic(void);
 
 		//******** ADD ********//
 		//** PWM
@@ -64,10 +67,14 @@ class Mediator{
 		//** Gps
 		void addLongitude(double val);
 		void addLatitude(double val);
+		void addModeGps(int val);
+		//** Music
+		void addCptMusic(int val);
 
 		//******** PRINT ********//
 		void printEncoder(void);
 		void printModel(void);
+		void printGps(void);
 		//******** THREAD ********//
 		void lockMutex(void);
 		void unlockMutex(void);

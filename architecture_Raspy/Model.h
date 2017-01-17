@@ -33,6 +33,9 @@ class Model
 		//** Gps
 		double getLongitude(void);
 		double getLatitude(void);
+		int getModeGps(void);
+		//** Music
+		int getCptMusic(void);
 
 		//******** ADD ********//
 		//** PWM
@@ -59,10 +62,14 @@ class Model
 		//** Gps
 		void addLongitude(double val);
 		void addLatitude(double val);
+		void addModeGps(int val);
+		//** Music
+		void addCptMusic(int val);
 
 		//******** PRINT ********//
 		void printEncoder(void);
 		void printModel(void);
+		void printGps(void);
 
 	private:
 
@@ -94,6 +101,11 @@ class Model
 		//** Gps
 		double longitude;
 		double latitude;
+		int mode_gps; // 0 = all datas from GPS are OK
+									// 1 = Only datas at less than 1m compared to
+									// the previous position are OK
+		//** Music
+		int cpt_music;
 
 };
 

@@ -6,6 +6,7 @@
 #include "Spi.h"
 #include "GpsHandler.h"
 #include "Navigation.h"
+#include "kbhit.h"
 
 class GeoCar{
 
@@ -13,7 +14,7 @@ class GeoCar{
 
 	private:
 
-	
+
 };
 
 #endif

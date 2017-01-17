@@ -9,11 +9,13 @@ CPPFLAGS = -g -I /usr/local/include -I/usr/include/python2.7 -std=c++11
 LIBS = -lpython2.7
 LDFLAGS = -L/usr/local/lib  -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_objdetect -L/usr/lib/python2.7/config/ -L/Library/Frameworks/Python.framework/Versions/3.3/lib/
 
-all: Geocar.o Mediator.o Model.o Navigation.o Controler.o GpsHandler.o minmea.o Spi.o Location.o LocationInterface.o router.o parserV1.o
-	$(CXX) -o geocar_exec Geocar.o Mediator.o Model.o Navigation.o Controler.o GpsHandler.o minmea.o Spi.o Location.o LocationInterface.o router.o parserV1.o $(WPFLAG) $(THFLAG) $(LIBS) $(LDFLAGS) $(CPPFLAGS)
+MUSICFLAGS = -lmpg123 -lao
 
-Geocar.o: Geocar.cpp Geocar.h Mediator.h Controler.h Spi.h GpsHandler.h Navigation.h
-	$(CXX) $(CFLAG) $(WALLFLAG) Geocar.cpp -o Geocar.o $(WPFLAG) $(THFLAG) $(LIBS) $(LDFLAGS) $(CPPFLAGS)
+all: Geocar.o Mediator.o Model.o Navigation.o Controler.o GpsHandler.o minmea.o Spi.o Location.o LocationInterface.o router.o parserV1.o kbhit.o music.o
+	$(CXX) -o geocar_exec Geocar.o Mediator.o Model.o Navigation.o Controler.o GpsHandler.o minmea.o Spi.o Location.o LocationInterface.o router.o parserV1.o kbhit.o music.o $(WPFLAG) $(THFLAG) $(LIBS) $(LDFLAGS) $(CPPFLAGS) $(MUSICFLAGS)
+
+Geocar.o: Geocar.cpp Geocar.h Mediator.h Controler.h Spi.h GpsHandler.h Navigation.h kbhit.h music.h
+	$(CXX) $(CFLAG) $(WALLFLAG) Geocar.cpp -o Geocar.o $(WPFLAG) $(THFLAG) $(LIBS) $(LDFLAGS) $(CPPFLAGS) $(MUSICFLAGS)
 
 Mediator.o: Mediator.cpp Model.h Mediator.h
 	$(CXX) $(CFLAG) $(WALLFLAG) Mediator.cpp -o Mediator.o $(THFLAGS) $(CPPFLAGS)
@@ -40,6 +42,10 @@ router.o: router.cpp router.hpp
 parserV1.o : parserV1.cpp rapidxml_utils.hpp router.hpp parserV1.hpp
 	$(CXX) $(CFLAG) $(WALLFLAG) parserV1.cpp -o parserV1.o $(LIBS) $(LDFLAGS) $(CPPFLAGS)
 
+kbhit.o: kbhit.cpp kbhit.h
+  $(CXX) $(CFLAG) $(WALLFLAG) kbhit.cpp -o kbhit.o
+music.o: music.cpp music.h Mediator.h
+		 $(CXX) $(CFLAG) $(WALLFLAG) music.cpp -o music.o $(MUSICFLAGS)
 #SensorFusion.o: SensorFusion.cpp
 #	$(CXX) $(CFLAG) $(WALLFLAG) SensorFusion.cpp -o SensorFusion.o
 #ImuHandler.o: ImuHandler.cpp ImuHandler.h

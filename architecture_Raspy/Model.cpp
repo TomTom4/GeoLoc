@@ -34,6 +34,9 @@ Model::Model()
 
   longitude = 0.0;
   latitude = 0.0;
+  mode = 0;
+
+  cpt_music = 0;
 }
 
 //******** GET ********//
@@ -125,6 +128,24 @@ double Model::getLatitude(void)
 {
   return(latitude);
 }
+int Model::getModeGps(void)
+{
+  return(mode_gps);
+}
+
+//** Music
+int Model::getCptMusic(void)
+{
+  return(cpt_music);
+}
+
+
+
+
+
+
+
+
 
 //******** ADD ********//
 
@@ -212,6 +233,15 @@ void Model::addLatitude(double val)
 {
   latitude = val;
 }
+void Model::addModeGps(int val)
+{
+  mode_gps = val;
+}
+//** Music
+void Model::addCptMusic(int val)
+{
+  cpt_music = val;
+}
 
 void Model::printEncoder()
 {
@@ -236,4 +266,11 @@ void Model::printModel(void)
   cout << "Us back left, Validity : " << (int)us_validity_back_left << ", Distance : " << (int)us_distance_back_left <<"cm " << endl;
   cout << "Us back center, Validity : " << (int)us_validity_back_center << ", Distance : " << (int)us_distance_back_center <<"cm " << endl;
   cout << "Us back right, Validity : " << (int)us_validity_back_right << ", Distance : " << (int)us_distance_back_right <<"cm " << endl;
+}
+
+void Model::printGps(void)
+{
+  cout << "Longitude : "<< longitude << endl;
+  cout << "Latitude : " << latitude << endl;
+  cout << "Mode Gps : " << mode_gps << endl;
 }

@@ -20,10 +20,6 @@
 
 using namespace std;
 
-//extern enum minmea_sentence_id minmea_sentence_id(const char *sentence, bool strict);
-//extern bool minmea_parse_rmc(struct minmea_sentence_rmc *frame, const char *sentence);
-//extern bool minmea_parse_gga(struct minmea_sentence_gga *frame, const char *sentence);
-
 Gps *Gps::s_instance = 0;//setting s_instance because it is a static attribut.
 
 // this function replace the construtor of the object
@@ -44,7 +40,7 @@ Gps::Gps()
   fd = open("/dev/ttyS0", O_RDWR | O_NOCTTY | O_NDELAY);
   if (fd == -1)
   {
-    printf("gps.c -> Constructor -> Error opening /dev/ttyUSB0");
+    cout << "gps.c -> Constructor -> Error opening /dev/ttyUSB0" << endl << flush;
     //exit(1);
   }
   usleep(100000);
@@ -69,7 +65,7 @@ Gps::Gps()
   //** Create Thread
   result_code = pthread_create(&th_gps,NULL,thGpsHelper,this);
   if(result_code == 0)
-  cout << "Thread Gps Ok" << endl;
+  cout << "Creation Thread Gps - Ok" << endl << flush;
 }
 
 void *Gps::thGps(void)
@@ -77,7 +73,8 @@ void *Gps::thGps(void)
   while(1)
   {
     usleep(200000);
-    Gps::updatePos(0);
+    Gps::updatePos();
+      // cout << "Th Gps" << endl << flush;
   }
 }
 
@@ -143,97 +140,88 @@ void Gps::updatePos(int mode)
     {
       case MINMEA_SENTENCE_GGA:
       {
-        //printf("GGA\n");
+          //printf("GGA\n");
         if (minmea_parse_gga(&frame_gga, buffer))
         {
            longitude = (double)(frame_gga.longitude.value);
            degre = floor(longitude/1000000.0);
            minute = floor((longitude-degre*1000000.0)/10000.0);
            second = floor((longitude - degre*1000000.0 - minute*10000.0))/100.0;
-           
-           //printf(" long : %f + %f + %f\n",degre,minute,second);
            longitude = degre+minute/60.0+second/3600.0;
-           //printf(" long : %f = %f + %f + %f\n",longitude,degre,minute/60.0,second/3600.0);
+            //printf(" long : %f = %f + %f + %f\n",longitude,degre,minute/60.0,second/3600.0);
 
            latitude = (double)(frame_gga.latitude.value);
            degre = floor(latitude/1000000.0);
            minute = floor((latitude-degre*1000000.0)/10000.0);
            second = floor((latitude - degre*1000000.0 - minute*10000.0))/100.0;
-
-           //printf(" lat : %f + %f + %f\n",degre,minute,second);
            latitude = degre+minute/60.0+second/3600.0;
-           //printf(" lat : %f = %f + %f + %f\n",latitude,degre,minute/60.0,second/3600.0);
+            //printf(" lat : %f = %f + %f + %f\n",latitude,degre,minute/60.0,second/3600.0);
 
-           cout << " long now : "<< (float)longitude << endl;
-           cout << " lat now : " << (float)latitude << endl;
-           
-	   if(mode == 1)
-	   { // if it's not the firs acquisition
-		if(Gps::DirectDistance(m_mediator->getLatitude(),m_mediator->getLongitude(), latitude, longitude) < 1.0)
-           	{
-             		m_mediator->addLatitude(latitude);
-             		m_mediator->addLongitude(longitude);
-             		//cout << " Gps - OK " << endl;
-             		ack = true;
-           	}
-	    }
-	    else
-	    {
-		m_mediator->addLatitude(latitude);
-             	m_mediator->addLongitude(longitude);
-            }		
-	}
-        else
-        {
-          //printf(INDENT_SPACES "$xxGGA sentence is not parsed\n");
-        }
+            //cout << " long now : "<< (float)longitude << endl;
+            //cout << " lat now : " << (float)latitude << endl;
+           if(m_mediator->getModeGps() == 1)
+           {
+             if(Gps::DirectDistance(m_mediator->getLatitude(),m_mediator->getLongitude(), latitude, longitude) < 1.0)
+           	 {
+               m_mediator->addLatitude(latitude);
+               m_mediator->addLongitude(longitude);
+               ack = true;
+             }
+           }
+           else
+           {
+             m_mediator->addLatitude(latitude);
+             m_mediator->addLongitude(longitude);
+             ack = true;
+           }
+         }
+         else
+         {
+           //printf(INDENT_SPACES "$xxGGA sentence is not parsed\n");
+         }
       } break;
 
       case MINMEA_SENTENCE_RMC:
       {
-        //printf("RMC\n");
+          //printf("RMC\n");
 	      if (minmea_parse_rmc(&frame_rmc, buffer))
         {
 	         longitude = (double)(frame_rmc.longitude.value);
            degre = floor(longitude/1000000.0);
            minute = floor((longitude-degre*1000000.0)/10000.0);
            second = floor((longitude - degre*1000000.0 - minute*10000.0))/100.0;
-           //printf(" long : %f + %f + %f\n",degre,minute,second);
            longitude = degre+minute/60.0+second/3600.0;
-           //printf(" long : %f = %f + %f + %f\n",longitude,degre,minute/60.0,second/3600.0);
-           //m_mediator->addLongitude(longitude);
+            //printf(" long : %f = %f + %f + %f\n",longitude,degre,minute/60.0,second/3600.0);
 
            latitude = (double)(frame_rmc.latitude.value);
            degre = floor(latitude/1000000.0);
            minute = floor((latitude-degre*1000000.0)/10000.0);
            second = floor((latitude - degre*1000000.0 - minute*10000.0))/100.0;
-           //printf(" lat : %f + %f + %f\n",degre,minute,second);
            latitude = degre+minute/60.0+second/3600.0;
-           //printf(" lat : %f = %f + %f + %f\n",latitude,degre,minute/60.0,second/3600.0);
-           //printf(" lat : %f\n",latitude);
-           //m_mediator->addLatitude(latitude);
-           cout << " long now : "<< (float)longitude << endl;
-           cout << " lat now : " << (float)latitude << endl;
-	   
-           if(mode == 1)
-	   { // if it's not the firs acquisition
-		if(Gps::DirectDistance(m_mediator->getLatitude(),m_mediator->getLongitude(), latitude, longitude) < 1.0)
-           	{
-             		m_mediator->addLatitude(latitude);
-             		m_mediator->addLongitude(longitude);
-             		//cout << " Gps - OK " << endl;
-             		ack = true;
-           	}
-	    }
-	    else
-	    {
-		m_mediator->addLatitude(latitude);
-             	m_mediator->addLongitude(longitude);
-            }
+            //printf(" lat : %f = %f + %f + %f\n",latitude,degre,minute/60.0,second/3600.0);
+
+            //cout << " long now : "<< (float)longitude << endl;
+            //cout << " lat now : " << (float)latitude << endl;
+
+           if(m_mediator->getModeGps() == 1)
+           {
+             if(Gps::DirectDistance(m_mediator->getLatitude(),m_mediator->getLongitude(), latitude, longitude) < 1.0)
+           	 {
+               m_mediator->addLatitude(latitude);
+               m_mediator->addLongitude(longitude);
+               ack = true;
+             }
+           }
+           else
+           {
+             m_mediator->addLatitude(latitude);
+             m_mediator->addLongitude(longitude);
+             ack = true;
+           }
          }
          else
          {
-           cout << "$xxRMC sentence is not parsed" << endl;
+           //cout << "$xxRMC sentence is not parsed" << endl;
          }
        } break;
 

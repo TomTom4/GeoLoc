@@ -29,14 +29,9 @@ using namespace std;
 	unsigned char Mediator::getPwmMotorBack()
 	{
 		unsigned char buff;
-
-		cout << "avant Lock mutex" << endl;
 		Mediator::lockMutex();
-		cout << "Lock mutex" << endl;
 		buff = m_model->getPwmMotorBack();
-		cout << "retour model pwm" << endl;
 		Mediator::unlockMutex();
-		cout << "unLock mutex" << endl;
 		return buff;
 	 }
 
@@ -204,6 +199,30 @@ using namespace std;
 		Mediator::unlockMutex();
 		return buff;
 	}
+	int Mediator::getModeGps()
+	{
+		int buff;
+		Mediator::lockMutex();
+		buff = m_model->getModeGps();
+		Mediator::unlockMutex();
+		return buff;
+	}
+	//** Music
+	int Mediator::getCptMusic()
+	{
+		int buff;
+		Mediator::lockMutex();
+		buff = m_model->getCptMusic();
+		Mediator::unlockMutex();
+		return buff;
+	}
+
+
+
+
+
+
+
 
 	//******** ADD ********//
 
@@ -341,7 +360,21 @@ using namespace std;
 		m_model->addLatitude(val);
 		Mediator::unlockMutex();
 	}
+	void Mediator::addModeGps(int val)
+	{
+		Mediator::lockMutex();
+		m_model->addModeGps(val);
+		Mediator::unlockMutex();
+	}
+	//** Music
+	void Mediator::addCptMusic(int val)
+	{
+		Mediator::lockMutex();
+		m_model->addCptMusic(val);
+		Mediator::unlockMutex();
+	}
 
+	//** Print
 	void Mediator::printEncoder()
 	{
 		Mediator::lockMutex();
@@ -356,12 +389,18 @@ using namespace std;
 		Mediator::unlockMutex();
 	}
 
+	void Mediator::printGps()
+	{
+		Mediator::lockMutex();
+		m_model->printGps();
+		Mediator::unlockMutex();
+	}
+
+
 	//*** Thread
 	void Mediator::lockMutex(void)
 	{
-		//cout << " dans mediator lock mutex" << endl;
 		mutex_mediator->lock();
-		//cout << " apres mediator lock mutex" << endl;
 	}
 
 	void Mediator::unlockMutex(void)
