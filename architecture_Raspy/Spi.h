@@ -24,8 +24,8 @@ public:
 	void majCar();
 	void printStringSpi();
 	//** THREAD
-	void* thGps(void);
-	static void* thGpsHelper(void* context);
+	void* thSpi(void);
+	static void* thSpiHelper(void* context);
 private:
 	//** SINGLETON
 	Spi();
