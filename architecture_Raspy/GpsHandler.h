@@ -7,6 +7,7 @@
 #include <cmath>
 #include <iostream>
 #include <thread>
+#include <pthread.h>
 
 #include <string>
 #include <vector>
@@ -30,16 +31,16 @@ class Gps{
     double getLong();
     double getLat();
 		double DirectDistance(double lat1, double lng1, double lat2, double lng2);
-		double DirectDistance(double lat1, double lng1, double lat2, double lng2);
 		double ToRadians(double degrees);
 		//** THREAD
-		void thGps(void);
+		void* thGps(void);
+		static void* thGpsHelper(void* context);
 
 	private:
 		//** SINGLETON
 		Gps();
-		Mediator *m_mediator;
-		static Gps *s_instance;
+		Mediator* m_mediator;
+		static Gps* s_instance;
 		//** ATTRIBUTES
 		double longitude;
 	  double latitude;
@@ -52,6 +53,6 @@ class Gps{
 		//** ERROR
 		int result_code;
 		//** THREAD
-		thread *th_gps;
+		pthread_t th_gps;
 };
 #endif

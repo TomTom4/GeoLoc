@@ -2,6 +2,7 @@
 #define DEF_SPI
 
 #include <thread>
+#include <pthread.h>
 
 #include "Model.h"
 #include "const.hpp"
@@ -23,8 +24,8 @@ public:
 	void majCar();
 	void printStringSpi();
 	//** THREAD
-	void thSpi(void);
-
+	void* thSpi(void);
+	static void* thSpiHelper(void* context);
 private:
 	//** SINGLETON
 	Spi();
@@ -38,7 +39,7 @@ private:
 	//** ERROR
 	int result_code;
 	//** THREAD
-	thread *th_spi;
+	pthread_t th_spi;
 };
 
 #endif

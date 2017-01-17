@@ -6,6 +6,7 @@
 #include <wiringPi.h>
 #include <wiringPiSPI.h>
 #include <thread>
+#include <pthread.h>
 #include <mutex>
 #include <assert.h>
 
@@ -33,12 +34,12 @@ Spi *Spi::s_instance = 0;
 		string_spi = new unsigned char[lenght_string];
 		m_mediator = Mediator::instance();
 		//** Create Thread
-		Spi::th_spi = new thread(Spi::thSpi);
-		//if(result_code == 0)
-		//	cout << "Thread Spi Ok" << endl;
+		result_code = pthread_create(&th_spi,NULL,thSpiHelper,this);
+	  if(result_code == 0)
+	  cout << "Thread Gps Ok" << endl;
 	}
 
-	void Spi::thSpi(void)
+	void* Spi::thSpi(void)
 	{
 		while(1)
 		{
@@ -46,6 +47,11 @@ Spi *Spi::s_instance = 0;
 			Spi::majCar();
 			cout << " Th SPI " << endl;
 		}
+	}
+
+	void *Spi::thSpiHelper(void* context)
+	{
+	  return((Spi*)context)->Spi::thSpi();
 	}
 
 	void Spi::readWriteData()

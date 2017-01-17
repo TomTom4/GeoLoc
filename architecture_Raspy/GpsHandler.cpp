@@ -4,6 +4,7 @@
 #include <cmath>
 #include <iostream>
 #include <thread>
+#include <pthread.h>
 
 #include <string>
 #include <vector>
@@ -66,12 +67,12 @@ Gps::Gps()
   nb_satellites = 0;
 
   //** Create Thread
-  Gps::th_gps = new thread(Gps::thGps);
-  //if(result_code == 0)
-  //  cout << "Thread Gps Ok" << endl;
+  result_code = pthread_create(&th_gps,NULL,thGpsHelper,this);
+  if(result_code == 0)
+  cout << "Thread Gps Ok" << endl;
 }
 
-void Gps::thGps(void)
+void *Gps::thGps(void)
 { // Main program of Gps thread
   while(1)
   {
@@ -81,6 +82,10 @@ void Gps::thGps(void)
   }
 }
 
+void *Gps::thGpsHelper(void* context)
+{
+  return((Gps*)context)->Gps::thGps();
+}
   /***************************READ_LINE_FROM_GPS********************************/
 /* Get a line from GPS data flow in /dev/ttyUSB0 and returns it into a buffer*/
 /* In : the file descriptor for /dev/ttyUSB0                                 */
@@ -156,7 +161,7 @@ void Gps::updatePos()
 
            cout << " long now : "<< (float)longitude << endl;
            cout << " lat now : " << (float)latitude << endl;
-           if(DirectDistance(m_mediator->getLatitude(),m_mediator->getLongitude(), latitude, longitude) < 1.0)
+           if(Gps::DirectDistance(m_mediator->getLatitude(),m_mediator->getLongitude(), latitude, longitude) < 1.0)
            {
              m_mediator->addLatitude(latitude);
              m_mediator->addLongitude(longitude);
@@ -195,7 +200,7 @@ void Gps::updatePos()
            //m_mediator->addLatitude(latitude);
            cout << " long now : "<< (float)longitude << endl;
            cout << " lat now : " << (float)latitude << endl;
-           if(DirectDistance(m_mediator->getLatitude(),m_mediator->getLongitude(), latitude, longitude) < 1.0)
+           if(Gps::DirectDistance(m_mediator->getLatitude(),m_mediator->getLongitude(), latitude, longitude) < 1.0)
            {
              m_mediator->addLatitude(latitude);
              m_mediator->addLongitude(longitude);
@@ -232,22 +237,23 @@ double Gps::getLat(void)
 	return(latitude);
 }
 
+
+double Gps::ToRadians(double degrees)
+{
+	double radians = degrees*3.1415926535897932385/180.0;
+	return radians;
+}
+
 // Distance between two points (longitude, latitude)
-double DirectDistance(double lat1, double lng1, double lat2, double lng2)
+double Gps::DirectDistance(double lat1, double lng1, double lat2, double lng2)
 {
 	double earthRadius = 6371000; //meters
-	double dLat = ToRadians(lat2-lat1);
-	double dLng = ToRadians(lng2-lng1);
+	double dLat = Gps::ToRadians(lat2-lat1);
+	double dLng = Gps::ToRadians(lng2-lng1);
 	double a = sin(dLat/2) * sin(dLat/2) +
-	cos(ToRadians(lat1)) * cos(ToRadians(lat2)) *
+	cos(Gps::ToRadians(lat1)) * cos(Gps::ToRadians(lat2)) *
 	sin(dLng/2) * sin(dLng/2);
 	double c = 2 * atan2(sqrt(a), sqrt(1-a));
 	float dist = (float) (earthRadius * c);
 	return dist;
-}
-
-double ToRadians(double degrees)
-{
-	double radians = degrees * LOCAL_PI / 180;
-	return radians;
 }

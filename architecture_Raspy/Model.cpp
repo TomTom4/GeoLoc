@@ -8,6 +8,7 @@ using namespace std;
 
 Model::Model()
 {
+  cout << "dans constructor model " << endl;
   pwm_motor_back = 0;
   state_steering_wheel = 3;
   encoder_wheel_back_left = 0.0;
@@ -41,6 +42,7 @@ Model::Model()
 //** PWM
 unsigned char Model::getPwmMotorBack(void)
 {
+  cout << " dans model pwm" << endl;
   return(pwm_motor_back);
 }
 
