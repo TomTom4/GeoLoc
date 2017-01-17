@@ -10,7 +10,7 @@ using namespace std;
 	Mediator *Mediator::s_instance = 0;
 	// implementing Mediator constructor
 	Mediator::Mediator():{
-	Mediator::m_model = new model()
+	Mediator::m_model = new model();
 	Mediator::mutex_mediator = new mutex();
 	}
 
