@@ -119,9 +119,9 @@ float Map::GetCorrectiveHeading(float DrivenDistance){
 
 		std::cout << "Distance normalement égale à 5 après Correction de position: " << DirectDistance(CurrentPosition_Lon, CurrentPosition_Lat, PreviousPosition_Lon, PreviousPosition_Lat) << '\n';
 		if (PathToDestination.size() != 0 || ManualDestinationSet == 1){
-			if (ManualDestinationSet == 0){
 				double Local_DestinationPosition_Lon;
 				double Local_DestinationPosition_Lat;
+			if (ManualDestinationSet == 0){
 				if (CurrentIntermediateDestinationNode != -1){
 					Local_DestinationPosition_Lon = PathToDestination[CurrentIntermediateDestinationNode]->GetLongitude();
 					Local_DestinationPosition_Lat = PathToDestination[CurrentIntermediateDestinationNode]->GetLatitude();

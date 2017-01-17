@@ -181,6 +181,7 @@ int testNavigation(){
 
 int main(){
 
+	cout << "dans le main" << endl << flush;
 
 	//PARAMETRAGE BIB WIRINGPI
 	wiringPiSetup ();
@@ -188,18 +189,20 @@ int main(){
 	//PARAMETRAGE SPI
 	wiringPiSPISetup(0,1000000);
 
-	Mediator *mediator;
-	Controler *controler;
-	Spi *spi;
-	Gps *gps;
-	Navigation *navigator;
+	Mediator *mediator = NULL;
 	mediator = Mediator::instance();
-	//controler = Controler::instance();
+	
+	Spi *spi;
 	spi = Spi::instance();
-	//gps = Gps::instance();
+	
+	//Navigation *navigator;
 	//navigator = Navigation::instance();
 
-	cout << "dans le main" << endl;
+	//Controler *controler;
+	//controler = Controler::instance();
+	
+	Gps *gps;
+	gps = Gps::instance();
 
 	//testSpi(mediator, spi);
 	//testKey(mediator,spi,gps);

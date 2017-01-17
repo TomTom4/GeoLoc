@@ -49,15 +49,15 @@ Gps::Gps()
   }
   usleep(100000);
 
-  // set baud_rate = 115200
+  cout << "set baud_rate = 115200" << endl << flush;
   write(fd, "$PMTK251,115200*2C\r\n", 20);  //<CR><LF>
   usleep(100000);
 
-  // set FIX update rate = 5Hz
+  cout << "set FIX update rate = 5Hz"  << endl << flush;
   write(fd, "$PMTK220,200*0F\r\n", 20);
   usleep(100000);
 
-  // enable RMC & GGA only (send every FIX update)
+  cout << "enable RMC & GGA only (send every FIX update)"  << endl << flush;
   write(fd, "$PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*28\r\n", 52);  //<CR><LF>
   usleep(100000);
 
@@ -77,8 +77,7 @@ void *Gps::thGps(void)
   while(1)
   {
     usleep(200000);
-    Gps::updatePos();
-    cout << " Th GPS " << endl;
+    Gps::updatePos(0);
   }
 }
 
@@ -94,81 +93,96 @@ void *Gps::thGpsHelper(void* context)
 
 void Gps::readLineFromGps()
 {
-  int i,j;
+  int i=0;
+  int j=0;
   char buf[1024];
-  i = 0;
-  j = 1;
-
+	int error;
   // cleat buffer
   for(i=0;i<1024;i++)
 		buffer[i] = 0;
   // read data from gps
-  read(fd,buffer, 1024);
-  //printf("buffer: %s\n",buffer);
-  // look for start of sentence
-  while(buffer[i] != 'G' && buffer[j] != 'P' && i<1024)
+  error = read(fd,buffer, 1024);
+  if(error > 0)
   {
-    i++;
-    j++;
+    //cout << "error = " << error << endl << flush;
+    //printf("buffer: %s\n",buffer);
+    // look for start of sentence
+    while(buffer[i] != 'G' && buffer[j] != 'P' && i<1024)
+    {
+      i++;
+      j++;
+    }
+    //printf("offset = %d\n",i);
+    if(i<1024)
+    {
+      strcpy(buf+1,buffer+i);
+      buf[0] = '$';
+      //printf("new avant cpy : %s\n",buf);
+      strcpy(buffer,buf);
+    }
+    // look for end of sentence
+    i = 0;
+    while(buffer[i] != '\n')
+      i++;
+    // clear all after end of sentence
+    for(;i<1024;i++)
+      buffer[i] = 0;
+    //printf("new buffer :%s\n",buffer);
   }
-  //printf("offset = %d\n",i);
-  if(i<1024)
-  {
-    strcpy(buf+1,buffer+i);
-    buf[0] = '$';
-    //printf("new avant cpy : %s\n",buf);
-    strcpy(buffer,buf);
-  }
-  // look for end of sentence
-	i = 0;
-	while(buffer[i] != '\n')
-		i++;
-  // clear all after end of sentence
-  for(;i<1024;i++)
-		buffer[i] = 0;
-	//printf("new buffer :%s\n",buffer);
 }
 
-void Gps::updatePos()
+void Gps::updatePos(int mode)
 {
   bool ack = false;
   do
   {
-    readLineFromGps();
-    switch (minmea_sentence_id(buffer, false))
+    	//cout << "av readline" << endl << flush;
+	readLineFromGps();
+    	//cout << "ap readline" << endl << flush;
+	switch (minmea_sentence_id(buffer, false))
     {
       case MINMEA_SENTENCE_GGA:
       {
         //printf("GGA\n");
-		    if (minmea_parse_gga(&frame_gga, buffer))
+        if (minmea_parse_gga(&frame_gga, buffer))
         {
-	         longitude = (double)(frame_gga.longitude.value);
+           longitude = (double)(frame_gga.longitude.value);
            degre = floor(longitude/1000000.0);
            minute = floor((longitude-degre*1000000.0)/10000.0);
            second = floor((longitude - degre*1000000.0 - minute*10000.0))/100.0;
+           
            //printf(" long : %f + %f + %f\n",degre,minute,second);
            longitude = degre+minute/60.0+second/3600.0;
            //printf(" long : %f = %f + %f + %f\n",longitude,degre,minute/60.0,second/3600.0);
-
 
            latitude = (double)(frame_gga.latitude.value);
            degre = floor(latitude/1000000.0);
            minute = floor((latitude-degre*1000000.0)/10000.0);
            second = floor((latitude - degre*1000000.0 - minute*10000.0))/100.0;
+
            //printf(" lat : %f + %f + %f\n",degre,minute,second);
            latitude = degre+minute/60.0+second/3600.0;
            //printf(" lat : %f = %f + %f + %f\n",latitude,degre,minute/60.0,second/3600.0);
 
            cout << " long now : "<< (float)longitude << endl;
            cout << " lat now : " << (float)latitude << endl;
-           if(Gps::DirectDistance(m_mediator->getLatitude(),m_mediator->getLongitude(), latitude, longitude) < 1.0)
-           {
-             m_mediator->addLatitude(latitude);
-             m_mediator->addLongitude(longitude);
-             cout << " Gps - OK " << endl;
-             ack = true;
-           }
-	      }
+           
+	   if(mode == 1)
+	   { // if it's not the firs acquisition
+		if(Gps::DirectDistance(m_mediator->getLatitude(),m_mediator->getLongitude(), latitude, longitude) < 1.0)
+           	{
+             		m_mediator->addLatitude(latitude);
+             		m_mediator->addLongitude(longitude);
+             		//cout << " Gps - OK " << endl;
+             		ack = true;
+           	}
+	    }
+	    else
+	    {
+		m_mediator->addLatitude(latitude);
+             	m_mediator->addLongitude(longitude);
+            }		
+	}
         else
         {
           //printf(INDENT_SPACES "$xxGGA sentence is not parsed\n");
@@ -200,13 +214,22 @@ void Gps::updatePos()
            //m_mediator->addLatitude(latitude);
            cout << " long now : "<< (float)longitude << endl;
            cout << " lat now : " << (float)latitude << endl;
-           if(Gps::DirectDistance(m_mediator->getLatitude(),m_mediator->getLongitude(), latitude, longitude) < 1.0)
-           {
-             m_mediator->addLatitude(latitude);
-             m_mediator->addLongitude(longitude);
-             cout << " Gps - OK " << endl;
-             ack = true;
-           }
+	   
+           if(mode == 1)
+	   { // if it's not the firs acquisition
+		if(Gps::DirectDistance(m_mediator->getLatitude(),m_mediator->getLongitude(), latitude, longitude) < 1.0)
+           	{
+             		m_mediator->addLatitude(latitude);
+             		m_mediator->addLongitude(longitude);
+             		//cout << " Gps - OK " << endl;
+             		ack = true;
+           	}
+	    }
+	    else
+	    {
+		m_mediator->addLatitude(latitude);
+             	m_mediator->addLongitude(longitude);
+            }
          }
          else
          {
@@ -216,12 +239,12 @@ void Gps::updatePos()
 
       case MINMEA_INVALID:
       {
-        cout << "$xxxxx sentence is not valid" << endl;
+        //cout << "$xxxxx sentence is not valid" << endl;
       } break;
 
       default:
       {
-        cout << "$xxxxx sentence is not parsed" << endl;
+        //cout << "$xxxxx sentence is not parsed" << endl;
       } break;
     }
   }while(ack == false);

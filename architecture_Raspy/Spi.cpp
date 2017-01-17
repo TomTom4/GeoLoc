@@ -36,7 +36,7 @@ Spi *Spi::s_instance = 0;
 		//** Create Thread
 		result_code = pthread_create(&th_spi,NULL,thSpiHelper,this);
 	  if(result_code == 0)
-	  cout << "Thread Gps Ok" << endl;
+	  cout << "Thread SPI Ok" << endl;
 	}
 
 	void* Spi::thSpi(void)

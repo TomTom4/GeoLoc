@@ -7,15 +7,19 @@
 using namespace std;
 
 	// setting s_instance which is a static attribut that needs to be setted
-	Mediator *Mediator::s_instance = 0;
+	Mediator* Mediator::s_instance = 0;
 	// implementing Mediator constructor
-	Mediator::Mediator(){
-	Mediator::m_model = new Model();
-	Mediator::mutex_mediator = new mutex();
+	Mediator::Mediator()
+	{
+		//cout << "Av creation model" << endl << flush;
+		Mediator::m_model = new Model();
+		//cout << "Ap creation model" << endl << flush;
+		Mediator::mutex_mediator = new mutex();
 	}
 
-	Mediator* Mediator::instance(){
-		if(Mediator::s_instance)
+	Mediator* Mediator::instance()
+	{
+		if(!Mediator::s_instance)
 			Mediator::s_instance = new Mediator();
 		return Mediator::s_instance;
 	}
@@ -355,24 +359,12 @@ using namespace std;
 	//*** Thread
 	void Mediator::lockMutex(void)
 	{
-		//int i;
 		//cout << " dans mediator lock mutex" << endl;
-		//mutex_mediator->lock();
+		mutex_mediator->lock();
 		//cout << " apres mediator lock mutex" << endl;
-
-		/*switch(i)
-		{
-			case 0:  cout << "OKOK" << endl; break;
-			case EINVAL: cout << "EINVAL" << endl; break;
-			case EBUSY: cout << "EBUSY" << endl; break;
-			case EAGAIN: cout << "EAGAIN" << endl; break;
-			case EDEADLK: cout << "EDEADLK" << endl; break;
-			case EPERM: cout << "EPERM" << endl; break;
-			default:  cout << "???" << endl; break;
-		}*/
 	}
 
 	void Mediator::unlockMutex(void)
 	{
-		//mutex_mediator->unlock();
+	  mutex_mediator->unlock();
 	}

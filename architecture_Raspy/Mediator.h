@@ -9,7 +9,7 @@ class Mediator{
 
 	public:
 		//** SINGLETON
-		static Mediator *instance();
+		static Mediator* instance();
 		//** METHODS
 
 		//******** GET ********//

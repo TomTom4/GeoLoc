@@ -27,7 +27,7 @@ class Gps{
 		static Gps* instance();
 		//** METHODS
     void readLineFromGps();
-    void updatePos();
+    void updatePos(int mode);
     double getLong();
     double getLat();
 		double DirectDistance(double lat1, double lng1, double lat2, double lng2);
