@@ -9,7 +9,7 @@ using namespace std;
 Model::Model()
 {
   pwm_motor_back = 0;
-  state_steering_wheel = 3;
+  state_steering_wheel = 12;
   encoder_wheel_back_left = 0.0;
   encoder_wheel_back_right = 0.0;
   distance = 0.0;

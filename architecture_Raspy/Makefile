@@ -14,7 +14,7 @@ MUSICFLAGS = -lmpg123 -lao
 all: Geocar.o Mediator.o Model.o Navigation.o Controler.o GpsHandler.o minmea.o Spi.o Location.o LocationInterface.o router.o parserV1.o kbhit.o music.o
 	$(CXX) -o geocar_exec Geocar.o Mediator.o Model.o Navigation.o Controler.o GpsHandler.o minmea.o Spi.o Location.o LocationInterface.o router.o parserV1.o kbhit.o music.o $(WPFLAG) $(THFLAG) $(LIBS) $(LDFLAGS) $(CPPFLAGS) $(MUSICFLAGS)
 
-Geocar.o: Geocar.cpp Geocar.h Mediator.h Controler.h Spi.h GpsHandler.h Navigation.h kbhit.h music.h
+Geocar.o: Geocar.cpp Geocar.h Mediator.h Controler.h Spi.h GpsHandler.h Navigation.h kbhit.h music.h parserV1.hpp
 	$(CXX) $(CFLAG) $(WALLFLAG) Geocar.cpp -o Geocar.o $(WPFLAG) $(THFLAG) $(LIBS) $(LDFLAGS) $(CPPFLAGS) $(MUSICFLAGS)
 
 Mediator.o: Mediator.cpp Model.h Mediator.h

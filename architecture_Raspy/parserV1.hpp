@@ -177,6 +177,8 @@ private:
 
     int ManualDestinationSet = 0;
 
+    int Front = 0;
+
 public:
     static cv::Mat image;
     static cv::Mat imageClose;
@@ -251,6 +253,10 @@ public:
     void SetDestinationManually(double lon, double lat);
 
     void SetPath(std::vector<char *> path);
+
+    float GetFrontAndTurnDistance(float angle);
+
+    int GetFront();
 
 };
 

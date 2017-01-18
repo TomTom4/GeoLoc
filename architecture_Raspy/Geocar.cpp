@@ -13,19 +13,22 @@
 #include "GpsHandler.h"
 #include "Navigation.h"
 #include "Geocar.h"
+#include "parserV1.hpp"
 #include "kbhit.h"
 #include "music.h"
 
 using namespace std;
 
-void testCap(Mediator* mediator)
+void testCap(Mediator* mediator,Navigation* navigation)
 {
 	double long_start;
 	double lat_start;
 	double long_end;
 	double lat_end;
-	float cap_cible;
+	float cap_cible = 0;
 	float distance_old;
+	unsigned char dir = 0;
+	float new_distance = 0;
 
 	mediator->addPwmMotorBack(0);
 	mediator->addStateSteeringWheel(12);
@@ -38,15 +41,15 @@ void testCap(Mediator* mediator)
 	// Switch Gps acquisition mode
 	mediator->addModeGps(1);
 	// Update end Gps position
-	long_end = 43.5708618;
-	lat_end = 1.4670463;
+	long_end = 1.4670463;
+	lat_end = 43.5708618;
 	cout << "Init position GPS start, Long:" << long_start << "Lat:"<< lat_start << endl;
 	cout << "Init position GPS end, Long:" << long_end << "Lat:"<< lat_end << endl;
 
 	// Update actual position of the car on the map ??
-		//SetPosition(long_start, lat_start);
+		navigation->m_map->SetPosition(long_start, lat_start);
 	// update destination of the car on the map ??
-		//SetDestination(long_end,lat_end);
+		navigation->m_map->SetDestinationManually(long_end,lat_end);
 	usleep(3000000);
 	do
 	{
@@ -64,33 +67,33 @@ void testCap(Mediator* mediator)
 		usleep(3000000);
 		mediator->printGps();
 		// Update actual position of the car on the map ??
-			//SetPosition(mediator->getLongitude(), mediator->getLatitude());
+			navigation->m_map->SetPosition(mediator->getLongitude(), mediator->getLatitude());
 		// Update new cap
-			//cap_cible = CapAlgorithm();
+			cap_cible = navigation->m_map->GetCorrectiveHeading(5.0);
 		cout << "Cap cible calculé :" << cap_cible << endl;
+			new_distance = navigation->m_map->GetFrontAndTurnDistance(cap_cible);
+			dir = navigation->m_map->GetFront();
+		cout << "Direction :" << (int)dir << " sur " << new_distance<< "m"<<endl;
+			
 		delay(3000000);
-		if(cap_cible > 0 )
-		{ // turn left
-			cout << "Vers la Gauche" << endl;
-			mediator->addStateSteeringWheel(6);
+		cout << "Vers la Gauche" << endl;
+		mediator->addStateSteeringWheel(dir);
 			usleep(2000000);
+		distance_old = mediator->getDistance();
+		while((mediator->getDistance()-distance_old)>=new_distance)
+		{
+			usleep(100);
 		}
-		else
-		{ // turn right
-			cout << "Vers la Droite" << endl;
-			mediator->addStateSteeringWheel(18);
-			usleep(2000000);
-		}
-		cout << "Start moteur" << endl;
-		mediator->addPwmMotorBack(30);
-		usleep(2000000);
 		cout << "Stop moteur" << endl;
 		mediator->addPwmMotorBack(0);
+		// Update distance counter from car
+		distance_old = mediator->getDistance();
 		usleep(2000000);
-		cout << "Center" << endl;
 		mediator->addStateSteeringWheel(12);
 		usleep(2000000);
-	}while(1/*!test_fin()*/);
+		// Update actual position of the car on the map ??
+			navigation->m_map->SetPosition(mediator->getLongitude(), mediator->getLatitude());		
+	}while(navigation->m_map->DirectDistance(mediator->getLatitude(),mediator->getLongitude(),lat_end,long_end)>=2.0);
 	cout << " VALIDATION OBJECTIF !!!!!!!!! GRANDE VALIDATION !!!!!" << endl;
 }
 
@@ -140,7 +143,7 @@ void testSpi(Mediator *mediator){
 
 }
 
-void manuel(Mediator *mediator)
+void manuel(Mediator *mediator,Navigation* navigation)
 {
 	char touche;
 	int cpt;
@@ -240,7 +243,7 @@ void manuel(Mediator *mediator)
 					break;
 
 				case 'x': // Scenario
-					testCap(mediator);
+					testCap(mediator,navigation);
 					break;
 
 			}// SWITCH
@@ -349,8 +352,8 @@ int main()
 	//Music* music;
 	//music = Music::instance();
 
-	//Navigation *navigator;
-	//navigator = Navigation::instance();
+	Navigation* navigation;
+	navigation = Navigation::instance();
 
 	//Controler *controler;
 	//controler = Controler::instance();
@@ -358,7 +361,7 @@ int main()
 	//testSpi(mediator, spi);
 	//testKey(mediator,spi,gps);
 
-	manuel(mediator);
+	manuel(mediator, navigation);
 	while(1)
 	{
 		usleep(1000000);
