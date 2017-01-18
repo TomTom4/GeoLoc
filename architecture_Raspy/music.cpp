@@ -3,6 +3,8 @@
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
+
 
 #include "Mediator.h"
 #include "music.h"
@@ -48,8 +50,10 @@ void* Music::thMusic(void)
 {
 	while(1)
 	{
+		cout << " th music " << endl;
 		if(MPG123_OK == mpg123_open(mh, table_music[m_mediator->getCptMusic()]));
 		{
+			cout << " mpg123 ok " << endl;	
 			mpg123_getformat(mh, &rate, &channels, &encoding);
 			format.bits = mpg123_encsize(encoding) * BITS;
 			format.rate = rate;
@@ -60,6 +64,7 @@ void* Music::thMusic(void)
 			while (mpg123_read(mh, buffer, buffer_size, &done) == MPG123_OK && m_mediator->getCptMusic() == cpt_music_old)
 	    {
 				ao_play(dev, (char*)buffer, done);
+				usleep(1000);
 	    }//WHILE
 			cpt_music_old = m_mediator->getCptMusic();
 		}
