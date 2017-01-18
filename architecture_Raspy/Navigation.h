@@ -13,7 +13,7 @@ class Navigation{
 		Navigation();
 		//attributs
 		static Navigation *s_instance;
-		Map m_map;
+		Map* m_map;
 	
 };
 
