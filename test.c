@@ -6,8 +6,9 @@
 #include<stdlib.h> //exit(0);
 #include<arpa/inet.h>
 #include<sys/socket.h>
- 
-#define SERVER "192.168.8.103"
+#include <unistd.h>
+
+#define SERVER "192.168.8.101"
 #define BUFLEN 1024  //Max length of buffer
 #define PORT 8888   //The port on which to send data
  
@@ -41,6 +42,8 @@ int main(void)
  
     while(1)
     {
+
+	usleep(10000);
         //printf("Enter message : ");
         //gets(message);
          
