@@ -165,7 +165,7 @@ void manuel(Mediator *mediator,Navigation* navigation)
 
 	while(1)
 	{
-		usleep(250000);
+		usleep(1000000);
 		if(kbhit())
 		{
 			touche = getchar();
@@ -349,8 +349,8 @@ int main()
 	Gps* gps;
 	gps = Gps::instance();
 
-	//Music* music;
-	//music = Music::instance();
+	Music* music;
+	music = Music::instance();
 
 	Navigation* navigation;
 	navigation = Navigation::instance();
