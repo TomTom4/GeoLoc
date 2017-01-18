@@ -19,7 +19,7 @@
 
 using namespace std;
 
-void testCap(Mediator* mediator)
+void testCap(Mediator* mediator,Navigation* navigation)
 {
 	double long_start;
 	double lat_start;
@@ -41,8 +41,8 @@ void testCap(Mediator* mediator)
 	// Switch Gps acquisition mode
 	mediator->addModeGps(1);
 	// Update end Gps position
-	long_end = 43.5708618;
-	lat_end = 1.4670463;
+	long_end = 1.4670463;
+	lat_end = 43.5708618;
 	cout << "Init position GPS start, Long:" << long_start << "Lat:"<< lat_start << endl;
 	cout << "Init position GPS end, Long:" << long_end << "Lat:"<< lat_end << endl;
 

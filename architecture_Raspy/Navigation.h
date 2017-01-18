@@ -8,12 +8,13 @@ class Navigation{
 	public:
 		//methodes
 		static Navigation *instance();
+		Map* m_map;
 	private:
 		//Constructeur
 		Navigation();
 		//attributs
 		static Navigation *s_instance;
-		Map* m_map;
+		
 	
 };
 

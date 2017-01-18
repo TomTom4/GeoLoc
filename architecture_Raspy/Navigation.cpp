@@ -15,5 +15,5 @@ using namespace std;
 	}
 	Navigation::Navigation()
 	{
-		m_map = nex Map("heavy.osm");
+		m_map = new Map("heavy.osm");
 	}

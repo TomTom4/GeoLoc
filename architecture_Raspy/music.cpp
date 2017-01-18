@@ -24,6 +24,7 @@ Music* Music::instance()
 
 Music::Music()
 {
+	cout << " constructeur music " << endl;
 	strcpy(table_music[0],"music/music1.mp3");
 	strcpy(table_music[1],"music/music1.mp3");
 	strcpy(table_music[2],"music/music2.mp3");
