@@ -119,9 +119,9 @@ float Map::GetCorrectiveHeading(float DrivenDistance){
 
 		std::cout << "Distance normalement égale à 5 après Correction de position: " << DirectDistance(CurrentPosition_Lon, CurrentPosition_Lat, PreviousPosition_Lon, PreviousPosition_Lat) << '\n';
 		if (PathToDestination.size() != 0 || ManualDestinationSet == 1){
+			if (ManualDestinationSet == 0){
 				double Local_DestinationPosition_Lon;
 				double Local_DestinationPosition_Lat;
-			if (ManualDestinationSet == 0){
 				if (CurrentIntermediateDestinationNode != -1){
 					Local_DestinationPosition_Lon = PathToDestination[CurrentIntermediateDestinationNode]->GetLongitude();
 					Local_DestinationPosition_Lat = PathToDestination[CurrentIntermediateDestinationNode]->GetLatitude();
@@ -282,6 +282,10 @@ void Map::DisplayPath(int close){
 			std::cout << "Can't display a path without nodes" << '\n';
 		}
 	}
+}
+
+int Map::GetFront(){
+	return Front;
 }
 
 int Map::GetCloseDisplayX(double lon){
@@ -485,6 +489,33 @@ double Map::WhichRoadWithLatLon(){
 	WhichRoad(CurrentPosition_Lon,CurrentPosition_Lat);
 	std::cout << "Currently on road : " << CurrentRoad << '\n';
 	return CurrentRoad;
+}
+
+
+float Map::GetFrontAndTurnDistance(float angle){
+    if (angle < 0){     // RIGHT TURN
+        if (angle > -30){                 // angle btw -30 and 0
+            Front = 16;
+            return (-angle*2/30);
+        } else if (angle > -65){          // angle btw -65 and -30
+            Front = 20;
+            return (-angle*2/65);
+        } else {                          // angle above -65
+            Front = 24;
+            return ((-angle)-65)/8.4;
+        }
+    } else {            // LEFT TURN
+        if (angle < 20){
+            Front = 8;
+            return (angle/11);
+        } else if (angle < 40){
+            Front = 2;
+            return (angle/40);
+        } else {
+            Front = 0;
+            return (angle-40.5)/16.5;
+        }
+    }
 }
 
 
