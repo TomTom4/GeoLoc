@@ -40,7 +40,7 @@ Spi* Spi::instance()
 	void* Spi::thSpi(void)
 	{
 		while(1)
-		{
+		{	
 			usleep(100000);
 			Spi::majCar();
 				//cout << " Th SPI " << endl << flush;

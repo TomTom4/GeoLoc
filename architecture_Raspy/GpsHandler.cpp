@@ -130,13 +130,8 @@ void Gps::readLineFromGps()
 
 void Gps::updatePos()
 {
-  bool ack = false;
-  do
-  {
-    	//cout << "av readline" << endl << flush;
-	readLineFromGps();
-    	//cout << "ap readline" << endl << flush;
-	switch (minmea_sentence_id(buffer, false))
+    	readLineFromGps();
+    	switch (minmea_sentence_id(buffer, false))
     {
       case MINMEA_SENTENCE_GGA:
       {
@@ -149,14 +144,14 @@ void Gps::updatePos()
            second = floor((longitude - degre*1000000.0 - minute*10000.0))/100.0;
            longitude = degre+minute/60.0+second/3600.0;
             //printf(" long : %f = %f + %f + %f\n",longitude,degre,minute/60.0,second/3600.0);
-
+		//cout << "long : "<< degre << "°  "<< minute<< "'  " << second << "''  "<< endl;
            latitude = (double)(frame_gga.latitude.value);
            degre = floor(latitude/1000000.0);
            minute = floor((latitude-degre*1000000.0)/10000.0);
            second = floor((latitude - degre*1000000.0 - minute*10000.0))/100.0;
            latitude = degre+minute/60.0+second/3600.0;
             //printf(" lat : %f = %f + %f + %f\n",latitude,degre,minute/60.0,second/3600.0);
-
+	//cout << "lat : "<< degre << "° " << minute<< "' "<< second << "'' "<< endl;
             //cout << " long now : "<< (float)longitude << endl;
             //cout << " lat now : " << (float)latitude << endl;
            if(m_mediator->getModeGps() == 1)
@@ -165,14 +160,12 @@ void Gps::updatePos()
            	 {
                m_mediator->addLatitude(latitude);
                m_mediator->addLongitude(longitude);
-               ack = true;
              }
            }
            else
            {
              m_mediator->addLatitude(latitude);
              m_mediator->addLongitude(longitude);
-             ack = true;
            }
          }
          else
@@ -202,21 +195,19 @@ void Gps::updatePos()
 
             //cout << " long now : "<< (float)longitude << endl;
             //cout << " lat now : " << (float)latitude << endl;
-
+	
            if(m_mediator->getModeGps() == 1)
            {
              if(Gps::DirectDistance(m_mediator->getLatitude(),m_mediator->getLongitude(), latitude, longitude) < 1.0)
            	 {
                m_mediator->addLatitude(latitude);
                m_mediator->addLongitude(longitude);
-               ack = true;
              }
            }
            else
            {
              m_mediator->addLatitude(latitude);
              m_mediator->addLongitude(longitude);
-             ack = true;
            }
          }
          else
@@ -235,7 +226,6 @@ void Gps::updatePos()
         //cout << "$xxxxx sentence is not parsed" << endl;
       } break;
     }
-  }while(ack == false);
 }
 
 double Gps::getLong(void)
