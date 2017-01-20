@@ -90,5 +90,22 @@ void Imu::readHeading(void)
 
 
 int socketInit(){
+	int sockFileDescriptor, RWcharNumber;
+	struct sockaddr_in server_addr;
 
+	sockFileDescriptor = socket( AF_INET, SOCK_DGRAM, 0);
+	if(sockFileDescriptor  == -1)
+		cout << "You don't freaking work biatch !! "<<endl ;
+
+	bzero((char *) &server_addr, sizeof(server_addr));// here it set server_addr in memory with zero values
+
+
+	server_addr.sin_family = AF_INET;// should alway be that value
+	server_addr.sin_port = htons(PORT);// very important to convert using htons
+	server_addr.sin_addr.s_addr = INADDR_ANY;// this is a UDP Server, doesn't need to speak with anyone
+
+	if(bind(sockFileDescriptor, (struct sockaddr *) &server_addr, sizeof(server_addr)) < 0)
+		cout << "it doesn't bind you freaking basterd!!!!"<< endl;
+
+	return sockFileDescriptor;
 }
