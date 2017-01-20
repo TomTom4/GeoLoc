@@ -502,7 +502,7 @@ float Map::GetFrontAndTurnDistance(float angle){
             return (-angle*2/65);
         } else {                          // angle above -65
             Front = 24;
-            return ((-angle)-65)/8.4;
+            return ((-angle)-17)/37.4;
         }
     } else {            // LEFT TURN
         if (angle < 20){
@@ -513,7 +513,7 @@ float Map::GetFrontAndTurnDistance(float angle){
             return (angle/40);
         } else {
             Front = 0;
-            return (angle-40.5)/16.5;
+            return (angle-24.4)/31.35;
         }
     }
 }
