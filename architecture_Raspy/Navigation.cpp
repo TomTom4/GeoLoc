@@ -10,7 +10,10 @@ using namespace std;
 	// this function replace the construtor of the object
 	Navigation *Navigation::instance(){
 		if(!Navigation::s_instance)
-			Navigation::s_instance = new Navigation;
+			Navigation::s_instance = new Navigation;		
 		return Navigation::s_instance;
 	}
-	Navigation::Navigation():m_map("heavy.osm"){}
+	Navigation::Navigation()
+	{
+		m_map = new Map("heavy.osm");
+	}

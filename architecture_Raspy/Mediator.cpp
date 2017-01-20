@@ -207,6 +207,16 @@ using namespace std;
 		Mediator::unlockMutex();
 		return buff;
 	}
+
+	//** IMU
+	int Mediator::getHeadingImu(void)
+	{
+		Mediator::lockMutex();
+		buff = m_model->getHeadingImu();
+		Mediator::unlockMutex();
+		return buff;
+	}
+
 	//** Music
 	int Mediator::getCptMusic()
 	{
@@ -364,6 +374,14 @@ using namespace std;
 	{
 		Mediator::lockMutex();
 		m_model->addModeGps(val);
+		Mediator::unlockMutex();
+	}
+
+	//** IMU
+	void Mediator::addHeadingImu(int val)
+	{
+		Mediator::lockMutex();
+		m_model->addHeadingImu(val);
 		Mediator::unlockMutex();
 	}
 	//** Music

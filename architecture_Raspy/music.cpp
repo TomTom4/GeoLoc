@@ -3,6 +3,8 @@
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
+
 
 #include "Mediator.h"
 #include "music.h"
@@ -24,6 +26,7 @@ Music* Music::instance()
 
 Music::Music()
 {
+	cout << " constructeur music " << endl;
 	strcpy(table_music[0],"music/music1.mp3");
 	strcpy(table_music[1],"music/music1.mp3");
 	strcpy(table_music[2],"music/music2.mp3");
@@ -47,19 +50,24 @@ void* Music::thMusic(void)
 {
 	while(1)
 	{
-		mpg123_open(mh, table_music[m_mediator->getCptMusic()]);
-		mpg123_getformat(mh, &rate, &channels, &encoding);
-		format.bits = mpg123_encsize(encoding) * BITS;
-		format.rate = rate;
-		format.channels = channels;
-		format.byte_format = AO_FMT_NATIVE;
-		format.matrix = 0;
-		dev = ao_open_live(driver, &format, NULL);
-		while (mpg123_read(mh, buffer, buffer_size, &done) == MPG123_OK && m_mediator->getCptMusic() == cpt_music_old)
-    {
-			ao_play(dev, (char*)buffer, done);
-    }//WHILE
-		cpt_music_old = m_mediator->getCptMusic();
+		cout << " th music " << endl;
+		if(MPG123_OK == mpg123_open(mh, table_music[m_mediator->getCptMusic()]));
+		{
+			cout << " mpg123 ok " << endl;	
+			mpg123_getformat(mh, &rate, &channels, &encoding);
+			format.bits = mpg123_encsize(encoding) * BITS;
+			format.rate = rate;
+			format.channels = channels;
+			format.byte_format = AO_FMT_NATIVE;
+			format.matrix = 0;
+			dev = ao_open_live(driver, &format, NULL);
+			while (mpg123_read(mh, buffer, buffer_size, &done) == MPG123_OK && m_mediator->getCptMusic() == cpt_music_old)
+	    {
+				ao_play(dev, (char*)buffer, done);
+				usleep(1000);
+	    }//WHILE
+			cpt_music_old = m_mediator->getCptMusic();
+		}
 	}
 	free(buffer);
 	ao_close(dev);
