@@ -32,8 +32,12 @@ public:
 	//** METHODS
 	void readHeading();
 	int socketInit();
+
 	void readMessage(int sockfd);
 	void ParseMessage();
+  
+	void setHeadingImu();
+
 	//** THREAD
 	void* thImu(void);
 	static void* thImuHelper(void* context);

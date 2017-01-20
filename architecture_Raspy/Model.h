@@ -34,6 +34,8 @@ class Model
 		double getLongitude(void);
 		double getLatitude(void);
 		int getModeGps(void);
+		//** IMU
+		int getHeadingImu();
 		//** Music
 		int getCptMusic(void);
 
@@ -63,6 +65,9 @@ class Model
 		void addLongitude(double val);
 		void addLatitude(double val);
 		void addModeGps(int val);
+		//** IMU
+		void addHeadingImu(int headingImu);
+
 		//** Music
 		void addCptMusic(int val);
 

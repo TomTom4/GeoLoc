@@ -55,11 +55,13 @@ void *Imu::thImuHelper(void* context)
 
 void Imu::readMessage(int sockfd)
 {
+
 	bzero(m_buffer,8192);
 	RWcharNumber = read(sockFileDescriptor, m_buffer, 8191);
 	if( RWcharNumber < 0 )
 		cout << "we are in PLS...." << endl;
 }
+
 
 void parseMessage(void)
 {
@@ -89,4 +91,11 @@ int socketInit(){
 		cout << "it doesn't bind you freaking basterd!!!!"<< endl;
 
 	return sockFileDescriptor;
+}
+
+
+void setHeadingImu(){
+	if(m_magnetic < 50 )
+		m_mediator.addHeadingImu(m_cap);
+	else cout << "Problème de cap!"
 }
