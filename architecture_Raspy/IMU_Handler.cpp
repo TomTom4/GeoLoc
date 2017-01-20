@@ -13,7 +13,7 @@
 #include "Model.h"
 #include "const.hpp"
 #include "Mediator.h"
-#include "Spi.h"
+#include "Imu_Handler.h"
 
 using namespace std;
 
