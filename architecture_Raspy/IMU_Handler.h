@@ -33,7 +33,7 @@ public:
 	void readHeading();
 	int socketInit();
 	string readMessage(int sockfd);
-	void ParseMessage( string message);
+	void ParseMessage();
 	//** THREAD
 	void* thImu(void);
 	static void* thImuHelper(void* context);
