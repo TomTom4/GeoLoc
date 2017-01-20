@@ -7,6 +7,7 @@
 #include "GpsHandler.h"
 #include "Navigation.h"
 #include "kbhit.h"
+#include "IMU_Handler.h"
 
 class GeoCar{
 

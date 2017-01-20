@@ -23,59 +23,91 @@ IMU* Imu::instance()
 {
 	if(!Imu::s_instance)
 		Imu::s_instance = new Imu();
-		Imu::s_instance->m_mediator = Mediator::instance();
+	Imu::s_instance->m_mediator = Mediator::instance();
 	return Imu::s_instance;
 }
 
-	Imu::Imu()
-	{ // Constructor
+Imu::Imu()
+{
+// Constructor
 
+<<<<<<< HEAD
 		//** Create Thread
 		result_code = pthread_create(&th_imu,NULL,thImuHelper,this);
 	  if(result_code == 0)
 	  cout << "Creation Thread IMU - Ok" << endl;
 	}
+=======
+	//** Create Thread
+	result_code = pthread_create(&th_spi,NULL,thImuHelper,this);
+	if(result_code == 0)
+  		cout << "Creation Thread IMU - Ok" << endl;
+}
 
-	void* Imu::thImu(void)
-	{
-		while(1)
-		{
+void* Imu::thImu(void)
+{
+
+	while(1){
+>>>>>>> 9c02c82a78fd75eb6575af10e36b9e86602f1b7f
+
+			//Imu::ComputeAverage();
 			usleep(100000);
 			Imu::readHeading();
+<<<<<<< HEAD
 		}
+=======
+>>>>>>> 9c02c82a78fd75eb6575af10e36b9e86602f1b7f
 	}
+}
 
-	void *Imu::thImuHelper(void* context)
-	{
-	  return((Imu*)context)->Imu::thImu();
-	}
+void *Imu::thImuHelper(void* context)
+{
+	return((Imu*)context)->Imu::thImu();
+}
 
-	void Imu::readHeading(void)
-	{
-		int portNumber, sockFileDescriptor, newSockFileDescriptor, clientAddressLength, RWcharNumber;
-		struct sockaddr_in server_addr, client_addr ;
-		char buffer[8192];
+void Imu::readMessage(int sockfd)
+{
 
-		sockFileDescriptor = socket( AF_INET, SOCK_DGRAM, 0);
-		if(sockFileDescriptor  == -1)
-			cout << "You don't freaking work biatch !! "<<endl ;
-
-		bzero((char *) &server_addr, sizeof(server_addr));// here it set server_addr in memory with zero values
+	bzero(m_buffer,8192);
+	RWcharNumber = read(sockFileDescriptor, m_buffer, 8191);
+	if( RWcharNumber < 0 )
+		cout << "we are in PLS...." << endl;
+}
 
 
-		server_addr.sin_family = AF_INET;// should alway be that value
-		server_addr.sin_port = htons(PORT);// very important to convert using htons
-		server_addr.sin_addr.s_addr = INADDR_ANY;// this is a UDP Server, doesn't need to speak with anyone
+void parseMessage(void)
+{
+	string MessageImu(m_buffer);
+	int repere = MessageImu.find(" 5,")
+	MessageImu = MessageImu.substr(0, repere);
+	float [m] = MessageImu.split(',');
+	m_cap = atan2(m[1],m[0])/pi)*180.0)
+}
 
-		if(bind(sockFileDescriptor, (struct sockaddr *) &server_addr, sizeof(server_addr)) < 0)
-			cout << "it doesn't bind you freaking basterd!!!!"<< endl;
+int socketInit(){
+	int sockFileDescriptor, RWcharNumber;
+	struct sockaddr_in server_addr;
 
-		while(1){
-			bzero(buffer,8192);
-			RWcharNumber = read(sockFileDescriptor, buffer, 8191);
-			if( RWcharNumber < 0 )
-				cout << "we are in PLS...." << endl;
-			else
-				cout << "this is the fucking message :" << buffer << endl ;
-		}
-	}
+	sockFileDescriptor = socket( AF_INET, SOCK_DGRAM, 0);
+	if(sockFileDescriptor  == -1)
+		cout << "You don't freaking work biatch !! "<<endl ;
+
+	bzero((char *) &server_addr, sizeof(server_addr));// here it set server_addr in memory with zero values
+
+
+	server_addr.sin_family = AF_INET;// should alway be that value
+	server_addr.sin_port = htons(PORT);// very important to convert using htons
+	server_addr.sin_addr.s_addr = INADDR_ANY;// this is a UDP Server, doesn't need to speak with anyone
+
+	if(bind(sockFileDescriptor, (struct sockaddr *) &server_addr, sizeof(server_addr)) < 0)
+		cout << "it doesn't bind you freaking basterd!!!!"<< endl;
+
+	return sockFileDescriptor;
+}
+
+
+void setHeadingImu(){
+	if(m_magnetic < 50 )
+		m_mediator.addHeadingImu(m_cap);
+	else cout << "Problème de cap!"
+}

@@ -3,10 +3,24 @@
 
 #include <thread>
 #include <pthread.h>
+#include <string>
 
 #include "Model.h"
 #include "const.hpp"
 #include "Mediator.h"
+
+#include <iostream>
+#include <string>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <strings.h>
+#include <unistd.h>
+
+#define PORT 5555
+#define HOST NULL
+
+#include<math>
 
 using namespace std;
 
@@ -16,7 +30,14 @@ public:
 	//** SINGLETON
 	static Imu* instance();
 	//** METHODS
-	void readHeading(void);
+	void readHeading();
+	int socketInit();
+
+	void readMessage(int sockfd);
+	void ParseMessage();
+  
+	void setHeadingImu();
+
 	//** THREAD
 	void* thImu(void);
 	static void* thImuHelper(void* context);
@@ -26,9 +47,12 @@ private:
 	Imu();
 	Mediator *m_mediator;
 	static Imu *s_instance;
+	string m_message;
+	int m_magnetic;
+	int m_cap;
+	char m_buffer[8192];
 
 	//** ATTRIBUTES
-
 
 	//** ERROR
 	int result_code;

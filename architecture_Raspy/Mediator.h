@@ -39,8 +39,13 @@ class Mediator{
 		double getLongitude(void);
 		double getLatitude(void);
 		int getModeGps(void);
+<<<<<<< HEAD
 		//**IMU
 		int getHeadingImu(void);
+=======
+		//** IMU
+		int getHeadingImu();
+>>>>>>> 9c02c82a78fd75eb6575af10e36b9e86602f1b7f
 		//** Music
 		int getCptMusic(void);
 
@@ -70,8 +75,13 @@ class Mediator{
 		void addLongitude(double val);
 		void addLatitude(double val);
 		void addModeGps(int val);
+<<<<<<< HEAD
 		//**IMU
 		void addHeadingImu(int val);
+=======
+		//** IMU
+		void addHeadingImu(int headingImu);
+>>>>>>> 9c02c82a78fd75eb6575af10e36b9e86602f1b7f
 		//** Music
 		void addCptMusic(int val);
 

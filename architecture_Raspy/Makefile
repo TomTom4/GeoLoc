@@ -11,10 +11,10 @@ LDFLAGS = -L/usr/local/lib  -lopencv_core -lopencv_imgproc -lopencv_highgui -lop
 
 MUSICFLAGS = -lmpg123 -lao
 
-all: Geocar.o Mediator.o Model.o Navigation.o Controler.o GpsHandler.o minmea.o Spi.o Location.o LocationInterface.o router.o parserV1.o kbhit.o music.o
-	$(CXX) -o geocar_exec Geocar.o Mediator.o Model.o Navigation.o Controler.o GpsHandler.o minmea.o Spi.o Location.o LocationInterface.o router.o parserV1.o kbhit.o music.o $(WPFLAG) $(THFLAG) $(LIBS) $(LDFLAGS) $(CPPFLAGS) $(MUSICFLAGS)
+all: Geocar.o Mediator.o Model.o Navigation.o Controler.o GpsHandler.o minmea.o Spi.o Location.o LocationInterface.o router.o parserV1.o kbhit.o music.o IMU_Handler.o
+	$(CXX) -o geocar_exec Geocar.o Mediator.o Model.o Navigation.o Controler.o GpsHandler.o minmea.o Spi.o Location.o LocationInterface.o router.o parserV1.o kbhit.o IMU_Handler.o music.o $(WPFLAG) $(THFLAG) $(LIBS) $(LDFLAGS) $(CPPFLAGS) $(MUSICFLAGS)
 
-Geocar.o: Geocar.cpp Geocar.h Mediator.h Controler.h Spi.h GpsHandler.h Navigation.h kbhit.h music.h parserV1.hpp
+Geocar.o: Geocar.cpp Geocar.h Mediator.h Controler.h Spi.h GpsHandler.h Navigation.h kbhit.h music.h parserV1.hpp IMU_Handler.h
 	$(CXX) $(CFLAG) $(WALLFLAG) Geocar.cpp -o Geocar.o $(WPFLAG) $(THFLAG) $(LIBS) $(LDFLAGS) $(CPPFLAGS) $(MUSICFLAGS)
 
 Mediator.o: Mediator.cpp Model.h Mediator.h
@@ -44,6 +44,9 @@ parserV1.o : parserV1.cpp rapidxml_utils.hpp router.hpp parserV1.hpp
 
 kbhit.o: kbhit.cpp kbhit.h
 	$(CXX) $(CFLAG) $(WALLFLAG) kbhit.cpp -o kbhit.o
+
+IMU_Handler.o: IMU_Handler.cpp IMU_Handler.h Mediator.h
+	$(CXX) $(CFLAG) $(WALLFLAG) IMU_Handler.cpp -o IMU_Handler.o $(WPFLAG) $(THFLAGS) $(CPPFLAGS)
 music.o: music.cpp music.h Mediator.h
 	$(CXX) $(CFLAG) $(WALLFLAG) music.cpp -o music.o $(THFLAGS) $(CPPFLAGS) $(MUSICFLAGS)
 #SensorFusion.o: SensorFusion.cpp
