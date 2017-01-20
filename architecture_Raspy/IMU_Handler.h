@@ -2,7 +2,7 @@
 #define DEF_IMU_HANDLER
 
 #include <thread>
-#include <pthread.h>	
+#include <pthread.h>
 #include <string>
 
 #include "Model.h"
@@ -20,7 +20,7 @@
 #define PORT 5555
 #define HOST NULL
 
-
+#include<math>
 
 using namespace std;
 
@@ -32,8 +32,8 @@ public:
 	//** METHODS
 	void readHeading();
 	int socketInit();
-	string readMessage(int sockfd);
-	void ParseMessage( string message);
+	void readMessage(int sockfd);
+	void ParseMessage();
 	//** THREAD
 	void* thImu(void);
 	static void* thImuHelper(void* context);
