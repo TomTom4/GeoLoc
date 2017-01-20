@@ -40,6 +40,7 @@ IMU* Imu::instance()
 	{
 		while(1)
 		{
+			//Imu::ComputeAverage();
 			usleep(100000);
 			Imu::readHeading();
 
@@ -72,11 +73,17 @@ IMU* Imu::instance()
 			cout << "it doesn't bind you freaking basterd!!!!"<< endl;
 
 		while(1){
-			bzero(buffer,8192);
-			RWcharNumber = read(sockFileDescriptor, buffer, 8191);
-			if( RWcharNumber < 0 )
-				cout << "we are in PLS...." << endl;
-			else
-				cout << "this is the fucking message :" << buffer << endl ;
 		}
+	}
+
+	string Imu::readMessage(int sockfd)
+	{
+		bzero(buffer,8192);
+		RWcharNumber = read(sockFileDescriptor, buffer, 8191);
+		if( RWcharNumber < 0 )
+			cout << "we are in PLS...." << endl;
+		else
+			cout << "this is the fucking message :" << buffer << endl ;
+		string str(buffer);
+
 	}
