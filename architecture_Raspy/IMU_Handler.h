@@ -20,7 +20,7 @@
 #define PORT 5555
 #define HOST NULL
 
-#include<math>
+#include<math.h>
 
 using namespace std;
 
@@ -34,7 +34,7 @@ public:
 	int socketInit();
 
 	void readMessage(int sockfd);
-	void ParseMessage();
+	void parseMessage();
   
 	void setHeadingImu();
 

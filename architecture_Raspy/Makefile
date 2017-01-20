@@ -49,10 +49,8 @@ IMU_Handler.o: IMU_Handler.cpp IMU_Handler.h Mediator.h
 	$(CXX) $(CFLAG) $(WALLFLAG) IMU_Handler.cpp -o IMU_Handler.o $(WPFLAG) $(THFLAGS) $(CPPFLAGS)
 music.o: music.cpp music.h Mediator.h
 	$(CXX) $(CFLAG) $(WALLFLAG) music.cpp -o music.o $(THFLAGS) $(CPPFLAGS) $(MUSICFLAGS)
-#SensorFusion.o: SensorFusion.cpp
-#	$(CXX) $(CFLAG) $(WALLFLAG) SensorFusion.cpp -o SensorFusion.o
-#ImuHandler.o: ImuHandler.cpp ImuHandler.h
-#	$(CXX) $(CFLAG) $(WALLFLAG) ImuHandler.cpp -o ImuHandler.o $(WPFLAG) $(THFLAG)
+IMU_Handler.o: IMU_Handler.cpp IMU_Handler.h
+	$(CXX) $(CFLAG) $(WALLFLAG) IMU_Handler.cpp -o IMU_Handler.o $(WPFLAG) $(THFLAG)
 
 clean:
 	rm -rf *.o

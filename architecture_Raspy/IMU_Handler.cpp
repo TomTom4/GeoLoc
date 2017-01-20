@@ -13,13 +13,13 @@
 #include "Model.h"
 #include "const.hpp"
 #include "Mediator.h"
-#include "Imu_Handler.h"
+#include "IMU_Handler.h"
 
 using namespace std;
 
-IMU *Imu::s_instance = 0;
+Imu *Imu::s_instance = 0;
 
-IMU* Imu::instance()
+Imu* Imu::instance()
 {
 	if(!Imu::s_instance)
 		Imu::s_instance = new Imu();
@@ -31,32 +31,25 @@ Imu::Imu()
 {
 // Constructor
 
-<<<<<<< HEAD
 		//** Create Thread
 		result_code = pthread_create(&th_imu,NULL,thImuHelper,this);
 	  if(result_code == 0)
 	  cout << "Creation Thread IMU - Ok" << endl;
 	}
-=======
-	//** Create Thread
-	result_code = pthread_create(&th_spi,NULL,thImuHelper,this);
-	if(result_code == 0)
-  		cout << "Creation Thread IMU - Ok" << endl;
-}
 
 void* Imu::thImu(void)
 {
+	int sockfd; 
+	sockfd = socketInit();
+	
 
 	while(1){
->>>>>>> 9c02c82a78fd75eb6575af10e36b9e86602f1b7f
 
-			//Imu::ComputeAverage();
-			usleep(100000);
-			Imu::readHeading();
-<<<<<<< HEAD
-		}
-=======
->>>>>>> 9c02c82a78fd75eb6575af10e36b9e86602f1b7f
+		//Imu::ComputeAverage();
+		usleep(100000);
+		Imu::readMessage(sockfd);
+		Imu::parseMessage();
+			
 	}
 }
 
@@ -67,25 +60,25 @@ void *Imu::thImuHelper(void* context)
 
 void Imu::readMessage(int sockfd)
 {
-
-	bzero(m_buffer,8192);
-	RWcharNumber = read(sockFileDescriptor, m_buffer, 8191);
+	int RWcharNumber ;
+	bzero(Imu::m_buffer,8192);
+	RWcharNumber = read(sockfd, Imu::m_buffer, 8191);
 	if( RWcharNumber < 0 )
 		cout << "we are in PLS...." << endl;
 }
 
 
-void parseMessage(void)
+void Imu::parseMessage(void)
 {
-	string MessageImu(m_buffer);
-	int repere = MessageImu.find(" 5,")
+	string MessageImu(Imu::m_buffer);
+	int repere = MessageImu.find(" 5,");
 	MessageImu = MessageImu.substr(0, repere);
-	float [m] = MessageImu.split(',');
-	m_cap = atan2(m[1],m[0])/pi)*180.0)
+	float m[] = MessageImu.split(',');
+	Imu::m_cap = atan2(m[1],m[0])/pi)*180.0)
 }
 
-int socketInit(){
-	int sockFileDescriptor, RWcharNumber;
+int Imu::socketInit(){
+	int sockFileDescriptor;
 	struct sockaddr_in server_addr;
 
 	sockFileDescriptor = socket( AF_INET, SOCK_DGRAM, 0);
@@ -106,8 +99,6 @@ int socketInit(){
 }
 
 
-void setHeadingImu(){
-	if(m_magnetic < 50 )
-		m_mediator.addHeadingImu(m_cap);
-	else cout << "Problème de cap!"
+void Imu::setHeadingImu(){
+	Imu::m_mediator->addHeadingImu(Imu::m_cap);
 }
