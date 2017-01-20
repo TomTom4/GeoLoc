@@ -36,6 +36,8 @@ Model::Model()
   latitude = 0.0;
   mode_gps = 0;
 
+  heading_imu = 0.0;
+
   cpt_music = 0;
 }
 
@@ -131,6 +133,12 @@ double Model::getLatitude(void)
 int Model::getModeGps(void)
 {
   return(mode_gps);
+}
+
+//** IMU
+int Model::getHeadingImu(void)
+{
+  return(heading_imu);
 }
 
 //** Music
@@ -236,6 +244,11 @@ void Model::addLatitude(double val)
 void Model::addModeGps(int val)
 {
   mode_gps = val;
+}
+//** IMU
+void Model::addHeadingImu(int val)
+{
+  heading_imu = val;
 }
 //** Music
 void Model::addCptMusic(int val)
