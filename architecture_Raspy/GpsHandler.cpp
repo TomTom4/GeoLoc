@@ -144,14 +144,14 @@ void Gps::updatePos()
            second = floor((longitude - degre*1000000.0 - minute*10000.0))/100.0;
            longitude = degre+minute/60.0+second/3600.0;
             //printf(" long : %f = %f + %f + %f\n",longitude,degre,minute/60.0,second/3600.0);
-		//cout << "long : "<< degre << "°  "<< minute<< "'  " << second << "''  "<< endl;
+		cout << "long : "<< degre << "°  "<< minute<< "'  " << second << "''  "<< endl;
            latitude = (double)(frame_gga.latitude.value);
            degre = floor(latitude/1000000.0);
            minute = floor((latitude-degre*1000000.0)/10000.0);
            second = floor((latitude - degre*1000000.0 - minute*10000.0))/100.0;
            latitude = degre+minute/60.0+second/3600.0;
             //printf(" lat : %f = %f + %f + %f\n",latitude,degre,minute/60.0,second/3600.0);
-	//cout << "lat : "<< degre << "° " << minute<< "' "<< second << "'' "<< endl;
+	cout << "lat : "<< degre << "° " << minute<< "' "<< second << "'' "<< endl;
             //cout << " long now : "<< (float)longitude << endl;
             //cout << " lat now : " << (float)latitude << endl;
            if(m_mediator->getModeGps() == 1)
@@ -185,14 +185,16 @@ void Gps::updatePos()
            second = floor((longitude - degre*1000000.0 - minute*10000.0))/100.0;
            longitude = degre+minute/60.0+second/3600.0;
             //printf(" long : %f = %f + %f + %f\n",longitude,degre,minute/60.0,second/3600.0);
-
+		cout << "long : "<< degre << "°  "<< minute<< "'  " << second << "''  "<< endl;
+           
            latitude = (double)(frame_rmc.latitude.value);
            degre = floor(latitude/1000000.0);
            minute = floor((latitude-degre*1000000.0)/10000.0);
            second = floor((latitude - degre*1000000.0 - minute*10000.0))/100.0;
            latitude = degre+minute/60.0+second/3600.0;
             //printf(" lat : %f = %f + %f + %f\n",latitude,degre,minute/60.0,second/3600.0);
-
+		cout << "lat : "<< degre << "° " << minute<< "' "<< second << "'' "<< endl;
+        
             //cout << " long now : "<< (float)longitude << endl;
             //cout << " lat now : " << (float)latitude << endl;
 	

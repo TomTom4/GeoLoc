@@ -31,7 +31,7 @@ IMU* Imu::instance()
 	{ // Constructor
 
 		//** Create Thread
-		result_code = pthread_create(&th_spi,NULL,thImuHelper,this);
+		result_code = pthread_create(&th_imu,NULL,thImuHelper,this);
 	  if(result_code == 0)
 	  cout << "Creation Thread IMU - Ok" << endl;
 	}
@@ -42,7 +42,6 @@ IMU* Imu::instance()
 		{
 			usleep(100000);
 			Imu::readHeading();
-
 		}
 	}
 
