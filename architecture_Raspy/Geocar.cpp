@@ -48,29 +48,29 @@ void testCap(Mediator* mediator,Navigation* navigation)
 	cout << " Distance_old = " << distance_old << "m" << endl;
   	
 	// Update start Gps position
-	cout<< "GPS FIX (cin)" << endl;
-	cin >> a;
-	lat_start = 43.570347;
-	long_start = 1.466058;
-		cout << " GPS start TH, Lat:" << lat_start << " - Long:"<< long_start << endl;
-	mediator->getLatitude();
-		cout << "GPS start RE, Lat:" << mediator->getLatitude() << "Long:"<< mediator->getLongitude() << endl;
-	lat_error = lat_start-mediator->getLatitude();
-	long_error = long_start-mediator->getLongitude();
-		cout << " GPS error, Lat:" << lat_error << " - Long:"<< long_error << endl;
+			cout<< "GPS FIX (cin)" << endl;
+			cin >> a;
+			lat_start = 43.570347;
+			long_start = 1.466058;
+			cout << " GPS start TH, Lat:" << lat_start << " - Long:"<< long_start << endl;
+			mediator->getLatitude();
+			cout << "GPS start RE, Lat:" << mediator->getLatitude() << "Long:"<< mediator->getLongitude() << endl;
+			lat_error = lat_start-mediator->getLatitude();
+			long_error = long_start-mediator->getLongitude();
+			cout << " GPS error, Lat:" << lat_error << " - Long:"<< long_error << endl;
 	// Switch Gps acquisition mode
-		mediator->addModeGps(1);
+			mediator->addModeGps(1);
 	// Update end Gps position
-	lat_end = 43.570791;
-	long_end = 1.466920;
-	cout << " GPS end TH, Lat:" << lat_end << " - Long:"<< long_end << endl;
+			lat_end = 43.570791;
+			long_end = 1.466920;
+			cout << " GPS end TH, Lat:" << lat_end << " - Long:"<< long_end << endl;
 
 	// Update actual position of the car on the map ??
-		navigation->m_map->SetPosition(long_start, lat_start);
+			//navigation->m_map->SetPosition(long_start, lat_start);
 	// update destination of the car on the map ??
-		navigation->m_map->SetDestinationManually(long_end,lat_end);
+			//navigation->m_map->SetDestinationManually(long_end,lat_end);
 	
-	cout << "Pause (cin)" << endl;
+	cout << "Pause avant start regul (cin)" << endl;
 	cin >> a;
 	
 	do
@@ -86,26 +86,29 @@ void testCap(Mediator* mediator,Navigation* navigation)
 		cout << "distance 5m = " << distance_reel<<endl;
 		// Update distance counter from car
 		distance_old = mediator->getDistance();
-		cout<< "GPS FIX (cin)" << endl;
-		cin >> a;
-		//cout << "latitude :";
-		//cin >> lat_now;
-		//cout << endl;
+				//cout<< "GPS FIX (cin)" << endl;
+				//cin >> a;
+				//cout << "latitude :";
+				//cin >> lat_now;
+				//cout << endl;
 
-		//cout << "longitude :";
-		//cin >> long_now;
-		//cout << endl;
+				//cout << "longitude :";
+				//cin >> long_now;
+				//cout << endl;
 
-		cout << "GPS now RE, Lat:" << mediator->getLatitude() << "Long:"<< mediator->getLongitude() << endl;
-		cout << "GPS now CORECT, Lat:" << mediator->getLatitude()+lat_error << "Long:"<< mediator->getLongitude()+long_error << endl;
-		cout << "tempo (cin)"<< endl;
-		cin >> a;
+				//cout << "GPS now RE, Lat:" << mediator->getLatitude() << "Long:"<< mediator->getLongitude() << endl;
+				//cout << "GPS now CORECT, Lat:" << mediator->getLatitude()+lat_error << "Long:"<< mediator->getLongitude()+long_error << endl;
+				//cout << "tempo (cin)"<< endl;
+				//cin >> a;
 		// Update actual position of the car on the map
-			navigation->m_map->SetPosition(mediator->getLongitude()+long_error, mediator->getLatitude()+lat_error);
-			//navigation->m_map->SetPosition(long_now, lat_now);
+				//navigation->m_map->SetPosition(mediator->getLongitude()+long_error, mediator->getLatitude()+lat_error);
+				//navigation->m_map->SetPosition(long_now, lat_now);
 		// Update new cap
-			cap_cible = navigation->m_map->GetCorrectiveHeading(5.0);
-		cout << "Cap cible calculé :" << cap_cible << endl;
+				//cap_cible = navigation->m_map->GetCorrectiveHeading(5.0);
+		//cout << "Cap cible calculé :" << cap_cible << endl;
+		
+		cout << "Cap :";
+		cin >> cap_cible;
 			new_distance = navigation->m_map->GetFrontAndTurnDistance(cap_cible);
 			dir = navigation->m_map->GetFront();
 		cout << "Direction :" << (int)dir << " sur " << new_distance<< "m"<<endl;
@@ -133,7 +136,7 @@ void testCap(Mediator* mediator,Navigation* navigation)
 		mediator->addStateSteeringWheel(12);
 		usleep(2000000);
 		// Update actual position of the car on the map ??
-		navigation->m_map->SetPosition(mediator->getLongitude()+long_error, mediator->getLatitude()+lat_error);		
+				//navigation->m_map->SetPosition(mediator->getLongitude()+long_error, mediator->getLatitude()+lat_error);		
 			
 		/*cout << "latitude :";
 		cin >> lat_now;
