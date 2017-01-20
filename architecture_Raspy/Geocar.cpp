@@ -112,13 +112,14 @@ void testCap(Mediator* mediator,Navigation* navigation)
 			new_distance = navigation->m_map->GetFrontAndTurnDistance(cap_cible);
 			dir = navigation->m_map->GetFront();
 		cout << "Direction :" << (int)dir << " sur " << new_distance<< "m"<<endl;
-		cout << "temp (cin)" << endl;
-		cin >> a;
-		
+		//cout << "temp (cin)" << endl;
+		//cin >> a;
+		usleep(1000000);
 		cout << "Set Direction" << endl;
 		mediator->addStateSteeringWheel(dir);
-		cout << "temp (cin)" << endl;
-		cin >> a;
+		usleep(1000000);
+		//cout << "temp (cin)" << endl;
+		//cin >> a;
 		cout << "Start moteur" << endl;
 		mediator->addPwmMotorBack(30);
 		while((mediator->getDistance()-distance_old)<=new_distance)
@@ -132,9 +133,9 @@ void testCap(Mediator* mediator,Navigation* navigation)
 		
 		// Update distance counter from car
 		distance_old = mediator->getDistance();
-		usleep(2000000);
+		usleep(1000000);
 		mediator->addStateSteeringWheel(12);
-		usleep(2000000);
+		usleep(1000000);
 		// Update actual position of the car on the map ??
 				//navigation->m_map->SetPosition(mediator->getLongitude()+long_error, mediator->getLatitude()+lat_error);		
 			

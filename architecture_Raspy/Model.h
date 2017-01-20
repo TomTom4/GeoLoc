@@ -34,6 +34,8 @@ class Model
 		double getLongitude(void);
 		double getLatitude(void);
 		int getModeGps(void);
+		//**IMU 
+		int getHeadingImu(void);	
 		//** Music
 		int getCptMusic(void);
 
@@ -63,6 +65,8 @@ class Model
 		void addLongitude(double val);
 		void addLatitude(double val);
 		void addModeGps(int val);
+		//**IMU
+		void addHeadingImu(int val);	
 		//** Music
 		void addCptMusic(int val);
 
@@ -104,6 +108,9 @@ class Model
 		int mode_gps; // 0 = all datas from GPS are OK
 									// 1 = Only datas at less than 1m compared to
 									// the previous position are OK
+		//** IMU
+		int heading_imu;
+						
 		//** Music
 		int cpt_music;
 

@@ -211,6 +211,7 @@ using namespace std;
 	//** IMU
 	int Mediator::getHeadingImu(void)
 	{
+		int buff;
 		Mediator::lockMutex();
 		buff = m_model->getHeadingImu();
 		Mediator::unlockMutex();
