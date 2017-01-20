@@ -96,3 +96,9 @@ void ParseMessage(){
 	message = str(m_buffer);
 
 }
+
+
+void setHeadingImu(){
+	if(m_magnetic < 50 )
+		m_mediator.addHeadingImu(m_cap);
+}

@@ -34,6 +34,7 @@ public:
 	int socketInit();
 	string readMessage(int sockfd);
 	void ParseMessage();
+	void setHeadingImu();
 	//** THREAD
 	void* thImu(void);
 	static void* thImuHelper(void* context);
