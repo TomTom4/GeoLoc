@@ -46,6 +46,7 @@ private:
 	string m_message;
 	int m_magnetic;
 	int m_cap;
+	char m_buffer[8192];
 
 	//** ATTRIBUTES
 
