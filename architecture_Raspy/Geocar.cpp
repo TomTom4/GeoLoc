@@ -32,6 +32,7 @@ void testCap(Mediator* mediator,Navigation* navigation)
 	double lat_error;
 	double long_error;
 
+	float cap_start;
 	float cap_cible = 0;
 	float distance_old;
 	float distance_reel = 0;
@@ -72,6 +73,7 @@ void testCap(Mediator* mediator,Navigation* navigation)
 	
 	cout << "Pause avant start regul (cin)" << endl;
 	cin >> a;
+	cap_start = mediator->getHeadingImu();
 	
 	do
 	{	cout << " Start moteur" << endl;
@@ -108,7 +110,7 @@ void testCap(Mediator* mediator,Navigation* navigation)
 		//cout << "Cap cible calculé :" << cap_cible << endl;
 		
 		
-		// cap_cible = mediator->getHeadingImu();
+		// cap_cible = mediator->getHeadingImu() - cap_start;
 		cout << "Cap :";
 		
 		cin >> cap_cible;
