@@ -23,57 +23,56 @@ IMU* Imu::instance()
 {
 	if(!Imu::s_instance)
 		Imu::s_instance = new Imu();
-		Imu::s_instance->m_mediator = Mediator::instance();
+	Imu::s_instance->m_mediator = Mediator::instance();
 	return Imu::s_instance;
 }
 
-	Imu::Imu()
-	{ // Constructor
+Imu::Imu()
+{
+// Constructor
 
-		//** Create Thread
-		result_code = pthread_create(&th_spi,NULL,thImuHelper,this);
-	  if(result_code == 0)
-	  cout << "Creation Thread IMU - Ok" << endl;
-	}
+	//** Create Thread
+	result_code = pthread_create(&th_spi,NULL,thImuHelper,this);
+	if(result_code == 0)
+  		cout << "Creation Thread IMU - Ok" << endl;
+}
 
-	void* Imu::thImu(void)
-	{
-		while(1)
-		{
+void* Imu::thImu(void)
+{
+
+	while(1){
+
 			//Imu::ComputeAverage();
 			usleep(100000);
 			Imu::readHeading();
-
-		}
 	}
+}
 
-	void *Imu::thImuHelper(void* context)
-	{
-	  return((Imu*)context)->Imu::thImu();
-	}
+void *Imu::thImuHelper(void* context)
+{
+	return((Imu*)context)->Imu::thImu();
+}
 
-	void Imu::readHeading(void)
-	{
-		int portNumber, sockFileDescriptor, newSockFileDescriptor, clientAddressLength, RWcharNumber;
-		struct sockaddr_in server_addr, client_addr ;
-		char buffer[8192];
+void Imu::readHeading(void)
+{
+	int portNumber, sockFileDescriptor, newSockFileDescriptor, clientAddressLength, RWcharNumber;
+	struct sockaddr_in server_addr, client_addr ;
+	char buffer[8192];
 
-		sockFileDescriptor = socket( AF_INET, SOCK_DGRAM, 0);
-		if(sockFileDescriptor  == -1)
-			cout << "You don't freaking work biatch !! "<<endl ;
+	sockFileDescriptor = socket( AF_INET, SOCK_DGRAM, 0);
+	if(sockFileDescriptor  == -1)
+		cout << "You don't freaking work biatch !! "<<endl ;
 
-		bzero((char *) &server_addr, sizeof(server_addr));// here it set server_addr in memory with zero values
+	bzero((char *) &server_addr, sizeof(server_addr));// here it set server_addr in memory with zero values
 
 
-		server_addr.sin_family = AF_INET;// should alway be that value
-		server_addr.sin_port = htons(PORT);// very important to convert using htons
-		server_addr.sin_addr.s_addr = INADDR_ANY;// this is a UDP Server, doesn't need to speak with anyone
+	server_addr.sin_family = AF_INET;// should alway be that value
+	server_addr.sin_port = htons(PORT);// very important to convert using htons
+	server_addr.sin_addr.s_addr = INADDR_ANY;// this is a UDP Server, doesn't need to speak with anyone
 
-		if(bind(sockFileDescriptor, (struct sockaddr *) &server_addr, sizeof(server_addr)) < 0)
-			cout << "it doesn't bind you freaking basterd!!!!"<< endl;
+	if(bind(sockFileDescriptor, (struct sockaddr *) &server_addr, sizeof(server_addr)) < 0)
+		cout << "it doesn't bind you freaking basterd!!!!"<< endl;
 
-		while(1){
-		}
 	}
 
 	string Imu::readMessage(int sockfd)
@@ -87,3 +86,9 @@ IMU* Imu::instance()
 		string str(buffer);
 
 	}
+
+
+
+int socketInit(){
+
+}

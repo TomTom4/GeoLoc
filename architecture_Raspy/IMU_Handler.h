@@ -44,6 +44,8 @@ private:
 	Mediator *m_mediator;
 	static Imu *s_instance;
 	string m_message;
+	int m_magnetic;
+	int m_cap;
 
 	//** ATTRIBUTES
 
