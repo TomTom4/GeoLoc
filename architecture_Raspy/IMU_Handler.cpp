@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string>
 #include <unistd.h>
+#include <stdlib.h>
 
 #include <wiringPi.h>
 #include <wiringPiSPI.h>
@@ -49,6 +50,7 @@ void* Imu::thImu(void)
 		usleep(100000);
 		Imu::readMessage(sockfd);
 		Imu::parseMessage();
+		Imu::setHeadingImu();
 
 	}
 }
@@ -93,7 +95,8 @@ void Imu::parseMessage(void)
 	}
 	for (int x =0; i<3; i++)
 	{
-		magneNorm += m[i]*m[i];
+		double result = atof(m[x].c_str());
+		magneNorm += result*result;
 	}
 	Imu::m_magnetic = sqrt(magneNorm);
 	Imu::m_cap = atan2(m[1],m[0])/pi)*180.0)
@@ -124,3 +127,17 @@ int Imu::socketInit(){
 void Imu::setHeadingImu(){
 	Imu::m_mediator->addHeadingImu(Imu::m_cap);
 }
+
+// void Imu::ComputeAverage()
+// {
+// 	float headingAve= 0;
+// 	for (int i =0; i<5; i++)
+// 	{
+// 		Imu::readMessage(sockfd);
+// 		Imu::parseMessage();
+// 		headingAve += m_cap;
+// 		usleep(100000);
+// 	}
+// 	headingAve = headingAve /5;
+// 	setHeadingImu();
+// }
