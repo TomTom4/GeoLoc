@@ -39,9 +39,9 @@ Imu::Imu()
 
 void* Imu::thImu(void)
 {
-	int sockfd; 
+	int sockfd;
 	sockfd = socketInit();
-	
+
 
 	while(1){
 
@@ -49,7 +49,7 @@ void* Imu::thImu(void)
 		usleep(100000);
 		Imu::readMessage(sockfd);
 		Imu::parseMessage();
-			
+
 	}
 }
 
@@ -71,9 +71,31 @@ void Imu::readMessage(int sockfd)
 void Imu::parseMessage(void)
 {
 	string MessageImu(Imu::m_buffer);
-	int repere = MessageImu.find(" 5,");
-	MessageImu = MessageImu.substr(0, repere);
-	float m[] = MessageImu.split(',');
+	string buff("");
+	string m [3] ;
+	float magneNorm = 0;
+	int repere =  MessageImu.find(" 5,");
+	MessageImu = MessageImu.erase (0, repere+4);
+
+	for (int i = 0; i<3; i++)
+	{
+	 	int j = 0;
+		while ((MessageImu[j] != ',') && (j < MessageImu.length()))
+		{
+			buff+=MessageImu[j];
+			j++;
+		}
+		if(buff != "") {
+			m[i]=buff;
+			buff = "";
+		}
+		MessageImu = MessageImu.erase(0, j+1);
+	}
+	for (int x =0; i<3; i++)
+	{
+		magneNorm += m[i]*m[i];
+	}
+	Imu::m_magnetic = sqrt(magneNorm);
 	Imu::m_cap = atan2(m[1],m[0])/pi)*180.0)
 }
 
