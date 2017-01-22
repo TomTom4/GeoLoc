@@ -329,12 +329,16 @@ def startRouting(db,startID,endID):
 
 def cpp_call_test():
     print "Python Function: cpp_call_test!!!!"
-
+# cpp_call 
+#input: start point and destination point
+#output : All points' IDs of path.
 def cpp_call(pointAB):
     print "Python Function : cpp_call"
+    '''build database'''
     db = routingDb()
     print readDb(open(filepath,"r"),db)
     db.cleanUp()
     print pointAB[0]
+    ''' start search '''
     mypath=startRouting(db,pointAB[0],pointAB[1])
     return mypath

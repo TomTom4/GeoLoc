@@ -39,18 +39,18 @@ vector<char*> Router::getpath(char pointA[] ,char pointB[])
 
     int element_num,k;
     printf("%s...getpath..%s\n",pointA,pointB);
+    //save start point and destination point in arglist for python function.
     arglist = Py_BuildValue("ss",pointA,pointB);
 
     // init variables for extract elements from list.
     // Initialize the Python interpreter
-    // TODO system call export PYTHONPATH=$PWD
-    system("echo -------------lajsldklajsdjlsajdlkjsaljlkdlksaljdlkjsa");
     system("echo export PYTHONPATH=$PWD");
     Py_Initialize();
     if(!Py_IsInitialized())
     {
         printf("init error\n");
     }
+    // import python libs for execute python function
     PyRun_SimpleString("import re,string,sys");
     PyRun_SimpleString("import xml.sax as sax ");
     PyRun_SimpleString("from math import radians,cos,sin,asin,sqrt");
@@ -77,12 +77,14 @@ vector<char*> Router::getpath(char pointA[] ,char pointB[])
 
     // Build the name of a callable class
     pFunc = PyDict_GetItemString(pDict, "cpp_call");
+    // call python cpp_call to get path between start point and destination point.
     pPath = PyObject_CallFunctionObjArgs(pFunc,arglist,NULL);
 
     element_num = PyObject_Length(pPath);
     k = PyObject_Size(pPath);
     printf("ROUTER_CPP: pPath size or length -:%d, %d\n",element_num,k);
     itpath = path.begin();
+    // geted path , parser it and save to cpp vector.
     for (int i = 0; i < element_num; i++)
     {
         pListItem = PyList_GetItem(pPath, i);
