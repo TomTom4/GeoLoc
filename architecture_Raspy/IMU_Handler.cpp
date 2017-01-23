@@ -99,7 +99,7 @@ void Imu::parseMessage(void)
 		magneNorm += result*result;
 	}
 	Imu::m_magnetic = sqrt(magneNorm);
-	Imu::m_cap = atan2(m[1],m[0])/pi)*180.0)
+	Imu::m_cap = ((atan2(m[1],m[0])/M_PI)*180.0)
 }
 
 int Imu::socketInit(){
