@@ -480,7 +480,7 @@ double Map::ToRadians(double degrees)
 }
 
 // From a set of coordinates(long, lat), return the closest road from it.
-void Map::WhichRoadWithLatLon(double lon, double lat){
+double Map::WhichRoadWithLatLon(double lon, double lat){
 	int Road_Nb = 0;
 	double Distance_Min = 5000;
 	for(vector<Road *>::iterator it = Road_Vec.begin(); it != Road_Vec.end(); ++it) {

@@ -436,7 +436,7 @@ SetPosition	/Users/guiwake/Documents/Programmation/GeoLoc/architecture_Raspy/par
 SetDestinationManually	/Users/guiwake/Documents/Programmation/GeoLoc/architecture_Raspy/parserV1.cpp	/^void Map::SetDestinationManually(double lon, double lat){$/;"	function	line:448	class:Map	signature:(double lon, double lat)
 SetDestination	/Users/guiwake/Documents/Programmation/GeoLoc/architecture_Raspy/parserV1.cpp	/^void Map::SetDestination(double idDestNode){$/;"	function	line:457	class:Map	signature:(double idDestNode)
 ToRadians	/Users/guiwake/Documents/Programmation/GeoLoc/architecture_Raspy/parserV1.cpp	/^double Map::ToRadians(double degrees)$/;"	function	line:476	class:Map	signature:(double degrees)
-WhichRoadWithLatLon	/Users/guiwake/Documents/Programmation/GeoLoc/architecture_Raspy/parserV1.cpp	/^void Map::WhichRoadWithLatLon(double lon, double lat){$/;"	function	line:483	class:Map	signature:(double lon, double lat)
+WhichRoadWithLatLon	/Users/guiwake/Documents/Programmation/GeoLoc/architecture_Raspy/parserV1.cpp	/^double Map::WhichRoadWithLatLon(double lon, double lat){$/;"	function	line:483	class:Map	signature:(double lon, double lat)
 WhichRoad	/Users/guiwake/Documents/Programmation/GeoLoc/architecture_Raspy/parserV1.cpp	/^double Map::WhichRoad(){$/;"	function	line:498	class:Map	signature:()
 GetFrontAndTurnDistance	/Users/guiwake/Documents/Programmation/GeoLoc/architecture_Raspy/parserV1.cpp	/^float Map::GetFrontAndTurnDistance(float angle){$/;"	function	line:506	class:Map	signature:(float angle)
 Map	/Users/guiwake/Documents/Programmation/GeoLoc/architecture_Raspy/parserV1.cpp	/^Map::Map(char * OsmFilePath){$/;"	function	line:538	class:Map	signature:(char * OsmFilePath)

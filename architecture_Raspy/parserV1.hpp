@@ -210,7 +210,7 @@ public:
 
     void DisplayPath(int close);
 
-    void WhichRoad();
+
 
     // Set the alpha factor that convert longitude/latitude in pixels
     static void SetAlpha();
@@ -233,6 +233,8 @@ public:
     Map(char * OsmFilePath);
 
     double WhichRoadWithLatLon(double lon, double lat);
+
+    double WhichRoad();
 
     int CreateAll(int close);
 
