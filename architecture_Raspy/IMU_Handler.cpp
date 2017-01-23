@@ -93,13 +93,14 @@ void Imu::parseMessage(void)
 		}
 		MessageImu = MessageImu.erase(0, j+1);
 	}
-	for (int x =0; i<3; i++)
+	double result[3];
+	for (int x =0; x<3; x++)
 	{
-		double result = atof(m[x].c_str());
-		magneNorm += result*result;
+		result[x] = atof(m[x].c_str());
+		magneNorm += result[x]*result[x];
 	}
 	Imu::m_magnetic = sqrt(magneNorm);
-	Imu::m_cap = ((atan2(m[1],m[0])/M_PI)*180.0)
+	Imu::m_cap = ((atan2(result[1],result[0])/M_PI)*180.0)
 }
 
 int Imu::socketInit(){
