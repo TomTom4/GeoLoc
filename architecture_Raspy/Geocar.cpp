@@ -110,12 +110,12 @@ void testCap(Mediator* mediator,Navigation* navigation)
 		//cout << "Cap cible calculé :" << cap_cible << endl;
 		
 		
-		// cap_cible = mediator->getHeadingImu() - cap_start;
-		cout << "Cap :";
+		cap_cible = mediator->getHeadingImu() - cap_start;
+		cout << "Cap :" << cap_cible;
 		
-		cin >> cap_cible;
-			new_distance = navigation->m_map->GetFrontAndTurnDistance(cap_cible);
-			dir = navigation->m_map->GetFront();
+		//cin >> cap_cible;
+		new_distance = navigation->m_map->GetFrontAndTurnDistance(cap_cible);
+		dir = navigation->m_map->GetFront();
 		cout << "Direction :" << (int)dir << " sur " << new_distance<< "m"<<endl;
 		//cout << "temp (cin)" << endl;
 		//cin >> a;
