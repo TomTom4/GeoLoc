@@ -422,7 +422,8 @@ int main()
 	//testSpi(mediator, spi);
 	//testKey(mediator,spi,gps);
 
-	manuel(mediator, navigation);
+	//manuel(mediator, navigation);
+	testCap(mediator, navigation);
 	while(1)
 	{
 		usleep(1000000);
