@@ -82,7 +82,7 @@ void Imu::parseMessage(void)
 	for (int i = 0; i<3; i++)
 	{
 	 	int j = 0;
-		while ((MessageImu[j] != ',') && (j < MessageImu.length()))
+		while ((MessageImu[j] != ',') && (j < MessageImu.size()))
 		{
 			buff+=MessageImu[j];
 			j++;
