@@ -42,12 +42,13 @@ void* Imu::thImu(void)
 {
 	int sockfd;
 	sockfd = socketInit();
+	cout << " aller on va chercher les données de l'IMU" << endl;
 
 
 	while(1){
 
 		//Imu::ComputeAverage();
-		usleep(100000);
+		usleep(10000);
 		Imu::readMessage(sockfd);
 		Imu::parseMessage();
 		Imu::setHeadingImu();
@@ -73,10 +74,12 @@ void Imu::readMessage(int sockfd)
 void Imu::parseMessage(void)
 {
 	string MessageImu(Imu::m_buffer);
+	//cout <<"Message Imu : "<< MessageImu << endl;
 	string buff("");
 	string m [3] ;
 	float magneNorm = 0;
 	int repere =  MessageImu.find(" 5,");
+	// cout << " allez vient on parse " << endl;
 	if (repere != -1)
 	{
 		MessageImu = MessageImu.erase (0, repere+4);
@@ -100,9 +103,11 @@ void Imu::parseMessage(void)
 		{
 			result[x] = atof(m[x].c_str());
 			magneNorm += result[x]*result[x];
+			//	cout << "m[" << x << "] : "<< result [x] << endl;
 		}
 		Imu::m_magnetic = sqrt(magneNorm);
 		Imu::m_cap = ((atan2(result[1],result[0])/M_PI)*180.0);
+		cout << "Cap : " << Imu::m_cap << endl;
 	}
 }
 

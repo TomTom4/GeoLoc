@@ -18,6 +18,14 @@
 #include "music.h"
 
 using namespace std;
+void testCap2(Mediator* mediator,Navigation* navigation){
+	float cap;
+	while(1){
+		cap = mediator->getHeadingImu();
+		cout << " ze cap :" << cap <<endl;
+		usleep(100000);
+	}	
+}
 
 void testCap(Mediator* mediator,Navigation* navigation)
 {
@@ -74,7 +82,7 @@ void testCap(Mediator* mediator,Navigation* navigation)
 	cout << "Pause avant start regul (cin)" << endl;
 	cin >> a;
 	cap_start = mediator->getHeadingImu();
-	
+	cout << "cap start : " << cap_start << '\n';	
 	do
 	{	cout << " Start moteur" << endl;
 		mediator->addPwmMotorBack(30);
@@ -108,7 +116,7 @@ void testCap(Mediator* mediator,Navigation* navigation)
 		// Update new cap
 				//cap_cible = navigation->m_map->GetCorrectiveHeading(5.0);
 		//cout << "Cap cible calculé :" << cap_cible << endl;
-		
+	usleep(1000000);	
 		
 		cap_cible = mediator->getHeadingImu() - cap_start;
 		cout << "Cap :" << cap_cible;
@@ -409,6 +417,9 @@ int main()
 
 	Gps* gps;
 	gps = Gps::instance();
+
+	Imu* imu;
+	imu = Imu::instance();
 
 	//Music* music;
 	//music = Music::instance();
