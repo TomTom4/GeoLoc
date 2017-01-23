@@ -111,7 +111,7 @@ void testCap(Mediator* mediator,Navigation* navigation)
 		
 		
 		cap_cible = mediator->getHeadingImu() - cap_start;
-		cout << "Cap :" << str(cap_cible);
+		cout << "Cap :" << cap_cible;
 		
 		//cin >> cap_cible;
 		new_distance = navigation->m_map->GetFrontAndTurnDistance(cap_cible);
