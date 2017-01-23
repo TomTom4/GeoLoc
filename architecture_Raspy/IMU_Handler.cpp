@@ -77,7 +77,7 @@ void Imu::parseMessage(void)
 	string m [3] ;
 	float magneNorm = 0;
 	int repere =  MessageImu.find(" 5,");
-	if (repere != npos)
+	if (repere != -1)
 	{
 		MessageImu = MessageImu.erase (0, repere+4);
 		for (int i = 0; i<3; i++)
