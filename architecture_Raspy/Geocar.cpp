@@ -86,14 +86,14 @@ void testCap(Mediator* mediator,Navigation* navigation)
 	do
 	{	cout << " Start moteur" << endl;
 		mediator->addPwmMotorBack(30);
-		while((mediator->getDistance()-distance_old)<=5.0)
+		while((mediator->getDistance()-distance_old)<=3.0)
 		{
 			usleep(100);
 		}
 		cout << "Stop moteur" << endl;
 		mediator->addPwmMotorBack(0);
 		distance_reel = mediator->getDistance()-distance_old;
-		cout << "distance 5m = " << distance_reel<<endl;
+		cout << "distance 3m = " << distance_reel<<endl;
 		// Update distance counter from car
 		distance_old = mediator->getDistance();
 				//cout<< "GPS FIX (cin)" << endl;
@@ -116,10 +116,12 @@ void testCap(Mediator* mediator,Navigation* navigation)
 		// Update new cap
 				//cap_cible = navigation->m_map->GetCorrectiveHeading(5.0);
 		//cout << "Cap cible calculé :" << cap_cible << endl;
-	usleep(1000000);	
-		
-		cap_cible = mediator->getHeadingImu() - cap_start;
-		cout << "Cap :" << cap_cible;
+		usleep(1000000);	
+		float capReel = mediator-> getHeadingImu();
+		cap_cible = capReel - cap_start;
+		if(cap_cible<-180.0) cap_cible += 360.0;
+		if(cap_cible > 180.0) cap_cible -=360.0;
+		cout << "Cap Reel : "<< capReel << "   Correction :" << cap_cible<<endl;
 		
 		//cin >> cap_cible;
 		new_distance = navigation->m_map->GetFrontAndTurnDistance(cap_cible);

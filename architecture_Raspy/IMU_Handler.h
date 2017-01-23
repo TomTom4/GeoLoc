@@ -37,7 +37,7 @@ public:
 	void parseMessage();
 
 	void setHeadingImu();
-	void ComputeAverage();
+	void ComputeAverage(int sockfd);
 	//** THREAD
 
 	void* thImu(void);
