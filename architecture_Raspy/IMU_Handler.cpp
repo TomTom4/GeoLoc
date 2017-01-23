@@ -77,30 +77,33 @@ void Imu::parseMessage(void)
 	string m [3] ;
 	float magneNorm = 0;
 	int repere =  MessageImu.find(" 5,");
-	MessageImu = MessageImu.erase (0, repere+4);
-
-	for (int i = 0; i<3; i++)
+	if (repere != npos)
 	{
-	 	int j = 0;
-		while ((MessageImu[j] != ',') && (j < MessageImu.size()))
+		MessageImu = MessageImu.erase (0, repere+4);
+		for (int i = 0; i<3; i++)
 		{
-			buff+=MessageImu[j];
-			j++;
+	 		int j = 0;
+			while ((MessageImu[j] != ',') && (j < MessageImu.size()))
+			{
+				buff+=MessageImu[j];
+				j++;
+			}
+			if(buff != "")
+			{
+				m[i]=buff;
+				buff = "";
+			}
+			MessageImu = MessageImu.erase(0, j+1);
 		}
-		if(buff != "") {
-			m[i]=buff;
-			buff = "";
+		double result[3];
+		for (int x =0; x<3; x++)
+		{
+			result[x] = atof(m[x].c_str());
+			magneNorm += result[x]*result[x];
 		}
-		MessageImu = MessageImu.erase(0, j+1);
+		Imu::m_magnetic = sqrt(magneNorm);
+		Imu::m_cap = ((atan2(result[1],result[0])/M_PI)*180.0);
 	}
-	double result[3];
-	for (int x =0; x<3; x++)
-	{
-		result[x] = atof(m[x].c_str());
-		magneNorm += result[x]*result[x];
-	}
-	Imu::m_magnetic = sqrt(magneNorm);
-	Imu::m_cap = ((atan2(result[1],result[0])/M_PI)*180.0);
 }
 
 int Imu::socketInit(){
