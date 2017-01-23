@@ -47,7 +47,7 @@ void* Imu::thImu(void)
 	while(1){
 
 		//Imu::ComputeAverage();
-		usleep(100000);
+		usleep(10000);
 		Imu::readMessage(sockfd);
 		Imu::parseMessage();
 		Imu::setHeadingImu();
