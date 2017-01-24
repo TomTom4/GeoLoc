@@ -286,4 +286,6 @@ void Model::printGps(void)
   cout << "Longitude : "<< longitude << endl;
   cout << "Latitude : " << latitude << endl;
   cout << "Mode Gps : " << mode_gps << endl;
+
+  cout << "cap : " << heading_imu<< endl;
 }
