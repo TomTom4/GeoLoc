@@ -16,8 +16,8 @@
   <node id='-16' action='modify' visible='true' lat='43.57012196776' lon='1.4681312472'>
     <tag k='user' v='Amphi Fourrier' />
   </node>
-  <node id='-18' action='modify' visible='true' lat='43.57024712021' lon='1.46764946697'>
-    <tag k='user' v='GM' />
+  <node id='-1729' action='modify' visible='true' lat='43.57024712021' lon='1.46764946697'>
+    <tag k='user' v='Génie Mécanique' />
   </node>
   <node id='27502515' action='delete' visible='true' version='1' lat='43.5699622' lon='1.4703552' />
   <node id='27502516' action='delete' visible='true' version='1' lat='43.5703802' lon='1.4701395' />
@@ -2416,7 +2416,7 @@
     <nd ref='246709438' />
     <nd ref='364154159' />
     <nd ref='4413165973' />
-    <nd ref='-18' />
+    <nd ref='-1729' />
     <nd ref='4413167791' />
     <nd ref='246709466' />
     <nd ref='4413167804' />

@@ -480,6 +480,7 @@ double Map::ToRadians(double degrees)
 }
 
 // From a set of coordinates(long, lat), return the closest road from it.
+// NB: Distance from a segment is different from a distance to straight line
 double Map::WhichRoadWithLatLon(double lon, double lat){
 	int Road_Nb = 0;
 	double Distance_Min = 5000;
@@ -654,7 +655,11 @@ Map::Map(char * OsmFilePath){
 									Name = string(attribute->value());
 								} else if (strcmp(curr_nd->first_attribute()->value(), "highway") == 0){
 									if ((strcmp(curr_nd->first_attribute()->next_attribute()->value(), "unclassified") == 0) ||
-									(strcmp(curr_nd->first_attribute()->next_attribute()->value(), "service") == 0)){
+									(strcmp(curr_nd->first_attribute()->next_attribute()->value(), "service") == 0) ||
+									(strcmp(curr_nd->first_attribute()->next_attribute()->value(), "footway") == 0) ||
+									(strcmp(curr_nd->first_attribute()->next_attribute()->value(), "pedestrian") == 0) ||
+									(strcmp(curr_nd->first_attribute()->next_attribute()->value(), "residential") == 0) ||
+									(strcmp(curr_nd->first_attribute()->next_attribute()->value(), "living_street") == 0)){
 										road = 1;
 									}
 								}

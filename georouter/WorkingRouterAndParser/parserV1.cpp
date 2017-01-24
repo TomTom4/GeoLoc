@@ -372,7 +372,7 @@ void Map::SetAlpha(){
 }
 
 void Map::SetBeta(){
-	Beta = 5 * Alpha;
+	Beta = 4 * Alpha;
 }
 
 void Map::SetPath(vector<char *> path){
@@ -574,6 +574,7 @@ Map::Map(char * OsmFilePath){
 				id_way = 0;
 				int building = 0;
 				int road = 0;
+				int NotARoad = 0;
 				string Name = "" ;
 				vector<Node> Vec_Way_Node;
 
@@ -605,8 +606,16 @@ Map::Map(char * OsmFilePath){
 									Name = string(attribute->value());
 								} else if (strcmp(curr_nd->first_attribute()->value(), "highway") == 0){
 									if ((strcmp(curr_nd->first_attribute()->next_attribute()->value(), "unclassified") == 0) ||
-									(strcmp(curr_nd->first_attribute()->next_attribute()->value(), "service") == 0)){
+									(strcmp(curr_nd->first_attribute()->next_attribute()->value(), "service") == 0) ||
+									(strcmp(curr_nd->first_attribute()->next_attribute()->value(), "footway") == 0) ||
+									(strcmp(curr_nd->first_attribute()->next_attribute()->value(), "pedestrian") == 0) ||
+									(strcmp(curr_nd->first_attribute()->next_attribute()->value(), "residential") == 0) ||
+									(strcmp(curr_nd->first_attribute()->next_attribute()->value(), "living_street") == 0)){
 										road = 1;
+									}
+								} else if (strcmp(curr_nd->first_attribute()->value(), "crossing") == 0){
+									if (strcmp(curr_nd->first_attribute()->next_attribute()->value(), "zebra") == 0){
+										NotARoad = 1;
 									}
 								}
 							}
@@ -622,6 +631,9 @@ Map::Map(char * OsmFilePath){
 							Building_Vec.push_back(myBuilding);
 						}
 						// Road ?
+						if (NotARoad){
+							road = 0;
+						}
 						else if (building == 0 && road == 1){
 							BuildAllRoads(id_way, Vec_Way_Node);
 							//Road myRoad(id_way, Vec_Way_Node[0], Vec_Way_Node[Vec_Way_Node.size()-1]);
