@@ -18,21 +18,21 @@ int main(){
 
     //rapidxml::file<> xmlFile("heavy.osm");
     Map MyMap("heavy.osm");
-
+    //Map MyMap("capitole.xml");
     std::vector<tuple<string, double>> MyVectorOfUserDestination = MyMap.GetTupleOfDestinations();
 
-    double ExamplePointLat = 43.570358;
-    double ExamplePointLon =  1.466047;
+    double ExamplePointLat = 43.570521;
+    double ExamplePointLon =   1.467380;
 
     //double ExampleDestLat = 43.5708618;
     //double ExampleDestLon = 1.4670463;
     MyMap.SetPosition(ExamplePointLon,ExamplePointLat);
-    MyMap.SetDestination(-1858);
+    //MyMap.SetDestination(-1858);
     //MyMap.WhichRoadWithLatLon();
 
     MyMap.Display(0);
     MyMap.Display(1);
-
+/*
     MyMap.SetPosition(1.466078, 43.570376);
     std::cout << "GetCorrectiveHeading(3) : " << MyMap.GetCorrectiveHeading(3.0) << '\n';
 
@@ -43,7 +43,7 @@ std::cout << "GetCorrectiveHeading(3) : " << MyMap.GetCorrectiveHeading(3.0) << 
 
 	MyMap.Display(1);
 
-/*
+
     MyMap.CreateAll(0, MyMap.image);
     MyMap.DisplayMyPosition();
     MyMap.DisplayImage(0);
