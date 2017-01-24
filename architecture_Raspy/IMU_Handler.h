@@ -35,10 +35,11 @@ public:
 
 	void readMessage(int sockfd);
 	void parseMessage();
-  
-	void setHeadingImu();
 
+	void setHeadingImu();
+	void ComputeAverage(int sockfd);
 	//** THREAD
+
 	void* thImu(void);
 	static void* thImuHelper(void* context);
 

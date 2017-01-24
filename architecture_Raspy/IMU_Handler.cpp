@@ -42,15 +42,12 @@ void* Imu::thImu(void)
 {
 	int sockfd;
 	sockfd = socketInit();
+	cout << " aller on va chercher les données de l'IMU" << endl;
 
 
 	while(1){
 
-		//Imu::ComputeAverage();
-		usleep(100000);
-		Imu::readMessage(sockfd);
-		Imu::parseMessage();
-		Imu::setHeadingImu();
+		Imu::ComputeAverage(sockfd);
 
 	}
 }
@@ -73,10 +70,12 @@ void Imu::readMessage(int sockfd)
 void Imu::parseMessage(void)
 {
 	string MessageImu(Imu::m_buffer);
+	//cout <<"Message Imu : "<< MessageImu << endl;
 	string buff("");
 	string m [3] ;
 	float magneNorm = 0;
 	int repere =  MessageImu.find(" 5,");
+	// cout << " allez vient on parse " << endl;
 	if (repere != -1)
 	{
 		MessageImu = MessageImu.erase (0, repere+4);
@@ -100,9 +99,12 @@ void Imu::parseMessage(void)
 		{
 			result[x] = atof(m[x].c_str());
 			magneNorm += result[x]*result[x];
+			//	cout << "m[" << x << "] : "<< result [x] << endl;
 		}
 		Imu::m_magnetic = sqrt(magneNorm);
-		Imu::m_cap = ((atan2(result[1],result[0])/M_PI)*180.0);
+		Imu::m_cap = ((atan2(result[1],result[0])/M_PI)*180.0)-90.0;
+		if (Imu::m_cap < -180.0) Imu::m_cap += 360.0;
+		// 	cout << "Cap : " << Imu::m_cap << endl;
 	}
 }
 
@@ -132,16 +134,16 @@ void Imu::setHeadingImu(){
 	Imu::m_mediator->addHeadingImu(Imu::m_cap);
 }
 
-// void Imu::ComputeAverage()
-// {
-// 	float headingAve= 0;
-// 	for (int i =0; i<5; i++)
-// 	{
-// 		Imu::readMessage(sockfd);
-// 		Imu::parseMessage();
-// 		headingAve += m_cap;
-// 		usleep(100000);
-// 	}
-// 	headingAve = headingAve /5;
-// 	setHeadingImu();
-// }
+void Imu::ComputeAverage(int sockfd)
+{
+	float headingAve= 0;
+	for (int i =0; i<20; i++)
+	{
+		Imu::readMessage(sockfd);
+		Imu::parseMessage();
+		headingAve += Imu::m_cap;
+		usleep(10000);
+	}
+	headingAve = headingAve /20;
+	Imu::setHeadingImu();
+}
