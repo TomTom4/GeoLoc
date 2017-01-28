@@ -121,7 +121,7 @@ void testCap(Mediator* mediator,Navigation* navigation)
 		cap_cible = capReel - cap_start;
 		if(cap_cible<-180.0) cap_cible += 360.0;
 		if(cap_cible > 180.0) cap_cible -=360.0;
-		cout << "Cap Reel : "<< capReel << "   Correction :" << cap_cible<<endl;
+		//cout << "Cap Reel : "<< capReel << "   Correction :" << cap_cible<<endl;
 		
 		//cin >> cap_cible;
 		//new_distance = navigation->m_map->GetFrontAndTurnDistance(cap_cible);
@@ -130,7 +130,7 @@ void testCap(Mediator* mediator,Navigation* navigation)
 		//cout << "temp (cin)" << endl;
 		//cin >> a;
 		//usleep(1000000);
-		cout << "Set Direction" << endl;
+		//cout << "Set Direction" << endl;
 		if(cap_cible <= 2 && cap_cible >=-2)
 			dir =  13;
 		if(cap_cible <=4 && cap_cible >2)
@@ -147,6 +147,14 @@ void testCap(Mediator* mediator,Navigation* navigation)
 			dir =  7;
 		if(cap_cible <=16 && cap_cible >14)
 			dir =  6;
+		if(cap_cible <=18 && cap_cible >16)
+			dir =  5;
+		if(cap_cible <=20 && cap_cible >18)
+			dir =  4;
+		if(cap_cible <=24 && cap_cible >20)
+			dir =  3;
+		if(cap_cible <=179 && cap_cible >24)
+			dir =  2;
 
 		if(cap_cible <-2 && cap_cible >=-4)
 			dir =  14;
@@ -162,11 +170,19 @@ void testCap(Mediator* mediator,Navigation* navigation)
 			dir =  19;
 		if(cap_cible <-14 && cap_cible >=-16)
 			dir =  20;
+		if(cap_cible <-16 && cap_cible >=-18)
+			dir =  21;
+		if(cap_cible <-18 && cap_cible >=-20)
+			dir =  22;
+		if(cap_cible <-20 && cap_cible >=-24)
+			dir =  23;
+		if(cap_cible <-24 && cap_cible >=-180)
+			dir =  24;
 
-		if(cap_cible >2)
-			dir=dir-3;
-		if(cap_cible <-2)
-			dir=dir+3;
+		//if(cap_cible >2)
+		//	dir=dir-3;
+		//if(cap_cible <-2)
+		//	dir=dir+3;
 
 
 		cout <<" dir : "<< (int)dir << endl;
