@@ -27,12 +27,16 @@ int main(){
     //double ExampleDestLat = 43.5708618;
     //double ExampleDestLon = 1.4670463;
     MyMap.SetPosition(ExamplePointLon,ExamplePointLat);
-    //MyMap.SetDestination(-1858);
+    //MyMap.SetDestination(-8);
     //MyMap.WhichRoadWithLatLon();
 
     MyMap.Display(0);
     MyMap.Display(1);
+
+    Map MySecondMap("capitole.xml");
+    MySecondMap.Display(0);
 /*
+
     MyMap.SetPosition(1.466078, 43.570376);
     std::cout << "GetCorrectiveHeading(3) : " << MyMap.GetCorrectiveHeading(3.0) << '\n';
 
