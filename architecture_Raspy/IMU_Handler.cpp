@@ -104,7 +104,7 @@ void Imu::parseMessage(void)
 		Imu::m_magnetic = sqrt(magneNorm);
 		Imu::m_cap = ((atan2(result[1],result[0])/M_PI)*180.0)-90.0;
 		if (Imu::m_cap < -180.0) Imu::m_cap += 360.0;
-		// 	cout << "Cap : " << Imu::m_cap << endl;
+		 	//cout << "Cap : " << Imu::m_cap << endl;
 	}
 }
 
@@ -139,6 +139,7 @@ void Imu::ComputeAverage(int sockfd)
 	float headingAve= 0;
 	for (int i =0; i<20; i++)
 	{
+		//cout << "th IMU" << endl;
 		Imu::readMessage(sockfd);
 		Imu::parseMessage();
 		headingAve += Imu::m_cap;

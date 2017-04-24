@@ -41,7 +41,7 @@ Spi* Spi::instance()
 	{
 		while(1)
 		{	
-			usleep(100000);
+			usleep(10000);
 			Spi::majCar();
 				//cout << " Th SPI " << endl << flush;
 		}

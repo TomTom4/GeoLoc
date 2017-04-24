@@ -58,7 +58,7 @@ void testCap(Mediator* mediator,Navigation* navigation)
   	
 	// Update start Gps position
 			cout<< "GPS FIX (cin)" << endl;
-			cin >> a;
+	//		cin >> a;
 			lat_start = 43.570347;
 			long_start = 1.466058;
 			cout << " GPS start TH, Lat:" << lat_start << " - Long:"<< long_start << endl;
@@ -80,22 +80,22 @@ void testCap(Mediator* mediator,Navigation* navigation)
 			//navigation->m_map->SetDestinationManually(long_end,lat_end);
 	
 	cout << "Pause avant start regul (cin)" << endl;
-	cin >> a;
+	//cin >> a;
 	cap_start = mediator->getHeadingImu();
 	cout << "cap start : " << cap_start << '\n';	
 	do
-	{	cout << " Start moteur" << endl;
-		mediator->addPwmMotorBack(30);
-		while((mediator->getDistance()-distance_old)<=3.0)
-		{
-			usleep(100);
-		}
-		cout << "Stop moteur" << endl;
-		mediator->addPwmMotorBack(0);
-		distance_reel = mediator->getDistance()-distance_old;
-		cout << "distance 3m = " << distance_reel<<endl;
-		// Update distance counter from car
-		distance_old = mediator->getDistance();
+	{	//cout << " Start moteur" << endl;
+		//mediator->addPwmMotorBack(30);
+		//while((mediator->getDistance()-distance_old)<=3.0)
+		//{
+		//	usleep(100);
+		//}
+		//cout << "Stop moteur" << endl;
+		//mediator->addPwmMotorBack(0);
+		//distance_reel = mediator->getDistance()-distance_old;
+		//cout << "distance 3m = " << distance_reel<<endl;
+	// Update distance counter from car
+		//distance_old = mediator->getDistance();
 				//cout<< "GPS FIX (cin)" << endl;
 				//cin >> a;
 				//cout << "latitude :";
@@ -116,28 +116,83 @@ void testCap(Mediator* mediator,Navigation* navigation)
 		// Update new cap
 				//cap_cible = navigation->m_map->GetCorrectiveHeading(5.0);
 		//cout << "Cap cible calculé :" << cap_cible << endl;
-		usleep(1000000);	
+		//usleep(1000000);	
 		float capReel = mediator-> getHeadingImu();
 		cap_cible = capReel - cap_start;
 		if(cap_cible<-180.0) cap_cible += 360.0;
 		if(cap_cible > 180.0) cap_cible -=360.0;
-		cout << "Cap Reel : "<< capReel << "   Correction :" << cap_cible<<endl;
+		//cout << "Cap Reel : "<< capReel << "   Correction :" << cap_cible<<endl;
 		
 		//cin >> cap_cible;
-		new_distance = navigation->m_map->GetFrontAndTurnDistance(cap_cible);
-		dir = navigation->m_map->GetFront();
-		cout << "Direction :" << (int)dir << " sur " << new_distance<< "m"<<endl;
+		//new_distance = navigation->m_map->GetFrontAndTurnDistance(cap_cible);
+		//dir = navigation->m_map->GetFront();
+		//cout << "Direction :" << (int)dir << " sur " << new_distance<< "m"<<endl;
 		//cout << "temp (cin)" << endl;
 		//cin >> a;
-		usleep(1000000);
-		cout << "Set Direction" << endl;
+		//usleep(1000000);
+		//cout << "Set Direction" << endl;
+		if(cap_cible <= 2 && cap_cible >=-2)
+			dir =  13;
+		if(cap_cible <=4 && cap_cible >2)
+			dir =  12;
+		if(cap_cible <=6 && cap_cible >4)
+			dir =  11;
+		if(cap_cible <=8 && cap_cible >6)
+			dir =  10;
+		if(cap_cible <=10 && cap_cible >8)
+			dir =  9;
+		if(cap_cible <=12 && cap_cible >10)
+			dir =  8;
+		if(cap_cible <=14 && cap_cible >12)
+			dir =  7;
+		if(cap_cible <=16 && cap_cible >14)
+			dir =  6;
+		if(cap_cible <=18 && cap_cible >16)
+			dir =  5;
+		if(cap_cible <=20 && cap_cible >18)
+			dir =  4;
+		if(cap_cible <=24 && cap_cible >20)
+			dir =  3;
+		if(cap_cible <=179 && cap_cible >24)
+			dir =  2;
+
+		if(cap_cible <-2 && cap_cible >=-4)
+			dir =  14;
+		if(cap_cible <-4 && cap_cible >=-6)
+			dir =  15;
+		if(cap_cible <-6 && cap_cible >=-8)
+			dir =  16;
+		if(cap_cible <-8 && cap_cible >=-10)
+			dir =  17;
+		if(cap_cible <-10 && cap_cible >=-12)
+			dir =  18;
+		if(cap_cible <-12 && cap_cible >=-14)
+			dir =  19;
+		if(cap_cible <-14 && cap_cible >=-16)
+			dir =  20;
+		if(cap_cible <-16 && cap_cible >=-18)
+			dir =  21;
+		if(cap_cible <-18 && cap_cible >=-20)
+			dir =  22;
+		if(cap_cible <-20 && cap_cible >=-24)
+			dir =  23;
+		if(cap_cible <-24 && cap_cible >=-180)
+			dir =  24;
+
+		//if(cap_cible >2)
+		//	dir=dir-3;
+		//if(cap_cible <-2)
+		//	dir=dir+3;
+
+
+		cout <<" dir : "<< (int)dir << endl;
 		mediator->addStateSteeringWheel(dir);
-		usleep(1000000);
+		usleep(100000);
 		//cout << "temp (cin)" << endl;
 		//cin >> a;
-		cout << "Start moteur" << endl;
-		mediator->addPwmMotorBack(30);
-		while((mediator->getDistance()-distance_old)<=new_distance)
+		//cout << "Start moteur" << endl;
+		//mediator->addPwmMotorBack(30);
+		/*while((mediator->getDistance()-distance_old)<=new_distance)
 		{
 			usleep(100);
 		}
@@ -153,7 +208,7 @@ void testCap(Mediator* mediator,Navigation* navigation)
 		usleep(1000000);
 		// Update actual position of the car on the map ??
 				//navigation->m_map->SetPosition(mediator->getLongitude()+long_error, mediator->getLatitude()+lat_error);		
-			
+		*/	
 		/*cout << "latitude :";
 		cin >> lat_now;
 		cout << endl;
@@ -316,6 +371,9 @@ void manuel(Mediator *mediator,Navigation* navigation)
 				case 'x': // Scenario
 					testCap(mediator,navigation);
 					break;
+				case 't' : 
+					testCap(mediator, navigation);
+					break;
 
 			}// SWITCH
 		}//KBHIT
@@ -435,8 +493,7 @@ int main()
 	//testSpi(mediator, spi);
 	//testKey(mediator,spi,gps);
 
-	//manuel(mediator, navigation);
-	testCap(mediator, navigation);
+	manuel(mediator, navigation);
 	while(1)
 	{
 		usleep(1000000);
